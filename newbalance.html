@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Balance Portfolio - tagby design</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background-color: #F8F8F8;
+    }
+
+    .dropdown-menu {
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown-menu:hover {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 20px;
+    }
+
+    /* 갤러리 그리드 */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 32px;
+      }
+    }
+
+    /* 갤러리 아이템 */
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1080 / 1350;
+      overflow: hidden;
+      border-radius: 16px;
+      cursor: default;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gallery-item.hidden {
+      display: none;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* 호버 오버레이 */
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-info {
+      transform: translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gallery-item:hover .gallery-info {
+      transform: translateY(0);
+    }
+
+    /* 스크롤 애니메이션 */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.15s; }
+    .fade-in:nth-child(3) { animation-delay: 0.2s; }
+    .fade-in:nth-child(4) { animation-delay: 0.25s; }
+
+    /* 플로팅 버튼 */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 56px;
+      height: 56px;
+      background-color: #0078F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 120, 240, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 40;
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-to-top:hover {
+      background-color: #0056B3;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4);
+    }
+
+    /* 더보기 버튼 */
+    .load-more-btn {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 48px;
+      background-color: white;
+      border: 2px solid #E0E3E7;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .load-more-btn:hover {
+      border-color: #0078F0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 120, 240, 0.1);
+    }
+
+    .load-more-btn.hidden {
+      display: none;
+    }
+
+    .arrow-down {
+      width: 24px;
+      height: 24px;
+      border-left: 2px solid #0078F0;
+      border-bottom: 2px solid #0078F0;
+      transform: rotate(-45deg);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: rotate(-45deg) translateY(0);
+      }
+      40% {
+        transform: rotate(-45deg) translateY(-8px);
+      }
+      60% {
+        transform: rotate(-45deg) translateY(-4px);
+      }
+    }
+
+    /* 모바일 메뉴 */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+
+    .mobile-overlay.active {
+      display: block;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background-color: #000;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    @media (max-width: 1023px) {
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(248, 248, 248, 0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="index.html" class="cursor-pointer hover:opacity-80 transition">
+        <img src="images/TAGby blue.png" alt="TAGby" class="h-8">
+      </a>
+      
+      <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
+        <a href="index.html#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+        
+        <div class="relative dropdown flex items-center">
+          <a href="index.html#portfolio" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
+            <a href="mixxo.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">미쏘</a>
+            <a href="newbalance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">뉴발란스</a>
+            <a href="spaokids.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오키즈</a>
+            <a href="roem.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">로엠</a>
+          </div>
+        </div>
+        
+        <a href="index.html#team" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+        <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
+      </div>
+
+      <!-- 햄버거 메뉴 버튼 -->
+      <div class="hamburger lg:hidden" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 모바일 오버레이 -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- 모바일 메뉴 -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-8">
+      <a href="index.html" class="cursor-pointer hover:opacity-80 transition mb-8 inline-block">
+        <img src="images/TAGby blue.png" alt="TAGby" class="h-8">
+      </a>
+      
+      <nav class="flex flex-col gap-4">
+        <a href="index.html#digital" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디지털 마케팅</a>
+        
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-900 mb-3">포트폴리오</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="spao.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오</a>
+            <a href="mixxo.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">미쏘</a>
+            <a href="newbalance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">뉴발란스</a>
+            <a href="spaokids.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오키즈</a>
+            <a href="roem.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">로엠</a>
+          </div>
+        </div>
+        
+        <a href="index.html#team" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">팀소개</a>
+        <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="pt-40 pb-16 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="mb-8">
+        <a href="index.html#portfolio" class="inline-flex items-center gap-2 text-gray-600 hover:text-[#0078F0] transition text-sm">
+          <span>←</span>
+          <span>포트폴리오로 돌아가기</span>
+        </a>
+      </div>
+      
+      <div class="mb-12">
+        <p class="text-sm font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">
+          PORTFOLIO
+        </p>
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.2;">
+          New Balance
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl">
+          뉴발란스의 감각적인 비주얼과 트렌디한 메시지를 담은<br>
+          디지털 광고 캠페인
+        </p>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        <div>
+          <p class="text-sm text-gray-500 mb-2">Client</p>
+          <p class="text-lg font-bold text-black">New Balance</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 mb-2">Category</p>
+          <p class="text-lg font-bold text-black">Digital Ads</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 mb-2">Period</p>
+          <p class="text-lg font-bold text-black">2024 - 2025</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 mb-2">Platform</p>
+          <p class="text-lg font-bold text-black">Instagram, Facebook</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="py-20 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-7xl">
+      
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Gallery Item 1 -->
+        <div class="gallery-item fade-in" data-index="0">
+          <img src="images/newbalance/1.png" alt="New Balance 1" onerror="this.src='https://via.placeholder.com/1080x1350/1a1a1a/ffffff?text=NB+1'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">New Balance</p>
+              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
+              <p class="text-white text-lg font-bold">Campaign</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Item 2 -->
+        <div class="gallery-item fade-in" data-index="1">
+          <img src="images/newbalance/2.png" alt="New Balance 2" onerror="this.src='https://via.placeholder.com/1080x1350/2a2a2a/ffffff?text=NB+2'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">New Balance</p>
+              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
+              <p class="text-white text-lg font-bold">Campaign</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Item 3 -->
+        <div class="gallery-item fade-in" data-index="2">
+          <img src="images/newbalance/3.png" alt="New Balance 3" onerror="this.src='https://via.placeholder.com/1080x1350/3a3a3a/ffffff?text=NB+3'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">New Balance</p>
+              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
+              <p class="text-white text-lg font-bold">Campaign</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Item 4 -->
+        <div class="gallery-item fade-in" data-index="3">
+          <img src="images/newbalance/4.png" alt="New Balance 4" onerror="this.src='https://via.placeholder.com/1080x1350/4a4a4a/ffffff?text=NB+4'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">New Balance</p>
+              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
+              <p class="text-white text-lg font-bold">Campaign</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Item 5 -->
+        <div class="gallery-item fade-in hidden" data-index="4">
+          <img src="images/newbalance/5.png" alt="New Balance 5" onerror="this.src='https://via.placeholder.com/1080x1350/5a5a5a/ffffff?text=NB+5'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">New Balance</p>
+              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
+              <p class="text-white text-lg font-bold">Campaign</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Item 6 -->
+        <div class="gallery-item fade-in hidden" data-index="5">
+          <img src="images/newbalance/6.png" alt="New Balance 6" onerror="this.src='https://via.placeholder.com/1080x1350/6a6a6a/ffffff?text=NB+6'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">New Balance</p>
+              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
+              <p class="text-white text-lg font-bold">Campaign</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Item 7 -->
+        <div class="gallery-item fade-in hidden" data-index="6">
+          <img src="images/newbalance/7.png" alt="New Balance 7" onerror="this.src='https://via.placeholder.com/1080x1350/7a7a7a/ffffff?text=NB+7'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">New Balance</p>
+              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
+              <p class="text-white text-lg font-bold">Campaign</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Item 8 -->
+        <div class="gallery-item fade-in hidden" data-index="7">
+          <img src="images/newbalance/8.png" alt="New Balance 8" onerror="this.src='https://via.placeholder.com/1080x1350/8a8a8a/ffffff?text=NB+8'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">New Balance</p>
+              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
+              <p class="text-white text-lg font-bold">Campaign</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Item 9 -->
+        <div class="gallery-item fade-in hidden" data-index="8">
+          <img src="images/newbalance/9.png" alt="New Balance 9" onerror="this.src='https://via.placeholder.com/1080x1350/9a9a9a/ffffff?text=NB+9'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">New Balance</p>
+              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
+              <p class="text-white text-lg font-bold">Campaign</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Load More Button -->
+      <div class="flex justify-center mt-16">
+        <button class="load-more-btn" id="loadMoreBtn">
+          <span class="text-gray-700 font-medium">더보기</span>
+          <div class="arrow-down"></div>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-16 px-6 bg-white border-t" style="border-color: #E0E3E7;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-3 gap-12">
+        <div>
+          <div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div>
+        </div>
+        
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">OFFICE</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            06130 서울특별시 강남구<br>
+            테헤란로7길 22 스파크플러스<br>
+            강남5호점 1015호
+          </p>
+        </div>
+        
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">CONTACT</h4>
+          <p class="text-sm text-gray-600 mb-2">070-7500-2220</p>
+          <p class="text-sm text-gray-600 mb-6"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec9f999c9c839e98ac988d8b8e95c28583">[email&#160;protected]</a></p>
+          
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">SOCIAL</h4>
+          <a href="#" class="text-sm text-gray-600 hover:text-black transition">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // 스크롤 헤더
+    let lastScrollY = 0;
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        header.style.transform = 'translateY(0)';
+      }
+      
+      if (currentScrollY > 50) {
+        header.style.backgroundColor = 'rgba(248, 248, 248, 0.95)';
+        header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+      } else {
+        header.style.backgroundColor = 'rgba(248, 248, 248, 0.8)';
+        header.style.boxShadow = 'none';
+      }
+      
+      lastScrollY = currentScrollY;
+
+      // Scroll to top 버튼 표시/숨김
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      if (currentScrollY > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    // Scroll to top 버튼 클릭
+    document.getElementById('scrollToTop').addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // 더보기 버튼 기능
+    let currentIndex = 4; // 처음 4개 표시
+    const itemsPerLoad = 4; // 한 번에 4개씩 로드
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    loadMoreBtn.addEventListener('click', () => {
+      let loadedCount = 0;
+      
+      for (let i = currentIndex; i < galleryItems.length && loadedCount < itemsPerLoad; i++) {
+        galleryItems[i].classList.remove('hidden');
+        loadedCount++;
+        currentIndex++;
+      }
+
+      // 모든 아이템을 표시했으면 버튼 숨기기
+      if (currentIndex >= galleryItems.length) {
+        loadMoreBtn.classList.add('hidden');
+      }
+    });
+
+    // 모바일 메뉴
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    mobileOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+
+</body>
+</html>

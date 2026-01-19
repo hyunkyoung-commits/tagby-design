@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>문의 관리 (데모) - tagby design</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .demo-badge {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #FF6B6B;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+      z-index: 1000;
+    }
+
+    .header {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #667eea;
+    }
+
+    .stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #667eea;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: #666;
+    }
+
+    .clear-btn {
+      padding: 0.75rem 1.5rem;
+      background: #e53e3e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .clear-btn:hover {
+      background: #c53030;
+    }
+
+    .contacts-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .contact-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .contact-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f0f0f0;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .contact-info {
+      flex: 1;
+    }
+
+    .contact-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-company {
+      font-size: 1rem;
+      color: #667eea;
+      font-weight: 600;
+    }
+
+    .contact-timestamp {
+      font-size: 0.875rem;
+      color: #999;
+      text-align: right;
+    }
+
+    .contact-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .detail-label {
+      font-size: 0.75rem;
+      color: #999;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .detail-value {
+      font-size: 1rem;
+      color: #333;
+      word-break: break-word;
+    }
+
+    .detail-value a {
+      color: #667eea;
+      text-decoration: none;
+    }
+
+    .detail-value a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-message {
+      background: #f9f9f9;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      color: #555;
+      white-space: pre-wrap;
+    }
+
+    .consent-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-yes {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .badge-no {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .empty-state {
+      background: white;
+      padding: 4rem 2rem;
+      border-radius: 16px;
+      text-align: center;
+      color: #999;
+    }
+
+    .empty-state svg {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1rem;
+      opacity: 0.3;
+    }
+
+    .empty-state h2 {
+      font-size: 1.5rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+      color: #999;
+    }
+
+    .info-box {
+      background: #FFF9E6;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid #FFB800;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-box p {
+      color: #856404;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .contact-header {
+        flex-direction: column;
+      }
+
+      .contact-timestamp {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-badge">
+    🧪 데모 버전
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>📬 문의 관리 (데모)</h1>
+        <div class="stats" style="margin-top: 1rem;">
+          <div class="stat-item">
+            <div class="stat-number" id="totalCount">0</div>
+            <div class="stat-label">총 문의</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" id="marketingCount">0</div>
+            <div class="stat-label">마케팅 동의</div>
+          </div>
+        </div>
+      </div>
+      <button class="clear-btn" onclick="clearAllData()">전체 삭제</button>
+    </div>
+
+    <div class="info-box">
+      <p>
+        💡 이 페이지는 <strong>contact-demo.html</strong>에서 제출된 데이터를 표시합니다.
+        데이터는 브라우저의 로컬 스토리지에 저장되며, 브라우저를 닫아도 유지됩니다.
+        개발자 도구 (F12) > Application > Local Storage에서도 확인할 수 있습니다.
+      </p>
+    </div>
+
+    <div class="contacts-grid" id="contactsGrid">
+      <!-- 문의 카드들이 여기에 동적으로 추가됩니다 -->
+    </div>
+  </div>
+
+  <script>
+    // 로컬스토리지에서 데이터 로드
+    function loadContacts() {
+      const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+      return contacts;
+    }
+
+    // 문의 카드 HTML 생성
+    function createContactCard(contact, index) {
+      return `
+        <div class="contact-card">
+          <div class="contact-header">
+            <div class="contact-info">
+              <div class="contact-name">${contact.name}</div>
+              <div class="contact-company">${contact.company}</div>
+            </div>
+            <div class="contact-timestamp">
+              ${contact.timestamp}
+            </div>
+          </div>
+
+          <div class="contact-details">
+            <div class="detail-item">
+              <div class="detail-label">📧 이메일</div>
+              <div class="detail-value">
+                <a href="mailto:${contact.email}">${contact.email}</a>
+              </div>
+            </div>
+            ${contact.phone ? `
+            <div class="detail-item">
+              <div class="detail-label">📞 연락처</div>
+              <div class="detail-value">
+                <a href="tel:${contact.phone}">${contact.phone}</a>
+              </div>
+            </div>
+            ` : ''}
+          </div>
+
+          ${contact.message ? `
+          <div class="contact-message">${contact.message}</div>
+          ` : ''}
+
+          <div class="consent-badges">
+            <span class="badge ${contact.ageCheck ? 'badge-yes' : 'badge-no'}">
+              만 14세 이상: ${contact.ageCheck ? '✓' : '✗'}
+            </span>
+            <span class="badge ${contact.privacyConsent ? 'badge-yes' : 'badge-no'}">
+              개인정보 동의: ${contact.privacyConsent ? '✓' : '✗'}
+            </span>
+            <span class="badge ${contact.marketingConsent ? 'badge-yes' : 'badge-no'}">
+              마케팅 동의: ${contact.marketingConsent ? '✓' : '✗'}
+            </span>
+          </div>
+        </div>
+      `;
+    }
+
+    // 빈 상태 HTML
+    function createEmptyState() {
+      return `
+        <div class="empty-state">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+          </svg>
+          <h2>아직 접수된 문의가 없습니다</h2>
+          <p>contact-demo.html에서 문의를 제출해보세요.</p>
+        </div>
+      `;
+    }
+
+    // 화면 업데이트
+    function updateDisplay() {
+      const contacts = loadContacts();
+      const grid = document.getElementById('contactsGrid');
+
+      // 통계 업데이트
+      document.getElementById('totalCount').textContent = contacts.length;
+      const marketingCount = contacts.filter(c => c.marketingConsent).length;
+      document.getElementById('marketingCount').textContent = marketingCount;
+
+      // 카드 표시
+      if (contacts.length === 0) {
+        grid.innerHTML = createEmptyState();
+      } else {
+        grid.innerHTML = contacts.map((contact, index) => createContactCard(contact, index)).join('');
+      }
+    }
+
+    // 전체 데이터 삭제
+    function clearAllData() {
+      if (confirm('정말로 모든 문의 데이터를 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.')) {
+        localStorage.removeItem('contacts');
+        updateDisplay();
+        alert('모든 데이터가 삭제되었습니다.');
+      }
+    }
+
+    // 페이지 로드 시 데이터 표시
+    window.addEventListener('load', function() {
+      updateDisplay();
+
+      // 5초마다 자동 새로고침 (다른 탭에서 데이터 추가 시 반영)
+      setInterval(updateDisplay, 5000);
+    });
+
+    // storage 이벤트 감지 (다른 탭에서 데이터 변경 시)
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'contacts') {
+        updateDisplay();
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tagby design - 디지털 마케팅 대행사</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background-color: #F8F8F8;
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    .animate-scroll-left {
+      animation: scroll-left 25s linear infinite;
+    }
+    
+    .dropdown-menu {
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown-menu:hover {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 20px;
+    }
+
+    /* 모바일 메뉴 */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+
+    .mobile-overlay.active {
+      display: block;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background-color: #000;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    @media (max-width: 1023px) {
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(248, 248, 248, 0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="index.html" class="cursor-pointer hover:opacity-80 transition">
+        <img src="images/TAGby blue.png" alt="TAGby" class="h-8">
+      </a>
+      
+      <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
+        <a href="#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+        
+        <div class="relative dropdown flex items-center">
+          <a href="#portfolio" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
+            <a href="mixxo.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">미쏘</a>
+            <a href="newbalance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">뉴발란스</a>
+            <a href="spaokids.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오키즈</a>
+            <a href="roem.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">로엠</a>
+          </div>
+        </div>
+        
+        <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+        <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
+      </div>
+
+      <!-- 햄버거 메뉴 버튼 -->
+      <div class="hamburger lg:hidden" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 모바일 오버레이 -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- 모바일 메뉴 -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-8">
+      <div class="mb-8">
+        <img src="images/TAGby blue.png" alt="TAGby" class="h-8">
+      </div>
+      
+      <nav class="flex flex-col gap-4">
+        <a href="#digital" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디지털 마케팅</a>
+        
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-900 mb-3">포트폴리오</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="spao.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오</a>
+            <a href="mixxo.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">미쏘</a>
+            <a href="newbalance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">뉴발란스</a>
+            <a href="spaokids.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오키즈</a>
+            <a href="roem.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">로엠</a>
+          </div>
+        </div>
+        
+        <a href="team.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">팀소개</a>
+        <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="hero-section" class="pt-40 pb-20 px-6 relative overflow-hidden" style="background-color: #F9F9FB;">
+    <div class="container mx-auto text-center relative z-10 max-w-5xl">
+      <div class="mb-6">
+        <p class="text-2xl md:text-3xl font-bold" style="color: #0078F0;">
+          감에 의존한 마케팅은 이제 그만
+        </p>
+      </div>
+      <h1 class="text-4xl md:text-7xl lg:text-6xl mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
+        성과는 과학적으로,<br>
+        브랜딩은 가장 감각적으로
+      </h1>
+      <p class="text-lg md:text-xl text-black">
+        최적의 퍼포먼스, 최고의 디자인. '태그바이'가 정답입니다.
+      </p>
+    </div>
+    
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div id="blue-circle" class="absolute w-64 h-64 rounded-full opacity-20 blur-3xl" style="background-color: #0078F0; transition: all 0.3s ease-out;"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-10 blur-3xl" style="background-color: #E0E3E7;"></div>
+    </div>
+  </section>
+
+  <!-- Design Showcase Section -->
+  <section class="py-32 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl mb-20">
+      <div class="text-center">
+        <p class="text-sm font-bold tracking-wider mb-6" style="color: #0078F0; letter-spacing: 0.2em;">
+          CREATIVE EXCELLENCE
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
+          브랜드의 가치를 높이는<br>
+          <span style="color: #0078F0;">감각적인 디자인</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Design Carousel -->
+    <div class="overflow-hidden">
+      <div class="flex animate-scroll-left">
+        <div class="flex flex-shrink-0" id="design-carousel-1"></div>
+        <div class="flex flex-shrink-0" id="design-carousel-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agency Introduction Section -->
+  <section class="py-32 px-6 relative" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-24">
+        <p class="text-sm font-bold tracking-wider mb-6" style="color: #0078F0; letter-spacing: 0.2em;">
+          INTEGRATED AGENCY
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
+          <span style="color: #0078F0;">콘텐츠</span>를 가장 잘 활용하는<br>
+          통합 디지털 에이전시
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-32 relative">
+        <div class="group relative bg-gradient-to-br from-white to-gray-50 rounded-3xl p-16 border-2 hover:shadow-2xl transition-all duration-500" style="border-color: #0078F0;">
+          <h3 class="text-5xl font-black relative z-10" style="color: #0078F0;">
+            CONTENT<br>PLANNING
+          </h3>
+        </div>
+
+        <div class="group relative rounded-3xl p-16 hover:shadow-2xl transition-all duration-500" style="background-color: #0078F0;">
+          <h3 class="text-5xl font-black text-white">
+            GROSS<br>MARKETING
+          </h3>
+        </div>
+
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center shadow-2xl" style="background: linear-gradient(135deg, #0078F0 0%, #0056B3 100%);">
+            <span class="text-white text-3xl font-bold">+</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-5xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16">
+          <!-- Left -->
+          <div>
+            <h4 class="text-3xl font-bold mb-6 text-black">콘텐츠 마케팅의<br>선두주자</h4>
+            <p class="text-lg text-gray-600 leading-relaxed mb-8">
+              인플루언서와 콘텐츠 마케팅으로 시작한 태그바이는 1인 미디어 콘텐츠의 선두주자로, 수년간의 노하우와 경험을 바탕으로 고객과의 접점에 최적화된 콘텐츠를 기획합니다.
+            </p>
+          </div>
+
+          <!-- Right -->
+          <div>
+            <h4 class="text-3xl font-bold mb-6 text-black">데이터 기반 마케팅의<br>A to Z</h4>
+            <p class="text-lg text-gray-600 leading-relaxed mb-8">
+              광고 운영부터 데이터 분석 환경 설계, 리서치, 분석까지 데이터 기반 마케팅의 모든 것을 지원합니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- 메타 파트너 박스 - 하단 센터 -->
+        <div class="mt-16 max-w-3xl mx-auto">
+          <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border-2" style="border-color: #E0E3E7;">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold text-white shadow-lg" style="background-color: #0078F0;">M</div>
+              <div>
+                <p class="text-sm text-gray-500">Official Partner</p>
+                <p class="text-xl font-bold text-black">메타 공식 파트너</p>
+              </div>
+            </div>
+            <p class="text-gray-600 leading-relaxed">
+              정교한 데이터 분석을 통해 최적의 퍼포먼스 전략을 수립하고, 가설과 증명을 통해 클라이언트의 성장을 지속적으로 돕습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Advertising Media Section -->
+  <section id="digital" class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <!-- Header -->
+      <div class="mb-20 text-center">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          PERFORMANCE MARKETING | TAGby
+        </p>
+          <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
+            주요 <span style="color: #0078F0;">광고 매체</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          빅미디어 운영을 통해 다양한 지면을 커버하고 대부분의 유저에게 도달 가능하도록 하며<br class="hidden md:block">
+          데이터 분석 및 타게팅을 고도화하여 캠페인 효율을 개선합니다.
+        </p>
+      </div>
+
+      <!-- DA Section -->
+      <div class="mb-24">
+        <div class="flex items-center gap-3 mb-12">
+          <h3 class="text-2xl md:text-3xl font-bold" style="color: #0078F0;">DA</h3>
+          <div class="h-px flex-1 bg-gradient-to-r from-gray-200 to-transparent"></div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-10">
+          <!-- Meta -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#0078F0" font-size="14" font-weight="bold">Meta</text>
+              </svg>
+            </div>
+            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">메타</p>
+            <p class="text-xs text-gray-400">META</p>
+          </div>
+
+          <!-- Google Ads -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#EA4335" font-size="16" font-weight="bold">G</text>
+              </svg>
+            </div>
+            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">구글 애즈</p>
+            <p class="text-xs text-gray-400">GOOGLE ADS</p>
+          </div>
+
+          <!-- Kakao -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105">
+              <span class="text-sm md:text-base font-bold text-yellow-400">kakao</span>
+            </div>
+            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">카카오</p>
+            <p class="text-xs text-gray-400">KAKAO</p>
+          </div>
+
+          <!-- Kakao Moment -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105">
+              <span class="text-sm md:text-base font-bold text-yellow-400">kakao</span>
+            </div>
+            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">카카오 모먼트</p>
+            <p class="text-xs text-gray-400">KAKAO MOMENT</p>
+          </div>
+
+          <!-- Naver (GFA) -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#03C75A" font-size="16" font-weight="bold">N</text>
+              </svg>
+            </div>
+            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">네이버 (GFA)</p>
+            <p class="text-xs text-gray-400">NAVER (GFA)</p>
+          </div>
+
+          <!-- Daangn Market -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#FF6F0F" font-size="16" font-weight="bold">D</text>
+              </svg>
+            </div>
+            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">당근마켓</p>
+            <p class="text-xs text-gray-400">DAANGN MARKET</p>
+          </div>
+
+          <!-- Twitter -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#000000" font-size="16" font-weight="bold">𝕏</text>
+              </svg>
+            </div>
+            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">트위터</p>
+            <p class="text-xs text-gray-400">TWITTER</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SA Section -->
+      <div>
+        <div class="flex items-center gap-3 mb-12">
+          <h3 class="text-2xl md:text-3xl font-bold" style="color: #0078F0;">SA</h3>
+          <div class="h-px flex-1 bg-gradient-to-r from-gray-200 to-transparent"></div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-10">
+          <!-- Naver SA -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#03C75A" font-size="16" font-weight="bold">N</text>
+              </svg>
+            </div>
+            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">네이버 SA</p>
+            <p class="text-xs text-gray-400">NAVER SA</p>
+          </div>
+
+          <!-- Kakao SA -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105">
+              <span class="text-sm md:text-base font-bold text-yellow-400">kakao</span>
+            </div>
+            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">카카오 SA</p>
+            <p class="text-xs text-gray-400">KAKAO SA</p>
+          </div>
+
+          <!-- Google SA -->
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#EA4335" font-size="16" font-weight="bold">G</text>
+              </svg>
+            </div>
+            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">구글 SA</p>
+            <p class="text-xs text-gray-400">GOOGLE SA</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Commerce Understanding Section -->
+  <section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <!-- Header -->
+      <div class="mb-20 text-center">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          PERFORMANCE MARKETING | TAGby
+        </p>
+          <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
+            <span style="color: #0078F0;">커머스</span>를 가장 잘 이해하는<br>
+          통합 디지털 에이전시
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
+          지금 순간 커머스는 '멀티채널'로 확장이 필수입니다.<br class="hidden md:block">
+          다양한 산업군에서 커머스 운영으로 축적된 경험을 바탕으로 더욱 최적화된 제품을 만들어드리고,<br class="hidden md:block">
+          해결할 거리 걱정없이 성장 전략과 전략을 제공합니다.
+        </p>
+      </div>
+
+      <!-- Services Network -->
+      <div class="relative max-w-5xl mx-auto">
+        <img src="images/Group 32766.png" alt="통합 커머스 서비스 네트워크" class="w-full h-auto mx-auto" style="max-width: 900px;">
+      </div>
+    </div>
+  </section>
+
+  <!-- Self-Produced Materials Section -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <!-- Header -->
+      <div class="mb-16 text-center">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          CREATIVE CONTENT | TAGby
+        </p>
+          <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;"> 전 매체를 아우르는 <span style="color: #0078F0;"><br>자체 제작 소재</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          브랜드의 메시지를 효과적으로 전달하는<br class="hidden md:block">
+          감각적이고 창의적인 광고 소재를 직접 제작합니다.
+        </p>
+      </div>
+
+      <!-- Gallery Masonry -->
+      <div style="column-count: 2; column-gap: 1rem;" class="md:!columns-3 lg:!columns-4 md:gap-6">
+        <!-- Image 1 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/1 이랜드위크_단일.png" alt="이랜드위크 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 2 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/1-3_메타(단일)_신규가입.png" alt="메타 신규가입 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 3 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/24간절기파자마_키즈_망곰.png" alt="파자마 키즈 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 4 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/META_파자마_주말특가.png" alt="파자마 주말특가 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 5 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/image 5359.png" alt="광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 6 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/image 5360.png" alt="광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 7 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/단일 2 (할인O).png" alt="할인 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 8 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/데님_스토리 4.png" alt="데님 스토리 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 9 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/메타1-7_MR530CK_단일.png" alt="뉴발란스 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 10 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/메타3_influencer_캐리오버.png" alt="인플루언서 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 11 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/메타5_파스텔푸퍼_단일.png" alt="파스텔푸퍼 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 12 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/메타6_다이노탱_단일.png" alt="다이노탱 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 13 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/메타_미쏘데이X김지영_단일 4.png" alt="미쏘데이 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 14 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/스아페_단일_파스텔푸퍼 2.png" alt="스파오 파스텔푸퍼 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 15 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/에센셜커플.png" alt="에센셜커플 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 16 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/파자마페스타_성인_먼작귀.png" alt="파자마페스타 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 17 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/퍼플리스_할인O.png" alt="퍼플리스 할인 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+
+        <!-- Image 18 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
+          <img src="images/자체 제작 소재/혜택소구 2.png" alt="혜택소구 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-16 px-6 bg-white border-t" style="border-color: #E0E3E7;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-3 gap-12">
+        <div>
+          <div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div>
+        </div>
+        
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">OFFICE</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            06130 서울특별시 강남구<br>
+            테헤란로7길 22 스파크플러스<br>
+            강남5호점 1015호
+          </p>
+        </div>
+        
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">CONTACT</h4>
+          <p class="text-sm text-gray-600 mb-2">070-7500-2220</p>
+          <p class="text-sm text-gray-600 mb-6"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0a797f7a7a65787e4a7e6b6d6873246365">[email&#160;protected]</a></p>
+          
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">SOCIAL</h4>
+          <a href="#" class="text-sm text-gray-600 hover:text-black transition">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ========================================
+    // 🎨 이미지 교체 영역
+    // ========================================
+    const designImages = [
+      'images/자체 제작 소재/image 5359.png',
+      'images/자체 제작 소재/메타11_미쏘X서지수_제품강조_단일.jpg',
+      'images/자체 제작 소재/푸퍼_블랙_피드 1-2.png',
+      'images/자체 제작 소재/9-1 메타_멤버스위크.jpg',
+      'images/자체 제작 소재/수면파자마_해리포터_피드.jpg',
+      'images/자체 제작 소재/메타3_6p 기획전_단일.png'
+    ];
+    // ========================================
+
+    // 디자인 캐러셀 생성
+    function createDesignCarousel(containerId) {
+      const container = document.getElementById(containerId);
+      designImages.forEach((img, index) => {
+        const div = document.createElement('div');
+        div.className = 'relative group flex-shrink-0 mx-3';
+        div.style.width = '350px';
+        div.style.height = '438px';
+        
+        div.innerHTML = `
+          <div class="w-full h-full rounded-2xl shadow-xl overflow-hidden" style="background: linear-gradient(135deg, #0078F0, #0056B3);">
+            <img 
+              src="${img}"
+              alt="Design ${index + 1}"
+              class="w-full h-full object-cover"
+              onerror="this.style.display='none'"
+            />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex items-end p-8">
+            <div class="text-white">
+              <p class="text-sm mb-1">Design Project</p>
+              <p class="text-lg font-bold">Creative Work ${index + 1}</p>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // 캐러셀 초기화
+    createDesignCarousel('design-carousel-1');
+    createDesignCarousel('design-carousel-2');
+
+    // Hero Section 마우스 효과
+    const heroSection = document.getElementById('hero-section');
+    const blueCircle = document.getElementById('blue-circle');
+
+    heroSection.addEventListener('mousemove', (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      blueCircle.style.left = (x - 128) + 'px';
+      blueCircle.style.top = (y - 128) + 'px';
+    });
+
+    // 스크롤 헤더
+    let lastScrollY = 0;
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        header.style.transform = 'translateY(0)';
+      }
+      
+      if (currentScrollY > 50) {
+        header.style.backgroundColor = 'rgba(248, 248, 248, 0.95)';
+        header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+      } else {
+        header.style.backgroundColor = 'rgba(248, 248, 248, 0.8)';
+        header.style.boxShadow = 'none';
+      }
+      
+      lastScrollY = currentScrollY;
+    });
+
+    // 모바일 메뉴
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    mobileOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+
+</body>
+</html>
