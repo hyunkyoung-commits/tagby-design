@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>퍼포먼스 마케팅 - tagby design</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background-color: #F8F8F8;
+    }
+
+    .dropdown-menu {
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown-menu:hover {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 20px;
+    }
+
+    /* 모바일 메뉴 */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+
+    .mobile-overlay.active {
+      display: block;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background-color: #000;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    @media (max-width: 1023px) {
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* Reveal animations */
+    .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .9s ease-out, transform .9s ease-out; }
+    .reveal-item.visible { opacity: 1; transform: translateY(0); }
+
+    /* 브랜드(고객사) 그리드 스타일 */
+    #brand-section { background-color: #F9F9FB; }
+    #brand-section .brand-grid { display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 1rem; align-items:center; }
+    @media (max-width: 1023px) {
+      #brand-section .brand-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+    }
+    @media (max-width: 640px) {
+      #brand-section .brand-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+
+    #brand-section .brand-item {
+      display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid #E6E9EC; padding:0.5rem; border-radius:12px;
+      min-height:60px; box-shadow: 0 2px 10px rgba(13,20,35,0.04); transition: transform .18s ease, box-shadow .18s ease, background .18s ease; position: relative; overflow: hidden; cursor: pointer; text-decoration:none; color:inherit;
+    }
+    #brand-section .brand-item:focus { outline: 2px solid rgba(0,120,240,0.15); outline-offset:2px; }
+    #brand-section .brand-item:hover { transform: translateY(-4px); box-shadow:0 8px 30px rgba(13,20,35,0.08); }
+
+    #brand-section .brand-item img { max-height: 160px; width: auto; filter: none; opacity: 0.95; object-fit: contain; transition: transform .18s ease, filter .18s ease; display:block; max-width:100%; height:auto; }
+    #brand-section .brand-item.primary:hover img { filter: brightness(0) invert(1); }
+    #brand-section .brand-item:not(.primary):hover img { filter: brightness(0) invert(1); }
+
+    #brand-section .brand-item .tint { position:absolute; inset:0; opacity:0; transition:opacity .18s ease; pointer-events:none; border-radius:12px; }
+    #brand-section .brand-item.primary:hover .tint { background: #0078F0; opacity:1; }
+    #brand-section .brand-item:not(.primary):hover .tint { background: #6B7280; opacity:1; }
+
+    #brand-section .brand-item .overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .18s ease; pointer-events:none; }
+    #brand-section .brand-item:hover .overlay { opacity:1; pointer-events:auto; }
+
+    #brand-section .overlay .brand-name { font-weight:800; color:white; font-size:0.95rem; line-height:1; text-align:center; }
+    #brand-section .overlay .visit { color: white; opacity:0.95; font-weight:700; margin-top:6px; font-size:0.85rem; }
+    #brand-section .overlay .label { background: transparent; color: #fff; padding: 0; border-radius:0; font-weight:600; font-size:.85rem; white-space:nowrap; }
+
+    @media (max-width: 1023px) {
+      #brand-section .brand-item { width: auto; padding:0.45rem; min-height:55px; }
+      #brand-section .brand-item img { max-height: 140px; }
+    }
+    @media (max-width: 640px) {
+      #brand-section .brand-item { width: auto; padding:0.3rem; min-height:45px; }
+      #brand-section .brand-item img { max-height: 120px; }
+    }
+
+    /* 매체사 orbit 시각화 */
+    .orbit-container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 640px) {
+      .orbit-container {
+        width: 320px;
+        height: 320px;
+      }
+    }
+
+    .orbit-ring {
+      position: absolute;
+      border: 1.5px dashed #E0E3E7;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .orbit-ring-inner {
+      width: 260px;
+      height: 260px;
+    }
+
+    .orbit-ring-outer {
+      width: 420px;
+      height: 420px;
+    }
+
+    @media (max-width: 640px) {
+      .orbit-ring-inner { width: 180px; height: 180px; }
+      .orbit-ring-outer { width: 280px; height: 280px; }
+    }
+
+    .orbit-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #0078F0 0%, #0056B3 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 0 8px 32px rgba(0, 120, 240, 0.3);
+    }
+
+    @media (max-width: 640px) {
+      .orbit-center { width: 70px; height: 70px; }
+    }
+
+    .orbit-item {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      border: 2px solid #F0F0F0;
+      font-size: 11px;
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 5;
+    }
+
+    .orbit-item:hover {
+      transform: scale(1.15);
+      box-shadow: 0 8px 24px rgba(0,120,240,0.2);
+      border-color: #0078F0;
+    }
+
+    .orbit-item.primary {
+      width: 76px;
+      height: 76px;
+      border-color: #0078F0;
+      color: #0078F0;
+      font-weight: 800;
+    }
+
+    @media (max-width: 640px) {
+      .orbit-item { width: 48px; height: 48px; font-size: 9px; }
+      .orbit-item.primary { width: 56px; height: 56px; }
+    }
+
+    /* 광고 포맷 카드 */
+    .format-card {
+      border-radius: 16px;
+      background: white;
+      border: 1px solid #E0E3E7;
+    }
+
+    /* 데이터 리포트 탭 */
+    .report-tab {
+      color: #9CA3AF;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .report-tab.active {
+      color: #fff;
+      background-color: #0078F0;
+    }
+
+    .report-tab:hover:not(.active) {
+      color: #0078F0;
+      background-color: #F0F7FF;
+    }
+
+    .report-content {
+      display: none;
+    }
+
+    .report-content.active {
+      display: block;
+    }
+
+    /* 집행광고 예시 탭 */
+    .ad-tab {
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 15px;
+      color: #9CA3AF;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .ad-tab.active {
+      color: #0078F0;
+      border-bottom-color: #0078F0;
+    }
+
+    .ad-tab:hover {
+      color: #0078F0;
+    }
+
+    .ad-content {
+      display: none;
+    }
+
+    .ad-content.active {
+      display: block;
+    }
+
+    /* 프로세스 스텝 */
+    .process-step {
+      position: relative;
+    }
+
+    .process-step::after {
+      content: '';
+      position: absolute;
+      top: 40px;
+      right: -50%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, #0078F0, #E0E3E7);
+      z-index: 0;
+    }
+
+    .process-step .w-20 {
+      position: relative;
+      z-index: 1;
+    }
+
+    .process-step:last-child::after {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .process-step::after {
+        display: none;
+      }
+    }
+
+    /* 스크롤 애니메이션 마퀴 */
+    @keyframes marquee-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .marquee-track {
+      display: flex;
+      animation: marquee-left 30s linear infinite;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(248, 248, 248, 0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="index.html" class="cursor-pointer hover:opacity-80 transition">
+        <img src="images/TAGby blue.png" alt="TAGby" class="h-8">
+      </a>
+
+      <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
+        <div class="relative dropdown flex items-center">
+          <a href="#" class="text-xs md:text-sm lg:text-base font-medium text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
+            <a href="performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
+            <a href="influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a>
+          </div>
+        </div>
+
+        <div class="relative dropdown flex items-center">
+          <a href="#" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
+            <a href="mixxo.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">미쏘</a>
+            <a href="newbalance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">뉴발란스</a>
+            <a href="spaokids.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오키즈</a>
+            <a href="roem.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">로엠</a>
+          </div>
+        </div>
+
+        <div class="relative dropdown flex items-center">
+          <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+          </div>
+        </div>
+        <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
+      </div>
+
+      <!-- 햄버거 메뉴 버튼 -->
+      <div class="hamburger lg:hidden" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 모바일 오버레이 -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- 모바일 메뉴 -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-8">
+      <div class="mb-8">
+        <img src="images/TAGby blue.png" alt="TAGby" class="h-8">
+      </div>
+
+      <nav class="flex flex-col gap-4">
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-900 mb-3">디지털 마케팅</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="performance-marketing.html" class="text-base font-medium text-[#0078F0] py-1">퍼포먼스 마케팅</a>
+            <a href="influencer-marketing.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">인플루언서 마케팅</a>
+          </div>
+        </div>
+
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-900 mb-3">포트폴리오</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="spao.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오</a>
+            <a href="mixxo.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">미쏘</a>
+            <a href="newbalance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">뉴발란스</a>
+            <a href="spaokids.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오키즈</a>
+            <a href="roem.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">로엠</a>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-lg font-medium text-gray-900 py-2">팀소개</p>
+          <div class="pl-4 flex flex-col gap-1">
+            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
+          </div>
+        </div>
+        <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="pt-40 pb-20 px-6 relative overflow-hidden" style="background-color: #F9F9FB;">
+    <div class="container mx-auto text-center relative z-10 max-w-5xl">
+      <div class="mb-6">
+        <p class="text-sm font-bold tracking-wider" style="color: #0078F0; letter-spacing: 0.2em;">
+          PERFORMANCE MARKETING
+        </p>
+      </div>
+      <h1 class="text-4xl md:text-6xl mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
+        데이터로 증명하는<br>
+        <span style="color: #0078F0;">퍼포먼스 마케팅</span>
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+        정교한 데이터 분석과 최적화된 미디어 운영으로<br class="hidden md:block">
+        브랜드의 성장을 과학적으로 설계합니다.
+      </p>
+    </div>
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute w-96 h-96 rounded-full opacity-10 blur-3xl" style="background-color: #0078F0; right: -100px; top: -100px;"></div>
+      <div class="absolute w-64 h-64 rounded-full opacity-10 blur-3xl" style="background-color: #0078F0; left: -50px; bottom: -50px;"></div>
+    </div>
+  </section>
+
+
+  <!-- Section 1: 고객사 -->
+  <section id="brand-section" class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">
+          OUR CLIENTS
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          한 눈에 보는 <span style="color: #0078F0;">고객사</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          다양한 산업군의 브랜드와 함께 성과를 만들어가고 있습니다.
+        </p>
+      </div>
+
+      <div class="relative brand-inner overflow-hidden">
+        <div class="brand-grid">
+          <!-- JS로 생성 -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 2: 매체사 시각화 -->
+  <section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          MEDIA NETWORK
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          다루는 <span style="color: #0078F0;">매체사</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          핵심 매체부터 서브 매체까지, 빅미디어 운영을 통해<br class="hidden md:block">
+          모든 유저에게 도달 가능하도록 합니다.
+        </p>
+      </div>
+
+      <!-- Orbit 시각화 -->
+      <div class="reveal-item">
+        <div class="orbit-container">
+          <!-- 센터 -->
+          <div class="orbit-center">
+            <img src="images/TAGby blue.png" alt="TAGby" class="h-6 brightness-0 invert">
+          </div>
+
+          <!-- 내부 링 (핵심 매체) -->
+          <div class="orbit-ring orbit-ring-inner"></div>
+
+          <!-- 외부 링 (서브 매체) -->
+          <div class="orbit-ring orbit-ring-outer"></div>
+
+          <!-- 핵심 매체 (내부 링) -->
+          <div class="orbit-item primary" style="top: 10px; left: 50%; transform: translateX(-50%);">
+            <span>Meta</span>
+          </div>
+          <div class="orbit-item primary" style="top: 50%; right: 10px; transform: translateY(-50%);">
+            <span>Google<br>Ads</span>
+          </div>
+          <div class="orbit-item primary" style="bottom: 10px; left: 50%; transform: translateX(-50%);">
+            <span>Naver</span>
+          </div>
+          <div class="orbit-item primary" style="top: 50%; left: 10px; transform: translateY(-50%);">
+            <span>Kakao</span>
+          </div>
+
+          <!-- 서브 매체 (외부 링) -->
+          <div class="orbit-item" style="top: -10px; left: 22%;">
+            <span>X</span>
+          </div>
+          <div class="orbit-item" style="top: -10px; right: 22%;">
+            <span>TikTok</span>
+          </div>
+          <div class="orbit-item" style="top: 25%; right: -10px;">
+            <span>Criteo</span>
+          </div>
+          <div class="orbit-item" style="bottom: 25%; right: -10px;">
+            <span>당근<br>마켓</span>
+          </div>
+          <div class="orbit-item" style="bottom: -10px; right: 22%;">
+            <span>Remerge</span>
+          </div>
+          <div class="orbit-item" style="bottom: -10px; left: 22%;">
+            <span>Moloco</span>
+          </div>
+          <div class="orbit-item" style="bottom: 25%; left: -10px;">
+            <span>Apple<br>Search</span>
+          </div>
+          <div class="orbit-item" style="top: 25%; left: -10px;">
+            <span>카카오<br>모먼트</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 3: 매체별 광고 포맷 -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          AD FORMATS
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          매체별 <span style="color: #0078F0;">광고 포맷</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          각 매체의 특성에 맞춘 다양한 광고 포맷으로<br class="hidden md:block">
+          최적의 퍼포먼스를 이끌어냅니다.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-item">
+        <!-- Meta -->
+        <div class="format-card p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+              <span class="text-lg font-bold" style="color: #0078F0;">Meta</span>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-gray-900">메타 광고</h4>
+              <p class="text-sm text-gray-400">Facebook / Instagram</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="px-3 py-1 bg-blue-50 text-xs font-semibold rounded-full" style="color: #0078F0;">피드 이미지</span>
+            <span class="px-3 py-1 bg-blue-50 text-xs font-semibold rounded-full" style="color: #0078F0;">릴스</span>
+            <span class="px-3 py-1 bg-blue-50 text-xs font-semibold rounded-full" style="color: #0078F0;">스토리</span>
+            <span class="px-3 py-1 bg-blue-50 text-xs font-semibold rounded-full" style="color: #0078F0;">캐러셀</span>
+            <span class="px-3 py-1 bg-blue-50 text-xs font-semibold rounded-full" style="color: #0078F0;">컬렉션</span>
+          </div>
+        </div>
+
+        <!-- Google -->
+        <div class="format-card p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center">
+              <span class="text-lg font-bold text-red-500">G</span>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-gray-900">구글 광고</h4>
+              <p class="text-sm text-gray-400">Google Ads</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="px-3 py-1 bg-red-50 text-xs font-semibold rounded-full text-red-500">디스플레이</span>
+            <span class="px-3 py-1 bg-red-50 text-xs font-semibold rounded-full text-red-500">유튜브</span>
+            <span class="px-3 py-1 bg-red-50 text-xs font-semibold rounded-full text-red-500">검색</span>
+            <span class="px-3 py-1 bg-red-50 text-xs font-semibold rounded-full text-red-500">쇼핑</span>
+            <span class="px-3 py-1 bg-red-50 text-xs font-semibold rounded-full text-red-500">앱 캠페인</span>
+          </div>
+        </div>
+
+        <!-- Naver -->
+        <div class="format-card p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
+              <span class="text-lg font-bold text-green-500">N</span>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-gray-900">네이버 광고</h4>
+              <p class="text-sm text-gray-400">Naver GFA / SA</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="px-3 py-1 bg-green-50 text-xs font-semibold rounded-full text-green-600">피드</span>
+            <span class="px-3 py-1 bg-green-50 text-xs font-semibold rounded-full text-green-600">배너</span>
+            <span class="px-3 py-1 bg-green-50 text-xs font-semibold rounded-full text-green-600">검색 광고</span>
+            <span class="px-3 py-1 bg-green-50 text-xs font-semibold rounded-full text-green-600">쇼핑 검색</span>
+            <span class="px-3 py-1 bg-green-50 text-xs font-semibold rounded-full text-green-600">브랜드 검색</span>
+          </div>
+        </div>
+
+        <!-- Kakao -->
+        <div class="format-card p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-yellow-50 flex items-center justify-center">
+              <span class="text-sm font-bold text-yellow-600">kakao</span>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-gray-900">카카오 광고</h4>
+              <p class="text-sm text-gray-400">Kakao Moment</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="px-3 py-1 bg-yellow-50 text-xs font-semibold rounded-full text-yellow-700">디스플레이</span>
+            <span class="px-3 py-1 bg-yellow-50 text-xs font-semibold rounded-full text-yellow-700">카카오톡 비즈보드</span>
+            <span class="px-3 py-1 bg-yellow-50 text-xs font-semibold rounded-full text-yellow-700">다음 검색</span>
+          </div>
+        </div>
+
+        <!-- 당근마켓 -->
+        <div class="format-card p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
+              <span class="text-lg font-bold text-orange-500">D</span>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-gray-900">당근마켓 광고</h4>
+              <p class="text-sm text-gray-400">Daangn Market</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="px-3 py-1 bg-orange-50 text-xs font-semibold rounded-full text-orange-600">피드</span>
+            <span class="px-3 py-1 bg-orange-50 text-xs font-semibold rounded-full text-orange-600">네이티브</span>
+            <span class="px-3 py-1 bg-orange-50 text-xs font-semibold rounded-full text-orange-600">카탈로그</span>
+          </div>
+        </div>
+
+        <!-- X (Twitter) -->
+        <div class="format-card p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center">
+              <span class="text-lg font-bold text-gray-900">𝕏</span>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-gray-900">X (트위터) 광고</h4>
+              <p class="text-sm text-gray-400">Twitter Ads</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="px-3 py-1 bg-gray-100 text-xs font-semibold rounded-full text-gray-700">프로모티드 트윗</span>
+            <span class="px-3 py-1 bg-gray-100 text-xs font-semibold rounded-full text-gray-700">비디오 광고</span>
+            <span class="px-3 py-1 bg-gray-100 text-xs font-semibold rounded-full text-gray-700">캐러셀</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 4: 집행광고 예시 -->
+  <section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          AD EXAMPLES
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          <span style="color: #0078F0;">집행 광고</span> 예시
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          실제 집행한 광고 유형별 소재 예시입니다.
+        </p>
+      </div>
+
+      <!-- 탭 -->
+      <div class="flex justify-center gap-2 mb-12 flex-wrap reveal-item">
+        <button class="ad-tab active" data-tab="da">DA (디스플레이)</button>
+        <button class="ad-tab" data-tab="pa">PA (파트너스애드)</button>
+        <button class="ad-tab" data-tab="sa">SA (검색광고)</button>
+        <button class="ad-tab" data-tab="app">APP</button>
+      </div>
+
+      <!-- DA 컨텐츠 -->
+      <div class="ad-content active" id="tab-da">
+        <div class="reveal-item">
+          <div class="mb-8">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">이미지 / 동영상 광고</h4>
+            <p class="text-sm text-gray-500">Meta, Google, Naver GFA 등 디스플레이 매체에 집행한 이미지 및 동영상 소재</p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="aspect-[4/5] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+            <div class="aspect-[4/5] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+            <div class="aspect-[4/5] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+            <div class="aspect-[4/5] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+            <div class="aspect-[4/5] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">동영상 예정</span>
+            </div>
+            <div class="aspect-[4/5] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">동영상 예정</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PA 컨텐츠 -->
+      <div class="ad-content" id="tab-pa">
+        <div class="reveal-item">
+          <div class="mb-8">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">파트너스 애드</h4>
+            <p class="text-sm text-gray-500">Meta 파트너스, Criteo 등 파트너스 광고 네트워크를 통한 리타게팅 및 전환 최적화 소재</p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="aspect-[4/5] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+            <div class="aspect-[4/5] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+            <div class="aspect-[4/5] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+            <div class="aspect-[4/5] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SA 컨텐츠 -->
+      <div class="ad-content" id="tab-sa">
+        <div class="reveal-item">
+          <div class="mb-8">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">검색 광고</h4>
+            <p class="text-sm text-gray-500">네이버 SA, 카카오 SA, 구글 SA 등 검색 매체에 집행한 광고 소재</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="aspect-video bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">검색광고 캡처 예정</span>
+            </div>
+            <div class="aspect-video bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">검색광고 캡처 예정</span>
+            </div>
+            <div class="aspect-video bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">검색광고 캡처 예정</span>
+            </div>
+            <div class="aspect-video bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+              <span class="text-sm text-gray-400 font-medium">검색광고 캡처 예정</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 컨텐츠 -->
+      <div class="ad-content" id="tab-app">
+        <div class="reveal-item">
+          <div class="mb-8">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">앱 광고</h4>
+            <p class="text-sm text-gray-500">앱 설치 및 인앱 이벤트 최적화를 위한 앱 캠페인 소재</p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="aspect-[9/16] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 max-h-80">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+            <div class="aspect-[9/16] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 max-h-80">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+            <div class="aspect-[9/16] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 max-h-80">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+            <div class="aspect-[9/16] bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 max-h-80">
+              <span class="text-sm text-gray-400 font-medium">이미지 예정</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 5: 데이터 리포트 -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          PERFORMANCE MARKETING | TAGby
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          <span style="color: #0078F0;">데이터 리포트</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          GA4 데이터 시각화를 통해 인사이트를 고도화하여 분석하는<br class="hidden md:block">
+          그로스 해킹으로 캠페인 광고 효율을 개선합니다.
+        </p>
+      </div>
+
+      <!-- 데이터 리포트 탭 UI -->
+      <div class="reveal-item">
+        <div class="bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-100">
+          <!-- 탭 버튼 -->
+          <div class="flex flex-wrap border-b border-gray-100 gap-1 px-4 pt-4" id="report-tabs">
+            <button class="report-tab active px-5 py-3 text-sm font-bold rounded-t-lg transition-all" data-report="overview">Overview</button>
+            <button class="report-tab px-5 py-3 text-sm font-bold rounded-t-lg transition-all" data-report="time">Time</button>
+            <button class="report-tab px-5 py-3 text-sm font-bold rounded-t-lg transition-all" data-report="funnel">Funnel</button>
+            <button class="report-tab px-5 py-3 text-sm font-bold rounded-t-lg transition-all" data-report="bubble">Bubble</button>
+            <button class="report-tab px-5 py-3 text-sm font-bold rounded-t-lg transition-all" data-report="source-medium">Source Medium</button>
+            <button class="report-tab px-5 py-3 text-sm font-bold rounded-t-lg transition-all" data-report="new-returning">New/Returning</button>
+            <button class="report-tab px-5 py-3 text-sm font-bold rounded-t-lg transition-all" data-report="os">OS</button>
+          </div>
+
+          <!-- 탭 컨텐츠 -->
+          <div class="p-6 md:p-10">
+            <div class="report-content active" id="report-overview">
+              <img src="images/Overview.png" alt="Overview 데이터 리포트" class="w-full h-auto rounded-xl">
+            </div>
+            <div class="report-content" id="report-time">
+              <img src="images/Time.png" alt="Time 데이터 리포트" class="w-full h-auto rounded-xl">
+            </div>
+            <div class="report-content" id="report-funnel">
+              <img src="images/Funnel.png" alt="Funnel 데이터 리포트" class="w-full h-auto rounded-xl">
+            </div>
+            <div class="report-content" id="report-bubble">
+              <img src="images/Bubble.png" alt="Bubble 데이터 리포트" class="w-full h-auto rounded-xl">
+            </div>
+            <div class="report-content" id="report-source-medium">
+              <img src="images/Source Medium.png" alt="Source Medium 데이터 리포트" class="w-full h-auto rounded-xl">
+            </div>
+            <div class="report-content" id="report-new-returning">
+              <img src="images/New Returning.png" alt="New/Returning 데이터 리포트" class="w-full h-auto rounded-xl">
+            </div>
+            <div class="report-content" id="report-os">
+              <img src="images/OS.png" alt="OS 데이터 리포트" class="w-full h-auto rounded-xl">
+            </div>
+
+            <!-- TAGby 로고 -->
+            <div class="mt-8 pt-6 border-t border-gray-100">
+              <img src="images/TAGby blue.png" alt="TAGby" class="h-6 opacity-40">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 6: 프로세스 -->
+  <section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-20 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          OUR PROCESS
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          성과를 만드는 <span style="color: #0078F0;">프로세스</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          체계적인 프로세스를 기반으로 데이터 중심의 마케팅 전략을 수립하고,<br class="hidden md:block">
+          지속적인 최적화를 통해 캠페인 성과를 극대화합니다.
+        </p>
+      </div>
+
+      <!-- 프로세스 스텝 -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 reveal-item">
+        <!-- Step 1 -->
+        <div class="process-step text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, #0078F0 0%, #0056B3 100%);">
+            <span class="text-white text-2xl font-bold">01</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-900 mb-2">시장 분석</h4>
+          <p class="text-xs text-gray-500 leading-relaxed">산업군 및 경쟁사<br>분석을 통한 현황 파악</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="process-step text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, #0078F0 0%, #0056B3 100%);">
+            <span class="text-white text-2xl font-bold">02</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-900 mb-2">전략 수립</h4>
+          <p class="text-xs text-gray-500 leading-relaxed">KPI 설정 및<br>미디어 믹스 전략 수립</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="process-step text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, #0078F0 0%, #0056B3 100%);">
+            <span class="text-white text-2xl font-bold">03</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-900 mb-2">소재 제작</h4>
+          <p class="text-xs text-gray-500 leading-relaxed">매체별 최적화된<br>광고 소재 기획 및 제작</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="process-step text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, #0078F0 0%, #0056B3 100%);">
+            <span class="text-white text-2xl font-bold">04</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-900 mb-2">광고 집행</h4>
+          <p class="text-xs text-gray-500 leading-relaxed">타겟 세그먼트별<br>캠페인 세팅 및 라이브</p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="process-step text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, #0078F0 0%, #0056B3 100%);">
+            <span class="text-white text-2xl font-bold">05</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-900 mb-2">데이터 분석</h4>
+          <p class="text-xs text-gray-500 leading-relaxed">GA4 기반 데이터<br>수집 및 인사이트 도출</p>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="process-step text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, #0078F0 0%, #0056B3 100%);">
+            <span class="text-white text-2xl font-bold">06</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-900 mb-2">최적화</h4>
+          <p class="text-xs text-gray-500 leading-relaxed">A/B 테스트 및<br>지속적 캠페인 고도화</p>
+        </div>
+      </div>
+
+      <!-- 순환 화살표 -->
+      <div class="text-center mt-12 reveal-item">
+        <div class="inline-flex items-center gap-3 px-6 py-3 bg-blue-50 rounded-full">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0078F0" stroke-width="2">
+            <path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16"/>
+          </svg>
+          <span class="text-sm font-semibold" style="color: #0078F0;">지속적인 성과 개선 사이클</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="py-16 px-6 bg-white border-t" style="border-color: #E0E3E7;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-3 gap-12">
+        <div>
+          <div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">OFFICE</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            06130 서울특별시 강남구<br>
+            테헤란로7길 22 스파크플러스<br>
+            강남5호점 1015호
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">CONTACT</h4>
+          <p class="text-sm text-gray-600 mb-2">070-7500-2220</p>
+          <p class="text-sm text-gray-600 mb-6">hello@tagby.co.kr</p>
+
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">SOCIAL</h4>
+          <a href="#" class="text-sm text-gray-600 hover:text-black transition">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    // 고객사 로고 그리드 생성 (index.html 브랜드 섹션과 동일)
+    (function(){
+      const logos = [
+        'images/logo/이랜드.png',
+        'images/logo/스파오.png',
+        'images/logo/스파오키즈.png',
+        'images/logo/미쏘.png',
+        'images/logo/로엠.png',
+        'images/logo/클라비스.png',
+        'images/logo/뉴발란스.png',
+        'images/logo/에블린.png',
+        'images/logo/슈펜.png',
+        'images/logo/데상트.png',
+        'images/logo/살로몬.png',
+        'images/logo/킥더허들.png',
+        'images/logo/지쿤.png',
+        'images/logo/테라비코스.png',
+        'images/logo/코코도르.png',
+        'images/logo/민병철유폰.png'
+      ];
+
+      const labelMap = {
+        '스파오':'스파오', '뉴발란스':'뉴발란스', '로엠':'로엠', '미쏘':'미쏘', '스파오키즈':'스파오키즈',
+        '이랜드':'이랜드', '클라비스':'클라비스', '에블린':'에블린', '슈펜':'슈펜', '데상트':'데상트',
+        '살로몬':'살로몬', '킥더허들':'킥더허들', '지쿤':'지쿤', '테라비코스':'테라비코스', '코코도르':'코코도르', '민병철유폰':'민병철유폰'
+      };
+
+      const linkMap = {
+        '스파오':'spao.html',
+        '뉴발란스':'newbalance.html',
+        '로엠':'roem.html',
+        '미쏘':'mixxo.html',
+        '스파오키즈':'spaokids.html'
+      };
+
+      const gridEl = document.querySelector('#brand-section .brand-grid');
+      if (!gridEl) return;
+
+      logos.forEach(function(src) {
+        const base = src.split('/').pop().replace(/\.[^/.]+$/, '');
+        const name = labelMap[base] || base;
+        const isPrimary = !!linkMap[base];
+
+        const item = document.createElement(isPrimary ? 'a' : 'div');
+        if (isPrimary) {
+          item.href = linkMap[base];
+          item.className = 'brand-item primary';
+        } else {
+          item.className = 'brand-item';
+        }
+
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = name;
+        img.onerror = function(){ this.style.display='none'; };
+        item.appendChild(img);
+
+        const tint = document.createElement('div');
+        tint.className = 'tint';
+        item.appendChild(tint);
+
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+
+        if (isPrimary) {
+          const box = document.createElement('div');
+          box.className = 'visit-text';
+          const bn = document.createElement('div');
+          bn.className = 'brand-name';
+          bn.textContent = name;
+          const vt = document.createElement('div');
+          vt.className = 'visit';
+          vt.textContent = '보러가기 >';
+          box.appendChild(bn);
+          box.appendChild(vt);
+          overlay.appendChild(box);
+        } else {
+          const lbl = document.createElement('div');
+          lbl.className = 'label';
+          lbl.textContent = name;
+          overlay.appendChild(lbl);
+        }
+
+        item.appendChild(overlay);
+        gridEl.appendChild(item);
+      });
+    })();
+
+    // 집행광고 탭 전환
+    (function(){
+      const tabs = document.querySelectorAll('.ad-tab');
+      const contents = document.querySelectorAll('.ad-content');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          contents.forEach(c => c.classList.remove('active'));
+
+          tab.classList.add('active');
+          const target = document.getElementById('tab-' + tab.dataset.tab);
+          if (target) target.classList.add('active');
+        });
+      });
+    })();
+
+    // 데이터 리포트 탭 전환
+    (function(){
+      const tabs = document.querySelectorAll('.report-tab');
+      const contents = document.querySelectorAll('.report-content');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          contents.forEach(c => c.classList.remove('active'));
+
+          tab.classList.add('active');
+          const target = document.getElementById('report-' + tab.dataset.report);
+          if (target) target.classList.add('active');
+        });
+      });
+    })();
+
+    // 스크롤 헤더
+    let lastScrollY = 0;
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        header.style.transform = 'translateY(0)';
+      }
+
+      if (currentScrollY > 50) {
+        header.style.backgroundColor = 'rgba(248, 248, 248, 0.95)';
+        header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+      } else {
+        header.style.backgroundColor = 'rgba(248, 248, 248, 0.8)';
+        header.style.boxShadow = 'none';
+      }
+
+      lastScrollY = currentScrollY;
+    });
+
+    // 모바일 메뉴
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    mobileOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // GSAP 스크롤 애니메이션
+    (function(){
+      if (!window.gsap || !window.ScrollTrigger) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.set('.reveal-item', { opacity: 0, y: 24 });
+
+      ScrollTrigger.batch('.reveal-item', {
+        interval: 0.1,
+        batchMax: 8,
+        onEnter: batch => gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          stagger: { each: 0.08 },
+          duration: 0.9,
+          ease: 'power1.out'
+        }),
+        start: 'top 80%'
+      });
+
+      ScrollTrigger.refresh();
+    })();
+  </script>
+
+</body>
+</html>

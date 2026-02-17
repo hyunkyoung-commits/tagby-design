@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인플루언서 마케팅 - tagby design</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background-color: #F8F8F8;
+    }
+
+    .dropdown-menu {
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown-menu:hover {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 20px;
+    }
+
+    /* 모바일 메뉴 */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+
+    .mobile-overlay.active {
+      display: block;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background-color: #000;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    @media (max-width: 1023px) {
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* Reveal animations */
+    .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .9s ease-out, transform .9s ease-out; }
+    .reveal-item.visible { opacity: 1; transform: translateY(0); }
+
+    /* Placeholder section styling */
+    .placeholder-section {
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 20px,
+        rgba(0, 120, 240, 0.03) 20px,
+        rgba(0, 120, 240, 0.03) 40px
+      );
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(248, 248, 248, 0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="index.html" class="cursor-pointer hover:opacity-80 transition">
+        <img src="images/TAGby blue.png" alt="TAGby" class="h-8">
+      </a>
+
+      <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
+        <div class="relative dropdown flex items-center">
+          <a href="#" class="text-xs md:text-sm lg:text-base font-medium text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
+            <a href="performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
+            <a href="influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a>
+          </div>
+        </div>
+
+        <div class="relative dropdown flex items-center">
+          <a href="#" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
+            <a href="mixxo.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">미쏘</a>
+            <a href="newbalance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">뉴발란스</a>
+            <a href="spaokids.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오키즈</a>
+            <a href="roem.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">로엠</a>
+          </div>
+        </div>
+
+        <div class="relative dropdown flex items-center">
+          <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+          </div>
+        </div>
+        <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
+      </div>
+
+      <!-- 햄버거 메뉴 버튼 -->
+      <div class="hamburger lg:hidden" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 모바일 오버레이 -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- 모바일 메뉴 -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-8">
+      <div class="mb-8">
+        <img src="images/TAGby blue.png" alt="TAGby" class="h-8">
+      </div>
+
+      <nav class="flex flex-col gap-4">
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-900 mb-3">디지털 마케팅</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="performance-marketing.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스 마케팅</a>
+            <a href="influencer-marketing.html" class="text-base font-medium text-[#0078F0] py-1">인플루언서 마케팅</a>
+          </div>
+        </div>
+
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-900 mb-3">포트폴리오</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="spao.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오</a>
+            <a href="mixxo.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">미쏘</a>
+            <a href="newbalance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">뉴발란스</a>
+            <a href="spaokids.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오키즈</a>
+            <a href="roem.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">로엠</a>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-lg font-medium text-gray-900 py-2">팀소개</p>
+          <div class="pl-4 flex flex-col gap-1">
+            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
+          </div>
+        </div>
+        <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="pt-40 pb-20 px-6 relative overflow-hidden" style="background-color: #F9F9FB;">
+    <div class="container mx-auto text-center relative z-10 max-w-5xl">
+      <div class="mb-6">
+        <p class="text-sm font-bold tracking-wider" style="color: #0078F0; letter-spacing: 0.2em;">
+          INFLUENCER MARKETING
+        </p>
+      </div>
+      <h1 class="text-4xl md:text-6xl mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
+        콘텐츠로 연결하는<br>
+        <span style="color: #0078F0;">인플루언서 마케팅</span>
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+        브랜드에 최적화된 인플루언서 매칭과 콘텐츠 전략으로<br class="hidden md:block">
+        진정성 있는 브랜드 커뮤니케이션을 만들어갑니다.
+      </p>
+    </div>
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute w-96 h-96 rounded-full opacity-10 blur-3xl" style="background-color: #0078F0; right: -100px; top: -100px;"></div>
+      <div class="absolute w-64 h-64 rounded-full opacity-10 blur-3xl" style="background-color: #0078F0; left: -50px; bottom: -50px;"></div>
+    </div>
+  </section>
+
+
+  <!-- Section 1: 고객사 (퍼포먼스 마케팅과 동일 레이아웃) -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          OUR CLIENTS
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          한 눈에 보는 <span style="color: #0078F0;">고객사</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          콘텐츠 준비중입니다.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 reveal-item">
+        <div class="bg-white rounded-2xl p-6 flex items-center justify-center border border-gray-100 min-h-[100px]">
+          <span class="text-sm text-gray-300 font-medium">로고 영역</span>
+        </div>
+        <div class="bg-white rounded-2xl p-6 flex items-center justify-center border border-gray-100 min-h-[100px]">
+          <span class="text-sm text-gray-300 font-medium">로고 영역</span>
+        </div>
+        <div class="bg-white rounded-2xl p-6 flex items-center justify-center border border-gray-100 min-h-[100px]">
+          <span class="text-sm text-gray-300 font-medium">로고 영역</span>
+        </div>
+        <div class="bg-white rounded-2xl p-6 flex items-center justify-center border border-gray-100 min-h-[100px]">
+          <span class="text-sm text-gray-300 font-medium">로고 영역</span>
+        </div>
+        <div class="bg-white rounded-2xl p-6 flex items-center justify-center border border-gray-100 min-h-[100px]">
+          <span class="text-sm text-gray-300 font-medium">로고 영역</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 2: 매체/채널 시각화 (퍼포먼스 마케팅과 동일 레이아웃) -->
+  <section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          CHANNEL NETWORK
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          다루는 <span style="color: #0078F0;">채널</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          콘텐츠 준비중입니다.
+        </p>
+      </div>
+
+      <div class="flex justify-center reveal-item">
+        <div class="w-[500px] h-[500px] max-w-full aspect-square bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200 flex items-center justify-center">
+          <span class="text-gray-300 font-medium">채널 시각화 영역</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 3: 콘텐츠 포맷 (퍼포먼스 마케팅과 동일 레이아웃) -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          CONTENT FORMATS
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          채널별 <span style="color: #0078F0;">콘텐츠 포맷</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          콘텐츠 준비중입니다.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-item">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 min-h-[240px] flex items-center justify-center">
+          <span class="text-sm text-gray-300 font-medium">포맷 카드 영역</span>
+        </div>
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 min-h-[240px] flex items-center justify-center">
+          <span class="text-sm text-gray-300 font-medium">포맷 카드 영역</span>
+        </div>
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 min-h-[240px] flex items-center justify-center">
+          <span class="text-sm text-gray-300 font-medium">포맷 카드 영역</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 4: 집행 예시 (퍼포먼스 마케팅과 동일 레이아웃) -->
+  <section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          CAMPAIGN EXAMPLES
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          <span style="color: #0078F0;">캠페인</span> 예시
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          콘텐츠 준비중입니다.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal-item">
+        <div class="aspect-[4/5] bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+          <span class="text-sm text-gray-300 font-medium">이미지 영역</span>
+        </div>
+        <div class="aspect-[4/5] bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+          <span class="text-sm text-gray-300 font-medium">이미지 영역</span>
+        </div>
+        <div class="aspect-[4/5] bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+          <span class="text-sm text-gray-300 font-medium">이미지 영역</span>
+        </div>
+        <div class="aspect-[4/5] bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
+          <span class="text-sm text-gray-300 font-medium">이미지 영역</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 5: 데이터/성과 분석 (퍼포먼스 마케팅과 동일 레이아웃) -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          INFLUENCER MARKETING | TAGby
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          <span style="color: #0078F0;">성과 분석</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          콘텐츠 준비중입니다.
+        </p>
+      </div>
+
+      <div class="reveal-item">
+        <div class="bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-100 p-12 min-h-[400px] flex items-center justify-center">
+          <span class="text-gray-300 font-medium">데이터 시각화 영역</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 6: 프로세스 (퍼포먼스 마케팅과 동일 레이아웃) -->
+  <section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-20 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          OUR PROCESS
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          성과를 만드는 <span style="color: #0078F0;">프로세스</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          콘텐츠 준비중입니다.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 reveal-item">
+        <div class="text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
+            <span class="text-gray-300 text-2xl font-bold">01</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 1</h4>
+          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
+            <span class="text-gray-300 text-2xl font-bold">02</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 2</h4>
+          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
+            <span class="text-gray-300 text-2xl font-bold">03</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 3</h4>
+          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
+            <span class="text-gray-300 text-2xl font-bold">04</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 4</h4>
+          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
+            <span class="text-gray-300 text-2xl font-bold">05</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 5</h4>
+          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
+            <span class="text-gray-300 text-2xl font-bold">06</span>
+          </div>
+          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 6</h4>
+          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="py-16 px-6 bg-white border-t" style="border-color: #E0E3E7;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-3 gap-12">
+        <div>
+          <div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">OFFICE</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            06130 서울특별시 강남구<br>
+            테헤란로7길 22 스파크플러스<br>
+            강남5호점 1015호
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">CONTACT</h4>
+          <p class="text-sm text-gray-600 mb-2">070-7500-2220</p>
+          <p class="text-sm text-gray-600 mb-6">hello@tagby.co.kr</p>
+
+          <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">SOCIAL</h4>
+          <a href="#" class="text-sm text-gray-600 hover:text-black transition">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    // 스크롤 헤더
+    let lastScrollY = 0;
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        header.style.transform = 'translateY(0)';
+      }
+
+      if (currentScrollY > 50) {
+        header.style.backgroundColor = 'rgba(248, 248, 248, 0.95)';
+        header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+      } else {
+        header.style.backgroundColor = 'rgba(248, 248, 248, 0.8)';
+        header.style.boxShadow = 'none';
+      }
+
+      lastScrollY = currentScrollY;
+    });
+
+    // 모바일 메뉴
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    mobileOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // GSAP 스크롤 애니메이션
+    (function(){
+      if (!window.gsap || !window.ScrollTrigger) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.set('.reveal-item', { opacity: 0, y: 24 });
+
+      ScrollTrigger.batch('.reveal-item', {
+        interval: 0.1,
+        batchMax: 8,
+        onEnter: batch => gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          stagger: { each: 0.08 },
+          duration: 0.9,
+          ease: 'power1.out'
+        }),
+        start: 'top 80%'
+      });
+
+      ScrollTrigger.refresh();
+    })();
+  </script>
+
+</body>
+</html>

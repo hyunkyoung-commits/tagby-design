@@ -110,9 +110,153 @@
         display: flex;
       }
     }
+
+    /* Brand logos */
+    /* 태그바이 브랜드 스트립 스타일 */
+    #brand-section { background-color: #F9F9FB; }
+    #brand-section .brand-row { overflow: hidden; }
+    #brand-section .brand-inner { position: relative; }
+    #brand-section .brand-track { display: flex; gap: 1rem; align-items: center; white-space: nowrap; }
+    /* 박스형 버튼 스타일 (박스 크기 절반으로 추가 조정, 이미지 크기 유지) */
+    #brand-section .brand-item {
+      display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid #E6E9EC; padding:0.5rem; border-radius:12px;
+      min-height:60px; box-shadow: 0 2px 10px rgba(13,20,35,0.04); transition: transform .18s ease, box-shadow .18s ease, background .18s ease; position: relative; overflow: hidden; cursor: pointer; text-decoration:none; color:inherit;
+    }
+    #brand-section .brand-item:focus { outline: 2px solid rgba(0,120,240,0.15); outline-offset:2px; }
+    #brand-section .brand-item:hover { transform: translateY(-4px); box-shadow:0 8px 30px rgba(13,20,35,0.08); }
+
+    /* 이미지 크기 유지 (사용자 요청: 줄이지 않음) */
+    #brand-section .brand-item img { max-height: 160px; width: auto; filter: none; opacity: 0.95; object-fit: contain; transition: transform .18s ease, filter .18s ease; }
+
+    /* tint layer to colorize logos on hover (solid fill for box) */
+    #brand-section .brand-item .tint { position:absolute; inset:0; opacity:0; transition:opacity .18s ease, background .18s ease; pointer-events:none; background:transparent; mix-blend-mode: normal; border-radius:12px; }
+    #brand-section .brand-item.primary:hover .tint { background: #0078F0; opacity:1; }
+    #brand-section .brand-item:not(.primary):hover .tint { background: #6B7280; opacity:1; }
+
+    /* 이미지 색상 처리 on hover (white logos on colored background) */
+    #brand-section .brand-item.primary:hover img { filter: brightness(0) invert(1); }
+    #brand-section .brand-item:not(.primary):hover img { filter: brightness(0) invert(1); }
+
+    /* overlay 텍스트 */
+    #brand-section .brand-item .overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .18s ease; pointer-events:none; }
+    #brand-section .brand-item:hover .overlay { opacity:1; pointer-events:auto; }
+
+    #brand-section .overlay .brand-name { font-weight:800; color:white; font-size:0.95rem; line-height:1; text-align:center; }
+    #brand-section .overlay .visit { color: white; opacity:0.95; font-weight:700; margin-top:6px; font-size:0.85rem; }
+    /* non-primary label should appear white on grey tint */
+    #brand-section .overlay .label { background: transparent; color: #fff; padding: 0; border-radius:0; font-weight:600; font-size:.85rem; white-space:nowrap; }
+
+    @media (max-width: 1023px) {
+      #brand-section .brand-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      #brand-section .brand-item { width: auto; padding:0.45rem; min-height:55px; }
+      #brand-section .brand-item img { max-height: 140px; }
+    }
+    @media (max-width: 640px) {
+      #brand-section .brand-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      #brand-section .brand-item { width: auto; padding:0.3rem; min-height:45px; }
+      #brand-section .brand-item img { max-height: 120px; }
+    }
+    /* left / right dim overlays */
+    #brand-section .edge-left, #brand-section .edge-right {
+      position:absolute; top:0; bottom:0; width:6rem; pointer-events: none; z-index: 10;
+    }
+    #brand-section .edge-left { left:0; background: linear-gradient(to right, #F9F9FB 0%, rgba(249,249,251,0) 100%); }
+    #brand-section .edge-right { right:0; background: linear-gradient(to left, #F9F9FB 0%, rgba(249,249,251,0) 100%); }
+
+    /* Grid layout */
+    /* 데스크톱: 5열(더 크게 보여주기), 태블릿: 4열, 모바일: 2열 */
+    #brand-section .brand-grid { display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 1rem; align-items:center; }
+    @media (max-width: 1023px) {
+      #brand-section .brand-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+    }
+    @media (max-width: 640px) {
+      #brand-section .brand-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+
+    /* tint layer to colorize logos on hover */
+    #brand-section .brand-item .tint { position:absolute; inset:0; opacity:0; transition:opacity .18s ease; pointer-events:none; mix-blend-mode: multiply; border-radius:12px; }
+    #brand-section .brand-item.primary:hover .tint { background: #0078F0; opacity:0.95; }
+    #brand-section .brand-item:not(.primary):hover .tint { background: rgba(0,0,0,0.6); opacity:0.95; }
+
+    /* image desat + subtle scale on hover */
+    #brand-section .brand-item img { transition: filter .18s, transform .18s; display:block; max-width:100%; height:auto; }
+    #brand-section .brand-item:hover img { filter: grayscale(1) contrast(1.05); transform: translateY(-2px); }
+
+    /* overlay text styles */
+    #brand-section .brand-item .overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .18s ease; pointer-events:none; }
+    #brand-section .brand-item:hover .overlay { opacity:1; pointer-events:auto; }
+
+    #brand-section .overlay .brand-name { font-weight:800; color:white; font-size:0.95rem; line-height:1; text-align:center; }
+    #brand-section .overlay .visit { color: white; opacity:0.95; font-weight:700; margin-top:6px; font-size:0.85rem; }
+    #brand-section .overlay .label { background: rgba(0,0,0,0.6); color: #fff; padding: .25rem .6rem; border-radius:6px; font-weight:600; font-size:.85rem; white-space:nowrap; }
+
+    /* 자체 제작 소재 매체별 탭 */
+    .material-tab {
+      padding: 10px 24px;
+      font-weight: 600;
+      font-size: 15px;
+      color: #9CA3AF;
+      background: transparent;
+      border: 1.5px solid #E0E3E7;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .material-tab.active {
+      color: #fff;
+      background-color: #0078F0;
+      border-color: #0078F0;
+    }
+
+    .material-tab:hover:not(.active) {
+      color: #0078F0;
+      border-color: #0078F0;
+    }
+
+    .material-content {
+      display: none;
+    }
+
+    .material-content.active {
+      display: block;
+    }
+
+    /* Hardware-accelerate the blue circle and hint transform-only changes */
+    #blue-circle { will-change: transform; transform: translate3d(0,0,0); backface-visibility: hidden; }
+
+    /* Hero layout: 데스크톱에서 화면 가득 표시 */
+    @media (min-width: 1024px) {
+      /* panel layout: ensure content fits in one viewport nicely on desktop */
+      #hero-section { min-height: 100vh; display:flex; align-items:center; padding-top:6rem; padding-bottom:6rem; }
+      #hero-section .container { max-width: 1100px; }
+
+      /* Panels: constrained height so content fits in one screen without scrolling inside */
+      section.panel { min-height: calc(100vh - 120px); display:flex; align-items:center; padding:3rem 0; }
+      section.panel .container { display:flex; gap:2.5rem; align-items:center; justify-content:space-between; }
+      section.panel .panel-media { max-width:48%; max-height: calc(100vh - 240px); overflow:hidden; }
+      section.panel .panel-media img { width:100%; height:100%; object-fit:cover; border-radius:12px; }
+      section.panel .panel-content { max-width:50%; }
+    }
+
+    /* Reveal-on-scroll: gentle, smooth easing */
+    .reveal-section { opacity: 0; transition: opacity .9s ease-out; }
+    .reveal-section.visible { opacity: 1; }
+
+    /* Items inside sections will translate up gently and fade in */
+    .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .9s ease-out, transform .9s ease-out; will-change: transform, opacity; }
+    .reveal-item.visible { opacity: 1; transform: translateY(0); }
+
+    /* accessibility: reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-section, .reveal-item { transition: none !important; transform: none !important; opacity: 1 !important; }
+    }
+
   </style>
 </head>
 <body>
+
+  <div id="page-gradient-circle" style="position:fixed; left:-9999px; top:-9999px; width:256px; height:256px; border-radius:50%; background-color:#0078F0; opacity:0.18; pointer-events:none; filter:blur(36px); transition: all 0.28s ease-out; z-index:5;"></div>
 
   <!-- Header -->
   <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(248, 248, 248, 0.8);">
@@ -122,8 +266,15 @@
       </a>
       
       <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
-        <a href="#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
-        
+        <div class="relative dropdown flex items-center">
+          <a href="#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
+            <a href="performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
+            <a href="influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a>
+          </div>
+        </div>
+
         <div class="relative dropdown flex items-center">
           <a href="#portfolio" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
           
@@ -136,7 +287,14 @@
           </div>
         </div>
         
-        <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+        <div class="relative dropdown flex items-center">
+          <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+          </div>
+        </div>
         <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
       </div>
 
@@ -160,8 +318,14 @@
       </div>
       
       <nav class="flex flex-col gap-4">
-        <a href="#digital" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디지털 마케팅</a>
-        
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-900 mb-3">디지털 마케팅</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="performance-marketing.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스 마케팅</a>
+            <a href="influencer-marketing.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">인플루언서 마케팅</a>
+          </div>
+        </div>
+
         <div class="py-2">
           <p class="text-lg font-medium text-gray-900 mb-3">포트폴리오</p>
           <div class="flex flex-col gap-2 pl-4">
@@ -173,7 +337,14 @@
           </div>
         </div>
         
-        <a href="team.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">팀소개</a>
+        <div>
+          <p class="text-lg font-medium text-gray-900 py-2">팀소개</p>
+          <div class="pl-4 flex flex-col gap-1">
+            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
+          </div>
+        </div>
         <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
       </nav>
     </div>
@@ -197,15 +368,35 @@
     </div>
     
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div id="blue-circle" class="absolute w-64 h-64 rounded-full opacity-20 blur-3xl" style="background-color: #0078F0; transition: all 0.3s ease-out;"></div>
+      <div id="blue-circle" class="absolute w-64 h-64 rounded-full opacity-20 blur-3xl" style="background-color: #0078F0; left: 0; top: 0;"></div>
       <div class="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-10 blur-3xl" style="background-color: #E0E3E7;"></div>
+    </div>
+  </section>
+
+  <!-- Brand Partners Section -->
+  <section id="brand-section" class="py-16 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-8">
+        <p class="text-sm font-bold tracking-wider mb-2" style="color: #0078F0; letter-spacing:0.2em;">PARTNERS</p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;"><span style="color:#0078F0;">태그바이</span>와<br>함께하는 브랜드</h2>
+      </div>
+
+      <div class="relative brand-inner overflow-hidden">
+        <div class="edge-left"></div>
+        <div class="edge-right"></div>
+
+        <!-- Grid layout -->
+        <div class="brand-grid">
+          <!-- Items injected by JS -->
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Design Showcase Section -->
   <section class="py-32 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl mb-20">
-      <div class="text-center">
+      <div class="text-center reveal-item">
         <p class="text-sm font-bold tracking-wider mb-6" style="color: #0078F0; letter-spacing: 0.2em;">
           CREATIVE EXCELLENCE
         </p>
@@ -217,7 +408,7 @@
     </div>
 
     <!-- Design Carousel -->
-    <div class="overflow-hidden">
+    <div class="overflow-hidden reveal-item">
       <div class="flex animate-scroll-left">
         <div class="flex flex-shrink-0" id="design-carousel-1"></div>
         <div class="flex flex-shrink-0" id="design-carousel-2"></div>
@@ -228,7 +419,7 @@
   <!-- Agency Introduction Section -->
   <section class="py-32 px-6 relative" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
-      <div class="text-center mb-24">
+      <div class="text-center mb-24 reveal-item">
         <p class="text-sm font-bold tracking-wider mb-6" style="color: #0078F0; letter-spacing: 0.2em;">
           INTEGRATED AGENCY
         </p>
@@ -239,19 +430,19 @@
       </div>
 
       <div class="grid md:grid-cols-2 gap-6 mb-32 relative">
-        <div class="group relative bg-gradient-to-br from-white to-gray-50 rounded-3xl p-16 border-2 hover:shadow-2xl transition-all duration-500" style="border-color: #0078F0;">
+        <div class="group relative bg-gradient-to-br from-white to-gray-50 rounded-3xl p-16 border-2 hover:shadow-2xl transition-all duration-500 reveal-item" style="border-color: #0078F0;">
           <h3 class="text-5xl font-black relative z-10" style="color: #0078F0;">
             CONTENT<br>PLANNING
           </h3>
         </div>
 
-        <div class="group relative rounded-3xl p-16 hover:shadow-2xl transition-all duration-500" style="background-color: #0078F0;">
+        <div class="group relative rounded-3xl p-16 hover:shadow-2xl transition-all duration-500 reveal-item" style="background-color: #0078F0;">
           <h3 class="text-5xl font-black text-white">
             GROSS<br>MARKETING
           </h3>
         </div>
 
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 reveal-item">
           <div class="w-20 h-20 rounded-full flex items-center justify-center shadow-2xl" style="background: linear-gradient(135deg, #0078F0 0%, #0056B3 100%);">
             <span class="text-white text-3xl font-bold">+</span>
           </div>
@@ -261,7 +452,7 @@
       <div class="max-w-5xl mx-auto">
         <div class="grid md:grid-cols-2 gap-16">
           <!-- Left -->
-          <div>
+          <div class="reveal-item">
             <h4 class="text-3xl font-bold mb-6 text-black">콘텐츠 마케팅의<br>선두주자</h4>
             <p class="text-lg text-gray-600 leading-relaxed mb-8">
               인플루언서와 콘텐츠 마케팅으로 시작한 태그바이는 1인 미디어 콘텐츠의 선두주자로, 수년간의 노하우와 경험을 바탕으로 고객과의 접점에 최적화된 콘텐츠를 기획합니다.
@@ -269,7 +460,7 @@
           </div>
 
           <!-- Right -->
-          <div>
+          <div class="reveal-item">
             <h4 class="text-3xl font-bold mb-6 text-black">데이터 기반 마케팅의<br>A to Z</h4>
             <p class="text-lg text-gray-600 leading-relaxed mb-8">
               광고 운영부터 데이터 분석 환경 설계, 리서치, 분석까지 데이터 기반 마케팅의 모든 것을 지원합니다.
@@ -278,7 +469,7 @@
         </div>
 
         <!-- 메타 파트너 박스 - 하단 센터 -->
-        <div class="mt-16 max-w-3xl mx-auto">
+        <div class="mt-16 max-w-3xl mx-auto reveal-item">
           <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border-2" style="border-color: #E0E3E7;">
             <div class="flex items-center gap-4 mb-4">
               <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold text-white shadow-lg" style="background-color: #0078F0;">M</div>
@@ -296,169 +487,62 @@
     </div>
   </section>
 
-  <!-- Main Advertising Media Section -->
-  <section id="digital" class="py-24 px-6" style="background-color: #F9F9FB;">
-    <div class="container mx-auto max-w-6xl">
+
+
+  <!-- Work Scope Section -->
+  <section class="py-24 px-6" style="background-color: #F4F6FA;">
+    <div class="container mx-auto max-w-7xl">
       <!-- Header -->
-      <div class="mb-20 text-center">
-        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
-          PERFORMANCE MARKETING | TAGby
+      <div class="mb-16 text-center reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">
+          DIGITAL MARKETING | TAGby
         </p>
-          <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
-            주요 <span style="color: #0078F0;">광고 매체</span>
+        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
+          전략부터 운영까지<br><span style="color: #0078F0;">모두</span> 책임집니다
         </h2>
         <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          빅미디어 운영을 통해 다양한 지면을 커버하고 대부분의 유저에게 도달 가능하도록 하며<br class="hidden md:block">
-          데이터 분석 및 타게팅을 고도화하여 캠페인 효율을 개선합니다.
+          통합 마케팅 전략 수립부터 매체 전략, 콘텐츠 전략까지<br class="hidden md:block">
+          다양한 마케팅 전략에 대한 컨설팅부터 운영까지 제공합니다.
         </p>
       </div>
 
-      <!-- DA Section -->
-      <div class="mb-24">
-        <div class="flex items-center gap-3 mb-12">
-          <h3 class="text-2xl md:text-3xl font-bold" style="color: #0078F0;">DA</h3>
-          <div class="h-px flex-1 bg-gradient-to-r from-gray-200 to-transparent"></div>
+      <!-- 4-Column Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal-item">
+        <!-- Column 1: 데이터 분석 환경 구축 -->
+        <div class="flex flex-col gap-3">
+          <div class="rounded-2xl px-6 py-7 text-center text-white font-bold text-base" style="background: #0078F0;">데이터 분석 환경 구축</div>
+          <div class="flex justify-center" style="color: #0078F0; font-size: 1.2rem;">▼</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">데이터 지표(KPI) 수립</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">데이터 수집 환경 세팅 (픽셀, GA4 등)</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">대시보드 설계</div>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-10">
-          <!-- Meta -->
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#0078F0" font-size="14" font-weight="bold">Meta</text>
-              </svg>
-            </div>
-            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">메타</p>
-            <p class="text-xs text-gray-400">META</p>
-          </div>
 
-          <!-- Google Ads -->
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#EA4335" font-size="16" font-weight="bold">G</text>
-              </svg>
-            </div>
-            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">구글 애즈</p>
-            <p class="text-xs text-gray-400">GOOGLE ADS</p>
-          </div>
-
-          <!-- Kakao -->
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105">
-              <span class="text-sm md:text-base font-bold text-yellow-400">kakao</span>
-            </div>
-            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">카카오</p>
-            <p class="text-xs text-gray-400">KAKAO</p>
-          </div>
-
-          <!-- Kakao Moment -->
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105">
-              <span class="text-sm md:text-base font-bold text-yellow-400">kakao</span>
-            </div>
-            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">카카오 모먼트</p>
-            <p class="text-xs text-gray-400">KAKAO MOMENT</p>
-          </div>
-
-          <!-- Naver (GFA) -->
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#03C75A" font-size="16" font-weight="bold">N</text>
-              </svg>
-            </div>
-            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">네이버 (GFA)</p>
-            <p class="text-xs text-gray-400">NAVER (GFA)</p>
-          </div>
-
-          <!-- Daangn Market -->
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#FF6F0F" font-size="16" font-weight="bold">D</text>
-              </svg>
-            </div>
-            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">당근마켓</p>
-            <p class="text-xs text-gray-400">DAANGN MARKET</p>
-          </div>
-
-          <!-- Twitter -->
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#000000" font-size="16" font-weight="bold">𝕏</text>
-              </svg>
-            </div>
-            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">트위터</p>
-            <p class="text-xs text-gray-400">TWITTER</p>
-          </div>
+        <!-- Column 2: 퍼포먼스 마케팅 -->
+        <div class="flex flex-col gap-3">
+          <div class="rounded-2xl px-6 py-7 text-center text-white font-bold text-base" style="background: #0078F0;">퍼포먼스 마케팅</div>
+          <div class="flex justify-center" style="color: #0078F0; font-size: 1.2rem;">▼</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">미디어 믹스 수립</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">광고 운영</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">A/B 테스팅</div>
         </div>
-      </div>
 
-      <!-- SA Section -->
-      <div>
-        <div class="flex items-center gap-3 mb-12">
-          <h3 class="text-2xl md:text-3xl font-bold" style="color: #0078F0;">SA</h3>
-          <div class="h-px flex-1 bg-gradient-to-r from-gray-200 to-transparent"></div>
+        <!-- Column 3: 크리에이티브 전략 -->
+        <div class="flex flex-col gap-3">
+          <div class="rounded-2xl px-6 py-7 text-center text-white font-bold text-base" style="background: #0078F0;">크리에이티브 전략</div>
+          <div class="flex justify-center" style="color: #0078F0; font-size: 1.2rem;">▼</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">브랜딩/세일즈 상황에 맞는 소구 포인트 제안</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">USP 기반 전략 수립</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">인플루언서 / 콘텐츠 기획</div>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-10">
-          <!-- Naver SA -->
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#03C75A" font-size="16" font-weight="bold">N</text>
-              </svg>
-            </div>
-            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">네이버 SA</p>
-            <p class="text-xs text-gray-400">NAVER SA</p>
-          </div>
 
-          <!-- Kakao SA -->
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105">
-              <span class="text-sm md:text-base font-bold text-yellow-400">kakao</span>
-            </div>
-            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">카카오 SA</p>
-            <p class="text-xs text-gray-400">KAKAO SA</p>
-          </div>
-
-          <!-- Google SA -->
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center mb-3 transition-all duration-300 group-hover:shadow-lg group-hover:scale-105" style="border: 2px solid #F0F0F0;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#EA4335" font-size="16" font-weight="bold">G</text>
-              </svg>
-            </div>
-            <p class="font-semibold text-sm md:text-base text-gray-900 mb-1">구글 SA</p>
-            <p class="text-xs text-gray-400">GOOGLE SA</p>
-          </div>
+        <!-- Column 4: 마케팅 컨설팅 및 운영 -->
+        <div class="flex flex-col gap-3">
+          <div class="rounded-2xl px-6 py-7 text-center text-white font-bold text-base" style="background: #0078F0;">마케팅 컨설팅 및 운영</div>
+          <div class="flex justify-center" style="color: #0078F0; font-size: 1.2rem;">▼</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">인플루언서 마케팅, 커뮤니티, 바이럴 마케팅</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">SNS, IMC, 디지털 마케팅 전반 솔루션</div>
+          <div class="rounded-2xl px-5 py-5 text-center text-sm text-gray-700 bg-white border border-gray-100" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">R/S, SEO, 광고 운영 등 퍼포먼스 마케팅</div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Commerce Understanding Section -->
-  <section class="py-24 px-6 bg-white">
-    <div class="container mx-auto max-w-6xl">
-      <!-- Header -->
-      <div class="mb-20 text-center">
-        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
-          PERFORMANCE MARKETING | TAGby
-        </p>
-          <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
-            <span style="color: #0078F0;">커머스</span>를 가장 잘 이해하는<br>
-          통합 디지털 에이전시
-        </h2>
-        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
-          지금 순간 커머스는 '멀티채널'로 확장이 필수입니다.<br class="hidden md:block">
-          다양한 산업군에서 커머스 운영으로 축적된 경험을 바탕으로 더욱 최적화된 제품을 만들어드리고,<br class="hidden md:block">
-          해결할 거리 걱정없이 성장 전략과 전략을 제공합니다.
-        </p>
-      </div>
-
-      <!-- Services Network -->
-      <div class="relative max-w-5xl mx-auto">
-        <img src="images/Group 32766.png" alt="통합 커머스 서비스 네트워크" class="w-full h-auto mx-auto" style="max-width: 900px;">
       </div>
     </div>
   </section>
@@ -467,7 +551,7 @@
   <section class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <!-- Header -->
-      <div class="mb-16 text-center">
+      <div class="mb-16 text-center reveal-item">
         <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
           CREATIVE CONTENT | TAGby
         </p>
@@ -479,96 +563,312 @@
         </p>
       </div>
 
-      <!-- Gallery Masonry -->
-      <div style="column-count: 2; column-gap: 1rem;" class="md:!columns-3 lg:!columns-4 md:gap-6">
-        <!-- Image 1 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/1 이랜드위크_단일.png" alt="이랜드위크 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+      <!-- 매체별 탭 -->
+      <div class="flex justify-center gap-2 mb-10 flex-wrap reveal-item">
+        <button class="material-tab active" data-material="meta">메타</button>
+        <button class="material-tab" data-material="naver-feed">네이버 피드</button>
+        <button class="material-tab" data-material="bizboard">비즈보드</button>
+        <button class="material-tab" data-material="google">구글</button>
+        <button class="material-tab" data-material="inapp">인앱광고</button>
+      </div>
+
+      <!-- 메타 -->
+      <div class="material-content active" id="material-meta">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/1-3_메타(단일)_신규가입.png" alt="메타 신규가입 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/META_파자마_주말특가.png" alt="파자마 주말특가 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/메타1-7_MR530CK_단일.png" alt="뉴발란스 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/메타5_파스텔푸퍼_단일.png" alt="파스텔푸퍼 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/메타6_다이노탱_단일.png" alt="다이노탱 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/메타_미쏘데이X김지영_단일 4.png" alt="미쏘데이 광고 소재" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+
+      <!-- 네이버 피드 -->
+      <div class="material-content" id="material-naver-feed">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/네이버피드2_수면파자마.jpg" alt="네이버 피드 수면파자마" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/수면파자마_해리포터_피드.jpg" alt="해리포터 피드 광고" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/푸퍼_블랙_피드 1-2.png" alt="푸퍼 블랙 피드 광고" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/데님_스토리 4.png" alt="데님 스토리 광고" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/image 5359.png" alt="네이버 피드 광고" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/image 5360.png" alt="네이버 피드 광고" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+
+      <!-- 비즈보드 -->
+      <div class="material-content" id="material-bizboard">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/1 이랜드위크_단일.png" alt="이랜드위크 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/단일 2 (할인O).png" alt="할인 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/에센셜커플.png" alt="에센셜커플 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/혜택소구 2.png" alt="혜택소구 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/퍼플리스_할인O.png" alt="퍼플리스 할인 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/파자마페스타_성인_먼작귀.png" alt="파자마페스타 광고 소재" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+
+      <!-- 구글 -->
+      <div class="material-content" id="material-google">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/스아페_단일_파스텔푸퍼 2.png" alt="스파오 파스텔푸퍼 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/24간절기파자마_키즈_망곰.png" alt="파자마 키즈 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/메타3_influencer_캐리오버.png" alt="인플루언서 캐리오버 광고" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/2 산리오_화이트_단일.png" alt="산리오 화이트 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/13 씬라이트_단일.jpg" alt="씬라이트 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/1 여아캡슐_파스텔푸퍼_단일.jpg" alt="여아캡슐 파스텔푸퍼 광고 소재" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+
+      <!-- 인앱광고 -->
+      <div class="material-content" id="material-inapp">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/메타1_6p 기획전_단일.png" alt="6p 기획전 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/메타3_6p 기획전_단일.png" alt="6p 기획전 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/9-1 메타_멤버스위크.jpg" alt="멤버스위크 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/메타11_미쏘X서지수_제품강조_단일.jpg" alt="미쏘 서지수 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/메타1_신학기 기획전_단일.jpg" alt="신학기 기획전 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/자체 제작 소재/메타3_influencer_캐리오버.png" alt="인플루언서 캐리오버 광고" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Advertising Media Section -->
+  <section id="digital" class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <!-- Header -->
+      <div class="mb-16 text-center reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">
+          DIGITAL MARKETING | TAGby
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
+          주요 <span style="color: #0078F0;">광고 매체</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          빅미디어 운영을 통해 다양한 지면을 커버하고 대부분의 유저에게 도달 가능하도록 하며<br class="hidden md:block">
+          데이터 분석 및 타게팅을 고도화하여 캠페인 효율을 개선합니다.
+        </p>
+      </div>
+
+      <!-- DA | SA | CONTENTS 3등분 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-item">
+        <!-- DA -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <h3 class="text-xl font-extrabold" style="color: #0078F0;">DA</h3>
+            <div class="h-px flex-1" style="background: linear-gradient(to right, #CBD5E1, transparent);"></div>
+          </div>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-6">
+            <!-- 메타 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#0078F0; font-weight:800; font-size:12px;">Meta<br><span style="font-size:8px; font-weight:400;">Business Partner</span></span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">메타</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">META</p>
+            </div>
+            <!-- 구글 애즈 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <svg width="26" height="26" viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#FFC107"/><path d="M5.3 14.7l7.4 5.4C14.5 16.2 18.9 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 15.4 2 8.1 7.3 5.3 14.7z" fill="#FF3D00"/><path d="M24 46c5.4 0 10.3-1.8 14.1-5l-6.5-5.5C29.5 37.1 26.9 38 24 38c-6 0-11.1-4-12.8-9.5l-7.3 5.6C7 41.1 14.7 46 24 46z" fill="#4CAF50"/><path d="M46 24c0-1.3-.2-2.7-.5-4H24v8.5h11.8c-1 2.7-2.8 5-5.2 6.5l6.5 5.5C41.5 36.6 46 31 46 24z" fill="#1976D2"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">구글 애즈</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">GOOGLE ADS</p>
+            </div>
+            <!-- 카카오 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-2">
+                <span class="font-bold text-yellow-400" style="font-size:13px;">kakao</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">KAKAO</p>
+            </div>
+            <!-- 카카오 모먼트 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-2">
+                <span class="font-bold text-white" style="font-size:13px;">kakao</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오 모먼트</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">KAKAO MOMENT</p>
+            </div>
+            <!-- 네이버 (GFA) -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#03C75A; font-weight:800; font-size:14px;">NAVER</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 (GFA)</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">NAVER (GFA)</p>
+            </div>
+            <!-- 당근마켓 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#FF6F0F; font-weight:800; font-size:10px;">당근마켓</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">당근마켓</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">DAANGN MARKET</p>
+            </div>
+            <!-- 트위터 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#1DA1F2; font-weight:700; font-size:11px; font-style:italic;">twitter</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">트위터</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">TWITTER</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Image 2 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/1-3_메타(단일)_신규가입.png" alt="메타 신규가입 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        <!-- SA -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <h3 class="text-xl font-extrabold" style="color: #0078F0;">SA</h3>
+            <div class="h-px flex-1" style="background: linear-gradient(to right, #CBD5E1, transparent);"></div>
+          </div>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-6">
+            <!-- 네이버 SA -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#03C75A; font-weight:800; font-size:14px;">NAVER</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 SA</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">NAVER SA</p>
+            </div>
+            <!-- 카카오 SA -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-2">
+                <span class="font-bold text-yellow-400" style="font-size:13px;">kakao</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오 SA</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">KAKAO SA</p>
+            </div>
+            <!-- 구글 SA -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <svg width="26" height="26" viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#FFC107"/><path d="M5.3 14.7l7.4 5.4C14.5 16.2 18.9 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 15.4 2 8.1 7.3 5.3 14.7z" fill="#FF3D00"/><path d="M24 46c5.4 0 10.3-1.8 14.1-5l-6.5-5.5C29.5 37.1 26.9 38 24 38c-6 0-11.1-4-12.8-9.5l-7.3 5.6C7 41.1 14.7 46 24 46z" fill="#4CAF50"/><path d="M46 24c0-1.3-.2-2.7-.5-4H24v8.5h11.8c-1 2.7-2.8 5-5.2 6.5l6.5 5.5C41.5 36.6 46 31 46 24z" fill="#1976D2"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">구글 SA</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">GOOGLE SA</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Image 3 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/24간절기파자마_키즈_망곰.png" alt="파자마 키즈 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 4 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/META_파자마_주말특가.png" alt="파자마 주말특가 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 5 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/image 5359.png" alt="광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 6 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/image 5360.png" alt="광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 7 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/단일 2 (할인O).png" alt="할인 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 8 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/데님_스토리 4.png" alt="데님 스토리 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 9 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/메타1-7_MR530CK_단일.png" alt="뉴발란스 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 10 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/메타3_influencer_캐리오버.png" alt="인플루언서 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 11 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/메타5_파스텔푸퍼_단일.png" alt="파스텔푸퍼 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 12 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/메타6_다이노탱_단일.png" alt="다이노탱 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 13 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/메타_미쏘데이X김지영_단일 4.png" alt="미쏘데이 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 14 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/스아페_단일_파스텔푸퍼 2.png" alt="스파오 파스텔푸퍼 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 15 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/에센셜커플.png" alt="에센셜커플 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 16 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/파자마페스타_성인_먼작귀.png" alt="파자마페스타 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 17 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/퍼플리스_할인O.png" alt="퍼플리스 할인 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
-        </div>
-
-        <!-- Image 18 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 mb-4 md:mb-6 break-inside-avoid">
-          <img src="images/자체 제작 소재/혜택소구 2.png" alt="혜택소구 광고 소재" class="w-full h-auto" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+        <!-- CONTENTS -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <h3 class="text-xl font-extrabold" style="color: #0078F0;">CONTENTS</h3>
+            <div class="h-px flex-1" style="background: linear-gradient(to right, #CBD5E1, transparent);"></div>
+          </div>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-6">
+            <!-- 인스타그램 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full shadow-sm flex items-center justify-center mb-2" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">인스타그램</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">INSTAGRAM</p>
+            </div>
+            <!-- 틱톡 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <svg width="22" height="22" viewBox="0 0 48 48" fill="none"><path d="M34.1 0h-8.6v32.7c0 3.8-3 6.9-6.8 7-3.8 0-6.9-3.1-6.9-6.9s3.1-6.9 6.9-6.9c.7 0 1.4.1 2 .3v-8.8c-.7-.1-1.3-.1-2-.1C10.3 17.3 3.3 24.3 3.3 32.8S10.3 48.2 18.7 48.2c8.5 0 15.4-6.9 15.4-15.4V15.6c3.3 2.4 7.3 3.8 11.6 3.8V10.8c-6.4 0-11.6-4.8-11.6-10.8z" fill="#000"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">틱톡</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">TICTOK</p>
+            </div>
+            <!-- 유튜브 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <svg width="24" height="17" viewBox="0 0 48 34" fill="none"><path d="M47 5.4C46.5 3.5 45 2 43.1 1.5 39.3.4 24 .4 24 .4S8.7.4 4.9 1.5C3 2 1.5 3.5 1 5.4 0 9.2 0 17 0 17s0 7.8 1 11.6c.5 1.9 2 3.4 3.9 3.9C8.7 33.6 24 33.6 24 33.6s15.3 0 19.1-1.1c1.9-.5 3.4-2 3.9-3.9C48 24.8 48 17 48 17s0-7.8-1-11.6z" fill="#FF0000"/><path d="M19.2 24.3L31.7 17l-12.5-7.3v14.6z" fill="#FFF"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">유튜브</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">YOUTUBE</p>
+            </div>
+            <!-- 네이버 블로그 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full shadow-sm flex items-center justify-center mb-2" style="background: #03C75A;">
+                <span style="color:white; font-weight:800; font-size:13px;">blog</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 블로그</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">NAVER BLOG</p>
+            </div>
+            <!-- 네이버 카페 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full shadow-sm flex items-center justify-center mb-2" style="background: #03C75A;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm4 4h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 카페</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">NAVER CAFE</p>
+            </div>
+            <!-- X -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#000; font-weight:900; font-size:20px;">X</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">X</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">X</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -603,7 +903,11 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
     // ========================================
     // 🎨 이미지 교체 영역
     // ========================================
@@ -650,19 +954,405 @@
     createDesignCarousel('design-carousel-1');
     createDesignCarousel('design-carousel-2');
 
-    // Hero Section 마우스 효과
-    const heroSection = document.getElementById('hero-section');
-    const blueCircle = document.getElementById('blue-circle');
+    // Blue circle follows cursor within hero (mouse + touch)
+    (function(){
+      const blueCircle = document.getElementById('blue-circle');
+      const heroSectionEl = document.getElementById('hero-section');
+      if (!blueCircle || !heroSectionEl) return;
 
-    heroSection.addEventListener('mousemove', (e) => {
-      const rect = heroSection.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      blueCircle.style.left = (x - 128) + 'px';
-      blueCircle.style.top = (y - 128) + 'px';
-    });
+      const circleSize = 256; // w-64 = 16rem = 256px
+      let currentX = 0;
+      let currentY = 0;
+      let targetX = 0;
+      let targetY = 0;
+      const speed = 0.15; // 부드러운 움직임을 위한 속도 (0~1 사이, 낮을수록 부드러움)
+
+      function centerBlue(){
+        const r = heroSectionEl.getBoundingClientRect();
+        currentX = targetX = r.width / 2;
+        currentY = targetY = r.height / 2;
+        blueCircle.style.transform = `translate(${currentX - circleSize/2}px, ${currentY - circleSize/2}px)`;
+      }
+
+      centerBlue();
+      window.addEventListener('resize', centerBlue);
+
+      function clamp(v,min,max){return Math.max(min, Math.min(max, v));}
+
+      function animate() {
+        // 부드러운 보간 (easing)
+        const dx = targetX - currentX;
+        const dy = targetY - currentY;
+
+        currentX += dx * speed;
+        currentY += dy * speed;
+
+        blueCircle.style.transform = `translate(${currentX - circleSize/2}px, ${currentY - circleSize/2}px)`;
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      heroSectionEl.addEventListener('mousemove', (e) => {
+        const r = heroSectionEl.getBoundingClientRect();
+        targetX = clamp(e.clientX - r.left, 0, r.width);
+        targetY = clamp(e.clientY - r.top, 0, r.height);
+      });
+
+      heroSectionEl.addEventListener('touchmove', (e) => {
+        const t = e.touches && e.touches[0];
+        if (!t) return;
+        const r = heroSectionEl.getBoundingClientRect();
+        targetX = clamp(t.clientX - r.left, 0, r.width);
+        targetY = clamp(t.clientY - r.top, 0, r.height);
+      }, { passive: true });
+    })();
+
+    // Scroll reveal for sections below hero — gentle, replayable animations (no snap fallback)
+    (function(){
+      // If GSAP+ScrollTrigger is present, prefer GSAP-driven animations instead of this fallback observer
+      if (window.gsap && window.ScrollTrigger) return;
+      const sections = Array.from(document.querySelectorAll('section.panel')).filter(s => s.id !== 'hero-section');
+
+      sections.forEach(s => {
+        s.classList.add('reveal-section');
+        // Prefer revealing direct children of .container for nicer effect
+        const items = s.querySelectorAll('.container > *');
+        if (items && items.length) {
+          items.forEach(it => it.classList.add('reveal-item'));
+        } else {
+          // fallback: reveal top-level children
+          Array.from(s.children).forEach(it => it.classList.add('reveal-item'));
+        }
+      });
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const sec = entry.target;
+          const items = sec.querySelectorAll('.reveal-item');
+
+          // Enter when roughly half visible
+          if (entry.intersectionRatio >= 0.5) {
+            sec.classList.add('visible','in-view');
+            items.forEach((it, idx) => {
+              it.style.transitionDelay = (idx * 90) + 'ms';
+              it.classList.remove('visible');
+              requestAnimationFrame(() => requestAnimationFrame(() => it.classList.add('visible')));
+            });
+          }
+
+          // Leave threshold so animations can replay
+          if (entry.intersectionRatio <= 0.25) {
+            sec.classList.remove('visible','in-view');
+            items.forEach(it => {
+              it.classList.remove('visible');
+              it.style.transitionDelay = '';
+            });
+          }
+        });
+      }, { threshold: [0, 0.25, 0.5], rootMargin: '0px 0px -10% 0px' });
+
+      sections.forEach(s => obs.observe(s));
+    })();
 
     // 스크롤 헤더
+
+    // === GSAP: enhanced scroll-driven animations ===
+    (function(){
+      if (!window.gsap || !window.ScrollTrigger) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero: mouse parallax + subtle scroll parallax
+      // DISABLED: Using native transform-based mouse follow instead
+      /*
+      const hero = document.getElementById('hero-section');
+      const blueCircle = document.getElementById('blue-circle');
+      if (hero && blueCircle) {
+        // Ensure blue circle starts centered inside hero
+        function centerBlueGSAP(){
+          const r = hero.getBoundingClientRect();
+          blueCircle.style.left = ((r.width/2) - (blueCircle.offsetWidth/2)) + 'px';
+          blueCircle.style.top = ((r.height/2) - (blueCircle.offsetHeight/2)) + 'px';
+        }
+        centerBlueGSAP();
+        window.addEventListener('resize', centerBlueGSAP);
+
+        // Pointer handlers removed (rolling back to native handler that sets left/top) to restore expected behavior
+
+
+        // subtle vertical parallax on scroll
+        gsap.to(blueCircle, {
+          yPercent: -8,
+          ease: 'none',
+          scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
+        });
+      }
+      */
+
+      // === Option C: Minimal & Refined Scroll Animations (Faster) ===
+      // Subtle, elegant animations with minimal movement
+
+      // Default reveal-item animation - pure fade with tiny lift
+      ScrollTrigger.batch('.reveal-item', {
+        interval: 0.1,
+        batchMax: 8,
+        onEnter: batch => gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          stagger: { each: 0.08 },
+          duration: 0.9,
+          ease: 'power1.out'
+        }),
+        onLeaveBack: batch => gsap.to(batch, {
+          opacity: 0,
+          y: 8,
+          stagger: 0.05,
+          duration: 0.6,
+          ease: 'power1.in'
+        }),
+        start: 'top 75%',
+        end: 'bottom 25%'
+      });
+
+      // Set initial state for all reveal items - very subtle offset
+      gsap.set('.reveal-item', { opacity: 0, y: 8 });
+
+      // Design Showcase - gentle fade only
+      const designCarousel = document.querySelector('.overflow-hidden.reveal-item');
+      if (designCarousel) {
+        gsap.set(designCarousel, { opacity: 0, y: 5 });
+        ScrollTrigger.create({
+          trigger: designCarousel,
+          start: 'top 75%',
+          onEnter: () => gsap.to(designCarousel, {
+            opacity: 1,
+            y: 0,
+            duration: 1.0,
+            ease: 'power1.out'
+          })
+        });
+      }
+
+      // Agency Introduction - subtle simultaneous appearance
+      const contentBox = document.querySelector('.grid.md\\:grid-cols-2 .reveal-item:nth-child(1)');
+      const marketingBox = document.querySelector('.grid.md\\:grid-cols-2 .reveal-item:nth-child(2)');
+      const plusIcon = document.querySelector('.grid.md\\:grid-cols-2 .reveal-item:nth-child(3)');
+
+      if (contentBox) {
+        gsap.set(contentBox, { opacity: 0, y: 6 });
+        ScrollTrigger.create({
+          trigger: contentBox,
+          start: 'top 70%',
+          onEnter: () => gsap.to(contentBox, {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: 'power1.out'
+          })
+        });
+      }
+
+      if (marketingBox) {
+        gsap.set(marketingBox, { opacity: 0, y: 6 });
+        ScrollTrigger.create({
+          trigger: marketingBox,
+          start: 'top 70%',
+          onEnter: () => gsap.to(marketingBox, {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            delay: 0.08,
+            ease: 'power1.out'
+          })
+        });
+      }
+
+      if (plusIcon) {
+        gsap.set(plusIcon, { opacity: 0 });
+        ScrollTrigger.create({
+          trigger: plusIcon,
+          start: 'top 70%',
+          onEnter: () => gsap.to(plusIcon, {
+            opacity: 1,
+            duration: 0.8,
+            delay: 0.3,
+            ease: 'power1.out'
+          })
+        });
+      }
+
+      // Commerce Understanding - pure fade
+      const commerceImg = document.querySelector('.relative.max-w-5xl.mx-auto.reveal-item img');
+      if (commerceImg) {
+        const parent = commerceImg.closest('.reveal-item');
+        gsap.set(parent, { opacity: 0, y: 5 });
+        ScrollTrigger.create({
+          trigger: parent,
+          start: 'top 70%',
+          onEnter: () => gsap.to(parent, {
+            opacity: 1,
+            y: 0,
+            duration: 1.0,
+            ease: 'power1.out'
+          })
+        });
+      }
+
+      // Gallery masonry items - gentle sequential fade
+      const galleryItems = document.querySelectorAll('#gallery-masonry > div');
+      if (galleryItems.length > 0) {
+        gsap.set(galleryItems, { opacity: 0, y: 5 });
+        ScrollTrigger.batch('#gallery-masonry > div', {
+          interval: 0.08,
+          batchMax: 6,
+          onEnter: batch => gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            stagger: { each: 0.07, from: 'start' },
+            duration: 0.9,
+            ease: 'power1.out'
+          }),
+          start: 'top 80%'
+        });
+      }
+
+      // DA Grid items - minimalist fade with slight lift
+      const daItems = document.querySelectorAll('#da-grid > div');
+      if (daItems.length > 0) {
+        gsap.set(daItems, { opacity: 0, y: 8 });
+        ScrollTrigger.batch('#da-grid > div', {
+          interval: 0.06,
+          batchMax: 7,
+          onEnter: batch => gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            stagger: { each: 0.07 },
+            duration: 0.8,
+            ease: 'power1.out'
+          }),
+          start: 'top 80%'
+        });
+      }
+
+      // SA Grid items - subtle sequential reveal
+      const saItems = document.querySelectorAll('#sa-grid > div');
+      if (saItems.length > 0) {
+        gsap.set(saItems, { opacity: 0, y: 8 });
+        ScrollTrigger.batch('#sa-grid > div', {
+          interval: 0.06,
+          batchMax: 7,
+          onEnter: batch => gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            stagger: { each: 0.07 },
+            duration: 0.8,
+            ease: 'power1.out'
+          }),
+          start: 'top 80%'
+        });
+      }
+
+      // Refresh and setup
+      try {
+        ScrollTrigger.refresh();
+      } catch (e) { console.warn('Error refreshing ScrollTrigger', e); }
+
+      // Panel-specific media parallax and reveal
+      gsap.utils.toArray('section.panel').forEach(panel => {
+        const media = panel.querySelector('.panel-media');
+        const content = panel.querySelector('.panel-content');
+
+        if (media) {
+          gsap.fromTo(media, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: panel, start: 'top 80%', toggleActions: 'play reverse play reverse' } });
+          // gentle parallax scrub
+          gsap.to(media, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: true } });
+        }
+
+        if (content) {
+          gsap.fromTo(content, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: panel, start: 'top 80%', toggleActions: 'play reverse play reverse' } });
+        }
+      });
+
+      // Hover micro-interactions
+      const hoverEls = document.querySelectorAll('.panel-media img, .brand-grid img, .brand-item');
+      hoverEls.forEach(el => {
+        el.addEventListener('mouseenter', () => gsap.to(el, { scale: 1.035, duration: 0.28, ease: 'power3.out' }));
+        el.addEventListener('mouseleave', () => gsap.to(el, { scale: 1, duration: 0.45, ease: 'power3.out' }));
+      });
+
+      // ===== Brand Partners: portfolio-style reveal & parallax =====
+      // Converted to a named init function so it can be called after the grid is populated
+      function initBrandAnimations(){
+        if (!window.gsap || !window.ScrollTrigger) { console.warn('GSAP or ScrollTrigger not available — skipping brand animations'); return; }
+        const brandSection = document.getElementById('brand-section');
+        if (!brandSection) { console.warn('brandSection missing — cannot init brand animations'); return; }
+
+        const items = gsap.utils.toArray('#brand-section .brand-item');
+        console.debug('initBrandAnimations run — items found:', items.length);
+        if (!items || !items.length) { console.warn('No brand items found'); return; }
+
+        // Soft Stagger approach (gentle fade + rise + scale)
+        gsap.set(items, { opacity: 0, y: 24, scale: 0.985 });
+        gsap.set('#brand-section .text-center', { opacity: 0, y: 18 });
+
+        // header reveal
+        gsap.fromTo('#brand-section .text-center', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: brandSection, start: 'top 85%' } });
+
+        // Batch reveal for items: soft fade + lift + scale
+        ScrollTrigger.batch('#brand-section .brand-item', {
+          interval: 0.08,
+          batchMax: 12,
+          onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, scale: 1, stagger: { each: 0.06 }, duration: 0.72, ease: 'power3.out' }),
+          onLeaveBack: batch => gsap.to(batch, { opacity: 0, y: 24, scale: 0.985, stagger: 0.03, duration: 0.45, ease: 'power1.in' }),
+          start: 'top 80%',
+          end: 'bottom 20%'
+        });
+
+        // Remove horizontal scrub and heavy per-item parallax to keep motion subtle and cohesive
+        console.debug('Applied Soft Stagger to Brand Partners (header + items)');
+
+      }
+
+      // expose functions globally for manual testing (no visual debug side-effects)
+      try {
+        window.initBrandAnimations = initBrandAnimations;
+        window.debugPulseBrandItems = function(){
+          // No visual changes (borders removed). Use console log for debug.
+          const its = document.querySelectorAll('#brand-section .brand-item');
+          console.debug('debugPulseBrandItems called - items:', its.length);
+        };
+        console.debug('exposed window.initBrandAnimations and debugPulseBrandItems (no visual changes)');
+
+        // debug helper to inspect blue-circle behavior in-page
+        window.debugBlueFollow = function(){
+          try {
+            console.debug('debugBlueFollow -> gsap available:', !!window.gsap, 'quickTo:', typeof (window.gsap && window.gsap.quickTo));
+            const blue = document.querySelector('#blue-circle');
+            const hero = document.querySelector('#hero-section');
+            console.debug('debugBlueFollow -> elems found:', !!blue, !!hero);
+            if (hero && blue) {
+              const r = hero.getBoundingClientRect();
+              console.debug('hero rect:', r);
+              // nudge circle to center with a visible animation
+              gsap.to(blue, { x: 0, y: 0, duration: 0.4, ease: 'power3.out' });
+            }
+          } catch(e){ console.warn('debugBlueFollow failed', e); }
+        };
+      } catch(e){ console.warn('failed to expose debug functions', e); }
+
+    })();
+
+    // Fallback: ensure brand animations run after full window load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        if (typeof window.initBrandAnimations === 'function') {
+          console.debug('window.load -> calling initBrandAnimations');
+          window.initBrandAnimations();
+        }
+      }, 120);
+    });
+
     let lastScrollY = 0;
     window.addEventListener('scroll', () => {
       const header = document.getElementById('header');
@@ -684,6 +1374,23 @@
       
       lastScrollY = currentScrollY;
     });
+
+    // 자체 제작 소재 매체별 탭 전환
+    (function(){
+      const tabs = document.querySelectorAll('.material-tab');
+      const contents = document.querySelectorAll('.material-content');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          contents.forEach(c => c.classList.remove('active'));
+
+          tab.classList.add('active');
+          const target = document.getElementById('material-' + tab.dataset.material);
+          if (target) target.classList.add('active');
+        });
+      });
+    })();
 
     // 모바일 메뉴
     const hamburger = document.getElementById('hamburger');
@@ -713,6 +1420,147 @@
         document.body.style.overflow = '';
       });
     });
+
+    // ========================================
+    // 브랜드 로고 스트립 생성 및 애니메이션
+    // ========================================
+    (function(){
+      const logos = [
+        'images/logo/이랜드.png',
+        'images/logo/스파오.png',
+        'images/logo/스파오키즈.png',
+        'images/logo/미쏘.png',
+        'images/logo/로엠.png',
+        'images/logo/클라비스.png',
+        'images/logo/뉴발란스.png',
+        'images/logo/에블린.png',
+        'images/logo/슈펜.png',
+        'images/logo/데상트.png',
+        'images/logo/살로몬.png',
+        'images/logo/킥더허들.png',
+        'images/logo/지쿤.png',
+        'images/logo/테라비코스.png',
+        'images/logo/코코도르.png',
+        'images/logo/민병철유폰.png'
+      ];
+
+      // 그리드 생성
+      const labelMap = {
+        '스파오':'스파오', '뉴발란스':'뉴발란스', '로엠':'로엠', '미쏘':'미쏘', '스파오키즈':'스파오키즈',
+        '이랜드':'이랜드', '클라비스':'클라비스', '에블린':'에블린', '슈펜':'슈펜', '데상트':'데상트',
+        '살로몬':'살로몬', '킥더허들':'킥더허들', '지쿤':'지쿤', '테라비코스':'테라비코스', '코코도르':'코코도르', '민병철유폰':'민병철유폰'
+      };
+
+      const linkMap = {
+        '스파오':'spao.html',
+        '뉴발란스':'newbalance.html',
+        '로엠':'roem.html',
+        '미쏘':'mixxo.html',
+        '스파오키즈':'spaokids.html'
+      };
+
+      function buildGrid(gridEl, items) {
+        items.forEach(src => {
+          const base = src.split('/').pop().replace(/\.[^/.]+$/, '');
+          const name = labelMap[base] || base;
+          const isPrimary = !!linkMap[base];
+
+          const item = document.createElement(isPrimary ? 'a' : 'div');
+          if (isPrimary) {
+            item.href = linkMap[base];
+            item.className = 'brand-item primary';
+          } else {
+            item.className = 'brand-item';
+          }
+
+          // 이미지
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = name;
+          img.onerror = function(){ this.style.display='none'; };
+          item.appendChild(img);
+
+          // tint layer
+          const tint = document.createElement('div');
+          tint.className = 'tint';
+          item.appendChild(tint);
+
+          // overlay text
+          const overlay = document.createElement('div');
+          overlay.className = 'overlay';
+
+          if (isPrimary) {
+            const box = document.createElement('div');
+            box.className = 'visit-text';
+
+            const bn = document.createElement('div');
+            bn.className = 'brand-name';
+            bn.textContent = name;
+
+            const vt = document.createElement('div');
+            vt.className = 'visit';
+            vt.textContent = '보러가기 >';
+
+            box.appendChild(bn);
+            box.appendChild(vt);
+            overlay.appendChild(box);
+          } else {
+            const lbl = document.createElement('div');
+            lbl.className = 'label';
+            lbl.textContent = name;
+            overlay.appendChild(lbl);
+          }
+
+          item.appendChild(overlay);
+          gridEl.appendChild(item);
+        });
+      }
+
+      const gridEl = document.querySelector('#brand-section .brand-grid');
+      if (gridEl) buildGrid(gridEl, logos);
+      // quick debug log to confirm grid build
+      console.debug('buildGrid completed - brand items:', document.querySelectorAll('#brand-section .brand-item').length);
+
+      // Initialize brand animations after grid is populated (try local then global)
+      const initFn = (typeof initBrandAnimations === 'function') ? initBrandAnimations : (window.initBrandAnimations && typeof window.initBrandAnimations === 'function' ? window.initBrandAnimations : null);
+      if (initFn) {
+        setTimeout(() => {
+          console.debug('brand grid built — calling initBrandAnimations, items:', document.querySelectorAll('#brand-section .brand-item').length);
+          initFn();
+        }, 80);
+      } else {
+        console.debug('initBrandAnimations not available yet — you can call window.initBrandAnimations() when available');
+      }
+
+      const tracks = document.querySelectorAll('#brand-section .brand-track');
+      if (tracks.length) {
+        if (typeof buildTrack === 'function' && typeof rows !== 'undefined' && rows.length) {
+          tracks.forEach((track, idx) => {
+            buildTrack(track, rows[idx]);
+
+            // 각 행별 애니메이션 속도 조정 (자연스러운 차등)
+            const base = 20; // seconds
+            const duration = base + idx * 6;
+            if (track.dataset.direction === 'right' || track.classList.contains('reverse')) {
+              track.style.animation = `scroll-right ${duration}s linear infinite`;
+            } else {
+              track.style.animation = `scroll-left ${duration}s linear infinite`;
+            }
+          });
+        } else {
+          // fallback: just apply durations if track builder isn't present
+          tracks.forEach((track, idx) => {
+            const base = 20; // seconds
+            const duration = base + idx * 6;
+            if (track.dataset.direction === 'right' || track.classList.contains('reverse')) {
+              track.style.animation = `scroll-right ${duration}s linear infinite`;
+            } else {
+              track.style.animation = `scroll-left ${duration}s linear infinite`;
+            }
+          });
+        }
+      }
+    })();
   </script>
 
 </body>
