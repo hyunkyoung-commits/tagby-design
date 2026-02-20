@@ -42,7 +42,7 @@
     /* 팀 카드 */
     .team-card {
       background: white;
-      border-radius: 24px;
+      border-radius: 16px;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       height: 100%;
@@ -52,13 +52,13 @@
     }
 
     .team-card:hover {
-      transform: translateY(-12px) rotate(-1deg);
-      box-shadow: 0 20px 40px rgba(0, 120, 240, 0.2);
+      transform: translateY(-8px) rotate(-1deg);
+      box-shadow: 0 16px 32px rgba(0, 120, 240, 0.2);
     }
 
     .team-image {
       width: 100%;
-      height: 320px;
+      height: 220px;
       position: relative;
       overflow: hidden;
       background-color: #F3F4F6;
@@ -81,13 +81,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 72px;
+      font-size: 30px;
       font-weight: 800;
       color: #9CA3AF;
     }
 
     .team-content {
-      padding: 32px 28px;
+      padding: 20px 20px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -95,11 +95,11 @@
 
     .team-badge {
       display: inline-block;
-      padding: 6px 16px;
+      padding: 2px 8px;
       border-radius: 20px;
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 600;
-      margin: 4px;
+      margin: 2px;
       background-color: #F3F4F6;
       color: #0078F0;
       transition: all 0.3s ease;
@@ -259,7 +259,7 @@
             <a href="team-design.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
           </div>
         </div>
-        <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
+        <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">케이스 스터디</a>
       </div>
 
       <div class="hamburger lg:hidden" id="hamburger">
@@ -308,7 +308,7 @@
             <a href="team-design.html" class="text-base font-medium text-[#0078F0] py-1">디자인팀</a>
           </div>
         </div>
-        <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
+        <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">케이스 스터디</a>
       </nav>
     </div>
   </div>
@@ -347,9 +347,9 @@
 
   <!-- Team Section -->
   <section class="py-20 px-6" style="background-color: #F9F9FB;">
-    <div class="container mx-auto max-w-7xl">
+    <div class="container mx-auto max-w-5xl">
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
         <!-- 팀원 1: 박신영 -->
         <div class="team-card">
@@ -359,13 +359,13 @@
           </div>
 
           <div class="team-content">
-            <div class="text-center mb-6">
-              <h3 class="text-2xl font-bold text-black mb-2">박신영🦖</h3>
-              <p class="text-base font-medium text-gray-500">디테일의 신</p>
+            <div class="text-center mb-2">
+              <h3 class="text-base font-bold text-black mb-1">박신영🦖</h3>
+              <p class="text-xs font-medium text-gray-500">디테일의 신</p>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">담당 브랜드</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">담당 브랜드</p>
               <div class="flex flex-wrap justify-center">
                 <span class="team-badge">스파오</span>
                 <span class="team-badge">스파오(무신사)</span>
@@ -373,13 +373,13 @@
               </div>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">성격유형</p>
-              <p class="text-base font-bold text-center" style="color: #0078F0;">곧 공개! 🤫</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">성격유형</p>
+              <p class="text-xs font-bold text-center" style="color: #0078F0;">곧 공개! 🤫</p>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">디자인 무기</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">디자인 무기</p>
               <div class="flex flex-wrap justify-center gap-2">
                 <span class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700">Ps</span>
                 <span class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700">Ai</span>
@@ -387,8 +387,8 @@
               </div>
             </div>
 
-            <div class="mt-auto pt-4 border-t border-gray-100">
-              <p class="text-sm text-center text-gray-600 leading-relaxed">
+            <div class="mt-auto pt-2 border-t border-gray-100">
+              <p class="text-xs text-center text-gray-600 leading-relaxed">
                 ✨ 완벽주의 디테일 집착 장인<br>
                 <span class="text-xs text-gray-400 mt-1 block">"1px도 그냥 지나치지 않습니다"</span>
               </p>
@@ -404,13 +404,13 @@
           </div>
 
           <div class="team-content">
-            <div class="text-center mb-6">
-              <h3 class="text-2xl font-bold text-black mb-2">오현경🐰</h3>
-              <p class="text-base font-medium text-gray-500">친화력 맥스</p>
+            <div class="text-center mb-2">
+              <h3 class="text-base font-bold text-black mb-1">오현경🐰</h3>
+              <p class="text-xs font-medium text-gray-500">친화력 맥스</p>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">담당 브랜드</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">담당 브랜드</p>
               <div class="flex flex-wrap justify-center">
                 <span class="team-badge">스파오키즈</span>
                 <span class="team-badge">이마트</span>
@@ -418,13 +418,13 @@
               </div>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">성격유형</p>
-              <p class="text-base font-bold text-center" style="color: #0078F0;">INFJ</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">성격유형</p>
+              <p class="text-xs font-bold text-center" style="color: #0078F0;">INFJ</p>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">디자인 무기</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">디자인 무기</p>
               <div class="flex flex-wrap justify-center gap-2">
                 <span class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700">Ps</span>
                 <span class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700">Ai</span>
@@ -432,8 +432,8 @@
               </div>
             </div>
 
-            <div class="mt-auto pt-4 border-t border-gray-100">
-              <p class="text-sm text-center text-gray-600 leading-relaxed">
+            <div class="mt-auto pt-2 border-t border-gray-100">
+              <p class="text-xs text-center text-gray-600 leading-relaxed">
                 🤝 협업을 좋아하는 친화력 만랩 골댕이<br>
                 <span class="text-xs text-gray-400 mt-1 block">"소통이 디자인의 시작!"</span>
               </p>
@@ -449,13 +449,13 @@
           </div>
 
           <div class="team-content">
-            <div class="text-center mb-6">
-              <h3 class="text-2xl font-bold text-black mb-2">김정현💫</h3>
-              <p class="text-base font-medium text-gray-500">멀티플레이어</p>
+            <div class="text-center mb-2">
+              <h3 class="text-base font-bold text-black mb-1">김정현💫</h3>
+              <p class="text-xs font-medium text-gray-500">멀티플레이어</p>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">담당 브랜드</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">담당 브랜드</p>
               <div class="flex flex-wrap justify-center">
                 <span class="team-badge">미쏘</span>
                 <span class="team-badge">민병철유폰</span>
@@ -463,13 +463,13 @@
               </div>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">성격유형</p>
-              <p class="text-base font-bold text-center" style="color: #0078F0;">곧 공개! 🤫</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">성격유형</p>
+              <p class="text-xs font-bold text-center" style="color: #0078F0;">곧 공개! 🤫</p>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">디자인 무기</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">디자인 무기</p>
               <div class="flex flex-wrap justify-center gap-2">
                 <span class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700">Ps</span>
                 <span class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700">Ai</span>
@@ -477,8 +477,8 @@
               </div>
             </div>
 
-            <div class="mt-auto pt-4 border-t border-gray-100">
-              <p class="text-sm text-center text-gray-600 leading-relaxed">
+            <div class="mt-auto pt-2 border-t border-gray-100">
+              <p class="text-xs text-center text-gray-600 leading-relaxed">
                 🚀 기획부터 디자인까지, 다재다능 멀티러<br>
                 <span class="text-xs text-gray-400 mt-1 block">"못하는게 없어요 (사실)"</span>
               </p>
@@ -494,13 +494,13 @@
           </div>
 
           <div class="team-content">
-            <div class="text-center mb-6">
-              <h3 class="text-2xl font-bold text-black mb-2">송기준🦦</h3>
-              <p class="text-base font-medium text-gray-500">아이디어 뱅크</p>
+            <div class="text-center mb-2">
+              <h3 class="text-base font-bold text-black mb-1">송기준🦦</h3>
+              <p class="text-xs font-medium text-gray-500">아이디어 뱅크</p>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">담당 브랜드</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">담당 브랜드</p>
               <div class="flex flex-wrap justify-center">
                 <span class="team-badge">로엠</span>
                 <span class="team-badge">코코도르</span>
@@ -508,13 +508,13 @@
               </div>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">성격유형</p>
-              <p class="text-base font-bold text-center" style="color: #0078F0;">곧 공개! 🤫</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">성격유형</p>
+              <p class="text-xs font-bold text-center" style="color: #0078F0;">곧 공개! 🤫</p>
             </div>
 
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-400 mb-2">디자인 무기</p>
+            <div class="mb-2">
+              <p class="text-xs font-semibold text-gray-400 mb-1">디자인 무기</p>
               <div class="flex flex-wrap justify-center gap-2">
                 <span class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700">Ps</span>
                 <span class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700">Ai</span>
@@ -522,8 +522,8 @@
               </div>
             </div>
 
-            <div class="mt-auto pt-4 border-t border-gray-100">
-              <p class="text-sm text-center text-gray-600 leading-relaxed">
+            <div class="mt-auto pt-2 border-t border-gray-100">
+              <p class="text-xs text-center text-gray-600 leading-relaxed">
                 💡 번뜩이는 아이디어와 추진력의 치타<br>
                 <span class="text-xs text-gray-400 mt-1 block">"일단 해봅시다!"</span>
               </p>
