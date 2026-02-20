@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>포트폴리오 - TAGby</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background-color: #F8F8F8;
+    }
+
+    .dropdown-menu {
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown-menu:hover {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 20px;
+    }
+
+    /* 모바일 메뉴 */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+
+    .mobile-overlay.active {
+      display: block;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background-color: #000;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    @media (max-width: 1023px) {
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* 브랜드 카드 */
+    .brand-card {
+      display: block;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 2px 10px rgba(13, 20, 35, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+    }
+
+    .brand-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 48px rgba(13, 20, 35, 0.14);
+    }
+
+    .brand-card .card-image {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .brand-card .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .brand-card:hover .card-image img {
+      transform: scale(1.06);
+    }
+
+    .brand-card .card-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: #fff;
+      border-top: 1px solid #F0F2F5;
+    }
+
+    .brand-card .card-info .logo-wrap {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-card .card-info .logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .brand-card .card-info .brand-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #111;
+      flex: 1;
+    }
+
+    .brand-card .card-info .arrow {
+      color: #0078F0;
+      font-size: 1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .brand-card:hover .card-info .arrow {
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(248, 248, 248, 0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="index.html" class="cursor-pointer hover:opacity-80 transition">
+        <img src="images/TAGby blue.png" alt="TAGby" class="h-8">
+      </a>
+
+      <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
+        <div class="relative dropdown flex items-center">
+          <a href="index.html#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
+            <a href="performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
+            <a href="influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a>
+          </div>
+        </div>
+
+        <div class="relative dropdown flex items-center">
+          <a href="portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
+            <a href="mixxo.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">미쏘</a>
+            <a href="newbalance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">뉴발란스</a>
+            <a href="spaokids.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오키즈</a>
+            <a href="roem.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">로엠</a>
+          </div>
+        </div>
+
+        <div class="relative dropdown flex items-center">
+          <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="team-performance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="team-digital.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="team-design.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+          </div>
+        </div>
+        <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
+      </div>
+
+      <!-- 햄버거 메뉴 버튼 -->
+      <div class="hamburger lg:hidden" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 모바일 오버레이 -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- 모바일 메뉴 -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-8">
+      <a href="index.html" class="cursor-pointer hover:opacity-80 transition mb-8 inline-block">
+        <img src="images/TAGby blue.png" alt="TAGby" class="h-8">
+      </a>
+
+      <nav class="flex flex-col gap-4">
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-900 mb-3">디지털 마케팅</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="performance-marketing.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스 마케팅</a>
+            <a href="influencer-marketing.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">인플루언서 마케팅</a>
+          </div>
+        </div>
+
+        <div class="py-2">
+          <a href="portfolio.html" class="text-lg font-medium text-[#0078F0] mb-3 block">포트폴리오</a>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="spao.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오</a>
+            <a href="mixxo.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">미쏘</a>
+            <a href="newbalance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">뉴발란스</a>
+            <a href="spaokids.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오키즈</a>
+            <a href="roem.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">로엠</a>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-lg font-medium text-gray-900 py-2">팀소개</p>
+          <div class="pl-4 flex flex-col gap-1">
+            <a href="team-performance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="team-digital.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="team-design.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
+          </div>
+        </div>
+        <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="pt-40 pb-16 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl text-center">
+      <p class="text-xs font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">PORTFOLIO | TAGby</p>
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.2;">
+        포트폴리오
+      </h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        태그바이와 함께한 브랜드들의 디지털 마케팅 성과를 확인해보세요.
+      </p>
+    </div>
+  </section>
+
+  <!-- Brand Grid -->
+  <section class="py-20 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+
+        <a href="spao.html" class="brand-card">
+          <div class="card-image">
+            <img src="images/spao/1.png" alt="SPAO 대표 이미지">
+          </div>
+          <div class="card-info">
+            <div class="logo-wrap">
+              <img src="images/logo/스파오.png" alt="스파오 로고">
+            </div>
+            <span class="brand-name">SPAO</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <a href="mixxo.html" class="brand-card">
+          <div class="card-image">
+            <img src="images/mixxo/7. 메타2_카우걸_단일(25.09).jpg" alt="MIXXO 대표 이미지">
+          </div>
+          <div class="card-info">
+            <div class="logo-wrap">
+              <img src="images/logo/미쏘.png" alt="미쏘 로고">
+            </div>
+            <span class="brand-name">MIXXO</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <a href="newbalance.html" class="brand-card">
+          <div class="card-image">
+            <img src="images/newbalance/(24.11)메타2-17_WOMEN 액티브 숏 구스다운_단일.jpg" alt="New Balance 대표 이미지">
+          </div>
+          <div class="card-info">
+            <div class="logo-wrap">
+              <img src="images/logo/뉴발란스.png" alt="뉴발란스 로고">
+            </div>
+            <span class="brand-name">New Balance</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <a href="spaokids.html" class="brand-card">
+          <div class="card-image">
+            <img src="images/spaokids/(26.02)1 메타_산리오 파자마_단일.jpg" alt="SPAO Kids 대표 이미지">
+          </div>
+          <div class="card-info">
+            <div class="logo-wrap">
+              <img src="images/logo/스파오키즈.png" alt="스파오키즈 로고">
+            </div>
+            <span class="brand-name">SPAO Kids</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <a href="roem.html" class="brand-card">
+          <div class="card-image">
+            <img src="images/roem/(25.11)7-1 메타_브랜드위크.jpg" alt="ROEM 대표 이미지">
+          </div>
+          <div class="card-info">
+            <div class="logo-wrap">
+              <img src="images/logo/로엠.png" alt="로엠 로고">
+            </div>
+            <span class="brand-name">ROEM</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 스크롤 탑 버튼 -->
+  <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    style="display:none; position:fixed; bottom:2rem; right:2rem; z-index:40; background:#0078F0; color:white; border:none; border-radius:50%; width:48px; height:48px; font-size:1.2rem; cursor:pointer; box-shadow:0 4px 16px rgba(0,120,240,0.3); transition:opacity .3s;">
+    ↑
+  </button>
+
+  <script>
+    // 햄버거 메뉴
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+    });
+
+    mobileOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+    });
+
+    // 스크롤 탑 버튼
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+      scrollTopBtn.style.alignItems = 'center';
+      scrollTopBtn.style.justifyContent = 'center';
+    });
+  </script>
+</body>
+</html>

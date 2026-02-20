@@ -102,28 +102,39 @@
       }
     }
 
-    /* Reveal animations */
-    .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .9s ease-out, transform .9s ease-out; }
-    .reveal-item.visible { opacity: 1; transform: translateY(0); }
+    /* Reveal animations - 기본적으로 보이게 (GSAP 로드 실패 대비) */
+    .reveal-item {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .9s ease-out, transform .9s ease-out;
+    }
+    .reveal-item.gsap-enabled {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .reveal-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* 브랜드(고객사) 그리드 스타일 */
     #brand-section { background-color: #F9F9FB; }
-    #brand-section .brand-grid { display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 1rem; align-items:center; }
+    #brand-section .brand-grid { display:grid; grid-template-columns: repeat(8, minmax(0,1fr)); gap: 1rem; align-items:center; }
     @media (max-width: 1023px) {
-      #brand-section .brand-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      #brand-section .brand-grid { grid-template-columns: repeat(6, minmax(0,1fr)); }
     }
     @media (max-width: 640px) {
-      #brand-section .brand-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      #brand-section .brand-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
 
     #brand-section .brand-item {
       display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid #E6E9EC; padding:0.5rem; border-radius:12px;
-      min-height:60px; box-shadow: 0 2px 10px rgba(13,20,35,0.04); transition: transform .18s ease, box-shadow .18s ease, background .18s ease; position: relative; overflow: hidden; cursor: pointer; text-decoration:none; color:inherit;
+      aspect-ratio: 1; box-shadow: 0 2px 10px rgba(13,20,35,0.04); transition: transform .18s ease, box-shadow .18s ease, background .18s ease; position: relative; overflow: hidden; cursor: pointer; text-decoration:none; color:inherit;
     }
     #brand-section .brand-item:focus { outline: 2px solid rgba(0,120,240,0.15); outline-offset:2px; }
     #brand-section .brand-item:hover { transform: translateY(-4px); box-shadow:0 8px 30px rgba(13,20,35,0.08); }
 
-    #brand-section .brand-item img { max-height: 160px; width: auto; filter: none; opacity: 0.95; object-fit: contain; transition: transform .18s ease, filter .18s ease; display:block; max-width:100%; height:auto; }
+    #brand-section .brand-item img { width: 100%; height: 100%; object-fit: contain; padding: 8px; filter: none; opacity: 0.95; transition: transform .18s ease, filter .18s ease; }
     #brand-section .brand-item.primary:hover img { filter: brightness(0) invert(1); }
     #brand-section .brand-item:not(.primary):hover img { filter: brightness(0) invert(1); }
 
@@ -139,12 +150,10 @@
     #brand-section .overlay .label { background: transparent; color: #fff; padding: 0; border-radius:0; font-weight:600; font-size:.85rem; white-space:nowrap; }
 
     @media (max-width: 1023px) {
-      #brand-section .brand-item { width: auto; padding:0.45rem; min-height:55px; }
-      #brand-section .brand-item img { max-height: 140px; }
+      #brand-section .brand-item { width: auto; padding:0.45rem; }
     }
     @media (max-width: 640px) {
-      #brand-section .brand-item { width: auto; padding:0.3rem; min-height:45px; }
-      #brand-section .brand-item img { max-height: 120px; }
+      #brand-section .brand-item { width: auto; padding:0.3rem; }
     }
 
     /* 매체사 orbit 시각화 */
@@ -350,6 +359,28 @@
     .marquee-track:hover {
       animation-play-state: paused;
     }
+
+    /* 플로팅 버튼 */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 56px;
+      height: 56px;
+      background-color: #0078F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 120, 240, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 40;
+    }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+    .scroll-to-top:hover { background-color: #0056B3; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4); }
   </style>
 </head>
 <body>
@@ -363,7 +394,7 @@
 
       <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
         <div class="relative dropdown flex items-center">
-          <a href="#" class="text-xs md:text-sm lg:text-base font-medium text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+          <a href="index.html#digital" class="text-xs md:text-sm lg:text-base font-medium text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
 
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
             <a href="performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
@@ -372,7 +403,7 @@
         </div>
 
         <div class="relative dropdown flex items-center">
-          <a href="#" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          <a href="portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
 
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
             <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
@@ -386,9 +417,9 @@
         <div class="relative dropdown flex items-center">
           <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+            <a href="team-performance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="team-digital.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="team-design.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
@@ -436,9 +467,9 @@
         <div>
           <p class="text-lg font-medium text-gray-900 py-2">팀소개</p>
           <div class="pl-4 flex flex-col gap-1">
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
+            <a href="team-performance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="team-digital.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="team-design.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
@@ -982,6 +1013,47 @@
     </div>
   </section>
 
+  <!-- Section 7: 고퀄리티 소재 디자인 -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">
+          CREATIVE DESIGN | TAGby
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          <span style="color: #0078F0;">고퀄리티</span> 소재<br>디자인까지
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          소재 디자인부터 집행까지 한번에
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 reveal-item">
+        <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+          <img src="images/자체 제작 소재/image 5359.png" alt="디자인 소재 1" class="w-full h-auto">
+        </div>
+        <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+          <img src="images/자체 제작 소재/메타11_미쏘X서지수_제품강조_단일.jpg" alt="디자인 소재 2" class="w-full h-auto">
+        </div>
+        <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+          <img src="images/자체 제작 소재/푸퍼_블랙_피드 1-2.png" alt="디자인 소재 3" class="w-full h-auto">
+        </div>
+        <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+          <img src="images/자체 제작 소재/9-1 메타_멤버스위크.jpg" alt="디자인 소재 4" class="w-full h-auto">
+        </div>
+        <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+          <img src="images/자체 제작 소재/수면파자마_해리포터_피드.jpg" alt="디자인 소재 5" class="w-full h-auto">
+        </div>
+        <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+          <img src="images/자체 제작 소재/메타3_6p 기획전_단일.png" alt="디자인 소재 6" class="w-full h-auto">
+        </div>
+      </div>
+
+      <div class="text-center mt-10 reveal-item">
+        <a href="#" class="text-sm text-gray-400 hover:text-blue-500 transition">더 보러가기 →</a>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="py-16 px-6 bg-white border-t" style="border-color: #E0E3E7;">
@@ -1014,6 +1086,13 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-to-top" id="scrollToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </div>
   <script>
     // 고객사 로고 그리드 생성 (index.html 브랜드 섹션과 동일)
     (function(){
@@ -1158,6 +1237,19 @@
       }
 
       lastScrollY = currentScrollY;
+
+      // Scroll to top 버튼 표시/숨김
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      if (currentScrollY > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    // Scroll to top 버튼 클릭
+    document.getElementById('scrollToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     // 모바일 메뉴
@@ -1190,27 +1282,41 @@
 
     // GSAP 스크롤 애니메이션
     (function(){
-      if (!window.gsap || !window.ScrollTrigger) return;
+      if (!window.gsap || !window.ScrollTrigger) {
+        console.warn('GSAP not loaded, content visible by default');
+        return;
+      }
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      gsap.registerPlugin(ScrollTrigger);
+      try {
+        gsap.registerPlugin(ScrollTrigger);
 
-      gsap.set('.reveal-item', { opacity: 0, y: 24 });
+        // GSAP가 정상 로드되면 reveal-item을 숨김
+        document.querySelectorAll('.reveal-item').forEach(el => {
+          el.classList.add('gsap-enabled');
+        });
 
-      ScrollTrigger.batch('.reveal-item', {
-        interval: 0.1,
-        batchMax: 8,
-        onEnter: batch => gsap.to(batch, {
-          opacity: 1,
-          y: 0,
-          stagger: { each: 0.08 },
-          duration: 0.9,
-          ease: 'power1.out'
-        }),
-        start: 'top 80%'
-      });
+        ScrollTrigger.batch('.reveal-item', {
+          interval: 0.1,
+          batchMax: 8,
+          onEnter: batch => gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            stagger: { each: 0.08 },
+            duration: 0.9,
+            ease: 'power1.out'
+          }),
+          start: 'top 80%'
+        });
 
-      ScrollTrigger.refresh();
+        ScrollTrigger.refresh();
+      } catch(e) {
+        console.error('GSAP animation error:', e);
+        // Fallback: remove gsap-enabled class to show items
+        document.querySelectorAll('.reveal-item').forEach(el => {
+          el.classList.remove('gsap-enabled');
+        });
+      }
     })();
   </script>
 

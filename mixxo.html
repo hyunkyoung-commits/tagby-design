@@ -62,6 +62,8 @@
       cursor: default;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background-size: cover;
+      background-position: center;
     }
 
     .gallery-item.hidden {
@@ -73,11 +75,38 @@
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
     }
 
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: inherit;
+      background-size: cover;
+      background-position: center;
+      filter: blur(20px) brightness(0.6);
+      transform: scale(1.1);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+    }
+
+    .gallery-item.square-image::before {
+      opacity: 1;
+    }
+
     .gallery-item img {
+      position: relative;
+      z-index: 1;
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gallery-item.square-image img {
+      object-fit: contain;
     }
 
     .gallery-item:hover img {
@@ -280,7 +309,7 @@
       
       <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
         <div class="relative dropdown flex items-center">
-          <a href="#" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+          <a href="index.html#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
 
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
             <a href="performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
@@ -289,7 +318,7 @@
         </div>
 
         <div class="relative dropdown flex items-center">
-          <a href="index.html#portfolio" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          <a href="portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
           
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
             <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
@@ -303,9 +332,9 @@
         <div class="relative dropdown flex items-center">
           <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+            <a href="team-performance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="team-digital.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="team-design.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
@@ -353,9 +382,9 @@
         <div>
           <p class="text-lg font-medium text-gray-900 py-2">팀소개</p>
           <div class="pl-4 flex flex-col gap-1">
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
+            <a href="team-performance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="team-digital.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="team-design.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
@@ -367,7 +396,7 @@
   <section class="pt-40 pb-16 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="mb-8">
-        <a href="index.html#portfolio" class="inline-flex items-center gap-2 text-gray-600 hover:text-[#0078F0] transition text-sm">
+        <a href="portfolio.html" class="inline-flex items-center gap-2 text-gray-600 hover:text-[#0078F0] transition text-sm">
           <span>←</span>
           <span>포트폴리오로 돌아가기</span>
         </a>
@@ -381,7 +410,7 @@
           MIXXO
         </h1>
         <p class="text-xl text-gray-600 max-w-3xl">
-          미쏘의 감각적인 비주얼과 트렌디한 메시지를 담은<br>
+          미쏘의 여성스러운 감성과 트렌디한 스타일을 담은<br>
           디지털 광고 캠페인
         </p>
       </div>
@@ -535,7 +564,7 @@
   </section>
 
   <!-- Scroll to Top Button -->
-  <div class="scroll-to-top" id="scrollToTop">
+  <div class="scroll-to-top" id="scrollToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="18 15 12 9 6 15"></polyline>
     </svg>
@@ -608,6 +637,23 @@
         top: 0,
         behavior: 'smooth'
       });
+    });
+
+    // 정사각형 이미지 감지 및 배경 설정
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      const img = item.querySelector('img');
+      if (img) {
+        img.addEventListener('load', function() {
+          if (this.naturalWidth === this.naturalHeight) {
+            item.classList.add('square-image');
+            item.style.backgroundImage = `url('${this.src}')`;
+          }
+        });
+        if (img.complete && img.naturalWidth === img.naturalHeight) {
+          item.classList.add('square-image');
+          item.style.backgroundImage = `url('${img.src}')`;
+        }
+      }
     });
 
     // 더보기 버튼 기능

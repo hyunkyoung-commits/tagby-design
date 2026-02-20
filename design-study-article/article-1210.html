@@ -35,6 +35,28 @@
     .dropdown:hover .dropdown-menu {
       display: block;
     }
+
+    /* 플로팅 버튼 */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 56px;
+      height: 56px;
+      background-color: #0078F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 120, 240, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 40;
+    }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+    .scroll-to-top:hover { background-color: #0056B3; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4); }
   </style>
 </head>
 <body>
@@ -48,7 +70,7 @@
       
       <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
         <a href="../index.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
-        <a href="../index.html#portfolio" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+        <a href="../portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
         <a href="../index.html#team" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
         <a href="../design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-white hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
         <a href="../contact.html" class="px-4 py-2 md:px-6 md:py-2.5 lg:px-8 lg:py-3 text-xs md:text-sm lg:text-base font-medium rounded-full hover:opacity-80 transition whitespace-nowrap" style="background-color: #E0E3E7; color: #000;">문의하기</a>
@@ -157,6 +179,27 @@
       </div>
     </div>
   </footer>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      if (window.scrollY > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    document.getElementById('scrollToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 
 </body>
 </html>

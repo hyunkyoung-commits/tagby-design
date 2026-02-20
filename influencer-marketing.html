@@ -102,9 +102,20 @@
       }
     }
 
-    /* Reveal animations */
-    .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .9s ease-out, transform .9s ease-out; }
-    .reveal-item.visible { opacity: 1; transform: translateY(0); }
+    /* Reveal animations - 기본적으로 보이게 (GSAP 로드 실패 대비) */
+    .reveal-item {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .9s ease-out, transform .9s ease-out;
+    }
+    .reveal-item.gsap-enabled {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .reveal-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* Placeholder section styling */
     .placeholder-section {
@@ -116,6 +127,28 @@
         rgba(0, 120, 240, 0.03) 40px
       );
     }
+
+    /* 플로팅 버튼 */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 56px;
+      height: 56px;
+      background-color: #0078F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 120, 240, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 40;
+    }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+    .scroll-to-top:hover { background-color: #0056B3; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4); }
   </style>
 </head>
 <body>
@@ -129,7 +162,7 @@
 
       <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
         <div class="relative dropdown flex items-center">
-          <a href="#" class="text-xs md:text-sm lg:text-base font-medium text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+          <a href="index.html#digital" class="text-xs md:text-sm lg:text-base font-medium text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
 
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
             <a href="performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
@@ -138,7 +171,7 @@
         </div>
 
         <div class="relative dropdown flex items-center">
-          <a href="#" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          <a href="portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
 
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
             <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
@@ -152,9 +185,9 @@
         <div class="relative dropdown flex items-center">
           <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+            <a href="team-performance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="team-digital.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="team-design.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
@@ -202,9 +235,9 @@
         <div>
           <p class="text-lg font-medium text-gray-900 py-2">팀소개</p>
           <div class="pl-4 flex flex-col gap-1">
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
+            <a href="team-performance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="team-digital.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="team-design.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
@@ -236,210 +269,538 @@
   </section>
 
 
-  <!-- Section 1: 고객사 (퍼포먼스 마케팅과 동일 레이아웃) -->
+  <!-- Section 1: 고객사 -->
   <section class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-16 reveal-item">
         <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
-          OUR CLIENTS
+          DIGITAL MARKETING | TAGby
         </p>
         <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
-          한 눈에 보는 <span style="color: #0078F0;">고객사</span>
+          <span style="color: #0078F0;">72개 이상의 기업</span>이<br>
+          태그바이와 함께
         </h2>
         <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          콘텐츠 준비중입니다.
+          코스메틱, 식품, 의류, 문화 등 72개 이상 다양한 업종의 기업들이 태그바이와 함께하고 있습니다.<br>
+          검증된 마케팅 효과를 극대화해보세요.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 reveal-item">
-        <div class="bg-white rounded-2xl p-6 flex items-center justify-center border border-gray-100 min-h-[100px]">
-          <span class="text-sm text-gray-300 font-medium">로고 영역</span>
+      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 reveal-item">
+        <!-- 실제 로고 이미지가 있는 브랜드들 -->
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/스파오.png" alt="SPAO" class="w-full h-full object-contain p-2">
         </div>
-        <div class="bg-white rounded-2xl p-6 flex items-center justify-center border border-gray-100 min-h-[100px]">
-          <span class="text-sm text-gray-300 font-medium">로고 영역</span>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/미쏘.png" alt="MIXXO" class="w-full h-full object-contain p-2">
         </div>
-        <div class="bg-white rounded-2xl p-6 flex items-center justify-center border border-gray-100 min-h-[100px]">
-          <span class="text-sm text-gray-300 font-medium">로고 영역</span>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/뉴발란스.png" alt="New Balance" class="w-full h-full object-contain p-2">
         </div>
-        <div class="bg-white rounded-2xl p-6 flex items-center justify-center border border-gray-100 min-h-[100px]">
-          <span class="text-sm text-gray-300 font-medium">로고 영역</span>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/로엠.png" alt="ROEM" class="w-full h-full object-contain p-2">
         </div>
-        <div class="bg-white rounded-2xl p-6 flex items-center justify-center border border-gray-100 min-h-[100px]">
-          <span class="text-sm text-gray-300 font-medium">로고 영역</span>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/스파오키즈.png" alt="SPAO Kids" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/데상트.png" alt="DESCENTE" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/살로몬.png" alt="Salomon" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/이랜드.png" alt="E-LAND" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/클라비스.png" alt="Klavis" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/에블린.png" alt="Evelyn" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/코코도르.png" alt="Cocodor" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/테라비코스.png" alt="THERAVICOS" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/민병철유폰.png" alt="민병철유폰" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/킥더허들.png" alt="Kick the Hurdle" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/슈펜.png" alt="Shoopen" class="w-full h-full object-contain p-2">
+        </div>
+        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
+          <img src="images/logo/지쿤.png" alt="Z:CUNE" class="w-full h-full object-contain p-2">
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- Section 2: 매체/채널 시각화 (퍼포먼스 마케팅과 동일 레이아웃) -->
+  <!-- Section 2: 주요 광고 매체 -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16 reveal-item">
+        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
+          DIGITAL MARKETING | TAGby
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
+          <span style="color: #0078F0;">주요 광고 매체</span>
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          빅미디어 운영을 통해 다양한 지면을 커버하고 대부분의 유저에게 도달 가능하도록 하며<br class="hidden md:block">
+          데이터 분석 및 타게팅을 고도화하여 캠페인 효율을 개선합니다.
+        </p>
+      </div>
+
+      <!-- DA | SA | CONTENTS 3등분 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-item">
+        <!-- DA -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <h3 class="text-xl font-extrabold" style="color: #0078F0;">DA</h3>
+            <div class="h-px flex-1" style="background: linear-gradient(to right, #CBD5E1, transparent);"></div>
+          </div>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-6">
+            <!-- 메타 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#0078F0; font-weight:800; font-size:12px;">Meta<br><span style="font-size:8px; font-weight:400;">Business Partner</span></span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">메타</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">META</p>
+            </div>
+            <!-- 구글 애즈 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <svg width="26" height="26" viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#FFC107"/><path d="M5.3 14.7l7.4 5.4C14.5 16.2 18.9 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 15.4 2 8.1 7.3 5.3 14.7z" fill="#FF3D00"/><path d="M24 46c5.4 0 10.3-1.8 14.1-5l-6.5-5.5C29.5 37.1 26.9 38 24 38c-6 0-11.1-4-12.8-9.5l-7.3 5.6C7 41.1 14.7 46 24 46z" fill="#4CAF50"/><path d="M46 24c0-1.3-.2-2.7-.5-4H24v8.5h11.8c-1 2.7-2.8 5-5.2 6.5l6.5 5.5C41.5 36.6 46 31 46 24z" fill="#1976D2"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">구글 애즈</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">GOOGLE ADS</p>
+            </div>
+            <!-- 카카오 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-2">
+                <span class="font-bold text-yellow-400" style="font-size:13px;">kakao</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">KAKAO</p>
+            </div>
+            <!-- 카카오 모먼트 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-2">
+                <span class="font-bold text-white" style="font-size:13px;">kakao</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오 모먼트</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">KAKAO MOMENT</p>
+            </div>
+            <!-- 네이버 (GFA) -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#03C75A; font-weight:800; font-size:14px;">NAVER</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 (GFA)</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">NAVER (GFA)</p>
+            </div>
+            <!-- 당근마켓 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#FF6F0F; font-weight:800; font-size:10px;">당근마켓</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">당근마켓</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">DAANGN MARKET</p>
+            </div>
+            <!-- 트위터 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#1DA1F2; font-weight:700; font-size:11px; font-style:italic;">twitter</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">트위터</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">TWITTER</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SA -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <h3 class="text-xl font-extrabold" style="color: #0078F0;">SA</h3>
+            <div class="h-px flex-1" style="background: linear-gradient(to right, #CBD5E1, transparent);"></div>
+          </div>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-6">
+            <!-- 네이버 SA -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#03C75A; font-weight:800; font-size:14px;">NAVER</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 SA</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">NAVER SA</p>
+            </div>
+            <!-- 카카오 SA -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-2">
+                <span class="font-bold text-yellow-400" style="font-size:13px;">kakao</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오 SA</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">KAKAO SA</p>
+            </div>
+            <!-- 구글 SA -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <svg width="26" height="26" viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#FFC107"/><path d="M5.3 14.7l7.4 5.4C14.5 16.2 18.9 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 15.4 2 8.1 7.3 5.3 14.7z" fill="#FF3D00"/><path d="M24 46c5.4 0 10.3-1.8 14.1-5l-6.5-5.5C29.5 37.1 26.9 38 24 38c-6 0-11.1-4-12.8-9.5l-7.3 5.6C7 41.1 14.7 46 24 46z" fill="#4CAF50"/><path d="M46 24c0-1.3-.2-2.7-.5-4H24v8.5h11.8c-1 2.7-2.8 5-5.2 6.5l6.5 5.5C41.5 36.6 46 31 46 24z" fill="#1976D2"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">구글 SA</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">GOOGLE SA</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTENTS -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <h3 class="text-xl font-extrabold" style="color: #0078F0;">CONTENTS</h3>
+            <div class="h-px flex-1" style="background: linear-gradient(to right, #CBD5E1, transparent);"></div>
+          </div>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-6">
+            <!-- 인스타그램 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full shadow-sm flex items-center justify-center mb-2" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">인스타그램</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">INSTAGRAM</p>
+            </div>
+            <!-- 틱톡 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <svg width="22" height="22" viewBox="0 0 48 48" fill="none"><path d="M34.1 0h-8.6v32.7c0 3.8-3 6.9-6.8 7-3.8 0-6.9-3.1-6.9-6.9s3.1-6.9 6.9-6.9c.7 0 1.4.1 2 .3v-8.8c-.7-.1-1.3-.1-2-.1C10.3 17.3 3.3 24.3 3.3 32.8S10.3 48.2 18.7 48.2c8.5 0 15.4-6.9 15.4-15.4V15.6c3.3 2.4 7.3 3.8 11.6 3.8V10.8c-6.4 0-11.6-4.8-11.6-10.8z" fill="#000"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">틱톡</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">TICTOK</p>
+            </div>
+            <!-- 유튜브 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <svg width="24" height="17" viewBox="0 0 48 34" fill="none"><path d="M47 5.4C46.5 3.5 45 2 43.1 1.5 39.3.4 24 .4 24 .4S8.7.4 4.9 1.5C3 2 1.5 3.5 1 5.4 0 9.2 0 17 0 17s0 7.8 1 11.6c.5 1.9 2 3.4 3.9 3.9C8.7 33.6 24 33.6 24 33.6s15.3 0 19.1-1.1c1.9-.5 3.4-2 3.9-3.9C48 24.8 48 17 48 17s0-7.8-1-11.6z" fill="#FF0000"/><path d="M19.2 24.3L31.7 17l-12.5-7.3v14.6z" fill="#FFF"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">유튜브</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">YOUTUBE</p>
+            </div>
+            <!-- 네이버 블로그 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full shadow-sm flex items-center justify-center mb-2" style="background: #03C75A;">
+                <span style="color:white; font-weight:800; font-size:13px;">blog</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 블로그</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">NAVER BLOG</p>
+            </div>
+            <!-- 네이버 카페 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full shadow-sm flex items-center justify-center mb-2" style="background: #03C75A;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm4 4h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 카페</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">NAVER CAFE</p>
+            </div>
+            <!-- X -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
+                <span style="color:#000; font-weight:900; font-size:20px;">X</span>
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">X</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">X</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 3: 인플루언서를 활용한 오가닉 노출 - Case Study 1 (emart) -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <!-- 브랜드 + 헤더 -->
+      <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 reveal-item">
+        <!-- emart 로고 -->
+        <div class="flex-shrink-0 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-center" style="min-width: 140px; max-width: 180px;">
+          <img src="images/influencer/인플루언서를 활용한 오가닉 노출 로고.png" alt="이마트" class="w-full h-auto object-contain" style="max-height: 60px;">
+        </div>
+        <div>
+          <p class="text-xs font-bold tracking-wider mb-2" style="color: #0078F0; letter-spacing: 0.2em;">Business Catalogue | Case Studies</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-2 text-black" style="font-weight: 800; line-height: 1.3;">
+            <span style="color: #0078F0;">인플루언서</span>를 활용한 오가닉 노출
+          </h2>
+          <p class="text-base text-gray-600 leading-relaxed">
+            푸드/리빙/육아/엔터 등 다양한 카테고리의 인플루언서와 협업해 이마트 '고래잇페스타' 브랜딩 콘텐츠 다수 발행
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10 reveal-item items-start">
+        <!-- 왼쪽: 캠페인 이미지 -->
+        <div class="flex justify-center">
+          <img src="images/influencer/인플루언서를 활용한 오가닉 노출.png" alt="이마트 인스타그램 릴스 캠페인"
+            class="rounded-3xl shadow-lg w-full max-w-xs object-contain">
+        </div>
+        <!-- 오른쪽: 성과 카드 -->
+        <div class="flex flex-col gap-4">
+          <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+            <h3 class="text-5xl font-bold mb-4" style="color: #0078F0;">200개</h3>
+            <h4 class="text-lg font-bold text-gray-900 mb-3">포스팅 숫자</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              이마트 '고래잇 페스타'의 정인지 확대를 위해<br>
+              월 15~20명의 인플루언서와<br>
+              협업 콘텐츠 발행
+            </p>
+          </div>
+          <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+            <h3 class="text-5xl font-bold mb-4" style="color: #0078F0;">8천만+</h3>
+            <h4 class="text-lg font-bold text-gray-900 mb-3">조회수(VIEW)</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              소비자 관심도 높은 핵심 제품을<br>
+              영향력 높은 인플루언서의 보이스로 소개해<br>
+              다수의 시청을 확보
+            </p>
+          </div>
+          <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+            <h3 class="text-5xl font-bold mb-4" style="color: #0078F0;">60%</h3>
+            <h4 class="text-lg font-bold text-gray-900 mb-3">도달률 (Reach Rate)</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              총 조회수의 절반 이상<br>
+              시청자에게 콘텐츠 도달
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 4: 릴스 및 PA 목적의 콘텐츠 제작 - Case Study 2 (LG전자) -->
   <section class="py-24 px-6 bg-white">
     <div class="container mx-auto max-w-6xl">
-      <div class="text-center mb-16 reveal-item">
-        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
-          CHANNEL NETWORK
-        </p>
-        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
-          다루는 <span style="color: #0078F0;">채널</span>
-        </h2>
-        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          콘텐츠 준비중입니다.
-        </p>
-      </div>
-
-      <div class="flex justify-center reveal-item">
-        <div class="w-[500px] h-[500px] max-w-full aspect-square bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200 flex items-center justify-center">
-          <span class="text-gray-300 font-medium">채널 시각화 영역</span>
+      <!-- 브랜드 + 헤더 -->
+      <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 reveal-item">
+        <!-- LG전자 로고 -->
+        <div class="flex-shrink-0 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-center" style="min-width: 140px; max-width: 180px;">
+          <img src="images/influencer/릴스 및 PA 목적의 콘텐츠 제작 로고.png" alt="LG전자" class="w-full h-auto object-contain" style="max-height: 60px;">
+        </div>
+        <div>
+          <p class="text-xs font-bold tracking-wider mb-2" style="color: #0078F0; letter-spacing: 0.2em;">Business Catalogue | Case Studies</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-2 text-black" style="font-weight: 800; line-height: 1.3;">
+            <span style="color: #0078F0;">릴스 및 PA 목적</span>의 콘텐츠 제작
+          </h2>
+          <p class="text-base text-gray-600 leading-relaxed mb-1">• 최근 숏폼 트렌드에 따라 릴스 캠페인 콘텐츠의 타겟 도달 확대</p>
+          <p class="text-base text-gray-600 leading-relaxed">• 브랜드 톤과 마케팅 목적에 맞게 효율적인 방향으로 집행</p>
         </div>
       </div>
-    </div>
-  </section>
 
-
-  <!-- Section 3: 콘텐츠 포맷 (퍼포먼스 마케팅과 동일 레이아웃) -->
-  <section class="py-24 px-6" style="background-color: #F9F9FB;">
-    <div class="container mx-auto max-w-6xl">
-      <div class="text-center mb-16 reveal-item">
-        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
-          CONTENT FORMATS
-        </p>
-        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
-          채널별 <span style="color: #0078F0;">콘텐츠 포맷</span>
-        </h2>
-        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          콘텐츠 준비중입니다.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-item">
-        <div class="bg-white rounded-2xl p-8 border border-gray-100 min-h-[240px] flex items-center justify-center">
-          <span class="text-sm text-gray-300 font-medium">포맷 카드 영역</span>
+      <div class="grid md:grid-cols-2 gap-10 reveal-item items-start mb-16">
+        <!-- 왼쪽: 캠페인 이미지 -->
+        <div class="flex justify-center">
+          <img src="images/influencer/릴스 및 PA 목적의 콘텐츠 제작.png" alt="LG전자 인스타그램 릴스 캠페인"
+            class="rounded-3xl shadow-lg w-full max-w-xs object-contain">
         </div>
-        <div class="bg-white rounded-2xl p-8 border border-gray-100 min-h-[240px] flex items-center justify-center">
-          <span class="text-sm text-gray-300 font-medium">포맷 카드 영역</span>
-        </div>
-        <div class="bg-white rounded-2xl p-8 border border-gray-100 min-h-[240px] flex items-center justify-center">
-          <span class="text-sm text-gray-300 font-medium">포맷 카드 영역</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- Section 4: 집행 예시 (퍼포먼스 마케팅과 동일 레이아웃) -->
-  <section class="py-24 px-6 bg-white">
-    <div class="container mx-auto max-w-6xl">
-      <div class="text-center mb-16 reveal-item">
-        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
-          CAMPAIGN EXAMPLES
-        </p>
-        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
-          <span style="color: #0078F0;">캠페인</span> 예시
-        </h2>
-        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          콘텐츠 준비중입니다.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal-item">
-        <div class="aspect-[4/5] bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
-          <span class="text-sm text-gray-300 font-medium">이미지 영역</span>
-        </div>
-        <div class="aspect-[4/5] bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
-          <span class="text-sm text-gray-300 font-medium">이미지 영역</span>
-        </div>
-        <div class="aspect-[4/5] bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
-          <span class="text-sm text-gray-300 font-medium">이미지 영역</span>
-        </div>
-        <div class="aspect-[4/5] bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200">
-          <span class="text-sm text-gray-300 font-medium">이미지 영역</span>
+        <!-- 오른쪽: 성과 카드 -->
+        <div class="flex flex-col gap-4">
+          <div class="bg-gray-50 rounded-3xl p-8">
+            <h3 class="text-5xl font-bold mb-4" style="color: #0078F0;">410만+</h3>
+            <h4 class="text-lg font-bold text-gray-900 mb-3">포스팅 도달 (Reach)</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              소비자에게 후킹한<br>
+              영상 콘텐츠를 통해<br>
+              적은 인플루언서로 도달 수치 극대화
+            </p>
+          </div>
+          <div class="bg-gray-50 rounded-3xl p-8">
+            <h3 class="text-5xl font-bold mb-4" style="color: #0078F0;">683%</h3>
+            <h4 class="text-lg font-bold text-gray-900 mb-3">도달률 (Reach Rate)</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              팔로워의 약 680배 이상이<br>
+              포스팅에 도달<br>
+              (타사 평균 도달 약 10%)
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
 
-
-  <!-- Section 5: 데이터/성과 분석 (퍼포먼스 마케팅과 동일 레이아웃) -->
-  <section class="py-24 px-6" style="background-color: #F9F9FB;">
-    <div class="container mx-auto max-w-6xl">
-      <div class="text-center mb-16 reveal-item">
-        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
-          INFLUENCER MARKETING | TAGby
-        </p>
-        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
-          <span style="color: #0078F0;">성과 분석</span>
-        </h2>
-        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          콘텐츠 준비중입니다.
-        </p>
-      </div>
-
+      <!-- 성과 비교 섹션 -->
       <div class="reveal-item">
-        <div class="bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-100 p-12 min-h-[400px] flex items-center justify-center">
-          <span class="text-gray-300 font-medium">데이터 시각화 영역</span>
+        <p class="text-base text-gray-600 leading-relaxed mb-12">
+          릴스 문법에 맞는 크리에이터 노출 릴스 콘텐츠 활용 후 기존 소재 대비 성과 개선된 사례
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- 패션 브랜드 A사 -->
+          <div class="bg-gray-50 rounded-3xl p-8">
+            <h4 class="text-xl font-bold text-gray-900 mb-6">패션 브랜드 A사</h4>
+            <div class="mb-6">
+              <div class="inline-block px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-medium mb-3">After</div>
+              <h5 class="text-lg font-bold text-gray-900 mb-2">크리에이터 노출된<br>릴스 콘텐츠</h5>
+              <p class="text-sm text-gray-500">#슬근슬근 #스타일링</p>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-baseline gap-2">
+                <span class="text-3xl font-bold" style="color: #0078F0;">+42.1%</span>
+                <span class="text-sm text-gray-600">링크 클릭 증가</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-3xl font-bold" style="color: #0078F0;">+57.2%</span>
+                <span class="text-sm text-gray-600">CTR 증가</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-3xl font-bold" style="color: #FF4444;">-29.6%</span>
+                <span class="text-sm text-gray-600">CPC 감소</span>
+              </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-200">
+              <div class="inline-block px-4 py-2 rounded-full bg-gray-200 text-gray-600 text-sm font-medium mb-2">before</div>
+              <p class="text-sm text-gray-500">브랜드 화보 소재</p>
+            </div>
+          </div>
+
+          <!-- 패션 브랜드 B사 -->
+          <div class="bg-gray-50 rounded-3xl p-8">
+            <h4 class="text-xl font-bold text-gray-900 mb-6">패션 브랜드 B사</h4>
+            <div class="mb-6">
+              <div class="inline-block px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-medium mb-3">After</div>
+              <h5 class="text-lg font-bold text-gray-900 mb-2">크리에이터 노출된<br>릴스 콘텐츠</h5>
+              <p class="text-sm text-gray-500">#핀터레스트룩 #OOTD</p>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-baseline gap-2">
+                <span class="text-3xl font-bold" style="color: #0078F0;">+12.3%</span>
+                <span class="text-sm text-gray-600">구매 증가</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-3xl font-bold" style="color: #0078F0;">+27.4%</span>
+                <span class="text-sm text-gray-600">ROAS 증가</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-3xl font-bold" style="color: #FF4444;">-11.1%</span>
+                <span class="text-sm text-gray-600">CPS 감소</span>
+              </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-200">
+              <div class="inline-block px-4 py-2 rounded-full bg-gray-200 text-gray-600 text-sm font-medium mb-2">before</div>
+              <p class="text-sm text-gray-500">제품 상세컷 이미지<br>카탈로그 소재</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- Section 6: 프로세스 (퍼포먼스 마케팅과 동일 레이아웃) -->
-  <section class="py-24 px-6 bg-white">
+  <!-- Section 5: 블로그를 활용한 키워드 상위 노출 - Case Study 3 (TEAZEN) -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
-      <div class="text-center mb-20 reveal-item">
-        <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
-          OUR PROCESS
-        </p>
-        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
-          성과를 만드는 <span style="color: #0078F0;">프로세스</span>
-        </h2>
-        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          콘텐츠 준비중입니다.
-        </p>
+      <!-- 브랜드 + 헤더 -->
+      <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 reveal-item">
+        <!-- TEAZEN 로고 -->
+        <div class="flex-shrink-0 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-center" style="min-width: 140px; max-width: 180px;">
+          <img src="images/influencer/블로그를 활용한 키워드 상위 노출 로고.png" alt="TEAZEN" class="w-full h-auto object-contain" style="max-height: 60px;">
+        </div>
+        <div>
+          <p class="text-xs font-bold tracking-wider mb-2" style="color: #0078F0; letter-spacing: 0.2em;">Business Catalogue | Case Studies</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-2 text-black" style="font-weight: 800; line-height: 1.3;">
+            <span style="color: #0078F0;">블로그</span>를 활용한 키워드 상위 노출
+          </h2>
+          <p class="text-base text-gray-600 leading-relaxed">
+            카테고리별 키워드 챌린지를 활용해 브랜드 주요 키워드 검색 상위 노출
+          </p>
+        </div>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 reveal-item">
-        <div class="text-center">
-          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
-            <span class="text-gray-300 text-2xl font-bold">01</span>
-          </div>
-          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 1</h4>
-          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+      <div class="grid md:grid-cols-2 gap-10 reveal-item items-start">
+        <!-- 왼쪽: 캠페인 이미지 -->
+        <div class="flex justify-center">
+          <img src="images/influencer/블로그를 활용한 키워드 상위 노출.png" alt="TEAZEN 네이버 블로그 캠페인"
+            class="rounded-3xl shadow-lg w-full max-w-xs object-contain">
         </div>
-        <div class="text-center">
-          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
-            <span class="text-gray-300 text-2xl font-bold">02</span>
+        <!-- 오른쪽: 성과 카드 -->
+        <div class="flex flex-col gap-4">
+          <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+            <h3 class="text-5xl font-bold mb-4" style="color: #0078F0;">33%</h3>
+            <h4 class="text-lg font-bold text-gray-900 mb-3">키워드 상위 점유율</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              경쟁 키워드 상위 10개 콘텐츠 중<br>
+              평균 33% 점유
+            </p>
           </div>
-          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 2</h4>
-          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+          <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+            <h3 class="text-3xl font-bold mb-4" style="color: #0078F0;">카테고리 점유</h3>
+            <h4 class="text-lg font-bold text-gray-900 mb-3">연관 키워드 점유</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              뷰티/푸드/리빙/육아/스포츠 등<br>
+              카테고리 별 연관 키워드를 선정해<br>
+              다양한 분야의 키워드 점유 및<br>
+              넓은 서브타겟 확보
+            </p>
+          </div>
         </div>
-        <div class="text-center">
-          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
-            <span class="text-gray-300 text-2xl font-bold">03</span>
-          </div>
-          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 3</h4>
-          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 6: 브랜드 유튜브 활성화 - Case Study 4 (E1) -->
+  <section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <!-- 브랜드 + 헤더 -->
+      <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 reveal-item">
+        <!-- E1 로고 -->
+        <div class="flex-shrink-0 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-center" style="min-width: 140px; max-width: 180px;">
+          <img src="images/influencer/브랜드 유튜브 활성화 로고.png" alt="E1" class="w-full h-auto object-contain" style="max-height: 60px;">
         </div>
-        <div class="text-center">
-          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
-            <span class="text-gray-300 text-2xl font-bold">04</span>
-          </div>
-          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 4</h4>
-          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+        <div>
+          <p class="text-xs font-bold tracking-wider mb-2" style="color: #0078F0; letter-spacing: 0.2em;">Business Catalogue | Case Studies</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-2 text-black" style="font-weight: 800; line-height: 1.3;">
+            <span style="color: #0078F0;">브랜드 유튜브</span> 활성화
+          </h2>
+          <p class="text-base text-gray-600 leading-relaxed">
+            브랜드 오리지널 콘텐츠 + 유튜버 협업 콘텐츠 제작 및 채널 성장 알고리즘을 적용해 큰 폭의 채널 성장
+          </p>
         </div>
-        <div class="text-center">
-          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
-            <span class="text-gray-300 text-2xl font-bold">05</span>
-          </div>
-          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 5</h4>
-          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10 reveal-item items-start">
+        <!-- 왼쪽: 캠페인 이미지 -->
+        <div class="flex justify-center">
+          <img src="images/influencer/브랜드 유튜브 활성화.png" alt="E1 유튜브 채널 캠페인"
+            class="rounded-3xl shadow-lg w-full object-contain">
         </div>
-        <div class="text-center">
-          <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gray-100 border-2 border-dashed border-gray-200">
-            <span class="text-gray-300 text-2xl font-bold">06</span>
+        <!-- 오른쪽: 성과 카드 -->
+        <div class="flex flex-col gap-4">
+          <div class="bg-gray-50 rounded-3xl p-8">
+            <h3 class="text-5xl font-bold mb-4" style="color: #0078F0;">23k+</h3>
+            <h4 class="text-lg font-bold text-gray-900 mb-3">구독자</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              전년 대비 1년 간<br>
+              오가닉 구독자 2,300명 증가
+            </p>
           </div>
-          <h4 class="text-base font-bold text-gray-300 mb-2">스텝 6</h4>
-          <p class="text-xs text-gray-300 leading-relaxed">내용 준비중</p>
+          <div class="bg-gray-50 rounded-3xl p-8">
+            <h3 class="text-5xl font-bold mb-4" style="color: #0078F0;">230%</h3>
+            <h4 class="text-lg font-bold text-gray-900 mb-3">시청률</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              전년 대비 평균 조회수<br>
+              3천부에서 1만부로 성장
+            </p>
+          </div>
+          <div class="bg-gray-50 rounded-3xl p-8">
+            <h3 class="text-5xl font-bold mb-4" style="color: #0078F0;">No.1</h3>
+            <h4 class="text-lg font-bold text-gray-900 mb-3">랭킹</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              에너지 업계 브랜드<br>
+              유튜브 채널 중 독보적 1위
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -477,6 +838,13 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-to-top" id="scrollToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </div>
   <script>
     // 스크롤 헤더
     let lastScrollY = 0;
@@ -499,6 +867,19 @@
       }
 
       lastScrollY = currentScrollY;
+
+      // Scroll to top 버튼 표시/숨김
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      if (currentScrollY > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    // Scroll to top 버튼 클릭
+    document.getElementById('scrollToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     // 모바일 메뉴
@@ -535,6 +916,9 @@
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       gsap.registerPlugin(ScrollTrigger);
+
+      // GSAP이 사용 가능할 때만 애니메이션 활성화
+      document.querySelectorAll('.reveal-item').forEach(el => el.classList.add('gsap-enabled'));
 
       gsap.set('.reveal-item', { opacity: 0, y: 24 });
 

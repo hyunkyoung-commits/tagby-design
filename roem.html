@@ -62,6 +62,8 @@
       cursor: default;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background-size: cover;
+      background-position: center;
     }
 
     .gallery-item.hidden {
@@ -73,11 +75,38 @@
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
     }
 
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: inherit;
+      background-size: cover;
+      background-position: center;
+      filter: blur(20px) brightness(0.6);
+      transform: scale(1.1);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+    }
+
+    .gallery-item.square-image::before {
+      opacity: 1;
+    }
+
     .gallery-item img {
+      position: relative;
+      z-index: 1;
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gallery-item.square-image img {
+      object-fit: contain;
     }
 
     .gallery-item:hover img {
@@ -280,7 +309,7 @@
       
       <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
         <div class="relative dropdown flex items-center">
-          <a href="#" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+          <a href="index.html#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
 
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
             <a href="performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
@@ -289,7 +318,7 @@
         </div>
 
         <div class="relative dropdown flex items-center">
-          <a href="index.html#portfolio" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          <a href="portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
           
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
             <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
@@ -303,9 +332,9 @@
         <div class="relative dropdown flex items-center">
           <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+            <a href="team-performance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="team-digital.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="team-design.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
@@ -353,9 +382,9 @@
         <div>
           <p class="text-lg font-medium text-gray-900 py-2">팀소개</p>
           <div class="pl-4 flex flex-col gap-1">
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
+            <a href="team-performance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="team-digital.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="team-design.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
@@ -367,7 +396,7 @@
   <section class="pt-40 pb-16 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="mb-8">
-        <a href="index.html#portfolio" class="inline-flex items-center gap-2 text-gray-600 hover:text-[#0078F0] transition text-sm">
+        <a href="portfolio.html" class="inline-flex items-center gap-2 text-gray-600 hover:text-[#0078F0] transition text-sm">
           <span>←</span>
           <span>포트폴리오로 돌아가기</span>
         </a>
@@ -381,8 +410,8 @@
           ROEM
         </h1>
         <p class="text-xl text-gray-600 max-w-3xl">
-          로엠의 감각적인 비주얼과 트렌디한 메시지를 담은<br>
-          디지털 광고 캠페인
+          일상 속 로맨틱한 감성을 전하는 로엠의<br>
+          여성 영 캐주얼 광고 캠페인
         </p>
       </div>
 
@@ -398,11 +427,11 @@
         </div>
         <div>
           <p class="text-sm text-gray-500 mb-2">Period</p>
-          <p class="text-lg font-bold text-black">2024 - 2025</p>
+          <p class="text-lg font-bold text-black">2024 - 2026</p>
         </div>
         <div>
           <p class="text-sm text-gray-500 mb-2">Platform</p>
-          <p class="text-lg font-bold text-black">Meta, Google, Kakao</p>
+          <p class="text-lg font-bold text-black">Meta, Google, Kakao, Naver</p>
         </div>
       </div>
     </div>
@@ -413,110 +442,113 @@
     <div class="container mx-auto max-w-7xl">
       
       <div class="gallery-grid" id="galleryGrid">
+
         <!-- Gallery Item 9 -->
-        <div class="gallery-item fade-in" data-index="0">
-          <img src="images/roem/9.png" alt="ROEM 1" onerror="this.src='https://via.placeholder.com/1080x1350/1a1a1a/ffffff?text=ROEM+1'">
+        <div class="gallery-item fade-in" data-index="로엠 온라인 단독 아우터 컬렉션">
+          <img src="images/roem/(26.01)10-1 메타-온라인 단독 아우터.jpg" alt="로엠 온라인 단독 아우터 컬렉션" onerror="this.src='https://via.placeholder.com/1080x1350/2a2a2a/ffffff?text=ROEM+2'">
           <div class="gallery-overlay">
             <div class="gallery-info">
               <p class="text-white text-sm mb-1 font-medium">ROEM</p>
-              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
-              <p class="text-white text-lg font-bold">Campaign</p>
+              <p class="text-white/70 text-xs mb-2">26년 1월</p>
+              <p class="text-white text-lg font-bold">Online Exclusive Outer</p>
             </div>
           </div>
         </div>
 
         <!-- Gallery Item 8 -->
-        <div class="gallery-item fade-in" data-index="1">
-          <img src="images/roem/8.png" alt="ROEM 2" onerror="this.src='https://via.placeholder.com/1080x1350/2a2a2a/ffffff?text=ROEM+2'">
+        <div class="gallery-item fade-in" data-index="로엠 온라인 단독 아우터 컬렉션">
+          <img src="images/roem/(26.01)9-1 메타-온라인 단독 아우터.jpg" alt="로엠 온라인 단독 아우터 컬렉션" onerror="this.src='https://via.placeholder.com/1080x1350/2a2a2a/ffffff?text=ROEM+2'">
           <div class="gallery-overlay">
             <div class="gallery-info">
               <p class="text-white text-sm mb-1 font-medium">ROEM</p>
-              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
-              <p class="text-white text-lg font-bold">Campaign</p>
+              <p class="text-white/70 text-xs mb-2">26년 1월</p>
+              <p class="text-white text-lg font-bold">Online Exclusive Outer</p>
             </div>
           </div>
         </div>
 
         <!-- Gallery Item 7 -->
-        <div class="gallery-item fade-in" data-index="2">
-          <img src="images/roem/7.png" alt="ROEM 3" onerror="this.src='https://via.placeholder.com/1080x1350/3a3a3a/ffffff?text=ROEM+3'">
+        <div class="gallery-item fade-in" data-index="로엠 겨울 트렌드 아이템">
+          <img src="images/roem/(26.01)8-1 메타-윈터 트렌드.jpg" alt="로엠 겨울 트렌드 아이템" onerror="this.src='https://via.placeholder.com/1080x1350/3a3a3a/ffffff?text=ROEM+3'">
           <div class="gallery-overlay">
             <div class="gallery-info">
               <p class="text-white text-sm mb-1 font-medium">ROEM</p>
-              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
-              <p class="text-white text-lg font-bold">Campaign</p>
+              <p class="text-white/70 text-xs mb-2">26년 1월</p>
+              <p class="text-white text-lg font-bold">Winter Trend Items</p>
             </div>
           </div>
         </div>
 
         <!-- Gallery Item 6 -->
-        <div class="gallery-item fade-in" data-index="3">
-          <img src="images/roem/6.png" alt="ROEM 4" onerror="this.src='https://via.placeholder.com/1080x1350/4a4a4a/ffffff?text=ROEM+4'">
+        <div class="gallery-item fade-in" data-index="로엠 겨울 트렌드 아이템">
+          <img src="images/roem/(26.01)5-1 메타-윈터 트렌드.jpg" alt="로엠 겨울 트렌드 아이템" onerror="this.src='https://via.placeholder.com/1080x1350/4a4a4a/ffffff?text=ROEM+4'">
           <div class="gallery-overlay">
             <div class="gallery-info">
               <p class="text-white text-sm mb-1 font-medium">ROEM</p>
-              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
-              <p class="text-white text-lg font-bold">Campaign</p>
+              <p class="text-white/70 text-xs mb-2">26년 1월</p>
+              <p class="text-white text-lg font-bold">Winter Trend Items</p>
             </div>
           </div>
         </div>
 
         <!-- Gallery Item 5 -->
-        <div class="gallery-item fade-in hidden" data-index="4">
-          <img src="images/roem/5.png" alt="ROEM 5" onerror="this.src='https://via.placeholder.com/1080x1350/5a5a5a/ffffff?text=ROEM+5'">
+        <div class="gallery-item fade-in hidden" data-index="로엠 온라인 단독 아우터 컬렉션">
+          <img src="images/roem/(26.01)3-1 메타-온라인 단독 아우터.jpg" alt="로엠 온라인 단독 아우터 컬렉션" onerror="this.src='https://via.placeholder.com/1080x1350/5a5a5a/ffffff?text=ROEM+5'">
           <div class="gallery-overlay">
             <div class="gallery-info">
               <p class="text-white text-sm mb-1 font-medium">ROEM</p>
-              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
-              <p class="text-white text-lg font-bold">Campaign</p>
+              <p class="text-white/70 text-xs mb-2">26년 1월</p>
+              <p class="text-white text-lg font-bold">Online Exclusive Outer</p>
             </div>
           </div>
         </div>
 
         <!-- Gallery Item 4 -->
-        <div class="gallery-item fade-in hidden" data-index="5">
-          <img src="images/roem/4.png" alt="ROEM 6" onerror="this.src='https://via.placeholder.com/1080x1350/6a6a6a/ffffff?text=ROEM+6'">
+        <div class="gallery-item fade-in hidden" data-index="로엠 브랜드위크">
+          <img src="images/roem/(25.11)7-1 메타_브랜드위크.jpg" alt="로엠 브랜드위크" onerror="this.src='https://via.placeholder.com/1080x1350/6a6a6a/ffffff?text=ROEM+6'">
           <div class="gallery-overlay">
             <div class="gallery-info">
               <p class="text-white text-sm mb-1 font-medium">ROEM</p>
-              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
-              <p class="text-white text-lg font-bold">Campaign</p>
+              <p class="text-white/70 text-xs mb-2">25년 11월</p>
+              <p class="text-white text-lg font-bold">Brand Week</p>
             </div>
           </div>
         </div>
 
         <!-- Gallery Item 3 -->
-        <div class="gallery-item fade-in hidden" data-index="6">
-          <img src="images/roem/3.png" alt="ROEM 7" onerror="this.src='https://via.placeholder.com/1080x1350/7a7a7a/ffffff?text=ROEM+7'">
+        <div class="gallery-item fade-in hidden" data-index="로엠 25FW 겨울 컬렉션">
+          <img src="images/roem/(25.11)3-1 메타_홀리데이.jpg" alt="로엠 25FW 겨울 컬렉션" onerror="this.src='https://via.placeholder.com/1080x1350/7a7a7a/ffffff?text=ROEM+7'">
           <div class="gallery-overlay">
             <div class="gallery-info">
               <p class="text-white text-sm mb-1 font-medium">ROEM</p>
-              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
-              <p class="text-white text-lg font-bold">Campaign</p>
+              <p class="text-white/70 text-xs mb-2">25년 11월</p>
+              <p class="text-white text-lg font-bold">25 Winter 1st Drop</p>
             </div>
           </div>
         </div>
+
 
         <!-- Gallery Item 2 -->
-        <div class="gallery-item fade-in hidden" data-index="7">
-          <img src="images/roem/2.png" alt="ROEM 8" onerror="this.src='https://via.placeholder.com/1080x1350/8a8a8a/ffffff?text=ROEM+8'">
+        <div class="gallery-item fade-in hidden" data-index="로엠 츄 자켓 캠페인">
+          <img src="images/roem/(25.10)4-1 메타-츄.jpg" alt="로엠 츄 자켓 캠페인" onerror="this.src='https://via.placeholder.com/1080x1350/8a8a8a/ffffff?text=ROEM+8'">
           <div class="gallery-overlay">
             <div class="gallery-info">
               <p class="text-white text-sm mb-1 font-medium">ROEM</p>
-              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
-              <p class="text-white text-lg font-bold">Campaign</p>
+              <p class="text-white/70 text-xs mb-2">25년 10월</p>
+              <p class="text-white text-lg font-bold">25FW 울자켓 런칭</p>
             </div>
           </div>
         </div>
 
+
         <!-- Gallery Item 1 -->
-        <div class="gallery-item fade-in hidden" data-index="8">
-          <img src="images/roem/1.png" alt="ROEM 9" onerror="this.src='https://via.placeholder.com/1080x1350/9a9a9a/ffffff?text=ROEM+9'">
+        <div class="gallery-item fade-in hidden" data-index="로엠 25FW 캠페인">
+          <img src="images/roem/(25.10)3-1 메타_출근룩.jpg" alt="로엠 25FW 캠페인" onerror="this.src='https://via.placeholder.com/1080x1350/9a9a9a/ffffff?text=ROEM+9'">
           <div class="gallery-overlay">
             <div class="gallery-info">
               <p class="text-white text-sm mb-1 font-medium">ROEM</p>
-              <p class="text-white/70 text-xs mb-2">2024 - 2025</p>
-              <p class="text-white text-lg font-bold">Campaign</p>
+              <p class="text-white/70 text-xs mb-2">25년 10월</p>
+              <p class="text-white text-lg font-bold">25 FALL CAMPAIGN</p>
             </div>
           </div>
         </div>
@@ -535,7 +567,7 @@
   </section>
 
   <!-- Scroll to Top Button -->
-  <div class="scroll-to-top" id="scrollToTop">
+  <div class="scroll-to-top" id="scrollToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="18 15 12 9 6 15"></polyline>
     </svg>
@@ -608,6 +640,23 @@
         top: 0,
         behavior: 'smooth'
       });
+    });
+
+    // 정사각형 이미지 감지 및 배경 설정
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      const img = item.querySelector('img');
+      if (img) {
+        img.addEventListener('load', function() {
+          if (this.naturalWidth === this.naturalHeight) {
+            item.classList.add('square-image');
+            item.style.backgroundImage = `url('${this.src}')`;
+          }
+        });
+        if (img.complete && img.naturalWidth === img.naturalHeight) {
+          item.classList.add('square-image');
+          item.style.backgroundImage = `url('${img.src}')`;
+        }
+      }
     });
 
     // 더보기 버튼 기능

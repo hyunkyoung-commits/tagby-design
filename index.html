@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       background-color: #F8F8F8;
@@ -117,16 +120,15 @@
     #brand-section .brand-row { overflow: hidden; }
     #brand-section .brand-inner { position: relative; }
     #brand-section .brand-track { display: flex; gap: 1rem; align-items: center; white-space: nowrap; }
-    /* 박스형 버튼 스타일 (박스 크기 절반으로 추가 조정, 이미지 크기 유지) */
+    /* 박스형 버튼 스타일 */
     #brand-section .brand-item {
       display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid #E6E9EC; padding:0.5rem; border-radius:12px;
-      min-height:60px; box-shadow: 0 2px 10px rgba(13,20,35,0.04); transition: transform .18s ease, box-shadow .18s ease, background .18s ease; position: relative; overflow: hidden; cursor: pointer; text-decoration:none; color:inherit;
+      aspect-ratio: 1; box-shadow: 0 2px 10px rgba(13,20,35,0.04); transition: transform .18s ease, box-shadow .18s ease, background .18s ease; position: relative; overflow: hidden; cursor: pointer; text-decoration:none; color:inherit;
     }
     #brand-section .brand-item:focus { outline: 2px solid rgba(0,120,240,0.15); outline-offset:2px; }
     #brand-section .brand-item:hover { transform: translateY(-4px); box-shadow:0 8px 30px rgba(13,20,35,0.08); }
 
-    /* 이미지 크기 유지 (사용자 요청: 줄이지 않음) */
-    #brand-section .brand-item img { max-height: 160px; width: auto; filter: none; opacity: 0.95; object-fit: contain; transition: transform .18s ease, filter .18s ease; }
+    #brand-section .brand-item img { width: 100%; height: 100%; object-fit: contain; padding: 8px; filter: none; opacity: 0.95; transition: transform .18s ease, filter .18s ease; }
 
     /* tint layer to colorize logos on hover (solid fill for box) */
     #brand-section .brand-item .tint { position:absolute; inset:0; opacity:0; transition:opacity .18s ease, background .18s ease; pointer-events:none; background:transparent; mix-blend-mode: normal; border-radius:12px; }
@@ -147,14 +149,10 @@
     #brand-section .overlay .label { background: transparent; color: #fff; padding: 0; border-radius:0; font-weight:600; font-size:.85rem; white-space:nowrap; }
 
     @media (max-width: 1023px) {
-      #brand-section .brand-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
-      #brand-section .brand-item { width: auto; padding:0.45rem; min-height:55px; }
-      #brand-section .brand-item img { max-height: 140px; }
+      #brand-section .brand-item { width: auto; padding:0.45rem; }
     }
     @media (max-width: 640px) {
-      #brand-section .brand-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      #brand-section .brand-item { width: auto; padding:0.3rem; min-height:45px; }
-      #brand-section .brand-item img { max-height: 120px; }
+      #brand-section .brand-item { width: auto; padding:0.3rem; }
     }
     /* left / right dim overlays */
     #brand-section .edge-left, #brand-section .edge-right {
@@ -164,13 +162,13 @@
     #brand-section .edge-right { right:0; background: linear-gradient(to left, #F9F9FB 0%, rgba(249,249,251,0) 100%); }
 
     /* Grid layout */
-    /* 데스크톱: 5열(더 크게 보여주기), 태블릿: 4열, 모바일: 2열 */
-    #brand-section .brand-grid { display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 1rem; align-items:center; }
+    /* 데스크톱: 8열, 태블릿: 6열, 모바일: 3열 */
+    #brand-section .brand-grid { display:grid; grid-template-columns: repeat(8, minmax(0,1fr)); gap: 1rem; align-items:center; }
     @media (max-width: 1023px) {
-      #brand-section .brand-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      #brand-section .brand-grid { grid-template-columns: repeat(6, minmax(0,1fr)); }
     }
     @media (max-width: 640px) {
-      #brand-section .brand-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      #brand-section .brand-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
 
     /* tint layer to colorize logos on hover */
@@ -179,7 +177,7 @@
     #brand-section .brand-item:not(.primary):hover .tint { background: rgba(0,0,0,0.6); opacity:0.95; }
 
     /* image desat + subtle scale on hover */
-    #brand-section .brand-item img { transition: filter .18s, transform .18s; display:block; max-width:100%; height:auto; }
+    #brand-section .brand-item img { transition: filter .18s, transform .18s; }
     #brand-section .brand-item:hover img { filter: grayscale(1) contrast(1.05); transform: translateY(-2px); }
 
     /* overlay text styles */
@@ -247,9 +245,104 @@
     .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .9s ease-out, transform .9s ease-out; will-change: transform, opacity; }
     .reveal-item.visible { opacity: 1; transform: translateY(0); }
 
+    /* Floating section indicator (Notion style) */
+    .section-indicator {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .section-indicator.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .section-indicator-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+    .section-indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #D1D5DB;
+      transition: all 0.2s ease;
+    }
+    .section-indicator-item.active .section-indicator-dot {
+      width: 12px;
+      height: 12px;
+      background: #0078F0;
+    }
+    .section-indicator-label {
+      position: absolute;
+      right: 20px;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 500;
+      color: #6B7280;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 4px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-8px);
+      transition: all 0.2s ease;
+    }
+    .section-indicator-item:hover .section-indicator-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .section-indicator-item.active .section-indicator-label {
+      color: #0078F0;
+    }
+    @media (max-width: 768px) {
+      .section-indicator {
+        display: none;
+      }
+    }
+
     /* accessibility: reduce motion */
     @media (prefers-reduced-motion: reduce) {
       .reveal-section, .reveal-item { transition: none !important; transform: none !important; opacity: 1 !important; }
+    }
+
+    /* 플로팅 버튼 */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 56px;
+      height: 56px;
+      background-color: #0078F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 120, 240, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 40;
+    }
+    .scroll-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .scroll-to-top:hover {
+      background-color: #0056B3;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4);
     }
 
   </style>
@@ -276,7 +369,7 @@
         </div>
 
         <div class="relative dropdown flex items-center">
-          <a href="#portfolio" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          <a href="portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
           
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
             <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
@@ -290,9 +383,9 @@
         <div class="relative dropdown flex items-center">
           <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
-            <a href="team.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+            <a href="team-performance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="team-digital.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="team-design.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
@@ -340,9 +433,9 @@
         <div>
           <p class="text-lg font-medium text-gray-900 py-2">팀소개</p>
           <div class="pl-4 flex flex-col gap-1">
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
-            <a href="team.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
+            <a href="team-performance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="team-digital.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="team-design.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
@@ -365,7 +458,9 @@
       <p class="text-lg md:text-xl text-black">
         최적의 퍼포먼스, 최고의 디자인. '태그바이'가 정답입니다.
       </p>
+
     </div>
+
     
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <div id="blue-circle" class="absolute w-64 h-64 rounded-full opacity-20 blur-3xl" style="background-color: #0078F0; left: 0; top: 0;"></div>
@@ -394,7 +489,7 @@
   </section>
 
   <!-- Design Showcase Section -->
-  <section class="py-32 px-6" style="background-color: #F9F9FB;">
+  <section id="design-showcase" class="py-32 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl mb-20">
       <div class="text-center reveal-item">
         <p class="text-sm font-bold tracking-wider mb-6" style="color: #0078F0; letter-spacing: 0.2em;">
@@ -417,7 +512,7 @@
   </section>
 
   <!-- Agency Introduction Section -->
-  <section class="py-32 px-6 relative" style="background-color: #F9F9FB;">
+  <section id="agency-intro" class="py-32 px-6 relative" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-24 reveal-item">
         <p class="text-sm font-bold tracking-wider mb-6" style="color: #0078F0; letter-spacing: 0.2em;">
@@ -490,7 +585,7 @@
 
 
   <!-- Work Scope Section -->
-  <section class="py-24 px-6" style="background-color: #F4F6FA;">
+  <section id="work-scope" class="py-24 px-6" style="background-color: #F4F6FA;">
     <div class="container mx-auto max-w-7xl">
       <!-- Header -->
       <div class="mb-16 text-center reveal-item">
@@ -548,7 +643,7 @@
   </section>
 
   <!-- Self-Produced Materials Section -->
-  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+  <section id="materials" class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <!-- Header -->
       <div class="mb-16 text-center reveal-item">
@@ -570,28 +665,30 @@
         <button class="material-tab" data-material="bizboard">비즈보드</button>
         <button class="material-tab" data-material="google">구글</button>
         <button class="material-tab" data-material="inapp">인앱광고</button>
+        <button class="material-tab" data-material="twitter">트위터</button>
+        <button class="material-tab" data-material="cashwalk">캐시워크</button>
       </div>
 
       <!-- 메타 -->
       <div class="material-content active" id="material-meta">
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/1-3_메타(단일)_신규가입.png" alt="메타 신규가입 광고 소재" class="w-full h-auto">
+            <img src="images/meta/(24.11)메타2-15_WOMEN 액티브 숏 구스다운_단일.jpg" alt="메타 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/META_파자마_주말특가.png" alt="파자마 주말특가 광고 소재" class="w-full h-auto">
+            <img src="images/meta/(25.10)4-1 메타-츄.jpg" alt="메타 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/메타1-7_MR530CK_단일.png" alt="뉴발란스 광고 소재" class="w-full h-auto">
+            <img src="images/meta/(25.11)1 여아캡슐_파스텔푸퍼_단일.jpg" alt="메타 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/메타5_파스텔푸퍼_단일.png" alt="파스텔푸퍼 광고 소재" class="w-full h-auto">
+            <img src="images/meta/4 스트레이트진_단일.png" alt="메타 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/메타6_다이노탱_단일.png" alt="다이노탱 광고 소재" class="w-full h-auto">
+            <img src="images/meta/7.png" alt="메타 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/메타_미쏘데이X김지영_단일 4.png" alt="미쏘데이 광고 소재" class="w-full h-auto">
+            <img src="images/meta/9. 메타09_모리걸(단일)(26.02).jpg" alt="메타 광고 소재" class="w-full h-auto">
           </div>
         </div>
       </div>
@@ -600,22 +697,22 @@
       <div class="material-content" id="material-naver-feed">
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/네이버피드2_수면파자마.jpg" alt="네이버 피드 수면파자마" class="w-full h-auto">
+            <img src="images/naver GFA/1 GFA 데이_긴팔파자마.jpg" alt="네이버 피드 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/수면파자마_해리포터_피드.jpg" alt="해리포터 피드 광고" class="w-full h-auto">
+            <img src="images/naver GFA/1 네이버피드_망곰이 캘린더.jpg" alt="네이버 피드 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/푸퍼_블랙_피드 1-2.png" alt="푸퍼 블랙 피드 광고" class="w-full h-auto">
+            <img src="images/naver GFA/GFA 피드 4.jpg" alt="네이버 피드 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/데님_스토리 4.png" alt="데님 스토리 광고" class="w-full h-auto">
+            <img src="images/naver GFA/네이버피드2_수면파자마.jpg" alt="네이버 피드 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/image 5359.png" alt="네이버 피드 광고" class="w-full h-auto">
+            <img src="images/naver GFA/새해맞이 GFA 피드 2.jpg" alt="네이버 피드 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/image 5360.png" alt="네이버 피드 광고" class="w-full h-auto">
+            <img src="images/naver GFA/브랜드위크_GFA 4.jpg" alt="네이버 피드 광고 소재" class="w-full h-auto">
           </div>
         </div>
       </div>
@@ -624,22 +721,22 @@
       <div class="material-content" id="material-bizboard">
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/1 이랜드위크_단일.png" alt="이랜드위크 광고 소재" class="w-full h-auto">
+            <img src="images/kakao biz/오브젝트중앙정렬_설맞이.png" alt="비즈보드 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/단일 2 (할인O).png" alt="할인 광고 소재" class="w-full h-auto">
+            <img src="images/kakao biz/오브젝트중앙정렬_파자마1 복사본.png" alt="비즈보드 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/에센셜커플.png" alt="에센셜커플 광고 소재" class="w-full h-auto">
+            <img src="images/kakao biz/멤버스위크_1.png" alt="비즈보드 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/혜택소구 2.png" alt="혜택소구 광고 소재" class="w-full h-auto">
+            <img src="images/kakao biz/오브젝트중앙정렬_파자마1-1.png" alt="비즈보드 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/퍼플리스_할인O.png" alt="퍼플리스 할인 광고 소재" class="w-full h-auto">
+            <img src="images/kakao biz/오브젝트중앙정렬_파자마1.png" alt="비즈보드 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/파자마페스타_성인_먼작귀.png" alt="파자마페스타 광고 소재" class="w-full h-auto">
+            <img src="images/kakao biz/혜택강조_폰트형_오브젝트우측2.png" alt="비즈보드 광고 소재" class="w-full h-auto">
           </div>
         </div>
       </div>
@@ -648,22 +745,16 @@
       <div class="material-content" id="material-google">
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/스아페_단일_파스텔푸퍼 2.png" alt="스파오 파스텔푸퍼 광고 소재" class="w-full h-auto">
+            <img src="images/google/스크린샷 2025-12-15 오전 12.02.31 1.png" alt="구글 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/24간절기파자마_키즈_망곰.png" alt="파자마 키즈 광고 소재" class="w-full h-auto">
+            <img src="images/google/스크린샷 2026-01-01 오전 12.42.01 1.png" alt="구글 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/메타3_influencer_캐리오버.png" alt="인플루언서 캐리오버 광고" class="w-full h-auto">
+            <img src="images/google/스크린샷 2026-02-09 오전 12.35.55 1.png" alt="구글 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/2 산리오_화이트_단일.png" alt="산리오 화이트 광고 소재" class="w-full h-auto">
-          </div>
-          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/13 씬라이트_단일.jpg" alt="씬라이트 광고 소재" class="w-full h-auto">
-          </div>
-          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/1 여아캡슐_파스텔푸퍼_단일.jpg" alt="여아캡슐 파스텔푸퍼 광고 소재" class="w-full h-auto">
+            <img src="images/google/스크린샷 2026-02-09 오전 12.36.31 1.png" alt="구글 광고 소재" class="w-full h-auto">
           </div>
         </div>
       </div>
@@ -671,23 +762,71 @@
       <!-- 인앱광고 -->
       <div class="material-content" id="material-inapp">
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div class="overflow-hidden rounded-2xl bg-gray-100 shadow-md flex items-center justify-center" style="min-height:200px;">
+            <p class="text-gray-400 text-sm">이미지 준비 중</p>
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-gray-100 shadow-md flex items-center justify-center" style="min-height:200px;">
+            <p class="text-gray-400 text-sm">이미지 준비 중</p>
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-gray-100 shadow-md flex items-center justify-center" style="min-height:200px;">
+            <p class="text-gray-400 text-sm">이미지 준비 중</p>
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-gray-100 shadow-md flex items-center justify-center" style="min-height:200px;">
+            <p class="text-gray-400 text-sm">이미지 준비 중</p>
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-gray-100 shadow-md flex items-center justify-center" style="min-height:200px;">
+            <p class="text-gray-400 text-sm">이미지 준비 중</p>
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-gray-100 shadow-md flex items-center justify-center" style="min-height:200px;">
+            <p class="text-gray-400 text-sm">이미지 준비 중</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 트위터 -->
+      <div class="material-content" id="material-twitter">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/메타1_6p 기획전_단일.png" alt="6p 기획전 광고 소재" class="w-full h-auto">
+            <img src="images/twitter/26SS 파자마 TWITTER 6.jpg" alt="트위터 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/메타3_6p 기획전_단일.png" alt="6p 기획전 광고 소재" class="w-full h-auto">
+            <img src="images/twitter/덤블플리스 TWITTER 1.jpg" alt="트위터 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/9-1 메타_멤버스위크.jpg" alt="멤버스위크 광고 소재" class="w-full h-auto">
+            <img src="images/twitter/수면파자마 TWITTER 2.jpg" alt="트위터 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/메타11_미쏘X서지수_제품강조_단일.jpg" alt="미쏘 서지수 광고 소재" class="w-full h-auto">
+            <img src="images/twitter/수면파자마_트위터_망곰.jpg" alt="트위터 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/메타1_신학기 기획전_단일.jpg" alt="신학기 기획전 광고 소재" class="w-full h-auto">
+            <img src="images/twitter/트위터 5.png" alt="트위터 광고 소재" class="w-full h-auto">
           </div>
           <div class="overflow-hidden rounded-2xl bg-white shadow-md">
-            <img src="images/자체 제작 소재/메타3_influencer_캐리오버.png" alt="인플루언서 캐리오버 광고" class="w-full h-auto">
+            <img src="images/twitter/파자마 트위터 2.jpg" alt="트위터 광고 소재" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+
+      <!-- 캐시워크 -->
+      <div class="material-content" id="material-cashwalk">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/cash walk/돈버는라방_스파오키즈 2-2.jpg" alt="캐시워크 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/cash walk/2-2 캐시워크.jpg" alt="캐시워크 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/cash walk/2-3 캐시워크.jpg" alt="캐시워크 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/cash walk/돈버는라방_세로형.png" alt="캐시워크 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/cash walk/돈버는라방_세로형4.jpg" alt="캐시워크 광고 소재" class="w-full h-auto">
+          </div>
+          <div class="overflow-hidden rounded-2xl bg-white shadow-md">
+            <img src="images/cash walk/돈버는라방_스파오키즈 2.jpg" alt="캐시워크 광고 소재" class="w-full h-auto">
           </div>
         </div>
       </div>
@@ -873,6 +1012,41 @@
       </div>
     </div>
   </section>
+
+  <!-- Floating Section Indicator -->
+  <div class="section-indicator" id="sectionIndicator">
+    <div class="section-indicator-item" data-section="brand-section">
+      <span class="section-indicator-label">파트너 브랜드</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="design-showcase">
+      <span class="section-indicator-label">크리에이티브</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="agency-intro">
+      <span class="section-indicator-label">에이전시 소개</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="work-scope">
+      <span class="section-indicator-label">업무 범위</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="materials">
+      <span class="section-indicator-label">자체 제작 소재</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="digital">
+      <span class="section-indicator-label">광고 매체</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+  </div>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </div>
 
   <!-- Footer -->
   <footer class="py-16 px-6 bg-white border-t" style="border-color: #E0E3E7;">
@@ -1357,13 +1531,13 @@
     window.addEventListener('scroll', () => {
       const header = document.getElementById('header');
       const currentScrollY = window.scrollY;
-      
+
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         header.style.transform = 'translateY(-100%)';
       } else {
         header.style.transform = 'translateY(0)';
       }
-      
+
       if (currentScrollY > 50) {
         header.style.backgroundColor = 'rgba(248, 248, 248, 0.95)';
         header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
@@ -1371,8 +1545,65 @@
         header.style.backgroundColor = 'rgba(248, 248, 248, 0.8)';
         header.style.boxShadow = 'none';
       }
-      
+
       lastScrollY = currentScrollY;
+
+      // Scroll to top 버튼 표시/숨김
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      if (currentScrollY > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+
+      // 섹션 인디케이터 업데이트
+      const indicator = document.getElementById('sectionIndicator');
+      const sections = ['brand-section', 'design-showcase', 'agency-intro', 'work-scope', 'materials', 'digital'];
+
+      // Hero 섹션을 벗어나면 인디케이터 표시
+      if (currentScrollY > window.innerHeight * 0.5) {
+        indicator.classList.add('visible');
+      } else {
+        indicator.classList.remove('visible');
+      }
+
+      // 현재 보고 있는 섹션 찾기
+      let currentSection = null;
+      sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          const middle = window.innerHeight / 2;
+          if (rect.top <= middle && rect.bottom >= middle) {
+            currentSection = sectionId;
+          }
+        }
+      });
+
+      // active 상태 업데이트
+      document.querySelectorAll('.section-indicator-item').forEach(item => {
+        if (item.dataset.section === currentSection) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    });
+
+    // 섹션 인디케이터 클릭 이벤트
+    document.querySelectorAll('.section-indicator-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const sectionId = item.dataset.section;
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // Scroll to top 버튼 클릭
+    document.getElementById('scrollToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     // 자체 제작 소재 매체별 탭 전환

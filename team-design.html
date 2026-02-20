@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Team - tagby design</title>
+  <title>디자인팀 - tagby design</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -61,7 +61,7 @@
       height: 320px;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, #0078F0 0%, #0056B3 100%);
+      background-color: #F3F4F6;
     }
 
     .team-image img {
@@ -83,7 +83,7 @@
       justify-content: center;
       font-size: 72px;
       font-weight: 800;
-      color: white;
+      color: #9CA3AF;
     }
 
     .team-content {
@@ -100,7 +100,7 @@
       font-size: 12px;
       font-weight: 600;
       margin: 4px;
-      background-color: #F0F7FF;
+      background-color: #F3F4F6;
       color: #0078F0;
       transition: all 0.3s ease;
     }
@@ -174,6 +174,31 @@
       }
     }
 
+    /* 팀 탭 네비게이션 */
+    .team-tab {
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .team-tab.active {
+      background-color: #0078F0;
+      color: white;
+    }
+
+    .team-tab:not(.active) {
+      color: #6B7280;
+    }
+
+    .team-tab:not(.active):hover {
+      background-color: #F3F4F6;
+      color: #111827;
+    }
+
     /* 플로팅 버튼 */
     .scroll-to-top {
       position: fixed;
@@ -209,7 +234,6 @@
       <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
         <div class="relative dropdown flex items-center">
           <a href="index.html#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
-
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
             <a href="performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
             <a href="influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a>
@@ -218,7 +242,6 @@
 
         <div class="relative dropdown flex items-center">
           <a href="portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
-
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
             <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
             <a href="mixxo.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">미쏘</a>
@@ -229,7 +252,7 @@
         </div>
 
         <div class="relative dropdown flex items-center">
-          <a href="team.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+          <a href="team-design.html" class="text-xs md:text-sm lg:text-base font-medium text-[#0078F0] transition whitespace-nowrap">팀소개</a>
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
             <a href="team-performance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
             <a href="team-digital.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
@@ -239,7 +262,6 @@
         <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디자인스터디</a>
       </div>
 
-      <!-- 햄버거 메뉴 버튼 -->
       <div class="hamburger lg:hidden" id="hamburger">
         <span></span>
         <span></span>
@@ -283,7 +305,7 @@
           <div class="pl-4 flex flex-col gap-1">
             <a href="team-performance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
             <a href="team-digital.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
-            <a href="team-design.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">디자인팀</a>
+            <a href="team-design.html" class="text-base font-medium text-[#0078F0] py-1">디자인팀</a>
           </div>
         </div>
         <a href="design-study.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">디자인스터디</a>
@@ -301,17 +323,24 @@
         </a>
       </div>
 
-      <div class="mb-12 text-center">
+      <div class="mb-10 text-center">
         <p class="text-sm font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">
           OUR TEAM
         </p>
         <h1 class="text-5xl md:text-6xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.2;">
-          우리는 디자인팀입니다
+          우리는 <span style="color: #0078F0;">디자인팀</span>입니다
         </h1>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
           각자의 개성으로 빛나는 4명의 디자이너 🌟<br>
           커피와 피그마로 무장한, 오늘도 열일하는 우리팀을 소개합니다!
         </p>
+      </div>
+
+      <!-- 팀 탭 네비게이션 -->
+      <div class="flex justify-center gap-2 flex-wrap">
+        <a href="team-performance.html" class="team-tab">퍼포먼스팀</a>
+        <a href="team-digital.html" class="team-tab">디지털 마케팅팀</a>
+        <a href="team-design.html" class="team-tab active">디자인팀</a>
       </div>
     </div>
   </section>
@@ -544,7 +573,6 @@
   </div>
 
   <script>
-    // 스크롤 헤더
     let lastScrollY = 0;
     window.addEventListener('scroll', () => {
       const header = document.getElementById('header');
@@ -566,7 +594,6 @@
 
       lastScrollY = currentScrollY;
 
-      // Scroll to top 버튼 표시/숨김
       const scrollToTopBtn = document.getElementById('scrollToTop');
       if (currentScrollY > 300) {
         scrollToTopBtn.classList.add('visible');
@@ -575,12 +602,10 @@
       }
     });
 
-    // Scroll to top 버튼 클릭
     document.getElementById('scrollToTop').addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // 모바일 메뉴
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileOverlay = document.getElementById('mobileOverlay');
@@ -599,7 +624,6 @@
       document.body.style.overflow = '';
     });
 
-    // 모바일 메뉴 링크 클릭 시 메뉴 닫기
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('active');
