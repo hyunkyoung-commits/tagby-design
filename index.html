@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+<head><script>if(location.hash.includes("figmacapture")){var _s=document.createElement('style');_s.textContent='.reveal-section,.reveal-item,.fade-in{opacity:1!important;transform:none!important;transition:none!important;visibility:visible!important;}';document.head.appendChild(_s);}</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>tagby design - 디지털 마케팅 대행사</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     html {
       scroll-behavior: smooth;
@@ -346,7 +347,7 @@
     }
 
   </style>
-</head>
+<script>if(location.hash.includes("figmacapture")){document.addEventListener("DOMContentLoaded",function(){var st=document.createElement("style");st.textContent=".reveal-section,.reveal-item{opacity:1!important;transform:none!important;transition:none!important;visibility:visible!important;} *{animation-play-state:paused!important;}";document.head.appendChild(st);document.querySelectorAll(".reveal-section,.reveal-item").forEach(function(el){el.classList.add("visible");});var origIO=window.IntersectionObserver;window.IntersectionObserver=function(cb,opts){var io=new origIO(cb,opts);var origObs=io.observe.bind(io);io.observe=function(t){origObs(t);setTimeout(function(){cb([{isIntersecting:true,intersectionRatio:1,target:t,boundingClientRect:t.getBoundingClientRect(),intersectionRect:t.getBoundingClientRect(),rootBounds:null,time:performance.now()}],io);},0);};return io;};});}}</script><script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script></head>
 <body>
 
   <div id="page-gradient-circle" style="position:fixed; left:-9999px; top:-9999px; width:256px; height:256px; border-radius:50%; background-color:#0078F0; opacity:0.18; pointer-events:none; filter:blur(36px); transition: all 0.28s ease-out; z-index:5;"></div>
@@ -449,6 +450,7 @@
       <div class="mb-6">
         <p class="text-2xl md:text-3xl font-bold" style="color: #0078F0;">
           퍼포먼스 · 인플루언서 · 디자인
+          
         </p>
       </div>
       <h1 class="text-4xl md:text-7xl lg:text-6xl mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
@@ -1053,9 +1055,9 @@
     <div class="container mx-auto max-w-6xl">
       <div class="grid md:grid-cols-3 gap-12">
         <div>
-          <div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div>
+          <img src="images/TAGby blue.png" alt="TAGby" style="height: 32px; width: auto;">
         </div>
-        
+
         <div>
           <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">OFFICE</h4>
           <p class="text-sm text-gray-600 leading-relaxed">
@@ -1078,7 +1080,7 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script><script>if(location.hash.includes("figmacapture")){window.addEventListener("load",function(){setTimeout(function(){if(window.gsap){gsap.ticker.sleep();gsap.globalTimeline.pause();var orig=gsap.to;gsap.to=gsap.from=gsap.fromTo=gsap.set=function(){};}if(window.ScrollTrigger){ScrollTrigger.getAll().forEach(function(t){t.kill();});}document.querySelectorAll("*").forEach(function(el){if(el.style.opacity==="0"){el.style.opacity="1";}if(el.style.visibility==="hidden"){el.style.visibility="visible";}if(el.style.transform&&el.style.transform!=="none"){el.style.transform="none";}});document.querySelectorAll(".reveal-section,.reveal-item,.fade-in").forEach(function(e){e.classList.add("visible");e.style.opacity="1";e.style.transform="none";});var s=document.createElement("style");s.textContent=".reveal-section,.reveal-item,.fade-in{opacity:1!important;transform:none!important;transition:none!important;}";document.head.appendChild(s);},200);});}}</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
@@ -1130,6 +1132,7 @@
 
     // Blue circle follows cursor within hero (mouse + touch)
     (function(){
+      if(location.hash.includes("figmacapture")) return;
       const blueCircle = document.getElementById('blue-circle');
       const heroSectionEl = document.getElementById('hero-section');
       if (!blueCircle || !heroSectionEl) return;
@@ -1232,6 +1235,7 @@
 
     // === GSAP: enhanced scroll-driven animations ===
     (function(){
+      if(location.hash.includes("figmacapture")) return;
       if (!window.gsap || !window.ScrollTrigger) return;
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -1518,6 +1522,7 @@
     })();
 
     // Fallback: ensure brand animations run after full window load
+    if(!location.hash.includes("figmacapture")) {
     window.addEventListener('load', () => {
       setTimeout(() => {
         if (typeof window.initBrandAnimations === 'function') {
@@ -1526,6 +1531,7 @@
         }
       }, 120);
     });
+    }
 
     let lastScrollY = 0;
     window.addEventListener('scroll', () => {
@@ -1753,14 +1759,16 @@
       console.debug('buildGrid completed - brand items:', document.querySelectorAll('#brand-section .brand-item').length);
 
       // Initialize brand animations after grid is populated (try local then global)
-      const initFn = (typeof initBrandAnimations === 'function') ? initBrandAnimations : (window.initBrandAnimations && typeof window.initBrandAnimations === 'function' ? window.initBrandAnimations : null);
-      if (initFn) {
-        setTimeout(() => {
-          console.debug('brand grid built — calling initBrandAnimations, items:', document.querySelectorAll('#brand-section .brand-item').length);
-          initFn();
-        }, 80);
-      } else {
-        console.debug('initBrandAnimations not available yet — you can call window.initBrandAnimations() when available');
+      if (!location.hash.includes("figmacapture")) {
+        const initFn = (typeof initBrandAnimations === 'function') ? initBrandAnimations : (window.initBrandAnimations && typeof window.initBrandAnimations === 'function' ? window.initBrandAnimations : null);
+        if (initFn) {
+          setTimeout(() => {
+            console.debug('brand grid built — calling initBrandAnimations, items:', document.querySelectorAll('#brand-section .brand-item').length);
+            initFn();
+          }, 80);
+        } else {
+          console.debug('initBrandAnimations not available yet — you can call window.initBrandAnimations() when available');
+        }
       }
 
       const tracks = document.querySelectorAll('#brand-section .brand-track');
