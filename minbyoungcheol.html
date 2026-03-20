@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>포트폴리오 - TAGby</title>
+  <title>민병철유폰 Portfolio - tagby design</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -102,82 +102,6 @@
       }
     }
 
-    /* 브랜드 카드 */
-    .brand-card {
-      display: block;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 2px 10px rgba(13, 20, 35, 0.06);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      text-decoration: none;
-      color: inherit;
-      overflow: hidden;
-    }
-
-    .brand-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 48px rgba(13, 20, 35, 0.14);
-    }
-
-    .brand-card .card-image {
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .brand-card .card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.35s ease;
-    }
-
-    .brand-card:hover .card-image img {
-      transform: scale(1.06);
-    }
-
-    .brand-card .card-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 20px;
-      background: #fff;
-      border-top: 1px solid #F0F2F5;
-    }
-
-    .brand-card .card-info .logo-wrap {
-      flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .brand-card .card-info .logo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .brand-card .card-info .brand-name {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #111;
-      flex: 1;
-    }
-
-    .brand-card .card-info .arrow {
-      color: #0078F0;
-      font-size: 1rem;
-      transition: transform 0.2s ease;
-    }
-
-    .brand-card:hover .card-info .arrow {
-      transform: translateX(4px);
-    }
-
     /* Nav accordion dropdown */
     .nav-accordion-body {
       max-height: 0;
@@ -189,6 +113,74 @@
     }
     .nav-accordion.open .nav-accordion-arrow {
       transform: rotate(180deg);
+    }
+
+    /* 플로팅 버튼 */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 56px;
+      height: 56px;
+      background-color: #0078F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 120, 240, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 40;
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-to-top:hover {
+      background-color: #0056B3;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4);
+    }
+
+    /* 미디어 태그 */
+    .media-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: white;
+      border: 1.5px solid #E0E3E7;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      transition: all 0.2s ease;
+    }
+
+    .media-tag:hover {
+      border-color: #0078F0;
+      color: #0078F0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 120, 240, 0.12);
+    }
+
+    /* 성과 카드 */
+    .result-card {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      border: 1.5px solid #E0E3E7;
+      transition: all 0.3s ease;
+    }
+
+    .result-card:hover {
+      border-color: #0078F0;
+      box-shadow: 0 8px 32px rgba(0, 120, 240, 0.1);
+      transform: translateY(-4px);
     }
   </style>
 </head>
@@ -225,7 +217,7 @@
                 <a href="roem.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">로엠</a>
               </div>
             </div>
-            <a href="minbyoungcheol.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">프래그런스</a>
+            <a href="minbyoungcheol.html" class="block px-6 py-3 text-base font-medium text-[#0078F0] hover:text-white hover:bg-[#0078F0] transition-colors font-semibold">프래그런스</a>
             <a href="#" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">모바일앱</a>
           </div>
         </div>
@@ -241,7 +233,6 @@
         <a href="design-study.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">케이스 스터디</a>
       </div>
 
-      <!-- 햄버거 메뉴 버튼 -->
       <div class="hamburger lg:hidden" id="hamburger">
         <span></span>
         <span></span>
@@ -270,7 +261,7 @@
         </div>
 
         <div class="py-2">
-          <a href="portfolio.html" class="text-lg font-medium text-[#0078F0] mb-3 block">포트폴리오</a>
+          <p class="text-lg font-medium text-gray-900 mb-3">포트폴리오</p>
           <div class="flex flex-col gap-1 pl-4">
             <div class="portfolio-category">
               <button onclick="togglePortfolioCategory(this)" class="w-full text-left text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1 flex items-center justify-between">
@@ -284,7 +275,7 @@
                 <a href="roem.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">로엠</a>
               </div>
             </div>
-            <a href="minbyoungcheol.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">프래그런스</a>
+            <a href="minbyoungcheol.html" class="text-base font-medium text-[#0078F0] hover:text-[#0078F0] transition py-1 font-semibold">프래그런스</a>
             <a href="#" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">모바일앱</a>
           </div>
         </div>
@@ -304,98 +295,179 @@
 
   <!-- Hero Section -->
   <section class="pt-40 pb-16 px-6" style="background-color: #F9F9FB;">
-    <div class="container mx-auto max-w-6xl text-center">
-      <p class="text-xs font-bold tracking-wider mb-4" style="color: #9CA3AF; letter-spacing: 0.2em;">PORTFOLIO | TAGby</p>
-      <h1 class="text-5xl md:text-6xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.2;">
-        포트폴리오
-      </h1>
-      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-        태그바이와 함께한 브랜드들의 디지털 마케팅 성과를 확인해보세요.
-      </p>
-    </div>
-  </section>
-
-  <!-- Brand Grid -->
-  <section class="py-20 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-
-        <a href="spao.html" class="brand-card">
-          <div class="card-image">
-            <img src="images/spao/1.png" alt="SPAO 대표 이미지">
-          </div>
-          <div class="card-info">
-            <div class="logo-wrap">
-              <img src="images/logo/스파오.png" alt="스파오 로고">
-            </div>
-            <span class="brand-name">SPAO</span>
-            <span class="arrow">→</span>
-          </div>
+      <div class="mb-8">
+        <a href="portfolio.html" class="inline-flex items-center gap-2 text-gray-600 hover:text-[#0078F0] transition text-sm">
+          <span>←</span>
+          <span>포트폴리오로 돌아가기</span>
         </a>
+      </div>
 
-        <a href="mixxo.html" class="brand-card">
-          <div class="card-image">
-            <img src="images/mixxo/7. 메타2_카우걸_단일(25.09).jpg" alt="MIXXO 대표 이미지">
-          </div>
-          <div class="card-info">
-            <div class="logo-wrap">
-              <img src="images/logo/미쏘.png" alt="미쏘 로고">
-            </div>
-            <span class="brand-name">MIXXO</span>
-            <span class="arrow">→</span>
-          </div>
-        </a>
+      <div class="mb-12">
+        <p class="text-sm font-bold tracking-wider mb-4" style="color: #9CA3AF; letter-spacing: 0.2em;">
+          PORTFOLIO · 교육 모바일 앱
+        </p>
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.2;">
+          민병철유폰
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl leading-relaxed">
+          전화영어 유저 확보를 위한<br>
+          퍼포먼스 캠페인
+        </p>
+      </div>
 
-        <a href="newbalance.html" class="brand-card">
-          <div class="card-image">
-            <img src="images/newbalance/(24.11)메타2-17_WOMEN 액티브 숏 구스다운_단일.jpg" alt="New Balance 대표 이미지">
-          </div>
-          <div class="card-info">
-            <div class="logo-wrap">
-              <img src="images/logo/뉴발란스.png" alt="뉴발란스 로고">
-            </div>
-            <span class="brand-name">New Balance</span>
-            <span class="arrow">→</span>
-          </div>
-        </a>
-
-        <a href="spaokids.html" class="brand-card">
-          <div class="card-image">
-            <img src="images/spaokids/(26.02)1 메타_산리오 파자마_단일.jpg" alt="SPAO Kids 대표 이미지">
-          </div>
-          <div class="card-info">
-            <div class="logo-wrap">
-              <img src="images/logo/스파오키즈.png" alt="스파오키즈 로고">
-            </div>
-            <span class="brand-name">SPAO Kids</span>
-            <span class="arrow">→</span>
-          </div>
-        </a>
-
-        <a href="roem.html" class="brand-card">
-          <div class="card-image">
-            <img src="images/roem/(25.11)7-1 메타_브랜드위크.jpg" alt="ROEM 대표 이미지">
-          </div>
-          <div class="card-info">
-            <div class="logo-wrap">
-              <img src="images/logo/로엠.png" alt="로엠 로고">
-            </div>
-            <span class="brand-name">ROEM</span>
-            <span class="arrow">→</span>
-          </div>
-        </a>
-
+      <!-- Meta Info -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        <div>
+          <p class="text-sm text-gray-500 mb-2">Client</p>
+          <p class="text-lg font-bold text-black">민병철 유폰</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 mb-2">Category</p>
+          <p class="text-lg font-bold text-black">교육 모바일 앱</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 mb-2">Period</p>
+          <p class="text-lg font-bold text-black">2023년 ~</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 mb-2">Media</p>
+          <p class="text-lg font-bold text-black">네이버 SA · 메타 · 구글애즈 등</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 스크롤 탑 버튼 -->
-  <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"
-    style="display:none; position:fixed; bottom:2rem; right:2rem; z-index:40; background:#0078F0; color:white; border:none; border-radius:50%; width:48px; height:48px; font-size:1.2rem; cursor:pointer; box-shadow:0 4px 16px rgba(0,120,240,0.3); transition:opacity .3s;">
-    ↑
-  </button>
+  <!-- Campaign Overview -->
+  <section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-sm font-bold tracking-wider mb-6" style="color: #0078F0; letter-spacing: 0.2em;">
+            CAMPAIGN OVERVIEW
+          </p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
+            수업 신청 및 앱 설치 수<br>
+            <span style="color: #0078F0;">증대를 위한 퍼포먼스 캠페인</span>
+          </h2>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            민병철유폰의 핵심 전환 지표인 수업 신청 및 앱 설치 수 증대를 목표로, 다양한 매체를 활용한 통합 퍼포먼스 캠페인을 집행합니다. 타겟 유저의 구매 여정에 맞춘 매체별 전략으로 효율적인 유저 확보를 실현합니다.
+          </p>
+        </div>
+
+        <!-- 매체 목록 -->
+        <div>
+          <p class="text-sm font-bold tracking-wider mb-6" style="color: #9CA3AF; letter-spacing: 0.2em;">
+            MEDIA MIX
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="media-tag">
+              <img src="images/logo/네이버.png" alt="네이버" class="w-5 h-5 object-contain" onerror="this.style.display='none'">
+              네이버 SA
+            </span>
+            <span class="media-tag">
+              <img src="images/logo/메타.png" alt="메타" class="w-5 h-5 object-contain" onerror="this.style.display='none'">
+              메타
+            </span>
+            <span class="media-tag">
+              <img src="images/logo/구글.png" alt="구글" class="w-5 h-5 object-contain" onerror="this.style.display='none'">
+              구글애즈
+            </span>
+            <span class="media-tag">버티컬 매체</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategy Section -->
+  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16">
+        <p class="text-sm font-bold tracking-wider mb-4" style="color: #9CA3AF; letter-spacing: 0.2em;">
+          CAMPAIGN STRATEGY
+        </p>
+        <h2 class="text-3xl md:text-4xl font-bold text-black" style="font-weight: 800; line-height: 1.3;">
+          캠페인 전략
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="result-card">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-white text-lg font-bold" style="background-color: #0078F0;">01</div>
+          <h4 class="text-lg font-bold text-black mb-3">네이버 SA 검색 광고</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            전화영어, 전화 영어 수업 등 핵심 키워드를 공략해 구매 의사가 높은 유저를 타겟팅합니다. 브랜드 키워드와 경쟁사 키워드를 병행 운영해 점유율을 확보합니다.
+          </p>
+        </div>
+
+        <div class="result-card">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-white text-lg font-bold" style="background-color: #0078F0;">02</div>
+          <h4 class="text-lg font-bold text-black mb-3">메타 · 구글 퍼포먼스</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            메타 Advantage+ 및 구글 앱 캠페인을 통해 앱 설치 및 수업 신청 전환을 극대화합니다. 소재 A/B 테스트를 통해 고효율 크리에이티브를 지속 발굴합니다.
+          </p>
+        </div>
+
+        <div class="result-card">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-white text-lg font-bold" style="background-color: #0078F0;">03</div>
+          <h4 class="text-lg font-bold text-black mb-3">버티컬 매체 확장</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            교육 관심사를 가진 타겟 유저가 밀집한 버티컬 매체를 추가 운영해 도달 범위를 확대하고 다양한 접점에서 전환을 유도합니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Goal Section -->
+  <section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="text-sm font-bold tracking-wider mb-6" style="color: #0078F0; letter-spacing: 0.2em;">
+          CAMPAIGN GOAL
+        </p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.4;">
+          수업 신청 전환 및<br>앱 설치 수 지속 증대
+        </h2>
+        <div class="flex justify-center gap-8 flex-wrap">
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: #EFF6FF;">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#0078F0" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            </div>
+            <p class="text-base font-bold text-black">앱 설치 수 증대</p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: #EFF6FF;">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#0078F0" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </div>
+            <p class="text-base font-bold text-black">수업 신청 전환</p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: #EFF6FF;">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#0078F0" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <p class="text-base font-bold text-black">CPA 효율 최적화</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scroll to Top -->
+  <div class="scroll-to-top" id="scrollToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </div>
 
   <script>
+    // 헤더 스크롤
+    window.addEventListener('scroll', () => {
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      scrollToTopBtn.classList.toggle('visible', window.scrollY > 300);
+    });
+
     // 햄버거 메뉴
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -413,15 +485,7 @@
       mobileOverlay.classList.remove('active');
     });
 
-    // 스크롤 탑 버튼
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => {
-      scrollTopBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
-      scrollTopBtn.style.alignItems = 'center';
-      scrollTopBtn.style.justifyContent = 'center';
-    });
-  </script>
-  <script>
+    // Nav accordion
     (function(){
       document.querySelectorAll('.nav-accordion').forEach(function(acc){
         var trigger = acc.querySelector('.nav-accordion-trigger');
@@ -429,6 +493,16 @@
         acc.addEventListener('mouseleave', function(){ acc.classList.remove('open'); });
       });
     })();
+
+    // Mobile portfolio category toggle
+    function togglePortfolioCategory(btn) {
+      const sub = btn.nextElementSibling;
+      const arrow = btn.querySelector('.category-arrow');
+      const isOpen = sub.classList.contains('flex');
+      sub.classList.toggle('hidden', isOpen);
+      sub.classList.toggle('flex', !isOpen);
+      if (arrow) arrow.textContent = isOpen ? '▼' : '▲';
+    }
   </script>
 </body>
 </html>
