@@ -463,7 +463,7 @@
         한 곳에서 끝냅니다
       </h1>
       <p class="text-lg md:text-xl text-black">
-        데이터 기반 퍼포먼스부터 인플루언서, 크리에이티브 소재까지.<br>태그바이가 브랜드의 성장을 책임집니다.
+        데이터 기반 퍼포먼스부터<br>인플루언서, 크리에이티브 소재까지<br>태그바이가 브랜드의 성장을 책임집니다. 
       </p>
 
     </div>
@@ -1217,18 +1217,18 @@
           const sec = entry.target;
           const items = sec.querySelectorAll('.reveal-item');
 
-          // Enter when roughly half visible
-          if (entry.intersectionRatio >= 0.5) {
+          // Enter when visible
+          if (entry.intersectionRatio >= 0.2) {
             sec.classList.add('visible','in-view');
             items.forEach((it, idx) => {
-              it.style.transitionDelay = (idx * 90) + 'ms';
+              it.style.transitionDelay = (idx * 50) + 'ms';
               it.classList.remove('visible');
               requestAnimationFrame(() => requestAnimationFrame(() => it.classList.add('visible')));
             });
           }
 
           // Leave threshold so animations can replay
-          if (entry.intersectionRatio <= 0.25) {
+          if (entry.intersectionRatio <= 0.1) {
             sec.classList.remove('visible','in-view');
             items.forEach(it => {
               it.classList.remove('visible');
@@ -1236,7 +1236,7 @@
             });
           }
         });
-      }, { threshold: [0, 0.25, 0.5], rootMargin: '0px 0px -10% 0px' });
+      }, { threshold: [0, 0.1, 0.2, 0.5], rootMargin: '0px 0px 0px 0px' });
 
       sections.forEach(s => obs.observe(s));
     })();
