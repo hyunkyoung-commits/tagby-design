@@ -349,8 +349,22 @@
                 <a href="roem.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">로엠</a>
               </div>
             </div>
-            <a href="cocodor.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">프래그런스</a>
-            <a href="minbyoungcheol.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">모바일앱</a>
+            <div class="nav-accordion">
+              <div class="nav-accordion-trigger flex items-center justify-between px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors cursor-pointer select-none">
+                프래그런스 <span class="nav-accordion-arrow text-xs ml-3 opacity-50 transition-transform duration-200">▼</span>
+              </div>
+              <div class="nav-accordion-body">
+                <a href="cocodor.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">코코도르</a>
+              </div>
+            </div>
+            <div class="nav-accordion">
+              <div class="nav-accordion-trigger flex items-center justify-between px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors cursor-pointer select-none">
+                모바일앱 <span class="nav-accordion-arrow text-xs ml-3 opacity-50 transition-transform duration-200">▼</span>
+              </div>
+              <div class="nav-accordion-body">
+                <a href="minbyoungcheol.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">민병철유폰</a>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -408,8 +422,22 @@
                 <a href="roem.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">로엠</a>
               </div>
             </div>
-            <a href="cocodor.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">프래그런스</a>
-            <a href="minbyoungcheol.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">모바일앱</a>
+            <div>
+              <button onclick="togglePortfolioCategory(this)" class="w-full flex items-center justify-between text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">
+                프래그런스 <span class="category-arrow text-xs text-gray-400">▼</span>
+              </button>
+              <div class="category-sub hidden flex-col gap-1 pl-4">
+                <a href="cocodor.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">코코도르</a>
+              </div>
+            </div>
+            <div>
+              <button onclick="togglePortfolioCategory(this)" class="w-full flex items-center justify-between text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">
+                모바일앱 <span class="category-arrow text-xs text-gray-400">▼</span>
+              </button>
+              <div class="category-sub hidden flex-col gap-1 pl-4">
+                <a href="minbyoungcheol.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">민병철유폰</a>
+              </div>
+            </div>
           </div>
         </div>
         
