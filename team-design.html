@@ -221,6 +221,31 @@
     }
     .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
     .scroll-to-top:hover { background-color: #0056B3; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4); }
+
+    /* Nav category sub-dropdown */
+    .nav-category { position: relative; }
+    .nav-category::after { content: ''; position: absolute; top: 0; right: -10px; width: 10px; height: 100%; }
+    .nav-sub-menu {
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+      left: 100%;
+      top: 0;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      overflow: hidden;
+      min-width: 160px;
+      transform: translateX(-5px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      pointer-events: none;
+    }
+    .nav-category:hover .nav-sub-menu {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
   </style>
 <script>if(location.hash.includes("figmacapture")){document.addEventListener("DOMContentLoaded",function(){var st=document.createElement("style");st.textContent=".reveal-section,.reveal-item{opacity:1!important;transform:none!important;transition:none!important;visibility:visible!important;} *{animation-play-state:paused!important;}";document.head.appendChild(st);document.querySelectorAll(".reveal-section,.reveal-item").forEach(function(el){el.classList.add("visible");});var origIO=window.IntersectionObserver;window.IntersectionObserver=function(cb,opts){var io=new origIO(cb,opts);var origObs=io.observe.bind(io);io.observe=function(t){origObs(t);setTimeout(function(){cb([{isIntersecting:true,intersectionRatio:1,target:t,boundingClientRect:t.getBoundingClientRect(),intersectionRect:t.getBoundingClientRect(),rootBounds:null,time:performance.now()}],io);},0);};return io;};});}}</script><script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script></head>
 <body>
@@ -244,11 +269,20 @@
         <div class="relative dropdown flex items-center">
           <a href="portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
           <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
-            <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
-            <a href="mixxo.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">미쏘</a>
-            <a href="newbalance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">뉴발란스</a>
-            <a href="spaokids.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오키즈</a>
-            <a href="roem.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">로엠</a>
+            <div class="nav-category">
+              <div class="flex items-center justify-between px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors cursor-default select-none">
+                패션 <span class="text-xs ml-3 opacity-50">▶</span>
+              </div>
+              <div class="nav-sub-menu">
+                <a href="spao.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
+                <a href="mixxo.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">미쏘</a>
+                <a href="newbalance.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">뉴발란스</a>
+                <a href="spaokids.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">스파오키즈</a>
+                <a href="roem.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">로엠</a>
+              </div>
+            </div>
+            <a href="#" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">프래그런스</a>
+            <a href="#" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">모바일앱</a>
           </div>
         </div>
 
