@@ -801,32 +801,47 @@
 
   <script>
     (function(){
-      // Dropdown with hide delay so sub-items are reachable
-      document.querySelectorAll('.dropdown').forEach(function(dropdown){
-        var menu = dropdown.querySelector('.dropdown-menu');
-        if (!menu) return;
+      // Dropdown: shared timer so entering a new menu instantly closes the previous
+      (function(){
+        var allDropdowns = Array.from(document.querySelectorAll('.dropdown'));
         var hideTimer;
-        function showMenu(){
+        var activeMenu = null;
+
+        function closeAll(){
+          allDropdowns.forEach(function(d){
+            var m = d.querySelector('.dropdown-menu');
+            if(m){ m.style.display = 'none'; }
+            d.querySelectorAll('.nav-accordion').forEach(function(a){ a.classList.remove('open'); });
+          });
+          activeMenu = null;
+        }
+
+        function showMenu(dropdown){
           clearTimeout(hideTimer);
-          menu.style.display = 'block';
-          menu.style.opacity = '1';
-          menu.style.transform = 'translateY(0)';
+          // Close any other open menu immediately
+          if(activeMenu && activeMenu !== dropdown){
+            var prev = activeMenu.querySelector('.dropdown-menu');
+            if(prev){ prev.style.display = 'none'; }
+            activeMenu.querySelectorAll('.nav-accordion').forEach(function(a){ a.classList.remove('open'); });
+          }
+          activeMenu = dropdown;
+          var menu = dropdown.querySelector('.dropdown-menu');
+          if(menu){ menu.style.display = 'block'; }
         }
+
         function scheduleHide(){
-          hideTimer = setTimeout(function(){
-            menu.style.display = 'none';
-            menu.style.opacity = '0';
-            menu.style.transform = 'translateY(-10px)';
-            dropdown.querySelectorAll('.nav-accordion').forEach(function(acc){ acc.classList.remove('open'); });
-          }, 400);
+          hideTimer = setTimeout(closeAll, 300);
         }
-        // Show on nav link hover
-        dropdown.addEventListener('mouseenter', showMenu);
-        dropdown.addEventListener('mouseleave', scheduleHide);
-        // Keep open when mouse is inside the menu (menu extends beyond parent bounds)
-        menu.addEventListener('mouseenter', showMenu);
-        menu.addEventListener('mouseleave', scheduleHide);
-      });
+
+        allDropdowns.forEach(function(dropdown){
+          var menu = dropdown.querySelector('.dropdown-menu');
+          if(!menu) return;
+          dropdown.addEventListener('mouseenter', function(){ showMenu(dropdown); });
+          dropdown.addEventListener('mouseleave', scheduleHide);
+          menu.addEventListener('mouseenter', function(){ showMenu(dropdown); });
+          menu.addEventListener('mouseleave', scheduleHide);
+        });
+      })();
       // Nav accordion open/close
       document.querySelectorAll('.nav-accordion').forEach(function(acc){
         var trigger = acc.querySelector('.nav-accordion-trigger');
