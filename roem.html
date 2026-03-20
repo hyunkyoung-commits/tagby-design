@@ -796,5 +796,15 @@
       });
     })();
   </script>
+  <script>
+    function togglePortfolioCategory(btn) {
+      var sub = btn.parentElement.querySelector('.category-sub');
+      var arrow = btn.querySelector('.category-arrow');
+      if (!sub) return;
+      var isOpen = sub.classList.contains('flex');
+      sub.classList.toggle('hidden', isOpen);
+      sub.classList.toggle('flex', !isOpen);
+      if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+    }
+  </script>
 </body>
-</html>
