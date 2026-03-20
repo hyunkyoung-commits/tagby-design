@@ -149,6 +149,35 @@
     }
     .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
     .scroll-to-top:hover { background-color: #0056B3; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4); }
+
+/* ── 브랜드 그리드 (index.html Brand Partners Section 동일) ── */
+    #brand-section { background-color: #F9F9FB; }
+    #brand-section .brand-item {
+      display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid #E6E9EC; padding:0.5rem; border-radius:12px;
+      aspect-ratio: 1; box-shadow: 0 2px 10px rgba(13,20,35,0.04); transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      position: relative; overflow: hidden; cursor: pointer; text-decoration:none; color:inherit;
+    }
+    #brand-section .brand-item:hover { transform: translateY(-4px); box-shadow:0 8px 30px rgba(13,20,35,0.08); }
+    #brand-section .brand-item img { width:100%; height:100%; object-fit:contain; padding:8px; opacity:0.95; transition: filter .18s, transform .18s; }
+    #brand-section .brand-item:hover img { filter: grayscale(1) contrast(1.05); transform: translateY(-2px); }
+    #brand-section .brand-item .tint { position:absolute; inset:0; opacity:0; transition:opacity .18s ease; pointer-events:none; mix-blend-mode:multiply; border-radius:12px; }
+    #brand-section .brand-item.primary:hover .tint { background:#0078F0; opacity:0.95; }
+    #brand-section .brand-item:not(.primary):hover .tint { background:rgba(0,0,0,0.6); opacity:0.95; }
+    #brand-section .brand-item .overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .18s ease; pointer-events:none; }
+    #brand-section .brand-item:hover .overlay { opacity:1; pointer-events:auto; }
+    #brand-section .overlay .brand-name { font-weight:800; color:white; font-size:0.95rem; line-height:1; text-align:center; }
+    #brand-section .overlay .visit { color:white; opacity:0.95; font-weight:700; margin-top:6px; font-size:0.85rem; }
+    #brand-section .overlay .label { background:transparent; color:#fff; padding:0; border-radius:0; font-weight:600; font-size:.85rem; white-space:nowrap; }
+    #brand-section .brand-grid { display:grid; grid-template-columns:repeat(8, minmax(0,1fr)); gap:1rem; align-items:center; }
+    @media (max-width:1023px) { #brand-section .brand-grid { grid-template-columns:repeat(6, minmax(0,1fr)); } }
+    @media (max-width:640px)  { #brand-section .brand-grid { grid-template-columns:repeat(3, minmax(0,1fr)); } }
+    #brand-section .brand-item.brand-hidden { display:none; }
+    #brand-section .brand-item.brand-hidden.brand-show { display:flex; }
+    #brand-section .edge-left, #brand-section .edge-right { position:absolute; top:0; bottom:0; width:6rem; pointer-events:none; z-index:10; }
+    #brand-section .edge-left  { left:0;  background:linear-gradient(to right, #F9F9FB 0%, rgba(249,249,251,0) 100%); }
+    #brand-section .edge-right { right:0; background:linear-gradient(to left,  #F9F9FB 0%, rgba(249,249,251,0) 100%); }
+    #brand-more-btn { background:none; border:none; cursor:pointer; color:#9CA3AF; font-size:0.85rem; font-weight:500; }
+    #brand-more-btn:hover { color:#0078F0; }
   </style>
 <script>if(location.hash.includes("figmacapture")){document.addEventListener("DOMContentLoaded",function(){var st=document.createElement("style");st.textContent=".reveal-section,.reveal-item{opacity:1!important;transform:none!important;transition:none!important;visibility:visible!important;} *{animation-play-state:paused!important;}";document.head.appendChild(st);document.querySelectorAll(".reveal-section,.reveal-item").forEach(function(el){el.classList.add("visible");});var origIO=window.IntersectionObserver;window.IntersectionObserver=function(cb,opts){var io=new origIO(cb,opts);var origObs=io.observe.bind(io);io.observe=function(t){origObs(t);setTimeout(function(){cb([{isIntersecting:true,intersectionRatio:1,target:t,boundingClientRect:t.getBoundingClientRect(),intersectionRect:t.getBoundingClientRect(),rootBounds:null,time:performance.now()}],io);},0);};return io;};});}}</script><script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script></head>
 <body>
@@ -270,7 +299,7 @@
 
 
   <!-- Section 1: 고객사 -->
-  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+  <section id="brand-section" class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-16 reveal-item">
         <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
@@ -286,56 +315,18 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 reveal-item">
-        <!-- 실제 로고 이미지가 있는 브랜드들 -->
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/스파오.png" alt="SPAO" class="w-full h-full object-contain p-2">
+      <!-- 브랜드 그리드 (JS 생성) -->
+      <div class="relative brand-inner overflow-hidden">
+        <div class="edge-left"></div>
+        <div class="edge-right"></div>
+        <div class="brand-grid">
+          <!-- JS로 생성 -->
         </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/미쏘.png" alt="MIXXO" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/뉴발란스.png" alt="New Balance" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/로엠.png" alt="ROEM" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/스파오키즈.png" alt="SPAO Kids" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/데상트.png" alt="DESCENTE" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/살로몬.png" alt="Salomon" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/이랜드.png" alt="E-LAND" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/클라비스.png" alt="Klavis" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/에블린.png" alt="Evelyn" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/코코도르.png" alt="Cocodor" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/테라비코스.png" alt="THERAVICOS" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/민병철유폰.png" alt="민병철유폰" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/킥더허들.png" alt="Kick the Hurdle" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/슈펜.png" alt="Shoopen" class="w-full h-full object-contain p-2">
-        </div>
-        <div class="bg-white rounded-2xl p-4 flex items-center justify-center border border-gray-100 aspect-square hover:shadow-lg transition">
-          <img src="images/logo/지쿤.png" alt="Z:CUNE" class="w-full h-full object-contain p-2">
-        </div>
+      </div>
+
+      <!-- 브랜드 더보기 버튼 -->
+      <div class="text-center mt-8" id="brand-more-wrap">
+        <button id="brand-more-btn" onclick="brandShowMore()">브랜드 더보기 ↓</button>
       </div>
     </div>
   </section>
@@ -760,5 +751,109 @@
     })();
   </script>
 
+  <script>
+   
+      const logos = [
+        'images/브랜드로고/3M.png', 'images/브랜드로고/AHC.png', 'images/브랜드로고/AK.png',
+        'images/브랜드로고/ASML.png', 'images/브랜드로고/CJ.png', 'images/브랜드로고/DB.png',
+        'images/브랜드로고/E1.png', 'images/브랜드로고/GS.png', 'images/브랜드로고/KFC.png',
+        'images/브랜드로고/KT.png', 'images/브랜드로고/LF몰.png', 'images/브랜드로고/LG.png',
+        'images/브랜드로고/MBC PLUS.png', 'images/브랜드로고/SK.png', 'images/브랜드로고/가히.png',
+        'images/브랜드로고/놀부보쌈.png', 'images/브랜드로고/농심.png', 'images/브랜드로고/니베아.png',
+        'images/브랜드로고/닥스.png', 'images/브랜드로고/대상.png', 'images/브랜드로고/더현대.png',
+        'images/브랜드로고/디올.png', 'images/브랜드로고/디즈니플러스.png', 'images/브랜드로고/라이프플러스.png',
+        'images/브랜드로고/라코스테.png', 'images/브랜드로고/랑콤.png', 'images/브랜드로고/랜드로버.png',
+        'images/브랜드로고/러브캣.png', 'images/브랜드로고/몽벨.png', 'images/브랜드로고/배스킨라빈스.png',
+        'images/브랜드로고/밴츠.png', 'images/브랜드로고/보솜이.png', 'images/브랜드로고/비비고.png',
+        'images/브랜드로고/빈폴.png', 'images/브랜드로고/빙그레.png', 'images/브랜드로고/사람인.png',
+        'images/브랜드로고/삼성물산.png', 'images/브랜드로고/샤넬.png', 'images/브랜드로고/소니.png',
+        'images/브랜드로고/숨37.png', 'images/브랜드로고/스타벅스.png', 'images/브랜드로고/스케처스.png',
+        'images/브랜드로고/시원스쿨.png', 'images/브랜드로고/신한.png', 'images/브랜드로고/아모레.png',
+        'images/브랜드로고/아토팜.png', 'images/브랜드로고/언더아머.png', 'images/브랜드로고/엘코잉크.png',
+        'images/브랜드로고/엘포인트.png', 'images/브랜드로고/오리온.png', 'images/브랜드로고/이니스프리.png',
+        'images/브랜드로고/이랜드.png', 'images/브랜드로고/이마트.png', 'images/브랜드로고/청정원.png',
+        'images/브랜드로고/카스.png', 'images/브랜드로고/카카오게임.png', 'images/브랜드로고/카카오엔터테인먼트.png',
+        'images/브랜드로고/캐논.png', 'images/브랜드로고/컨버스.png', 'images/브랜드로고/코오롱.png',
+        'images/브랜드로고/코카콜라.png', 'images/브랜드로고/쿠팡.png', 'images/브랜드로고/타다.png',
+        'images/브랜드로고/토스.png', 'images/브랜드로고/틱톡.png', 'images/브랜드로고/페리에.png',
+        'images/브랜드로고/필라.png', 'images/브랜드로고/한샘.png', 'images/브랜드로고/한섬.png',
+        'images/브랜드로고/한화시스템.png', 'images/브랜드로고/호가든.png', 'images/브랜드로고/홈플러스.png'
+      ];
+      const labelMap = {
+        '스파오':'스파오','뉴발란스':'뉴발란스','로엠':'로엠','미쏘':'미쏘','스파오키즈':'스파오키즈',
+        '이랜드':'이랜드','클라비스':'클라비스','에블린':'에블린','슈펜':'슈펜','데상트':'데상트',
+        '살로몬':'살로몬','킥더허들':'킥더허들','지쿤':'지쿤','테라비코스':'테라비코스','코코도르':'코코도르','민병철유폰':'민병철유폰',
+        '3M':'3M','AHC':'AHC','AK':'AK','ASML':'ASML','CJ':'CJ','DB':'DB','E1':'E1','GS':'GS',
+        'KFC':'KFC','KT':'KT','LF몰':'LF몰','LG':'LG','MBC PLUS':'MBC PLUS','SK':'SK',
+        '가히':'가히','놀부보쌈':'놀부보쌈','농심':'농심','니베아':'니베아','닥스':'닥스','대상':'대상',
+        '더현대':'더현대','디올':'디올','디즈니플러스':'디즈니플러스','라이프플러스':'라이프플러스','라코스테':'라코스테',
+        '랑콤':'랑콤','랜드로버':'랜드로버','러브캣':'러브캣','몽벨':'몽벨','배스킨라빈스':'배스킨라빈스','밴츠':'밴츠',
+        '보솜이':'보솜이','비비고':'비비고','빈폴':'빈폴','빙그레':'빙그레','사람인':'사람인','삼성물산':'삼성물산',
+        '샤넬':'샤넬','소니':'소니','숨37':'숨37','스타벅스':'스타벅스','스케처스':'스케처스','시원스쿨':'시원스쿨',
+        '신한':'신한','아모레':'아모레','아토팜':'아토팜','언더아머':'언더아머','엘코잉크':'엘코잉크','엘포인트':'엘포인트',
+        '오리온':'오리온','이니스프리':'이니스프리','이마트':'이마트','청정원':'청정원','카스':'카스',
+        '카카오게임':'카카오게임','카카오엔터테인먼트':'카카오엔터테인먼트','캐논':'캐논','컨버스':'컨버스','코오롱':'코오롱',
+        '코카콜라':'코카콜라','쿠팡':'쿠팡','타다':'타다','토스':'토스','틱톡':'틱톡','페리에':'페리에',
+        '필라':'필라','한샘':'한샘','한섬':'한섬','한화시스템':'한화시스템','호가든':'호가든','홈플러스':'홈플러스'
+      };
+      const linkMap = { '스파오':'spao.html','뉴발란스':'newbalance.html','로엠':'roem.html','미쏘':'mixxo.html','스파오키즈':'spaokids.html' };
+
+      function buildGrid(gridEl, items) {
+        items.forEach(src => {
+          const base = src.split('/').pop().replace(/\.[^/.]+$/, '');
+          const name = labelMap[base] || base;
+          const isPrimary = !!linkMap[base];
+          const item = document.createElement(isPrimary ? 'a' : 'div');
+          item.className = 'brand-item' + (isPrimary ? ' primary' : '');
+          if (isPrimary) item.href = linkMap[base];
+          const img = document.createElement('img'); img.src = src; img.alt = name;
+          img.onerror = function(){ this.style.display='none'; };
+          item.appendChild(img);
+          const tint = document.createElement('div'); tint.className = 'tint'; item.appendChild(tint);
+          const overlay = document.createElement('div'); overlay.className = 'overlay';
+          if (isPrimary) {
+            const box = document.createElement('div'); box.className = 'visit-text';
+            const bn = document.createElement('div'); bn.className = 'brand-name'; bn.textContent = name;
+            const vt = document.createElement('div'); vt.className = 'visit'; vt.textContent = '보러가기 >';
+            box.appendChild(bn); box.appendChild(vt); overlay.appendChild(box);
+          } else {
+            const lbl = document.createElement('div'); lbl.className = 'label'; lbl.textContent = name;
+            overlay.appendChild(lbl);
+          }
+          item.appendChild(overlay);
+          gridEl.appendChild(item);
+        });
+      }
+      const gridEl = document.querySelector('#brand-section .brand-grid');
+      if (gridEl) buildGrid(gridEl, logos);
+
+      function getColCount() {
+        if (window.innerWidth <= 640) return 3;
+        if (window.innerWidth <= 1023) return 6;
+        return 8;
+      }
+      function applyBrandLimit() {
+        const cols = getColCount();
+        const items = document.querySelectorAll('#brand-section .brand-item');
+        items.forEach((item, i) => {
+          if (i >= cols * 4) { item.classList.add('brand-hidden'); item.classList.remove('brand-show'); }
+          else { item.classList.remove('brand-hidden'); }
+        });
+        const hidden = document.querySelectorAll('#brand-section .brand-item.brand-hidden');
+        const wrap = document.getElementById('brand-more-wrap');
+        if (wrap) wrap.style.display = hidden.length ? '' : 'none';
+      }
+      applyBrandLimit();
+      window.addEventListener('resize', applyBrandLimit);
+
+      window.brandShowMore = function() {
+        const cols = getColCount();
+        const hidden = Array.from(document.querySelectorAll('#brand-section .brand-item.brand-hidden:not(.brand-show)'));
+        hidden.slice(0, cols * 2).forEach(item => item.classList.add('brand-show'));
+        const remaining = document.querySelectorAll('#brand-section .brand-item.brand-hidden:not(.brand-show)');
+        const wrap = document.getElementById('brand-more-wrap');
+        if (wrap && !remaining.length) wrap.style.display = 'none';
+      };
+  </script>
 </body>
 </html>
