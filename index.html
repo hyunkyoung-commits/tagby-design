@@ -244,11 +244,11 @@
     }
 
     /* Reveal-on-scroll: gentle, smooth easing */
-    .reveal-section { opacity: 0; transition: opacity .5s ease-out; }
+    .reveal-section { opacity: 0; transition: opacity .3s ease-out; }
     .reveal-section.visible { opacity: 1; }
 
     /* Items inside sections will translate up gently and fade in */
-    .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .5s ease-out, transform .5s ease-out; will-change: transform, opacity; }
+    .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .3s ease-out, transform .3s ease-out; will-change: transform, opacity; }
     .reveal-item.visible { opacity: 1; transform: translateY(0); }
 
     /* Floating section indicator (Notion style) */
