@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>타이포그래피 기초 — 자간·행간·여백까지 한 번에 - tagby</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #1A1A1A; color: white; }
+    .article-content { font-size: 1.125rem; line-height: 1.8; color: #E0E0E0; }
+    .article-content p { margin-bottom: 1.5rem; }
+    .article-content strong { color: white; font-weight: 600; }
+    .article-content h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 3rem; margin-bottom: 1.5rem; }
+    .article-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .article-content ul li { margin-bottom: 0.5rem; }
+    .source-link { color: #0078F0; text-decoration: underline; }
+    .source-link:hover { color: #5aabff; }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <header style="position: fixed; top: 0; width: 100%; z-index: 50; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.95);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../index.html" class="cursor-pointer hover:opacity-80 transition"><img src="../images/TAGby blue.png" alt="TAGby" class="h-8"></a>
+      <div class="hidden lg:flex items-center gap-12">
+        <a href="../index.html#digital" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">디지털 마케팅</a>
+        <a href="../portfolio.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">포트폴리오</a>
+        <a href="../team-performance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">팀소개</a>
+        <a href="../design-study.html" class="text-sm font-medium text-white hover:text-[#0078F0] transition">케이스 스터디</a>
+      </div>
+    </nav>
+  </header>
+
+  <article class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+      <div class="mb-8"><a href="../design-study.html" class="text-sm text-gray-500 hover:text-[#0078F0] transition">← 목록으로 돌아가기</a></div>
+      <div class="mb-6">
+        <span class="text-sm text-[#0078F0] font-medium">디자인 · 타이포그래피</span>
+        <span class="text-sm text-gray-500 ml-4">26. 01. 22.</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-12 leading-tight" style="font-weight: 800; line-height: 1.3;">타이포그래피 기초 — 자간·행간·여백까지 한 번에</h1>
+      <div class="mb-12 rounded-2xl overflow-hidden flex items-center justify-center" style="background: #f5f5f5; height: 360px;">
+        <div class="text-center">
+          <p class="font-black text-gray-800" style="font-size: 5rem; font-family: serif;">Aa</p>
+          <p class="text-xs text-gray-500 mt-2 tracking-widest">TYPOGRAPHY</p>
+        </div>
+      </div>
+
+      <div class="article-content">
+        <p>타이포그래피는 디자인의 뼈대입니다. 아무리 화려한 색상과 이미지가 있어도, 텍스트의 가독성이 떨어지면 사용자 경험은 무너집니다. UI 디자이너라면 반드시 알아야 할 타이포그래피의 핵심 개념을 실무 수치와 함께 정리합니다.</p>
+
+        <h2>행간(Line Height) — 가독성의 핵심</h2>
+        <p>행간은 텍스트 블록의 가독성을 결정하는 가장 중요한 요소입니다. Google web.dev의 타이포그래피 가이드에 따르면 본문 텍스트의 <strong>권장 행간은 폰트 크기의 1.4~1.8배</strong>입니다. 16px 본문이라면 행간은 23~29px이 적절합니다. 너무 좁으면 답답하고, 너무 넓으면 텍스트 블록의 연결감이 끊깁니다.</p>
+        <ul>
+          <li><strong>제목(Heading):</strong> 1.1~1.3 — 짧은 텍스트이므로 타이트하게</li>
+          <li><strong>소제목(Subheading):</strong> 1.3~1.5</li>
+          <li><strong>본문(Body):</strong> 1.5~1.8 — 가장 넓게 설정</li>
+          <li><strong>캡션/라벨:</strong> 1.2~1.4</li>
+        </ul>
+
+        <h2>자간(Letter Spacing) — 분위기를 결정한다</h2>
+        <p>자간은 주로 분위기 조절에 사용됩니다. 일반적인 본문 텍스트는 자간 0 또는 약간 좁게 설정하고, <strong>대문자 레이블이나 캡션은 자간을 넓게(0.05~0.15em)</strong> 설정하면 가독성이 높아집니다. 제목에 자간을 좁게 설정(-0.02em 정도)하면 고급스럽고 압축된 느낌을 줍니다.</p>
+
+        <h2>텍스트 위계(Type Scale) 설계</h2>
+        <p>디자인 시스템의 타이포그래피는 일관된 스케일을 기반으로 설계해야 합니다. <strong>Major Third(1.25 배율)</strong>나 <strong>Perfect Fourth(1.333 배율)</strong>를 사용하면 수학적으로 균형 잡힌 텍스트 위계를 만들 수 있습니다. 예를 들어 기본 16px에 Perfect Fourth 배율을 적용하면 12 → 16 → 21 → 28 → 37 → 50px의 스케일이 만들어집니다.</p>
+
+        <h2>모바일 타이포그래피 주의사항</h2>
+        <p>Smashing Magazine의 모바일 웹 타이포그래피 가이드는 모바일 최소 폰트 크기를 <strong>16px 이상</strong>으로 권장합니다. 16px 미만의 입력 필드 폰트는 iOS에서 자동 줌인을 유발합니다. 또한 한 줄당 적정 글자 수는 45~75자로, 너무 길면 줄 이동 피로도가 높아집니다.</p>
+
+        <div class="mt-12 p-6 rounded-xl" style="background-color: #252525; border: 1px solid #333;">
+          <p class="text-sm text-gray-400 mb-3">참고 자료</p>
+          <a href="https://web.dev/learn/design/typography" target="_blank" rel="noopener noreferrer" class="source-link text-sm block mb-2">Google web.dev — Typography (Learn Design 공식 가이드)</a>
+          <a href="https://www.smashingmagazine.com/2018/06/reference-guide-typography-mobile-web-design/" target="_blank" rel="noopener noreferrer" class="source-link text-sm block">Smashing Magazine — A Reference Guide For Typography In Mobile Web Design</a>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#타이포그래피</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#행간자간</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#UI디자인</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#디자인기초</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="py-16 px-6 bg-black border-t" style="border-color: #333;">
+    <div class="container mx-auto max-w-6xl"><div class="grid md:grid-cols-3 gap-12">
+      <div><div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div></div>
+      <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">OFFICE</h4><p class="text-sm text-gray-400 leading-relaxed">06130 서울특별시 강남구<br>테헤란로7길 22 스파크플러스<br>강남5호점 1015호</p></div>
+      <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">CONTACT</h4><p class="text-sm text-gray-400 mb-2">070-7500-2220</p><p class="text-sm text-gray-400 mb-6">support@tagby.io</p><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">SOCIAL</h4><a href="#" class="text-sm text-gray-400 hover:text-white transition">Instagram</a></div>
+    </div></div>
+  </footer>
+  <div class="scroll-to-top" id="scrollToTop"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></div>
+  <script>
+    window.addEventListener('scroll', () => { document.getElementById('scrollToTop').classList.toggle('visible', window.scrollY > 300); });
+    document.getElementById('scrollToTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  </script>
+</body>
+</html>

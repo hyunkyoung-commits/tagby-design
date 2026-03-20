@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인플루언서 마케팅, ROI를 어떻게 측정할까 - tagby</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #1A1A1A; color: white; }
+    .article-content { font-size: 1.125rem; line-height: 1.8; color: #E0E0E0; }
+    .article-content p { margin-bottom: 1.5rem; }
+    .article-content strong { color: white; font-weight: 600; }
+    .article-content h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 3rem; margin-bottom: 1.5rem; }
+    .article-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .article-content ul li { margin-bottom: 0.5rem; }
+    .source-link { color: #0078F0; text-decoration: underline; }
+    .source-link:hover { color: #5aabff; }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <header style="position: fixed; top: 0; width: 100%; z-index: 50; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.95);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../index.html" class="cursor-pointer hover:opacity-80 transition"><img src="../images/TAGby blue.png" alt="TAGby" class="h-8"></a>
+      <div class="hidden lg:flex items-center gap-12">
+        <a href="../index.html#digital" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">디지털 마케팅</a>
+        <a href="../portfolio.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">포트폴리오</a>
+        <a href="../team-performance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">팀소개</a>
+        <a href="../design-study.html" class="text-sm font-medium text-white hover:text-[#0078F0] transition">케이스 스터디</a>
+      </div>
+    </nav>
+  </header>
+
+  <article class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+      <div class="mb-8"><a href="../design-study.html" class="text-sm text-gray-500 hover:text-[#0078F0] transition">← 목록으로 돌아가기</a></div>
+      <div class="mb-6">
+        <span class="text-sm text-[#0078F0] font-medium">콘텐츠마케팅 · 인플루언서</span>
+        <span class="text-sm text-gray-500 ml-4">26. 02. 20.</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-12 leading-tight" style="font-weight: 800; line-height: 1.3;">인플루언서 마케팅, ROI를 어떻게 측정할까</h1>
+      <div class="mb-12 rounded-2xl overflow-hidden flex items-center justify-center" style="background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%); height: 360px;">
+        <span class="text-white font-bold text-8xl" style="opacity: 0.2;">ROI</span>
+      </div>
+
+      <div class="article-content">
+        <p>인플루언서 마케팅에 예산을 쏟아붓는 브랜드는 많지만, 그 성과를 정확히 측정하고 있는 곳은 생각보다 적습니다. Influencer Marketing Hub의 리포트에 따르면 마케터의 70%가 인플루언서 ROI를 측정하고 있다고 응답했지만, 실제로 <strong>의미 있는 지표를 체계적으로 추적하는 경우는 훨씬 더 적은 것</strong>이 현실입니다.</p>
+
+        <h2>ROI 측정의 기본 공식</h2>
+        <p>인플루언서 마케팅 ROI의 기본 공식은 단순합니다.<br><strong>ROI = [(캠페인으로 발생한 매출 – 캠페인 비용) / 캠페인 비용] × 100</strong><br>하지만 실무에서는 '캠페인으로 발생한 매출'을 정확히 분리하는 게 핵심 과제입니다.</p>
+
+        <h2>추적 가능한 지표 세팅</h2>
+        <ul>
+          <li><strong>UTM 파라미터:</strong> 인플루언서별 고유 UTM 링크를 생성해 GA4에서 유입 경로와 전환을 분리 추적합니다.</li>
+          <li><strong>전용 할인 코드:</strong> 인플루언서마다 고유 코드를 부여하면 코드 사용 건수로 직접 전환을 집계할 수 있습니다.</li>
+          <li><strong>전용 랜딩페이지:</strong> 인플루언서 채널에서만 공유되는 URL을 운영해 유입 데이터를 독립적으로 확보합니다.</li>
+          <li><strong>픽셀·CAPI 연동:</strong> 메타 픽셀 또는 Conversions API를 인플루언서 캠페인 기간에 맞게 세분화해 구매 전환을 측정합니다.</li>
+        </ul>
+
+        <h2>직접 전환 외에 봐야 할 지표</h2>
+        <p>인플루언서 마케팅은 즉각적인 구매 전환만이 목적이 아닙니다. <strong>브랜드 인지도 상승, 검색 유입 증가, 팔로워 증감</strong>도 함께 추적해야 캠페인의 전체 가치를 파악할 수 있습니다. 캠페인 전후로 브랜드 키워드 검색량 변화를 비교하면 간접 효과를 수치화하는 데 도움이 됩니다.</p>
+
+        <h2>인플루언서 선정 기준과 ROI의 관계</h2>
+        <p>팔로워 수가 많다고 ROI가 높은 건 아닙니다. Sprout Social 데이터에 따르면 인스타그램에서 마케터가 가장 높은 ROI를 경험하는 채널은 팔로워 10만 미만의 <strong>마이크로 인플루언서</strong>인 경우가 많습니다. 팔로워와의 유대감이 강하고 특정 니치 타겟에게 신뢰도가 높기 때문입니다.</p>
+        <p>또한 인플루언서 사기(팔로워 구매, 봇 계정) 여부를 사전에 검증하는 것도 중요합니다. 2024년 기준 인플루언서 사기를 경험한 브랜드 비율이 59.8%에 달한다는 통계가 있을 만큼, <strong>팔로워 대비 실제 도달률(engagement rate) 확인이 필수</strong>입니다.</p>
+
+        <div class="mt-12 p-6 rounded-xl" style="background-color: #252525; border: 1px solid #333;">
+          <p class="text-sm text-gray-400 mb-3">참고 자료</p>
+          <a href="https://influencermarketinghub.com/influencer-marketing-roi/" target="_blank" rel="noopener noreferrer" class="source-link text-sm block mb-2">Influencer Marketing Hub — The Complete Guide to Influencer Marketing ROI</a>
+          <a href="https://sproutsocial.com/roi/influencer-marketing-roi/" target="_blank" rel="noopener noreferrer" class="source-link text-sm block">Sprout Social — Influencer Marketing ROI Measurement Guide</a>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#인플루언서마케팅</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#ROI측정</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#마케팅성과분석</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#UTM</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="py-16 px-6 bg-black border-t" style="border-color: #333;">
+    <div class="container mx-auto max-w-6xl"><div class="grid md:grid-cols-3 gap-12">
+      <div><div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div></div>
+      <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">OFFICE</h4><p class="text-sm text-gray-400 leading-relaxed">06130 서울특별시 강남구<br>테헤란로7길 22 스파크플러스<br>강남5호점 1015호</p></div>
+      <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">CONTACT</h4><p class="text-sm text-gray-400 mb-2">070-7500-2220</p><p class="text-sm text-gray-400 mb-6">support@tagby.io</p><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">SOCIAL</h4><a href="#" class="text-sm text-gray-400 hover:text-white transition">Instagram</a></div>
+    </div></div>
+  </footer>
+  <div class="scroll-to-top" id="scrollToTop"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></div>
+  <script>
+    window.addEventListener('scroll', () => { document.getElementById('scrollToTop').classList.toggle('visible', window.scrollY > 300); });
+    document.getElementById('scrollToTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  </script>
+</body>
+</html>

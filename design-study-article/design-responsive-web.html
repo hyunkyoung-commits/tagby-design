@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>디자이너를 위한 반응형 웹 디자인 체크리스트 20 - tagby</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #1A1A1A; color: white; }
+    .article-content { font-size: 1.125rem; line-height: 1.8; color: #E0E0E0; }
+    .article-content p { margin-bottom: 1.5rem; }
+    .article-content strong { color: white; font-weight: 600; }
+    .article-content h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 3rem; margin-bottom: 1.5rem; }
+    .article-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .article-content ul li { margin-bottom: 0.5rem; }
+    .source-link { color: #0078F0; text-decoration: underline; }
+    .source-link:hover { color: #5aabff; }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <header style="position: fixed; top: 0; width: 100%; z-index: 50; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.95);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../index.html" class="cursor-pointer hover:opacity-80 transition"><img src="../images/TAGby blue.png" alt="TAGby" class="h-8"></a>
+      <div class="hidden lg:flex items-center gap-12">
+        <a href="../index.html#digital" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">디지털 마케팅</a>
+        <a href="../portfolio.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">포트폴리오</a>
+        <a href="../team-performance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">팀소개</a>
+        <a href="../design-study.html" class="text-sm font-medium text-white hover:text-[#0078F0] transition">케이스 스터디</a>
+      </div>
+    </nav>
+  </header>
+
+  <article class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+      <div class="mb-8"><a href="../design-study.html" class="text-sm text-gray-500 hover:text-[#0078F0] transition">← 목록으로 돌아가기</a></div>
+      <div class="mb-6">
+        <span class="text-sm text-[#0078F0] font-medium">디자인 · 웹디자인</span>
+        <span class="text-sm text-gray-500 ml-4">26. 01. 10.</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-12 leading-tight" style="font-weight: 800; line-height: 1.3;">디자이너를 위한 반응형 웹 디자인 체크리스트 20</h1>
+      <div class="mb-12 rounded-2xl overflow-hidden flex items-center justify-center" style="background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); height: 360px;">
+        <span class="text-white font-bold text-3xl text-center px-4" style="opacity: 0.2;">반응형<br>웹 디자인</span>
+      </div>
+
+      <div class="article-content">
+        <p>반응형 웹 디자인(Responsive Web Design)은 하나의 HTML/CSS로 모바일부터 데스크탑까지 모든 화면에 최적화된 레이아웃을 제공하는 방식입니다. Google web.dev의 공식 가이드와 Smashing Magazine의 레퍼런스를 바탕으로, 실무 디자이너가 반응형 웹 디자인 시 체크해야 할 핵심 항목을 정리했습니다.</p>
+
+        <h2>레이아웃 & 그리드</h2>
+        <ul>
+          <li><strong>뷰포트 메타 태그 확인:</strong> <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code>가 없으면 모바일에서 레이아웃이 깨집니다.</li>
+          <li><strong>고정 픽셀 너비 금지:</strong> 컨테이너 너비를 px 고정값이 아닌 %, max-width 조합으로 설정합니다.</li>
+          <li><strong>브레이크포인트 최소화:</strong> 320px, 768px, 1024px, 1440px 4개 정도로 기기별이 아닌 콘텐츠 기반으로 설정합니다.</li>
+          <li><strong>모바일 퍼스트 접근:</strong> 작은 화면을 먼저 설계하고 점진적으로 확장하는 방식이 구조적으로 더 안전합니다.</li>
+        </ul>
+
+        <h2>타이포그래피 & 여백</h2>
+        <ul>
+          <li><strong>폰트 크기 유연성:</strong> px 대신 rem 단위를 사용하면 사용자의 시스템 폰트 설정을 존중합니다.</li>
+          <li><strong>모바일 최소 폰트:</strong> 본문 최소 16px, 캡션은 12px 이상을 유지합니다.</li>
+          <li><strong>줄 길이(Line Length):</strong> 한 줄당 45~75자를 넘지 않도록 max-width를 설정합니다.</li>
+          <li><strong>터치 타겟 크기:</strong> 버튼, 링크 등 인터랙티브 요소는 최소 44×44px 이상을 확보합니다.</li>
+        </ul>
+
+        <h2>이미지 & 미디어</h2>
+        <ul>
+          <li><strong>유연한 이미지:</strong> <code>max-width: 100%</code>를 기본으로 설정해 컨테이너를 벗어나지 않게 합니다.</li>
+          <li><strong>srcset 활용:</strong> 화면 해상도에 따라 적절한 크기의 이미지를 로드하면 성능이 개선됩니다.</li>
+          <li><strong>비율 유지:</strong> <code>aspect-ratio</code> 속성으로 이미지 영역의 비율을 고정하면 레이아웃 깨짐을 방지합니다.</li>
+          <li><strong>WebP 포맷 우선:</strong> JPEG/PNG 대비 30~40% 파일 크기가 줄어 모바일 로딩 속도가 개선됩니다.</li>
+        </ul>
+
+        <h2>내비게이션 & 인터랙션</h2>
+        <ul>
+          <li><strong>햄버거 메뉴 접근성:</strong> 모바일 메뉴는 키보드 탐색과 스크린 리더가 접근 가능해야 합니다.</li>
+          <li><strong>Hover 의존 금지:</strong> 터치 환경에서 hover가 작동하지 않으므로 핵심 기능을 hover에만 의존하지 않습니다.</li>
+          <li><strong>스크롤 방향 고려:</strong> 모바일에서 가로 스크롤이 생기면 사용자 경험이 크게 저하됩니다.</li>
+        </ul>
+
+        <h2>성능 & 검수</h2>
+        <ul>
+          <li><strong>실기기 테스트:</strong> 크롬 개발자 도구 외에 실제 iOS/Android 기기에서 반드시 확인합니다.</li>
+          <li><strong>Lighthouse 점수:</strong> 구글 Lighthouse로 성능, 접근성, SEO 점수를 정기적으로 확인합니다.</li>
+          <li><strong>폼 입력 편의성:</strong> 이메일 입력창에 <code>type="email"</code>, 전화번호에 <code>type="tel"</code>을 지정하면 모바일 키보드가 자동 전환됩니다.</li>
+          <li><strong>하단 내비게이션 영역 확보:</strong> iOS 홈 인디케이터, 안드로이드 내비게이션 바와 겹치지 않도록 safe area를 고려합니다.</li>
+        </ul>
+
+        <div class="mt-12 p-6 rounded-xl" style="background-color: #252525; border: 1px solid #333;">
+          <p class="text-sm text-gray-400 mb-3">참고 자료</p>
+          <a href="https://web.dev/articles/responsive-web-design-basics" target="_blank" rel="noopener noreferrer" class="source-link text-sm block mb-2">Google web.dev — Responsive web design basics (공식 가이드)</a>
+          <a href="https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/" target="_blank" rel="noopener noreferrer" class="source-link text-sm block">Smashing Magazine — Responsive Web Design: What It Is And How To Use It</a>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#반응형웹</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#웹디자인</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#모바일퍼스트</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#디자인체크리스트</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="py-16 px-6 bg-black border-t" style="border-color: #333;">
+    <div class="container mx-auto max-w-6xl"><div class="grid md:grid-cols-3 gap-12">
+      <div><div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div></div>
+      <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">OFFICE</h4><p class="text-sm text-gray-400 leading-relaxed">06130 서울특별시 강남구<br>테헤란로7길 22 스파크플러스<br>강남5호점 1015호</p></div>
+      <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">CONTACT</h4><p class="text-sm text-gray-400 mb-2">070-7500-2220</p><p class="text-sm text-gray-400 mb-6">support@tagby.io</p><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">SOCIAL</h4><a href="#" class="text-sm text-gray-400 hover:text-white transition">Instagram</a></div>
+    </div></div>
+  </footer>
+  <div class="scroll-to-top" id="scrollToTop"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></div>
+  <script>
+    window.addEventListener('scroll', () => { document.getElementById('scrollToTop').classList.toggle('visible', window.scrollY > 300); });
+    document.getElementById('scrollToTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UX 라이팅 핵심 원칙 — 버튼 문구 하나가 전환율을 바꾼다 - tagby</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #1A1A1A; color: white; }
+    .article-content { font-size: 1.125rem; line-height: 1.8; color: #E0E0E0; }
+    .article-content p { margin-bottom: 1.5rem; }
+    .article-content strong { color: white; font-weight: 600; }
+    .article-content h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 3rem; margin-bottom: 1.5rem; }
+    .article-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .article-content ul li { margin-bottom: 0.5rem; }
+    .source-link { color: #0078F0; text-decoration: underline; }
+    .source-link:hover { color: #5aabff; }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <header style="position: fixed; top: 0; width: 100%; z-index: 50; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.95);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../index.html" class="cursor-pointer hover:opacity-80 transition"><img src="../images/TAGby blue.png" alt="TAGby" class="h-8"></a>
+      <div class="hidden lg:flex items-center gap-12">
+        <a href="../index.html#digital" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">디지털 마케팅</a>
+        <a href="../portfolio.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">포트폴리오</a>
+        <a href="../team-performance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">팀소개</a>
+        <a href="../design-study.html" class="text-sm font-medium text-white hover:text-[#0078F0] transition">케이스 스터디</a>
+      </div>
+    </nav>
+  </header>
+
+  <article class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+      <div class="mb-8"><a href="../design-study.html" class="text-sm text-gray-500 hover:text-[#0078F0] transition">← 목록으로 돌아가기</a></div>
+      <div class="mb-6">
+        <span class="text-sm text-[#0078F0] font-medium">디자인 · UX/UI</span>
+        <span class="text-sm text-gray-500 ml-4">26. 02. 17.</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-12 leading-tight" style="font-weight: 800; line-height: 1.3;">UX 라이팅 핵심 원칙 — 버튼 문구 하나가 전환율을 바꾼다</h1>
+      <div class="mb-12 rounded-2xl overflow-hidden flex items-center justify-center" style="background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); height: 360px;">
+        <div class="text-center">
+          <p class="font-bold text-4xl text-gray-800">UX</p>
+          <p class="text-lg text-gray-500 mt-2 tracking-widest">WRITING</p>
+        </div>
+      </div>
+
+      <div class="article-content">
+        <p>인터페이스 안의 텍스트는 단순한 설명이 아닙니다. 버튼 라벨, 에러 메시지, 플레이스홀더 — 이른바 <strong>마이크로카피(Microcopy)</strong>라 불리는 작은 텍스트들이 사용자의 행동과 전환율에 직접적인 영향을 미칩니다. UX 라이팅은 단어 선택 하나가 사용자 경험 전체를 바꿀 수 있는 영역입니다.</p>
+
+        <h2>마이크로카피의 3가지 역할</h2>
+        <p>닐슨 노먼 그룹(Nielsen Norman Group)은 마이크로카피가 수행하는 핵심 역할을 세 가지로 정의합니다.</p>
+        <ul>
+          <li><strong>Inform(안내):</strong> 사용자에게 지금 무슨 일이 일어나고 있는지, 다음에 무엇을 해야 하는지 알려줍니다. 예: "파일이 업로드되고 있습니다 (37%)"</li>
+          <li><strong>Influence(설득):</strong> 특정 행동을 유도합니다. CTA 버튼의 문구가 여기에 해당합니다. "구매하기"보다 "무료로 시작하기"가 더 많은 클릭을 유도하는 이유입니다.</li>
+          <li><strong>Interact(상호작용):</strong> 사용자와 제품의 관계를 인간적으로 만들어 신뢰를 형성합니다. 에러 메시지에서 차가운 "오류 코드 404" 대신 "페이지를 찾을 수 없어요. 홈으로 돌아갈까요?"처럼 쓰는 것이 예시입니다.</li>
+        </ul>
+
+        <h2>전환율을 높이는 버튼 문구 원칙</h2>
+        <ul>
+          <li><strong>동사로 시작하라:</strong> "확인", "다음"처럼 모호한 명사형보다 "저장하기", "무료로 시작하기"처럼 동사로 시작하는 문구가 행동을 더 명확히 유도합니다.</li>
+          <li><strong>사용자 관점으로 쓰라:</strong> "제출하기" 대신 "신청 완료하기", "보내기" 대신 "메시지 전송하기"처럼 사용자가 얻는 결과를 담아야 합니다.</li>
+          <li><strong>불안을 해소하라:</strong> 결제 버튼 아래 "언제든 취소 가능", 회원가입 버튼 옆 "스팸 없음" 같은 안심 문구가 전환율을 높입니다.</li>
+          <li><strong>구체적으로 쓰라:</strong> "더 알아보기"보다 "요금제 비교하기"처럼 클릭 후 무엇을 보게 될지 알려주는 것이 신뢰를 높입니다.</li>
+        </ul>
+
+        <h2>에러 메시지 작성 원칙</h2>
+        <p>에러 메시지는 UX 라이팅에서 가장 중요하면서도 자주 무시되는 영역입니다. 좋은 에러 메시지는 <strong>무슨 문제가 생겼는지, 왜 생겼는지, 어떻게 해결하는지</strong>를 친근하고 명확하게 전달해야 합니다. "입력 오류가 발생했습니다" 대신 "이메일 주소를 확인해주세요. @ 기호가 빠진 것 같아요"처럼 구체적으로 작성하면 이탈률을 줄일 수 있습니다.</p>
+
+        <div class="mt-12 p-6 rounded-xl" style="background-color: #252525; border: 1px solid #333;">
+          <p class="text-sm text-gray-400 mb-3">참고 자료</p>
+          <a href="https://www.nngroup.com/articles/3-is-of-microcopy/" target="_blank" rel="noopener noreferrer" class="source-link text-sm block mb-2">Nielsen Norman Group — The 3 I's of Microcopy: Inform, Influence, and Interact</a>
+          <a href="https://www.smashingmagazine.com/2024/06/how-improve-microcopy-ux-writing-tips-non-ux-writers/" target="_blank" rel="noopener noreferrer" class="source-link text-sm block">Smashing Magazine — How To Improve Your Microcopy: UX Writing Tips For Non-UX Writers</a>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#UX라이팅</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#마이크로카피</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#UXUI</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#전환율최적화</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="py-16 px-6 bg-black border-t" style="border-color: #333;">
+    <div class="container mx-auto max-w-6xl"><div class="grid md:grid-cols-3 gap-12">
+      <div><div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div></div>
+      <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">OFFICE</h4><p class="text-sm text-gray-400 leading-relaxed">06130 서울특별시 강남구<br>테헤란로7길 22 스파크플러스<br>강남5호점 1015호</p></div>
+      <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">CONTACT</h4><p class="text-sm text-gray-400 mb-2">070-7500-2220</p><p class="text-sm text-gray-400 mb-6">support@tagby.io</p><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">SOCIAL</h4><a href="#" class="text-sm text-gray-400 hover:text-white transition">Instagram</a></div>
+    </div></div>
+  </footer>
+  <div class="scroll-to-top" id="scrollToTop"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></div>
+  <script>
+    window.addEventListener('scroll', () => { document.getElementById('scrollToTop').classList.toggle('visible', window.scrollY > 300); });
+    document.getElementById('scrollToTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  </script>
+</body>
+</html>

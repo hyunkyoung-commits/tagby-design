@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>구글 PMax, 브랜드 키워드 완전 제어 기능 드디어 추가 - tagby</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #1A1A1A; color: white; }
+    .article-content { font-size: 1.125rem; line-height: 1.8; color: #E0E0E0; }
+    .article-content p { margin-bottom: 1.5rem; }
+    .article-content strong { color: white; font-weight: 600; }
+    .article-content h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 3rem; margin-bottom: 1.5rem; }
+    .article-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .article-content ul li { margin-bottom: 0.5rem; }
+    .source-link { color: #0078F0; text-decoration: underline; }
+    .source-link:hover { color: #5aabff; }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <header style="position: fixed; top: 0; width: 100%; z-index: 50; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.95);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../index.html" class="cursor-pointer hover:opacity-80 transition">
+        <img src="../images/TAGby blue.png" alt="TAGby" class="h-8">
+      </a>
+      <div class="hidden lg:flex items-center gap-12">
+        <a href="../index.html#digital" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">디지털 마케팅</a>
+        <a href="../portfolio.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">포트폴리오</a>
+        <a href="../team-performance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">팀소개</a>
+        <a href="../design-study.html" class="text-sm font-medium text-white hover:text-[#0078F0] transition">케이스 스터디</a>
+      </div>
+    </nav>
+  </header>
+
+  <article class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+
+      <div class="mb-8">
+        <a href="../design-study.html" class="text-sm text-gray-500 hover:text-[#0078F0] transition">← 목록으로 돌아가기</a>
+      </div>
+
+      <div class="mb-6">
+        <span class="text-sm text-[#0078F0] font-medium">뉴스 · 퍼포먼스</span>
+        <span class="text-sm text-gray-500 ml-4">25. 12. 20.</span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold mb-12 leading-tight" style="font-weight: 800; line-height: 1.3;">
+        구글 PMax, 브랜드 키워드 완전 제어 기능 드디어 추가
+      </h1>
+
+      <div class="mb-12 rounded-2xl overflow-hidden flex items-center justify-center" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); height: 360px;">
+        <span class="font-bold text-white tracking-widest" style="font-size: 3.5rem; opacity: 0.2;">PMax</span>
+      </div>
+
+      <div class="article-content">
+        <p>
+          구글이 <strong>Performance Max(PMax) 캠페인</strong>에서 브랜드 키워드를 완전히 제외하거나 제한할 수 있는 기능을 공식 추가했습니다. PMax 출시 이후 광고주들이 가장 많이 요구해온 기능 중 하나로, 이 업데이트는 브랜드 검색 예산을 독립적으로 운영하고 싶은 마케터들에게 큰 의미가 있습니다.
+        </p>
+
+        <h2>왜 이 기능이 필요했나</h2>
+        <p>
+          PMax는 구글의 모든 광고 네트워크(검색, 디스플레이, 유튜브, 지메일, 지도 등)에 자동으로 광고를 집행하는 캠페인입니다. 강력한 자동화가 장점이지만, 그만큼 광고주의 직접 제어가 어렵다는 한계가 있었습니다. 특히 브랜드 이름을 검색하는 사용자에게 PMax 광고가 자동 노출되면서, <strong>기존에 운영 중인 브랜드 키워드 캠페인(SA)과 예산이 중복 소진</strong>되는 문제가 빈번했습니다.
+        </p>
+        <p>
+          또한 PMax가 브랜드 키워드에 높은 성과를 기록하더라도, 이는 이미 구매 의도가 강한 사용자를 붙잡는 것이기 때문에 실질적인 신규 고객 획득 효과라고 보기 어렵습니다. 브랜드 검색 전환은 광고가 없어도 발생할 가능성이 높기 때문입니다.
+        </p>
+
+        <h2>새 기능 적용 방법</h2>
+        <ul>
+          <li><strong>캠페인 설정 → '브랜드 제외' 섹션:</strong> PMax 캠페인 설정 내에 브랜드 키워드를 입력하면, 해당 검색어에는 PMax 광고가 노출되지 않습니다.</li>
+          <li><strong>계정 수준 브랜드 제외:</strong> 모든 PMax 캠페인에 동일하게 적용하고 싶다면, 계정 수준에서 브랜드 목록을 등록할 수 있습니다.</li>
+          <li><strong>부분 일치도 지원:</strong> 브랜드명 오타나 변형 검색어도 함께 제외되도록 설정할 수 있어, 브랜드 키워드 방어에 더욱 효과적입니다.</li>
+        </ul>
+
+        <h2>이 업데이트로 달라지는 캠페인 구조</h2>
+        <p>
+          이 기능 추가로 퍼포먼스 마케터는 이제 보다 명확한 캠페인 분리 구조를 가져갈 수 있습니다.
+        </p>
+        <ul>
+          <li><strong>브랜드 캠페인(SA):</strong> 브랜드명 키워드 전담, CPC 방어 집중</li>
+          <li><strong>PMax 캠페인:</strong> 브랜드 키워드 제외 후 신규 고객 획득에만 집중</li>
+          <li><strong>일반 검색 캠페인(SA):</strong> 비브랜드 키워드 중 중요 키워드 수동 운영</li>
+        </ul>
+        <p>
+          캠페인 역할을 명확히 분리하면 <strong>예산 낭비를 줄이고 각 캠페인의 성과를 더 정확하게 측정</strong>할 수 있습니다. 지금 운영 중인 PMax가 있다면, 브랜드 제외 설정을 우선적으로 점검하길 권장합니다.
+        </p>
+
+        <div class="mt-12 p-6 rounded-xl" style="background-color: #252525; border: 1px solid #333;">
+          <p class="text-sm text-gray-400 mb-2">참고 자료</p>
+          <a href="https://support.google.com/google-ads/answer/14505308" target="_blank" rel="noopener noreferrer" class="source-link text-sm">Google Ads 고객센터 — PMax 브랜드 제외 설정 공식 안내</a><br><br>
+          <a href="https://blog.google/products/ads-commerce/new-performance-max-features-2025/" target="_blank" rel="noopener noreferrer" class="source-link text-sm">Google 공식 블로그 — 2025 Performance Max 신기능 발표</a>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#구글광고</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#PMax</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#브랜드키워드</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#퍼포먼스마케팅</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#캠페인구조</span>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="py-16 px-6 bg-black border-t" style="border-color: #333;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-3 gap-12">
+        <div><div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div></div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">OFFICE</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">06130 서울특별시 강남구<br>테헤란로7길 22 스파크플러스<br>강남5호점 1015호</p>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">CONTACT</h4>
+          <p class="text-sm text-gray-400 mb-2">070-7500-2220</p>
+          <p class="text-sm text-gray-400 mb-6">support@tagby.io</p>
+          <h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">SOCIAL</h4>
+          <a href="#" class="text-sm text-gray-400 hover:text-white transition">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </div>
+  <script>
+    window.addEventListener('scroll', () => { document.getElementById('scrollToTop').classList.toggle('visible', window.scrollY > 300); });
+    document.getElementById('scrollToTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  </script>
+
+</body>
+</html>

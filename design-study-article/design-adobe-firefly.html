@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>어도비 파이어플라이 AI 기능, 실무에서 쓰는 법 - tagby</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #1A1A1A; color: white; }
+    .article-content { font-size: 1.125rem; line-height: 1.8; color: #E0E0E0; }
+    .article-content p { margin-bottom: 1.5rem; }
+    .article-content strong { color: white; font-weight: 600; }
+    .article-content h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 3rem; margin-bottom: 1.5rem; }
+    .article-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .article-content ul li { margin-bottom: 0.5rem; }
+    .source-link { color: #0078F0; text-decoration: underline; }
+    .source-link:hover { color: #5aabff; }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <header style="position: fixed; top: 0; width: 100%; z-index: 50; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.95);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../index.html" class="cursor-pointer hover:opacity-80 transition"><img src="../images/TAGby blue.png" alt="TAGby" class="h-8"></a>
+      <div class="hidden lg:flex items-center gap-12">
+        <a href="../index.html#digital" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">디지털 마케팅</a>
+        <a href="../portfolio.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">포트폴리오</a>
+        <a href="../team-performance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">팀소개</a>
+        <a href="../design-study.html" class="text-sm font-medium text-white hover:text-[#0078F0] transition">케이스 스터디</a>
+      </div>
+    </nav>
+  </header>
+
+  <article class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+      <div class="mb-8"><a href="../design-study.html" class="text-sm text-gray-500 hover:text-[#0078F0] transition">← 목록으로 돌아가기</a></div>
+      <div class="mb-6">
+        <span class="text-sm text-[#0078F0] font-medium">디자인 · 어도비</span>
+        <span class="text-sm text-gray-500 ml-4">26. 02. 05.</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-12 leading-tight" style="font-weight: 800; line-height: 1.3;">어도비 파이어플라이 AI 기능, 실무에서 쓰는 법</h1>
+      <div class="mb-12 rounded-2xl overflow-hidden flex items-center justify-center" style="background: linear-gradient(135deg, #FF0000 0%, #003087 100%); height: 360px;">
+        <span class="text-white font-bold text-5xl tracking-widest" style="opacity: 0.2;">Firefly</span>
+      </div>
+
+      <div class="article-content">
+        <p>어도비가 자체 AI 플랫폼 <strong>Adobe Firefly</strong>를 포토샵, 일러스트레이터, 익스프레스 등 주요 제품에 전면 통합했습니다. 상업적 사용에 안전한 학습 데이터를 기반으로 한다는 점이 기존 AI 이미지 생성 도구와의 결정적인 차이입니다. 실무 디자이너가 파이어플라이를 어떻게 활용할 수 있는지 정리합니다.</p>
+
+        <h2>Generative Fill — 포토샵의 핵심 AI 기능</h2>
+        <p>포토샵에 통합된 <strong>Generative Fill</strong>은 선택 영역에 텍스트 프롬프트로 원하는 요소를 생성하거나 제거하는 기능입니다. 배경 확장(Outpainting), 불필요한 요소 제거, 새로운 오브젝트 삽입이 프롬프트 몇 줄로 처리됩니다. 광고 이미지의 배경을 계절에 맞게 바꾸거나, 제품 사진의 배경을 깔끔하게 교체하는 작업이 크게 빨라졌습니다.</p>
+
+        <h2>Generative Recolor — 일러스트레이터 색상 자동 변환</h2>
+        <p>일러스트레이터의 <strong>Generative Recolor</strong>는 벡터 아트워크의 컬러를 텍스트로 지정한 분위기에 맞게 자동으로 바꿔주는 기능입니다. "가을 분위기", "차분한 파스텔" 같은 프롬프트를 입력하면 전체 색상 팔레트가 즉시 변환됩니다. 브랜드 키 비주얼을 다양한 시즌 버전으로 빠르게 제작할 때 유용합니다.</p>
+
+        <h2>Firefly Image Model 4 — 텍스트-이미지 생성</h2>
+        <p>어도비가 2025년 공개한 <strong>Firefly Image Model 4</strong>는 이전 버전 대비 사실감과 디테일이 크게 향상됐습니다. 특히 인물 사진, 제품 목업, 배경 이미지 생성에서 상업적으로 즉시 사용 가능한 품질을 제공합니다. 어도비 스톡(Adobe Stock)에 기여한 크리에이터의 작품을 학습했기 때문에 <strong>저작권 분쟁 없이 상업적 사용이 가능</strong>한 점이 가장 큰 강점입니다.</p>
+
+        <h2>실무 활용 팁</h2>
+        <ul>
+          <li><strong>배너 제작 효율화:</strong> 하나의 원본 이미지로 여러 사이즈 배너를 만들 때 Generative Fill로 캔버스를 확장하면 시간을 크게 절약합니다.</li>
+          <li><strong>소재 A/B 테스트:</strong> 같은 레이아웃에 배경 이미지만 AI로 변형해 여러 버전을 빠르게 만들 수 있습니다.</li>
+          <li><strong>목업 이미지 제작:</strong> 제품 이미지를 다양한 라이프스타일 배경에 합성하는 작업이 훨씬 빨라집니다.</li>
+        </ul>
+
+        <div class="mt-12 p-6 rounded-xl" style="background-color: #252525; border: 1px solid #333;">
+          <p class="text-sm text-gray-400 mb-3">참고 자료</p>
+          <a href="https://blog.adobe.com/en/publish/2025/04/24/adobe-firefly-next-evolution-creative-ai-is-here" target="_blank" rel="noopener noreferrer" class="source-link text-sm block mb-2">Adobe Blog — Adobe Firefly: The Next Evolution of Creative AI is Here</a>
+          <a href="https://www.adobe.com/products/firefly.html" target="_blank" rel="noopener noreferrer" class="source-link text-sm block">Adobe 공식 — Adobe Firefly 제품 소개 페이지</a>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#어도비파이어플라이</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#AI디자인</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#포토샵AI</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#생성형AI</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="py-16 px-6 bg-black border-t" style="border-color: #333;">
+    <div class="container mx-auto max-w-6xl"><div class="grid md:grid-cols-3 gap-12">
+      <div><div class="w-8 h-8 rounded-full mb-6" style="background-color: #0078F0;"></div></div>
+      <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">OFFICE</h4><p class="text-sm text-gray-400 leading-relaxed">06130 서울특별시 강남구<br>테헤란로7길 22 스파크플러스<br>강남5호점 1015호</p></div>
+      <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">CONTACT</h4><p class="text-sm text-gray-400 mb-2">070-7500-2220</p><p class="text-sm text-gray-400 mb-6">support@tagby.io</p><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">SOCIAL</h4><a href="#" class="text-sm text-gray-400 hover:text-white transition">Instagram</a></div>
+    </div></div>
+  </footer>
+  <div class="scroll-to-top" id="scrollToTop"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></div>
+  <script>
+    window.addEventListener('scroll', () => { document.getElementById('scrollToTop').classList.toggle('visible', window.scrollY > 300); });
+    document.getElementById('scrollToTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  </script>
+</body>
+</html>
