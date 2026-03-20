@@ -554,12 +554,7 @@
         menu.addEventListener('mouseenter', function(){ showMenu(dropdown); });
         menu.addEventListener('mouseleave', scheduleHide);
       });
-      // Nav accordion open/close
-      document.querySelectorAll('.nav-accordion').forEach(function(acc){
-        var trigger = acc.querySelector('.nav-accordion-trigger');
-        trigger.addEventListener('mouseenter', function(){ acc.classList.add('open'); });
-        acc.addEventListener('mouseleave', function(){ acc.classList.remove('open'); });
-      });
+
     })();
 
     function togglePortfolioCategory(btn) {

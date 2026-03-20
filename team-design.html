@@ -251,33 +251,29 @@
 
         <div class="relative dropdown flex items-center">
           <a href="portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
-          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
-            <div class="nav-accordion">
-              <div class="nav-accordion-trigger flex items-center justify-between px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors cursor-pointer select-none">
-                패션 <span class="nav-accordion-arrow text-xs ml-3 opacity-50 transition-transform duration-200">▼</span>
+          <div class="dropdown-menu absolute top-full left-0 mt-2 bg-white rounded-xl shadow-xl p-6" style="min-width: 420px;">
+            <div class="grid grid-cols-3 gap-6">
+              <div>
+                <p class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">패션</p>
+                <div class="flex flex-col">
+                  <a href="spao.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">스파오</a>
+                  <a href="mixxo.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">미쏘</a>
+                  <a href="newbalance.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">뉴발란스</a>
+                  <a href="spaokids.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">스파오키즈</a>
+                  <a href="roem.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">로엠</a>
+                </div>
               </div>
-              <div class="nav-accordion-body">
-                <a href="spao.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">스파오</a>
-                <a href="mixxo.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">미쏘</a>
-                <a href="newbalance.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">뉴발란스</a>
-                <a href="spaokids.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">스파오키즈</a>
-                <a href="roem.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">로엠</a>
+              <div>
+                <p class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">생활/잡화</p>
+                <div class="flex flex-col">
+                  <a href="cocodor.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">코코도르</a>
+                </div>
               </div>
-            </div>
-            <div class="nav-accordion">
-              <div class="nav-accordion-trigger flex items-center justify-between px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors cursor-pointer select-none">
-                생활/잡화 <span class="nav-accordion-arrow text-xs ml-3 opacity-50 transition-transform duration-200">▼</span>
-              </div>
-              <div class="nav-accordion-body">
-                <a href="cocodor.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">코코도르</a>
-              </div>
-            </div>
-            <div class="nav-accordion">
-              <div class="nav-accordion-trigger flex items-center justify-between px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors cursor-pointer select-none">
-                모바일앱 <span class="nav-accordion-arrow text-xs ml-3 opacity-50 transition-transform duration-200">▼</span>
-              </div>
-              <div class="nav-accordion-body">
-                <a href="minbyoungcheol.html" class="block pl-8 pr-6 py-2 text-sm font-medium text-gray-500 hover:text-white hover:bg-[#0078F0] transition-colors">민병철유폰</a>
+              <div>
+                <p class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">모바일앱</p>
+                <div class="flex flex-col">
+                  <a href="minbyoungcheol.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">민병철유폰</a>
+                </div>
               </div>
             </div>
           </div>
@@ -685,7 +681,7 @@
           allDropdowns.forEach(function(d){
             var m = d.querySelector('.dropdown-menu');
             if(m){ m.style.display = 'none'; m.style.opacity = '0'; }
-            d.querySelectorAll('.nav-accordion').forEach(function(a){ a.classList.remove('open'); });
+
           });
           activeMenu = null;
         }
@@ -696,7 +692,7 @@
           if(activeMenu && activeMenu !== dropdown){
             var prev = activeMenu.querySelector('.dropdown-menu');
             if(prev){ prev.style.display = 'none'; prev.style.opacity = '0'; }
-            activeMenu.querySelectorAll('.nav-accordion').forEach(function(a){ a.classList.remove('open'); });
+
           }
           activeMenu = dropdown;
           var menu = dropdown.querySelector('.dropdown-menu');
@@ -716,12 +712,7 @@
           menu.addEventListener('mouseleave', scheduleHide);
         });
       })();
-      // Nav accordion open/close
-      document.querySelectorAll('.nav-accordion').forEach(function(acc){
-        var trigger = acc.querySelector('.nav-accordion-trigger');
-        trigger.addEventListener('mouseenter', function(){ acc.classList.add('open'); });
-        acc.addEventListener('mouseleave', function(){ acc.classList.remove('open'); });
-      });
+
     })();
   </script>
   <script>
