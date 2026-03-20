@@ -1026,21 +1026,26 @@
         var menu = dropdown.querySelector('.dropdown-menu');
         if (!menu) return;
         var hideTimer;
-        dropdown.addEventListener('mouseenter', function(){
+        function showMenu(){
           clearTimeout(hideTimer);
           menu.style.display = 'block';
           menu.style.opacity = '1';
           menu.style.transform = 'translateY(0)';
-        });
-        dropdown.addEventListener('mouseleave', function(){
+        }
+        function scheduleHide(){
           hideTimer = setTimeout(function(){
             menu.style.display = 'none';
             menu.style.opacity = '0';
             menu.style.transform = 'translateY(-10px)';
-            // close any open accordions inside
             dropdown.querySelectorAll('.nav-accordion').forEach(function(acc){ acc.classList.remove('open'); });
-          }, 300);
-        });
+          }, 400);
+        }
+        // Show on nav link hover
+        dropdown.addEventListener('mouseenter', showMenu);
+        dropdown.addEventListener('mouseleave', scheduleHide);
+        // Keep open when mouse is inside the menu (menu extends beyond parent bounds)
+        menu.addEventListener('mouseenter', showMenu);
+        menu.addEventListener('mouseleave', scheduleHide);
       });
       // Nav accordion open/close
       document.querySelectorAll('.nav-accordion').forEach(function(acc){
