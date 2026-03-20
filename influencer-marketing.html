@@ -178,6 +178,60 @@
     #brand-section .edge-right { right:0; background:linear-gradient(to left,  #F9F9FB 0%, rgba(249,249,251,0) 100%); }
     #brand-more-btn { background:none; border:none; cursor:pointer; color:#9CA3AF; font-size:0.85rem; font-weight:500; }
     #brand-more-btn:hover { color:#0078F0; }
+
+    /* Floating section indicator */
+    .section-indicator {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .section-indicator.visible { opacity: 1; pointer-events: auto; }
+    .section-indicator-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+    .section-indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #D1D5DB;
+      transition: all 0.2s ease;
+    }
+    .section-indicator-item.active .section-indicator-dot {
+      width: 12px;
+      height: 12px;
+      background: #0078F0;
+    }
+    .section-indicator-label {
+      position: absolute;
+      right: 20px;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 500;
+      color: #6B7280;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 4px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-8px);
+      transition: all 0.2s ease;
+    }
+    .section-indicator-item:hover .section-indicator-label { opacity: 1; transform: translateX(0); }
+    .section-indicator-item.active .section-indicator-label { color: #0078F0; }
+    @media (max-width: 768px) { .section-indicator { display: none; } }
   </style>
 <script>if(location.hash.includes("figmacapture")){document.addEventListener("DOMContentLoaded",function(){var st=document.createElement("style");st.textContent=".reveal-section,.reveal-item{opacity:1!important;transform:none!important;transition:none!important;visibility:visible!important;} *{animation-play-state:paused!important;}";document.head.appendChild(st);document.querySelectorAll(".reveal-section,.reveal-item").forEach(function(el){el.classList.add("visible");});var origIO=window.IntersectionObserver;window.IntersectionObserver=function(cb,opts){var io=new origIO(cb,opts);var origObs=io.observe.bind(io);io.observe=function(t){origObs(t);setTimeout(function(){cb([{isIntersecting:true,intersectionRatio:1,target:t,boundingClientRect:t.getBoundingClientRect(),intersectionRect:t.getBoundingClientRect(),rootBounds:null,time:performance.now()}],io);},0);};return io;};});}}</script><script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script></head>
 <body>
@@ -278,7 +332,7 @@
   <section class="pt-40 pb-20 px-6 relative overflow-hidden" style="background-color: #F9F9FB;">
     <div class="container mx-auto text-center relative z-10 max-w-5xl">
       <div class="mb-6">
-        <p class="text-sm font-bold tracking-wider" style="color: #0078F0; letter-spacing: 0.2em;">
+        <p class="text-sm font-bold tracking-wider" style="color: #9CA3AF; letter-spacing: 0.2em;">
           INFLUENCER MARKETING
         </p>
       </div>
@@ -334,7 +388,7 @@
 
 
   <!-- Section 3: 인플루언서를 활용한 오가닉 노출 - Case Study 1 (emart) -->
-  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+  <section id="case1" class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <!-- 브랜드 + 헤더 -->
       <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 reveal-item">
@@ -343,7 +397,7 @@
           <img src="images/influencer/인플루언서를 활용한 오가닉 노출 로고.png" alt="이마트" class="w-full h-auto object-contain" style="max-height: 60px;">
         </div>
         <div>
-          <p class="text-xs font-bold tracking-wider mb-2" style="color: #0078F0; letter-spacing: 0.2em;">Business Catalogue | Case Studies</p>
+          <p class="text-xs font-bold tracking-wider mb-2" style="color: #9CA3AF; letter-spacing: 0.2em;">Business Catalogue</p>
           <h2 class="text-3xl md:text-4xl font-bold mb-2 text-black" style="font-weight: 800; line-height: 1.3;">
             <span style="color: #0078F0;">인플루언서</span>를 활용한 오가닉 노출
           </h2>
@@ -394,7 +448,7 @@
 
 
   <!-- Section 4: 릴스 및 PA 목적의 콘텐츠 제작 - Case Study 2 (LG전자) -->
-  <section class="py-24 px-6 bg-white">
+  <section id="case2" class="py-24 px-6 bg-white">
     <div class="container mx-auto max-w-6xl">
       <!-- 브랜드 + 헤더 -->
       <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 reveal-item">
@@ -403,7 +457,7 @@
           <img src="images/influencer/릴스 및 PA 목적의 콘텐츠 제작 로고.png" alt="LG전자" class="w-full h-auto object-contain" style="max-height: 60px;">
         </div>
         <div>
-          <p class="text-xs font-bold tracking-wider mb-2" style="color: #0078F0; letter-spacing: 0.2em;">Business Catalogue | Case Studies</p>
+          <p class="text-xs font-bold tracking-wider mb-2" style="color: #9CA3AF; letter-spacing: 0.2em;">Business Catalogue</p>
           <h2 class="text-3xl md:text-4xl font-bold mb-2 text-black" style="font-weight: 800; line-height: 1.3;">
             <span style="color: #0078F0;">릴스 및 PA 목적</span>의 콘텐츠 제작
           </h2>
@@ -510,7 +564,7 @@
 
 
   <!-- Section 5: 블로그를 활용한 키워드 상위 노출 - Case Study 3 (TEAZEN) -->
-  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+  <section id="case3" class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <!-- 브랜드 + 헤더 -->
       <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 reveal-item">
@@ -519,7 +573,7 @@
           <img src="images/influencer/블로그를 활용한 키워드 상위 노출 로고.png" alt="TEAZEN" class="w-full h-auto object-contain" style="max-height: 60px;">
         </div>
         <div>
-          <p class="text-xs font-bold tracking-wider mb-2" style="color: #0078F0; letter-spacing: 0.2em;">Business Catalogue | Case Studies</p>
+          <p class="text-xs font-bold tracking-wider mb-2" style="color: #9CA3AF; letter-spacing: 0.2em;">Business Catalogue</p>
           <h2 class="text-3xl md:text-4xl font-bold mb-2 text-black" style="font-weight: 800; line-height: 1.3;">
             <span style="color: #0078F0;">블로그</span>를 활용한 키워드 상위 노출
           </h2>
@@ -562,7 +616,7 @@
 
 
   <!-- Section 6: 브랜드 유튜브 활성화 - Case Study 4 (E1) -->
-  <section class="py-24 px-6 bg-white">
+  <section id="case4" class="py-24 px-6 bg-white">
     <div class="container mx-auto max-w-6xl">
       <!-- 브랜드 + 헤더 -->
       <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 reveal-item">
@@ -571,7 +625,7 @@
           <img src="images/influencer/브랜드 유튜브 활성화 로고.png" alt="E1" class="w-full h-auto object-contain" style="max-height: 60px;">
         </div>
         <div>
-          <p class="text-xs font-bold tracking-wider mb-2" style="color: #0078F0; letter-spacing: 0.2em;">Business Catalogue | Case Studies</p>
+          <p class="text-xs font-bold tracking-wider mb-2" style="color: #9CA3AF; letter-spacing: 0.2em;">Business Catalogue</p>
           <h2 class="text-3xl md:text-4xl font-bold mb-2 text-black" style="font-weight: 800; line-height: 1.3;">
             <span style="color: #0078F0;">브랜드 유튜브</span> 활성화
           </h2>
@@ -651,6 +705,30 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script><script>if(location.hash.includes("figmacapture")){window.addEventListener("load",function(){setTimeout(function(){if(window.gsap){gsap.ticker.sleep();gsap.globalTimeline.pause();var orig=gsap.to;gsap.to=gsap.from=gsap.fromTo=gsap.set=function(){};}if(window.ScrollTrigger){ScrollTrigger.getAll().forEach(function(t){t.kill();});}document.querySelectorAll("*").forEach(function(el){if(el.style.opacity==="0"){el.style.opacity="1";}if(el.style.visibility==="hidden"){el.style.visibility="visible";}if(el.style.transform&&el.style.transform!=="none"){el.style.transform="none";}});document.querySelectorAll(".reveal-section,.reveal-item,.fade-in").forEach(function(e){e.classList.add("visible");e.style.opacity="1";e.style.transform="none";});var s=document.createElement("style");s.textContent=".reveal-section,.reveal-item,.fade-in{opacity:1!important;transform:none!important;transition:none!important;}";document.head.appendChild(s);},200);});}}</script>
 
+  <!-- Floating Section Indicator -->
+  <div class="section-indicator" id="sectionIndicator">
+    <div class="section-indicator-item" data-section="brand-section">
+      <span class="section-indicator-label">고객사</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="case1">
+      <span class="section-indicator-label">오가닉 노출</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="case2">
+      <span class="section-indicator-label">릴스·PA</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="case3">
+      <span class="section-indicator-label">블로그 노출</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="case4">
+      <span class="section-indicator-label">유튜브 채널</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+  </div>
+
   <!-- Scroll to Top Button -->
   <div class="scroll-to-top" id="scrollToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -680,6 +758,29 @@
 
       lastScrollY = currentScrollY;
 
+
+      // 섹션 인디케이터 업데이트
+      const indicator = document.getElementById('sectionIndicator');
+      const sectionIds = ['brand-section','case1','case2','case3','case4'];
+      if (currentScrollY > window.innerHeight * 0.5) {
+        indicator.classList.add('visible');
+      } else {
+        indicator.classList.remove('visible');
+      }
+      let currentSection = null;
+      sectionIds.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          const middle = window.innerHeight / 2;
+          if (rect.top <= middle && rect.bottom >= middle) {
+            currentSection = sectionId;
+          }
+        }
+      });
+      document.querySelectorAll('.section-indicator-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.section === currentSection);
+      });
       // Scroll to top 버튼 표시/숨김
       const scrollToTopBtn = document.getElementById('scrollToTop');
       if (currentScrollY > 300) {
@@ -687,6 +788,15 @@
       } else {
         scrollToTopBtn.classList.remove('visible');
       }
+    });
+
+
+    // 섹션 인디케이터 클릭 이벤트
+    document.querySelectorAll('.section-indicator-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const section = document.getElementById(item.dataset.section);
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     });
 
     // Scroll to top 버튼 클릭

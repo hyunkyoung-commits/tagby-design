@@ -390,6 +390,60 @@
     }
     .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
     .scroll-to-top:hover { background-color: #0056B3; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4); }
+
+    /* Floating section indicator */
+    .section-indicator {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .section-indicator.visible { opacity: 1; pointer-events: auto; }
+    .section-indicator-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+    .section-indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #D1D5DB;
+      transition: all 0.2s ease;
+    }
+    .section-indicator-item.active .section-indicator-dot {
+      width: 12px;
+      height: 12px;
+      background: #0078F0;
+    }
+    .section-indicator-label {
+      position: absolute;
+      right: 20px;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 500;
+      color: #6B7280;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 4px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-8px);
+      transition: all 0.2s ease;
+    }
+    .section-indicator-item:hover .section-indicator-label { opacity: 1; transform: translateX(0); }
+    .section-indicator-item.active .section-indicator-label { color: #0078F0; }
+    @media (max-width: 768px) { .section-indicator { display: none; } }
   </style>
 <script>if(location.hash.includes("figmacapture")){document.addEventListener("DOMContentLoaded",function(){var st=document.createElement("style");st.textContent=".reveal-section,.reveal-item{opacity:1!important;transform:none!important;transition:none!important;visibility:visible!important;} *{animation-play-state:paused!important;}";document.head.appendChild(st);document.querySelectorAll(".reveal-section,.reveal-item").forEach(function(el){el.classList.add("visible");});var origIO=window.IntersectionObserver;window.IntersectionObserver=function(cb,opts){var io=new origIO(cb,opts);var origObs=io.observe.bind(io);io.observe=function(t){origObs(t);setTimeout(function(){cb([{isIntersecting:true,intersectionRatio:1,target:t,boundingClientRect:t.getBoundingClientRect(),intersectionRect:t.getBoundingClientRect(),rootBounds:null,time:performance.now()}],io);},0);};return io;};});}}</script><script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script></head>
 <body>
@@ -490,7 +544,7 @@
   <section class="pt-40 pb-20 px-6 relative overflow-hidden" style="background-color: #F9F9FB;">
     <div class="container mx-auto text-center relative z-10 max-w-5xl">
       <div class="mb-6">
-        <p class="text-sm font-bold tracking-wider" style="color: #0078F0; letter-spacing: 0.2em;">
+        <p class="text-sm font-bold tracking-wider" style="color: #9CA3AF; letter-spacing: 0.2em;">
           PERFORMANCE MARKETING
         </p>
       </div>
@@ -514,7 +568,7 @@
   <section id="brand-section" class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-16 reveal-item">
-        <p class="text-xs font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">
+        <p class="text-xs font-bold tracking-wider mb-4" style="color: #9CA3AF; letter-spacing: 0.2em;">
           OUR CLIENTS
         </p>
         <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
@@ -537,7 +591,7 @@
 
 
   <!-- Section 2: 매체사 시각화 -->
-  <section class="py-24 px-6 bg-white">
+  <section id="media-section" class="py-24 px-6 bg-white">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-16 reveal-item">
         <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
@@ -611,14 +665,14 @@
 
 
   <!-- Section 3: 매체별 광고 포맷 -->
-  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+  <section id="ad-format" class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-16 reveal-item">
         <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
           AD FORMATS
         </p>
         <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
-          매체별 <span style="color: #0078F0;">광고 포맷</span>
+          <span style="color: #0078F0;">광고 포맷</span>
         </h2>
         <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
           각 매체의 특성에 맞춘 다양한 광고 포맷으로<br class="hidden md:block">
@@ -735,7 +789,7 @@
             </div>
           </div>
           <div class="flex flex-wrap gap-2 mb-6">
-            <span class="px-3 py-1 bg-gray-100 text-xs font-semibold rounded-full text-gray-700">프로모티드 트윗</span>
+            <span class="px-3 py-1 bg-gray-100 text-xs font-semibold rounded-full text-gray-700">트윗</span>
             <span class="px-3 py-1 bg-gray-100 text-xs font-semibold rounded-full text-gray-700">비디오 광고</span>
             <span class="px-3 py-1 bg-gray-100 text-xs font-semibold rounded-full text-gray-700">캐러셀</span>
           </div>
@@ -746,14 +800,14 @@
 
 
   <!-- Section 4: 집행광고 예시 -->
-  <section class="py-24 px-6 bg-white">
+  <section id="ad-examples" class="py-24 px-6 bg-white">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-16 reveal-item">
         <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
           AD EXAMPLES
         </p>
         <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
-          <span style="color: #0078F0;">광고</span> 예시
+          <span style="color: #0078F0;">광고 예시</span>
         </h2>
         <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
           실제 집행한 광고 예시입니다
@@ -874,7 +928,7 @@
 
 
   <!-- Section 5: 데이터 리포트 -->
-  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+  <section id="data-section" class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-16 reveal-item">
         <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
@@ -938,7 +992,7 @@
 
 
   <!-- Section 6: 프로세스 -->
-  <section class="py-24 px-6 bg-white">
+  <section id="process-section" class="py-24 px-6 bg-white">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-20 reveal-item">
         <p class="text-xs font-bold tracking-wider mb-4 text-gray-400" style="letter-spacing: 0.2em;">
@@ -1015,14 +1069,14 @@
   </section>
 
   <!-- Section 7: 고퀄리티 소재 디자인 -->
-  <section class="py-24 px-6" style="background-color: #F9F9FB;">
+  <section id="design-section" class="py-24 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-16 reveal-item">
-        <p class="text-xs font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">
+        <p class="text-xs font-bold tracking-wider mb-4" style="color: #9CA3AF; letter-spacing: 0.2em;">
           CREATIVE DESIGN
         </p>
         <h2 class="text-4xl md:text-5xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.3;">
-          <span style="color: #0078F0;">감도높은</span> 소재 디자인
+          감도높은 소재 <span style="color: #0078F0;">디자인</span>
         </h2>
         <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
           소재 디자인부터 퍼포먼스 집행까지 한 번에, 인사이트를 통한 소재 최적화
@@ -1087,6 +1141,38 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script><script>if(location.hash.includes("figmacapture")){window.addEventListener("load",function(){setTimeout(function(){if(window.gsap){gsap.ticker.sleep();gsap.globalTimeline.pause();var orig=gsap.to;gsap.to=gsap.from=gsap.fromTo=gsap.set=function(){};}if(window.ScrollTrigger){ScrollTrigger.getAll().forEach(function(t){t.kill();});}document.querySelectorAll("*").forEach(function(el){if(el.style.opacity==="0"){el.style.opacity="1";}if(el.style.visibility==="hidden"){el.style.visibility="visible";}if(el.style.transform&&el.style.transform!=="none"){el.style.transform="none";}});document.querySelectorAll(".reveal-section,.reveal-item,.fade-in").forEach(function(e){e.classList.add("visible");e.style.opacity="1";e.style.transform="none";});var s=document.createElement("style");s.textContent=".reveal-section,.reveal-item,.fade-in{opacity:1!important;transform:none!important;transition:none!important;}";document.head.appendChild(s);},200);});}}</script>
+
+  <!-- Floating Section Indicator -->
+  <div class="section-indicator" id="sectionIndicator">
+    <div class="section-indicator-item" data-section="brand-section">
+      <span class="section-indicator-label">고객사</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="media-section">
+      <span class="section-indicator-label">매체사</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="ad-format">
+      <span class="section-indicator-label">광고 포맷</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="ad-examples">
+      <span class="section-indicator-label">광고 예시</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="data-section">
+      <span class="section-indicator-label">데이터 리포트</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="process-section">
+      <span class="section-indicator-label">프로세스</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+    <div class="section-indicator-item" data-section="design-section">
+      <span class="section-indicator-label">소재 디자인</span>
+      <div class="section-indicator-dot"></div>
+    </div>
+  </div>
 
   <!-- Scroll to Top Button -->
   <div class="scroll-to-top" id="scrollToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">
@@ -1236,6 +1322,29 @@
 
       lastScrollY = currentScrollY;
 
+
+      // 섹션 인디케이터 업데이트
+      const indicator = document.getElementById('sectionIndicator');
+      const sectionIds = ['brand-section','media-section','ad-format','ad-examples','data-section','process-section','design-section'];
+      if (currentScrollY > window.innerHeight * 0.5) {
+        indicator.classList.add('visible');
+      } else {
+        indicator.classList.remove('visible');
+      }
+      let currentSection = null;
+      sectionIds.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          const middle = window.innerHeight / 2;
+          if (rect.top <= middle && rect.bottom >= middle) {
+            currentSection = sectionId;
+          }
+        }
+      });
+      document.querySelectorAll('.section-indicator-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.section === currentSection);
+      });
       // Scroll to top 버튼 표시/숨김
       const scrollToTopBtn = document.getElementById('scrollToTop');
       if (currentScrollY > 300) {
@@ -1243,6 +1352,15 @@
       } else {
         scrollToTopBtn.classList.remove('visible');
       }
+    });
+
+
+    // 섹션 인디케이터 클릭 이벤트
+    document.querySelectorAll('.section-indicator-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const section = document.getElementById(item.dataset.section);
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     });
 
     // Scroll to top 버튼 클릭
