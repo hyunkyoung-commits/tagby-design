@@ -171,6 +171,11 @@
     @media (max-width: 640px) {
       #brand-section .brand-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
+    /* 더보기 제어 */
+    #brand-section .brand-item.brand-hidden { display: none; }
+    #brand-section .brand-item.brand-hidden.brand-show { display: flex; }
+    #brand-more-btn { background: none; border: none; cursor: pointer; color: #9CA3AF; font-size: 0.85rem; font-weight: 500; }
+    #brand-more-btn:hover { color: #0078F0; }
 
     /* tint layer to colorize logos on hover */
     #brand-section .brand-item .tint { position:absolute; inset:0; opacity:0; transition:opacity .18s ease; pointer-events:none; mix-blend-mode: multiply; border-radius:12px; }
@@ -239,11 +244,11 @@
     }
 
     /* Reveal-on-scroll: gentle, smooth easing */
-    .reveal-section { opacity: 0; transition: opacity .9s ease-out; }
+    .reveal-section { opacity: 0; transition: opacity .5s ease-out; }
     .reveal-section.visible { opacity: 1; }
 
     /* Items inside sections will translate up gently and fade in */
-    .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .9s ease-out, transform .9s ease-out; will-change: transform, opacity; }
+    .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .5s ease-out, transform .5s ease-out; will-change: transform, opacity; }
     .reveal-item.visible { opacity: 1; transform: translateY(0); }
 
     /* Floating section indicator (Notion style) */
@@ -483,9 +488,14 @@
         <div class="edge-right"></div>
 
         <!-- Grid layout -->
-        <div class="brand-grid">
+        <div class="brand-grid" id="brand-grid">
           <!-- Items injected by JS -->
         </div>
+      </div>
+
+      <!-- 브랜드 더보기 버튼 -->
+      <div class="text-center mt-8" id="brand-more-wrap">
+        <button id="brand-more-btn" onclick="brandShowMore()">브랜드 더보기 ↓</button>
       </div>
     </div>
   </section>
@@ -863,56 +873,56 @@
           <div class="grid grid-cols-2 gap-x-4 gap-y-6">
             <!-- 메타 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
-                <span style="color:#0078F0; font-weight:800; font-size:12px;">Meta<br><span style="font-size:8px; font-weight:400;">Business Partner</span></span>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/메타.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">메타</p>
               <p class="text-[10px] text-gray-400 tracking-wider">META</p>
             </div>
             <!-- 구글 애즈 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
-                <svg width="26" height="26" viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#FFC107"/><path d="M5.3 14.7l7.4 5.4C14.5 16.2 18.9 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 15.4 2 8.1 7.3 5.3 14.7z" fill="#FF3D00"/><path d="M24 46c5.4 0 10.3-1.8 14.1-5l-6.5-5.5C29.5 37.1 26.9 38 24 38c-6 0-11.1-4-12.8-9.5l-7.3 5.6C7 41.1 14.7 46 24 46z" fill="#4CAF50"/><path d="M46 24c0-1.3-.2-2.7-.5-4H24v8.5h11.8c-1 2.7-2.8 5-5.2 6.5l6.5 5.5C41.5 36.6 46 31 46 24z" fill="#1976D2"/></svg>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/구글.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">구글 애즈</p>
               <p class="text-[10px] text-gray-400 tracking-wider">GOOGLE ADS</p>
             </div>
             <!-- 카카오 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-2">
-                <span class="font-bold text-yellow-400" style="font-size:13px;">kakao</span>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
+                <img src="images/logo/카카오.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오</p>
               <p class="text-[10px] text-gray-400 tracking-wider">KAKAO</p>
             </div>
             <!-- 카카오 모먼트 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-2">
-                <span class="font-bold text-white" style="font-size:13px;">kakao</span>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
+                <img src="images/logo/카카오.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오 모먼트</p>
               <p class="text-[10px] text-gray-400 tracking-wider">KAKAO MOMENT</p>
             </div>
             <!-- 네이버 (GFA) -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
-                <span style="color:#03C75A; font-weight:800; font-size:14px;">NAVER</span>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/네이버.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 (GFA)</p>
               <p class="text-[10px] text-gray-400 tracking-wider">NAVER (GFA)</p>
             </div>
             <!-- 당근마켓 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
-                <span style="color:#FF6F0F; font-weight:800; font-size:10px;">당근마켓</span>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/당근마켓.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">당근마켓</p>
               <p class="text-[10px] text-gray-400 tracking-wider">DAANGN MARKET</p>
             </div>
             <!-- 트위터 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
-                <span style="color:#1DA1F2; font-weight:700; font-size:11px; font-style:italic;">twitter</span>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/트위터.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">트위터</p>
               <p class="text-[10px] text-gray-400 tracking-wider">TWITTER</p>
@@ -929,24 +939,24 @@
           <div class="grid grid-cols-2 gap-x-4 gap-y-6">
             <!-- 네이버 SA -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
-                <span style="color:#03C75A; font-weight:800; font-size:14px;">NAVER</span>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/네이버.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 SA</p>
               <p class="text-[10px] text-gray-400 tracking-wider">NAVER SA</p>
             </div>
             <!-- 카카오 SA -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-gray-900 shadow-sm flex items-center justify-center mb-2">
-                <span class="font-bold text-yellow-400" style="font-size:13px;">kakao</span>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
+                <img src="images/logo/카카오.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오 SA</p>
               <p class="text-[10px] text-gray-400 tracking-wider">KAKAO SA</p>
             </div>
             <!-- 구글 SA -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
-                <svg width="26" height="26" viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#FFC107"/><path d="M5.3 14.7l7.4 5.4C14.5 16.2 18.9 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 15.4 2 8.1 7.3 5.3 14.7z" fill="#FF3D00"/><path d="M24 46c5.4 0 10.3-1.8 14.1-5l-6.5-5.5C29.5 37.1 26.9 38 24 38c-6 0-11.1-4-12.8-9.5l-7.3 5.6C7 41.1 14.7 46 24 46z" fill="#4CAF50"/><path d="M46 24c0-1.3-.2-2.7-.5-4H24v8.5h11.8c-1 2.7-2.8 5-5.2 6.5l6.5 5.5C41.5 36.6 46 31 46 24z" fill="#1976D2"/></svg>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/구글.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">구글 SA</p>
               <p class="text-[10px] text-gray-400 tracking-wider">GOOGLE SA</p>
@@ -963,48 +973,48 @@
           <div class="grid grid-cols-2 gap-x-4 gap-y-6">
             <!-- 인스타그램 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full shadow-sm flex items-center justify-center mb-2" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
+                <img src="images/logo/인스타.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">인스타그램</p>
               <p class="text-[10px] text-gray-400 tracking-wider">INSTAGRAM</p>
             </div>
             <!-- 틱톡 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
-                <svg width="22" height="22" viewBox="0 0 48 48" fill="none"><path d="M34.1 0h-8.6v32.7c0 3.8-3 6.9-6.8 7-3.8 0-6.9-3.1-6.9-6.9s3.1-6.9 6.9-6.9c.7 0 1.4.1 2 .3v-8.8c-.7-.1-1.3-.1-2-.1C10.3 17.3 3.3 24.3 3.3 32.8S10.3 48.2 18.7 48.2c8.5 0 15.4-6.9 15.4-15.4V15.6c3.3 2.4 7.3 3.8 11.6 3.8V10.8c-6.4 0-11.6-4.8-11.6-10.8z" fill="#000"/></svg>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/틱톡.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">틱톡</p>
               <p class="text-[10px] text-gray-400 tracking-wider">TICTOK</p>
             </div>
             <!-- 유튜브 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
-                <svg width="24" height="17" viewBox="0 0 48 34" fill="none"><path d="M47 5.4C46.5 3.5 45 2 43.1 1.5 39.3.4 24 .4 24 .4S8.7.4 4.9 1.5C3 2 1.5 3.5 1 5.4 0 9.2 0 17 0 17s0 7.8 1 11.6c.5 1.9 2 3.4 3.9 3.9C8.7 33.6 24 33.6 24 33.6s15.3 0 19.1-1.1c1.9-.5 3.4-2 3.9-3.9C48 24.8 48 17 48 17s0-7.8-1-11.6z" fill="#FF0000"/><path d="M19.2 24.3L31.7 17l-12.5-7.3v14.6z" fill="#FFF"/></svg>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/유튜브.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">유튜브</p>
               <p class="text-[10px] text-gray-400 tracking-wider">YOUTUBE</p>
             </div>
             <!-- 네이버 블로그 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full shadow-sm flex items-center justify-center mb-2" style="background: #03C75A;">
-                <span style="color:white; font-weight:800; font-size:13px;">blog</span>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
+                <img src="images/logo/블로그.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 블로그</p>
               <p class="text-[10px] text-gray-400 tracking-wider">NAVER BLOG</p>
             </div>
             <!-- 네이버 카페 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full shadow-sm flex items-center justify-center mb-2" style="background: #03C75A;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm4 4h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
+                <img src="images/logo/카페.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 카페</p>
               <p class="text-[10px] text-gray-400 tracking-wider">NAVER CAFE</p>
             </div>
             <!-- X -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-2" style="border: 1.5px solid #EAEDF0;">
-                <span style="color:#000; font-weight:900; font-size:20px;">X</span>
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/X.png" class="w-full h-full object-cover">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">X</p>
               <p class="text-[10px] text-gray-400 tracking-wider">X</p>
@@ -1663,29 +1673,55 @@
     // ========================================
     (function(){
       const logos = [
-        'images/logo/이랜드.png',
-        'images/logo/스파오.png',
-        'images/logo/스파오키즈.png',
-        'images/logo/미쏘.png',
-        'images/logo/로엠.png',
-        'images/logo/클라비스.png',
-        'images/logo/뉴발란스.png',
-        'images/logo/에블린.png',
-        'images/logo/슈펜.png',
-        'images/logo/데상트.png',
-        'images/logo/살로몬.png',
-        'images/logo/킥더허들.png',
-        'images/logo/지쿤.png',
-        'images/logo/테라비코스.png',
-        'images/logo/코코도르.png',
-        'images/logo/민병철유폰.png'
+        'images/logo/이랜드.png', 'images/logo/스파오.png', 'images/logo/스파오키즈.png',
+        'images/logo/미쏘.png', 'images/logo/로엠.png', 'images/logo/클라비스.png',
+        'images/logo/뉴발란스.png', 'images/logo/에블린.png', 'images/logo/슈펜.png',
+        'images/logo/데상트.png', 'images/logo/살로몬.png', 'images/logo/킥더허들.png',
+        'images/logo/지쿤.png', 'images/logo/테라비코스.png', 'images/logo/코코도르.png',
+        'images/logo/민병철유폰.png',
+        'images/브랜드로고/3M.png', 'images/브랜드로고/AHC.png', 'images/브랜드로고/AK.png',
+        'images/브랜드로고/ASML.png', 'images/브랜드로고/CJ.png', 'images/브랜드로고/DB.png',
+        'images/브랜드로고/E1.png', 'images/브랜드로고/GS.png', 'images/브랜드로고/KFC.png',
+        'images/브랜드로고/KT.png', 'images/브랜드로고/LF몰.png', 'images/브랜드로고/LG.png',
+        'images/브랜드로고/MBC PLUS.png', 'images/브랜드로고/SK.png', 'images/브랜드로고/가히.png',
+        'images/브랜드로고/놀부보쌈.png', 'images/브랜드로고/농심.png', 'images/브랜드로고/니베아.png',
+        'images/브랜드로고/닥스.png', 'images/브랜드로고/대상.png', 'images/브랜드로고/더현대.png',
+        'images/브랜드로고/디올.png', 'images/브랜드로고/디즈니플러스.png', 'images/브랜드로고/라이프플러스.png',
+        'images/브랜드로고/라코스테.png', 'images/브랜드로고/랑콤.png', 'images/브랜드로고/랜드로버.png',
+        'images/브랜드로고/러브캣.png', 'images/브랜드로고/몽벨.png', 'images/브랜드로고/배스킨라빈스.png',
+        'images/브랜드로고/밴츠.png', 'images/브랜드로고/보솜이.png', 'images/브랜드로고/비비고.png',
+        'images/브랜드로고/빈폴.png', 'images/브랜드로고/빙그레.png', 'images/브랜드로고/사람인.png',
+        'images/브랜드로고/삼성물산.png', 'images/브랜드로고/샤넬.png', 'images/브랜드로고/소니.png',
+        'images/브랜드로고/숨37.png', 'images/브랜드로고/스타벅스.png', 'images/브랜드로고/스케처스.png',
+        'images/브랜드로고/시원스쿨.png', 'images/브랜드로고/신한.png', 'images/브랜드로고/아모레.png',
+        'images/브랜드로고/아토팜.png', 'images/브랜드로고/언더아머.png', 'images/브랜드로고/엘코잉크.png',
+        'images/브랜드로고/엘포인트.png', 'images/브랜드로고/오리온.png', 'images/브랜드로고/이니스프리.png',
+        'images/브랜드로고/이랜드.png', 'images/브랜드로고/이마트.png', 'images/브랜드로고/청정원.png',
+        'images/브랜드로고/카스.png', 'images/브랜드로고/카카오게임.png', 'images/브랜드로고/카카오엔터테인먼트.png',
+        'images/브랜드로고/캐논.png', 'images/브랜드로고/컨버스.png', 'images/브랜드로고/코오롱.png',
+        'images/브랜드로고/코카콜라.png', 'images/브랜드로고/쿠팡.png', 'images/브랜드로고/타다.png',
+        'images/브랜드로고/토스.png', 'images/브랜드로고/틱톡.png', 'images/브랜드로고/페리에.png',
+        'images/브랜드로고/필라.png', 'images/브랜드로고/한샘.png', 'images/브랜드로고/한섬.png',
+        'images/브랜드로고/한화시스템.png', 'images/브랜드로고/호가든.png', 'images/브랜드로고/홈플러스.png'
       ];
 
       // 그리드 생성
       const labelMap = {
         '스파오':'스파오', '뉴발란스':'뉴발란스', '로엠':'로엠', '미쏘':'미쏘', '스파오키즈':'스파오키즈',
         '이랜드':'이랜드', '클라비스':'클라비스', '에블린':'에블린', '슈펜':'슈펜', '데상트':'데상트',
-        '살로몬':'살로몬', '킥더허들':'킥더허들', '지쿤':'지쿤', '테라비코스':'테라비코스', '코코도르':'코코도르', '민병철유폰':'민병철유폰'
+        '살로몬':'살로몬', '킥더허들':'킥더허들', '지쿤':'지쿤', '테라비코스':'테라비코스', '코코도르':'코코도르', '민병철유폰':'민병철유폰',
+        '3M':'3M', 'AHC':'AHC', 'AK':'AK', 'ASML':'ASML', 'CJ':'CJ', 'DB':'DB', 'E1':'E1', 'GS':'GS',
+        'KFC':'KFC', 'KT':'KT', 'LF몰':'LF몰', 'LG':'LG', 'MBC PLUS':'MBC PLUS', 'SK':'SK',
+        '가히':'가히', '놀부보쌈':'놀부보쌈', '농심':'농심', '니베아':'니베아', '닥스':'닥스', '대상':'대상',
+        '더현대':'더현대', '디올':'디올', '디즈니플러스':'디즈니플러스', '라이프플러스':'라이프플러스', '라코스테':'라코스테',
+        '랑콤':'랑콤', '랜드로버':'랜드로버', '러브캣':'러브캣', '몽벨':'몽벨', '배스킨라빈스':'배스킨라빈스', '밴츠':'밴츠',
+        '보솜이':'보솜이', '비비고':'비비고', '빈폴':'빈폴', '빙그레':'빙그레', '사람인':'사람인', '삼성물산':'삼성물산',
+        '샤넬':'샤넬', '소니':'소니', '숨37':'숨37', '스타벅스':'스타벅스', '스케처스':'스케처스', '시원스쿨':'시원스쿨',
+        '신한':'신한', '아모레':'아모레', '아토팜':'아토팜', '언더아머':'언더아머', '엘코잉크':'엘코잉크', '엘포인트':'엘포인트',
+        '오리온':'오리온', '이니스프리':'이니스프리', '이마트':'이마트', '청정원':'청정원', '카스':'카스',
+        '카카오게임':'카카오게임', '카카오엔터테인먼트':'카카오엔터테인먼트', '캐논':'캐논', '컨버스':'컨버스', '코오롱':'코오롱',
+        '코카콜라':'코카콜라', '쿠팡':'쿠팡', '타다':'타다', '토스':'토스', '틱톡':'틱톡', '페리에':'페리에',
+        '필라':'필라', '한샘':'한샘', '한섬':'한섬', '한화시스템':'한화시스템', '호가든':'호가든', '홈플러스':'홈플러스'
       };
 
       const linkMap = {
@@ -1755,8 +1791,44 @@
 
       const gridEl = document.querySelector('#brand-section .brand-grid');
       if (gridEl) buildGrid(gridEl, logos);
-      // quick debug log to confirm grid build
       console.debug('buildGrid completed - brand items:', document.querySelectorAll('#brand-section .brand-item').length);
+
+      // 초기 4줄(8열 기준 32개, 6열 기준 24개, 3열 기준 12개)만 표시
+      function getColCount() {
+        if (window.innerWidth <= 640) return 3;
+        if (window.innerWidth <= 1023) return 6;
+        return 8;
+      }
+      function applyBrandLimit() {
+        const cols = getColCount();
+        const initialRows = 4;
+        const items = document.querySelectorAll('#brand-section .brand-item');
+        items.forEach((item, i) => {
+          if (i >= cols * initialRows) {
+            item.classList.add('brand-hidden');
+            item.classList.remove('brand-show');
+          } else {
+            item.classList.remove('brand-hidden');
+          }
+        });
+        // 숨긴 아이템이 없으면 버튼 숨김
+        const hidden = document.querySelectorAll('#brand-section .brand-item.brand-hidden');
+        const wrap = document.getElementById('brand-more-wrap');
+        if (wrap) wrap.style.display = hidden.length ? '' : 'none';
+      }
+      applyBrandLimit();
+      window.addEventListener('resize', applyBrandLimit);
+
+      window.brandShowMore = function() {
+        const cols = getColCount();
+        const moreRows = 2;
+        const hidden = Array.from(document.querySelectorAll('#brand-section .brand-item.brand-hidden:not(.brand-show)'));
+        hidden.slice(0, cols * moreRows).forEach(item => item.classList.add('brand-show'));
+        // 더 이상 숨긴 아이템 없으면 버튼 숨김
+        const remaining = document.querySelectorAll('#brand-section .brand-item.brand-hidden:not(.brand-show)');
+        const wrap = document.getElementById('brand-more-wrap');
+        if (wrap && !remaining.length) wrap.style.display = 'none';
+      };
 
       // Initialize brand animations after grid is populated (try local then global)
       if (!location.hash.includes("figmacapture")) {
