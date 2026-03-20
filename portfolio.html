@@ -249,12 +249,21 @@
 
         <div class="py-2">
           <a href="portfolio.html" class="text-lg font-medium text-[#0078F0] mb-3 block">포트폴리오</a>
-          <div class="flex flex-col gap-2 pl-4">
-            <a href="spao.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오</a>
-            <a href="mixxo.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">미쏘</a>
-            <a href="newbalance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">뉴발란스</a>
-            <a href="spaokids.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오키즈</a>
-            <a href="roem.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">로엠</a>
+          <div class="flex flex-col gap-1 pl-4">
+            <div class="portfolio-category">
+              <button onclick="togglePortfolioCategory(this)" class="w-full text-left text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1 flex items-center justify-between">
+                패션 <span class="category-arrow text-xs text-gray-400">▼</span>
+              </button>
+              <div class="category-sub hidden flex-col gap-1 pl-4">
+                <a href="spao.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오</a>
+                <a href="mixxo.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">미쏘</a>
+                <a href="newbalance.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">뉴발란스</a>
+                <a href="spaokids.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오키즈</a>
+                <a href="roem.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">로엠</a>
+              </div>
+            </div>
+            <a href="#" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">프래그런스</a>
+            <a href="#" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">모바일앱</a>
           </div>
         </div>
 
@@ -274,7 +283,7 @@
   <!-- Hero Section -->
   <section class="pt-40 pb-16 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl text-center">
-      <p class="text-xs font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">PORTFOLIO | TAGby</p>
+      <p class="text-xs font-bold tracking-wider mb-4" style="color: #9CA3AF; letter-spacing: 0.2em;">PORTFOLIO | TAGby</p>
       <h1 class="text-5xl md:text-6xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.2;">
         포트폴리오
       </h1>

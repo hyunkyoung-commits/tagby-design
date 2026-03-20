@@ -427,12 +427,21 @@
 
         <div class="py-2">
           <p class="text-lg font-medium text-gray-900 mb-3">포트폴리오</p>
-          <div class="flex flex-col gap-2 pl-4">
-            <a href="spao.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오</a>
-            <a href="mixxo.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">미쏘</a>
-            <a href="newbalance.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">뉴발란스</a>
-            <a href="spaokids.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">스파오키즈</a>
-            <a href="roem.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">로엠</a>
+          <div class="flex flex-col gap-1 pl-4">
+            <div class="portfolio-category">
+              <button onclick="togglePortfolioCategory(this)" class="w-full text-left text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1 flex items-center justify-between">
+                패션 <span class="category-arrow text-xs text-gray-400">▼</span>
+              </button>
+              <div class="category-sub hidden flex-col gap-1 pl-4">
+                <a href="spao.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오</a>
+                <a href="mixxo.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">미쏘</a>
+                <a href="newbalance.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">뉴발란스</a>
+                <a href="spaokids.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오키즈</a>
+                <a href="roem.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">로엠</a>
+              </div>
+            </div>
+            <a href="#" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">프래그런스</a>
+            <a href="#" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">모바일앱</a>
           </div>
         </div>
         
@@ -479,7 +488,7 @@
   <section id="brand-section" class="py-16 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-8">
-        <p class="text-sm font-bold tracking-wider mb-2" style="color: #0078F0; letter-spacing:0.2em;">PARTNERS</p>
+        <p class="text-sm font-bold tracking-wider mb-2" style="color: #9CA3AF; letter-spacing:0.2em;">PARTNERS</p>
         <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;"><span style="color:#0078F0;">태그바이</span>와<br>함께하는 브랜드</h2>
       </div>
 
@@ -504,7 +513,7 @@
   <section id="design-showcase" class="py-32 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl mb-20">
       <div class="text-center reveal-item">
-        <p class="text-sm font-bold tracking-wider mb-6" style="color: #0078F0; letter-spacing: 0.2em;">
+        <p class="text-sm font-bold tracking-wider mb-6" style="color: #9CA3AF; letter-spacing: 0.2em;">
           CREATIVE EXCELLENCE 
         </p>
         <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
@@ -527,7 +536,7 @@
   <section id="agency-intro" class="py-32 px-6 relative" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-24 reveal-item">
-        <p class="text-sm font-bold tracking-wider mb-6" style="color: #0078F0; letter-spacing: 0.2em;">
+        <p class="text-sm font-bold tracking-wider mb-6" style="color: #9CA3AF; letter-spacing: 0.2em;">
           INTEGRATED AGENCY
         </p>
         <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
@@ -601,15 +610,14 @@
     <div class="container mx-auto max-w-7xl">
       <!-- Header -->
       <div class="mb-16 text-center reveal-item">
-        <p class="text-xs font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">
+        <p class="text-xs font-bold tracking-wider mb-4" style="color: #9CA3AF; letter-spacing: 0.2em;">
           DIGITAL MARKETING | TAGby
         </p>
         <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
-          전략부터 운영까지<br><span style="color: #0078F0;">모두</span> 책임집니다
+          전략부터 운영까지<br>모두 책임집니다
         </h2>
         <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          통합 마케팅 전략 수립부터 매체 전략, 콘텐츠 전략까지<br class="hidden md:block">
-          다양한 마케팅 전략에 대한 컨설팅부터 운영까지 제공합니다.
+          통합 마케팅 전략 수립을 통한 컨설팅부터 운영까지 제공합니다.
         </p>
       </div>
 
@@ -677,7 +685,7 @@
         <button class="material-tab" data-material="bizboard">비즈보드</button>
         <button class="material-tab" data-material="google">구글</button>
         <button class="material-tab" data-material="inapp">인앱광고</button>
-        <button class="material-tab" data-material="twitter">트위터</button>
+        <button class="material-tab" data-material="twitter">X</button>
         <button class="material-tab" data-material="cashwalk">캐시워크</button>
       </div>
 
@@ -850,7 +858,7 @@
     <div class="container mx-auto max-w-6xl">
       <!-- Header -->
       <div class="mb-16 text-center reveal-item">
-        <p class="text-xs font-bold tracking-wider mb-4" style="color: #0078F0; letter-spacing: 0.2em;">
+        <p class="text-xs font-bold tracking-wider mb-4" style="color: #9CA3AF; letter-spacing: 0.2em;">
           DIGITAL MARKETING | TAGby
         </p>
         <h2 class="text-4xl md:text-5xl font-bold mb-8 text-black" style="font-weight: 800; line-height: 1.3;">
@@ -895,13 +903,13 @@
               <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오</p>
               <p class="text-[10px] text-gray-400 tracking-wider">KAKAO</p>
             </div>
-            <!-- 카카오 모먼트 -->
+            <!-- 틱톡 -->
             <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
-                <img src="images/logo/카카오.png" class="w-full h-full object-cover">
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/틱톡.png" class="w-full h-full object-cover">
               </div>
-              <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오 모먼트</p>
-              <p class="text-[10px] text-gray-400 tracking-wider">KAKAO MOMENT</p>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">틱톡</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">TIKTOK</p>
             </div>
             <!-- 네이버 (GFA) -->
             <div class="flex flex-col items-center text-center">
@@ -919,13 +927,21 @@
               <p class="font-semibold text-xs text-gray-900 mb-0.5">당근마켓</p>
               <p class="text-[10px] text-gray-400 tracking-wider">DAANGN MARKET</p>
             </div>
-            <!-- 트위터 -->
+            <!-- X -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/트위터.png" class="w-full h-full object-cover">
+                <img src="images/logo/X.png" class="w-full h-full object-cover">
               </div>
-              <p class="font-semibold text-xs text-gray-900 mb-0.5">트위터</p>
-              <p class="text-[10px] text-gray-400 tracking-wider">TWITTER</p>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">X</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">X (TWITTER)</p>
+            </div>
+            <!-- 토스 -->
+            <div class="flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2" style="border: 1.5px solid #EAEDF0;">
+                <img src="images/logo/토스.png" class="w-full h-full object-cover">
+              </div>
+              <p class="font-semibold text-xs text-gray-900 mb-0.5">토스</p>
+              <p class="text-[10px] text-gray-400 tracking-wider">TOSS</p>
             </div>
           </div>
         </div>
