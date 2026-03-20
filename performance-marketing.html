@@ -1501,7 +1501,7 @@
         function closeAll(){
           allDropdowns.forEach(function(d){
             var m = d.querySelector('.dropdown-menu');
-            if(m){ m.style.display = 'none'; }
+            if(m){ m.style.display = 'none'; m.style.opacity = '0'; }
             d.querySelectorAll('.nav-accordion').forEach(function(a){ a.classList.remove('open'); });
           });
           activeMenu = null;
@@ -1512,12 +1512,12 @@
           // Close any other open menu immediately
           if(activeMenu && activeMenu !== dropdown){
             var prev = activeMenu.querySelector('.dropdown-menu');
-            if(prev){ prev.style.display = 'none'; }
+            if(prev){ prev.style.display = 'none'; prev.style.opacity = '0'; }
             activeMenu.querySelectorAll('.nav-accordion').forEach(function(a){ a.classList.remove('open'); });
           }
           activeMenu = dropdown;
           var menu = dropdown.querySelector('.dropdown-menu');
-          if(menu){ menu.style.display = 'block'; }
+          if(menu){ menu.style.display = 'block'; menu.style.opacity = '1'; menu.style.transform = 'translateY(0)'; }
         }
 
         function scheduleHide(){
