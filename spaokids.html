@@ -19,12 +19,7 @@
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .dropdown:hover .dropdown-menu,
-    .dropdown-menu:hover {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* dropdown hover is handled by JS with delay */
 
     .dropdown {
       position: relative;
@@ -806,6 +801,28 @@
 
   <script>
     (function(){
+      // Dropdown with hide delay so sub-items are reachable
+      document.querySelectorAll('.dropdown').forEach(function(dropdown){
+        var menu = dropdown.querySelector('.dropdown-menu');
+        if (!menu) return;
+        var hideTimer;
+        dropdown.addEventListener('mouseenter', function(){
+          clearTimeout(hideTimer);
+          menu.style.display = 'block';
+          menu.style.opacity = '1';
+          menu.style.transform = 'translateY(0)';
+        });
+        dropdown.addEventListener('mouseleave', function(){
+          hideTimer = setTimeout(function(){
+            menu.style.display = 'none';
+            menu.style.opacity = '0';
+            menu.style.transform = 'translateY(-10px)';
+            // close any open accordions inside
+            dropdown.querySelectorAll('.nav-accordion').forEach(function(acc){ acc.classList.remove('open'); });
+          }, 300);
+        });
+      });
+      // Nav accordion open/close
       document.querySelectorAll('.nav-accordion').forEach(function(acc){
         var trigger = acc.querySelector('.nav-accordion-trigger');
         trigger.addEventListener('mouseenter', function(){ acc.classList.add('open'); });
