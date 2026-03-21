@@ -5,12 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MIXXO Portfolio - tagby design</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="shared.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       background-color: #F8F8F8;
+    }
+
+    .dropdown-menu {
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    /* dropdown hover is handled by JS with delay */
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 20px;
     }
 
     /* 갤러리 그리드 */
@@ -133,6 +154,37 @@
     .fade-in:nth-child(3) { animation-delay: 0.2s; }
     .fade-in:nth-child(4) { animation-delay: 0.25s; }
 
+    /* 플로팅 버튼 */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 56px;
+      height: 56px;
+      background-color: #0078F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 120, 240, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 40;
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-to-top:hover {
+      background-color: #0056B3;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4);
+    }
+
     /* 더보기 버튼 */
     .load-more-btn {
       display: inline-flex;
@@ -178,8 +230,68 @@
       }
     }
 
+    /* 모바일 메뉴 */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+
+    .mobile-overlay.active {
+      display: block;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background-color: #000;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
     @media (max-width: 1023px) {
+      .hamburger {
+        display: flex;
       }
+    }
 
     /* Nav accordion dropdown */
     .nav-accordion-body {
@@ -567,7 +679,13 @@
       }
     });
 
-        });
+    // Scroll to top 버튼 클릭
+    document.getElementById('scrollToTop').addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
 
     // 정사각형 이미지 감지 및 배경 설정
     document.querySelectorAll('.gallery-item').forEach(item => {
@@ -607,7 +725,26 @@
       }
     });
 
-        // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+    // 모바일 메뉴
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    mobileOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    // 모바일 메뉴 링크 클릭 시 메뉴 닫기
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('active');
@@ -618,7 +755,61 @@
     });
   </script>
 
-  
-  
-<script src="shared.js"></script>
+  <script>
+    (function(){
+      // Dropdown: shared timer so entering a new menu instantly closes the previous
+      (function(){
+        var allDropdowns = Array.from(document.querySelectorAll('.dropdown'));
+        var hideTimer;
+        var activeMenu = null;
+
+        function closeAll(){
+          allDropdowns.forEach(function(d){
+            var m = d.querySelector('.dropdown-menu');
+            if(m){ m.style.display = 'none'; m.style.opacity = '0'; }
+
+          });
+          activeMenu = null;
+        }
+
+        function showMenu(dropdown){
+          clearTimeout(hideTimer);
+          // Close any other open menu immediately
+          if(activeMenu && activeMenu !== dropdown){
+            var prev = activeMenu.querySelector('.dropdown-menu');
+            if(prev){ prev.style.display = 'none'; prev.style.opacity = '0'; }
+
+          }
+          activeMenu = dropdown;
+          var menu = dropdown.querySelector('.dropdown-menu');
+          if(menu){ menu.style.display = 'block'; menu.style.opacity = '1'; menu.style.transform = 'translateY(0)'; }
+        }
+
+        function scheduleHide(){
+          hideTimer = setTimeout(closeAll, 300);
+        }
+
+        allDropdowns.forEach(function(dropdown){
+          var menu = dropdown.querySelector('.dropdown-menu');
+          if(!menu) return;
+          dropdown.addEventListener('mouseenter', function(){ showMenu(dropdown); });
+          dropdown.addEventListener('mouseleave', scheduleHide);
+          menu.addEventListener('mouseenter', function(){ showMenu(dropdown); });
+          menu.addEventListener('mouseleave', scheduleHide);
+        });
+      })();
+
+    })();
+  </script>
+  <script>
+    function togglePortfolioCategory(btn) {
+      var sub = btn.parentElement.querySelector('.category-sub');
+      var arrow = btn.querySelector('.category-arrow');
+      if (!sub) return;
+      var isOpen = sub.classList.contains('flex');
+      sub.classList.toggle('hidden', isOpen);
+      sub.classList.toggle('flex', !isOpen);
+      if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+    }
+  </script>
 </body>
