@@ -241,7 +241,37 @@
       transform: rotate(180deg);
     }
   </style>
-<script>if(location.hash.includes("figmacapture")){document.addEventListener("DOMContentLoaded",function(){var st=document.createElement("style");st.textContent=".reveal-section,.reveal-item{opacity:1!important;transform:none!important;transition:none!important;visibility:visible!important;} *{animation-play-state:paused!important;}";document.head.appendChild(st);document.querySelectorAll(".reveal-section,.reveal-item").forEach(function(el){el.classList.add("visible");});var origIO=window.IntersectionObserver;window.IntersectionObserver=function(cb,opts){var io=new origIO(cb,opts);var origObs=io.observe.bind(io);io.observe=function(t){origObs(t);setTimeout(function(){cb([{isIntersecting:true,intersectionRatio:1,target:t,boundingClientRect:t.getBoundingClientRect(),intersectionRect:t.getBoundingClientRect(),rootBounds:null,time:performance.now()}],io);},0);};return io;};});}}</script><script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script></head>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js"></script>
+<script>
+if(location.hash.includes("figmacapture")){
+  // gsap-enabled 클래스 추가 차단
+  var _origAdd = DOMTokenList.prototype.add;
+  DOMTokenList.prototype.add = function(){
+    var args = Array.from(arguments).filter(function(c){ return c !== 'gsap-enabled'; });
+    if(args.length) _origAdd.apply(this, args);
+  };
+  var st = document.createElement("style");
+  st.textContent = ".reveal-item,.reveal-section,.reveal-item.gsap-enabled{opacity:1!important;transform:none!important;transition:none!important;visibility:visible!important;}";
+  document.head.appendChild(st);
+  document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll(".reveal-item,.reveal-section").forEach(function(el){
+      el.classList.remove("gsap-enabled");
+      el.classList.add("visible");
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
+  });
+  // 로드 후에도 한번 더 적용
+  window.addEventListener("load", function(){
+    document.querySelectorAll(".reveal-item,.reveal-section").forEach(function(el){
+      el.classList.remove("gsap-enabled");
+      el.classList.add("visible");
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
+  });
+}
+</script></head>
 <body>
 
   <!-- Header -->
