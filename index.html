@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>tagby design - 디지털 마케팅 대행사</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="shared.css">
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
@@ -25,90 +26,8 @@
       animation: scroll-left 25s linear infinite;
     }
     
-    .dropdown-menu {
-      display: none;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    /* dropdown hover is handled by JS with delay */
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      height: 20px;
-    }
-
-    /* 모바일 메뉴 */
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 280px;
-      height: 100vh;
-      background-color: white;
-      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-      transition: right 0.3s ease;
-      z-index: 100;
-      overflow-y: auto;
-    }
-
-    .mobile-menu.active {
-      right: 0;
-    }
-
-    .mobile-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 99;
-    }
-
-    .mobile-overlay.active {
-      display: block;
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 8px;
-    }
-
-    .hamburger span {
-      width: 24px;
-      height: 2px;
-      background-color: #000;
-      transition: all 0.3s ease;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(7px, 7px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-
     @media (max-width: 1023px) {
-      .hamburger {
-        display: flex;
       }
-    }
 
     /* Brand logos */
     /* 태그바이 브랜드 스트립 스타일 */
@@ -243,9 +162,6 @@
     .reveal-section.visible { opacity: 1; }
 
     /* Items inside sections will translate up gently and fade in */
-    .reveal-item { opacity: 0; transform: translateY(24px); transition: opacity .3s ease-out, transform .3s ease-out; will-change: transform, opacity; }
-    .reveal-item.visible { opacity: 1; transform: translateY(0); }
-
     /* Floating section indicator (Notion style) */
     .section-indicator {
       position: fixed;
@@ -314,38 +230,7 @@
 
     /* accessibility: reduce motion */
     @media (prefers-reduced-motion: reduce) {
-      .reveal-section, .reveal-item { transition: none !important; transform: none !important; opacity: 1 !important; }
-    }
-
-    /* 플로팅 버튼 */
-    .scroll-to-top {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      width: 56px;
-      height: 56px;
-      background-color: #0078F0;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 120, 240, 0.3);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-      z-index: 40;
-    }
-    .scroll-to-top.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .scroll-to-top:hover {
-      background-color: #0056B3;
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 120, 240, 0.4);
-    }
-
+      .reveal-section, }
 
     /* Nav accordion dropdown */
     .nav-accordion-body {
@@ -1185,7 +1070,8 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script><script>if(location.hash.includes("figmacapture")){window.addEventListener("load",function(){setTimeout(function(){if(window.gsap){gsap.ticker.sleep();gsap.globalTimeline.pause();var orig=gsap.to;gsap.to=gsap.from=gsap.fromTo=gsap.set=function(){};}if(window.ScrollTrigger){ScrollTrigger.getAll().forEach(function(t){t.kill();});}document.querySelectorAll("*").forEach(function(el){if(el.style.opacity==="0"){el.style.opacity="1";}if(el.style.visibility==="hidden"){el.style.visibility="visible";}if(el.style.transform&&el.style.transform!=="none"){el.style.transform="none";}});document.querySelectorAll(".reveal-section,.reveal-item,.fade-in").forEach(function(e){e.classList.add("visible");e.style.opacity="1";e.style.transform="none";});var s=document.createElement("style");s.textContent=".reveal-section,.reveal-item,.fade-in{opacity:1!important;transform:none!important;transition:none!important;}";document.head.appendChild(s);},200);});}}</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="shared.js"></script><script>if(location.hash.includes("figmacapture")){window.addEventListener("load",function(){setTimeout(function(){if(window.gsap){gsap.ticker.sleep();gsap.globalTimeline.pause();var orig=gsap.to;gsap.to=gsap.from=gsap.fromTo=gsap.set=function(){};}if(window.ScrollTrigger){ScrollTrigger.getAll().forEach(function(t){t.kill();});}document.querySelectorAll("*").forEach(function(el){if(el.style.opacity==="0"){el.style.opacity="1";}if(el.style.visibility==="hidden"){el.style.visibility="visible";}if(el.style.transform&&el.style.transform!=="none"){el.style.transform="none";}});document.querySelectorAll(".reveal-section,.reveal-item,.fade-in").forEach(function(e){e.classList.add("visible");e.style.opacity="1";e.style.transform="none";});var s=document.createElement("style");s.textContent=".reveal-section,.reveal-item,.fade-in{opacity:1!important;transform:none!important;transition:none!important;}";document.head.appendChild(s);},200);});}}</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
@@ -1712,10 +1598,7 @@
       });
     });
 
-    // Scroll to top 버튼 클릭
-    document.getElementById('scrollToTop').addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+        });
 
     // 자체 제작 소재 매체별 탭 전환
     (function(){
@@ -1734,26 +1617,7 @@
       });
     })();
 
-    // 모바일 메뉴
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileOverlay = document.getElementById('mobileOverlay');
-
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      mobileMenu.classList.toggle('active');
-      mobileOverlay.classList.toggle('active');
-      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-    });
-
-    mobileOverlay.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      mobileMenu.classList.remove('active');
-      mobileOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-
-    // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+        // 모바일 메뉴 링크 클릭 시 메뉴 닫기
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('active');
@@ -1969,61 +1833,6 @@
     })();
   </script>
 
-  <script>
-    (function(){
-      // Dropdown: shared timer so entering a new menu instantly closes the previous
-      (function(){
-        var allDropdowns = Array.from(document.querySelectorAll('.dropdown'));
-        var hideTimer;
-        var activeMenu = null;
-
-        function closeAll(){
-          allDropdowns.forEach(function(d){
-            var m = d.querySelector('.dropdown-menu');
-            if(m){ m.style.display = 'none'; m.style.opacity = '0'; }
-
-          });
-          activeMenu = null;
-        }
-
-        function showMenu(dropdown){
-          clearTimeout(hideTimer);
-          // Close any other open menu immediately
-          if(activeMenu && activeMenu !== dropdown){
-            var prev = activeMenu.querySelector('.dropdown-menu');
-            if(prev){ prev.style.display = 'none'; prev.style.opacity = '0'; }
-
-          }
-          activeMenu = dropdown;
-          var menu = dropdown.querySelector('.dropdown-menu');
-          if(menu){ menu.style.display = 'block'; menu.style.opacity = '1'; menu.style.transform = 'translateY(0)'; }
-        }
-
-        function scheduleHide(){
-          hideTimer = setTimeout(closeAll, 300);
-        }
-
-        allDropdowns.forEach(function(dropdown){
-          var menu = dropdown.querySelector('.dropdown-menu');
-          if(!menu) return;
-          dropdown.addEventListener('mouseenter', function(){ showMenu(dropdown); });
-          dropdown.addEventListener('mouseleave', scheduleHide);
-          menu.addEventListener('mouseenter', function(){ showMenu(dropdown); });
-          menu.addEventListener('mouseleave', scheduleHide);
-        });
-      })();
-
-    })();
-  </script>
-  <script>
-    function togglePortfolioCategory(btn) {
-      var sub = btn.parentElement.querySelector('.category-sub');
-      var arrow = btn.querySelector('.category-arrow');
-      if (!sub) return;
-      var isOpen = sub.classList.contains('flex');
-      sub.classList.toggle('hidden', isOpen);
-      sub.classList.toggle('flex', !isOpen);
-      if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
-    }
-  </script>
+  
+  
 </body>

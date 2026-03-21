@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>포트폴리오 - TAGby</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="shared.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -12,90 +13,8 @@
       background-color: #F8F8F8;
     }
 
-    .dropdown-menu {
-      display: none;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    /* dropdown hover is handled by JS with delay */
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      height: 20px;
-    }
-
-    /* 모바일 메뉴 */
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 280px;
-      height: 100vh;
-      background-color: white;
-      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-      transition: right 0.3s ease;
-      z-index: 100;
-      overflow-y: auto;
-    }
-
-    .mobile-menu.active {
-      right: 0;
-    }
-
-    .mobile-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 99;
-    }
-
-    .mobile-overlay.active {
-      display: block;
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 8px;
-    }
-
-    .hamburger span {
-      width: 24px;
-      height: 2px;
-      background-color: #000;
-      transition: all 0.3s ease;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(7px, 7px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-
     @media (max-width: 1023px) {
-      .hamburger {
-        display: flex;
       }
-    }
 
     /* 브랜드 카드 */
     .brand-card {
@@ -324,12 +243,12 @@
   <!-- Hero Section -->
   <section class="pt-40 pb-16 px-6" style="background-color: #F9F9FB;">
     <div class="container mx-auto max-w-6xl text-center">
-      <p class="text-xs font-bold tracking-wider mb-4" style="color: #9CA3AF; letter-spacing: 0.2em;">PORTFOLIO | TAGby</p>
+      <p class="text-xs font-bold tracking-wider mb-4" style="color: #9CA3AF; letter-spacing: 0.2em;">PORTFOLIO</p>
       <h1 class="text-5xl md:text-6xl font-bold mb-6 text-black" style="font-weight: 800; line-height: 1.2;">
         포트폴리오
       </h1>
       <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-        태그바이와 함께한 브랜드들의 디지털 마케팅 성과를 확인해보세요.
+        태그바이와 함께한 브랜드들의 디지털 마케팅 성과를 확인해보세요
       </p>
     </div>
   </section>
@@ -465,61 +384,7 @@
       scrollTopBtn.style.justifyContent = 'center';
     });
   </script>
-  <script>
-    (function(){
-      // Dropdown: shared timer so entering a new menu instantly closes the previous
-      (function(){
-        var allDropdowns = Array.from(document.querySelectorAll('.dropdown'));
-        var hideTimer;
-        var activeMenu = null;
-
-        function closeAll(){
-          allDropdowns.forEach(function(d){
-            var m = d.querySelector('.dropdown-menu');
-            if(m){ m.style.display = 'none'; m.style.opacity = '0'; }
-
-          });
-          activeMenu = null;
-        }
-
-        function showMenu(dropdown){
-          clearTimeout(hideTimer);
-          // Close any other open menu immediately
-          if(activeMenu && activeMenu !== dropdown){
-            var prev = activeMenu.querySelector('.dropdown-menu');
-            if(prev){ prev.style.display = 'none'; prev.style.opacity = '0'; }
-
-          }
-          activeMenu = dropdown;
-          var menu = dropdown.querySelector('.dropdown-menu');
-          if(menu){ menu.style.display = 'block'; menu.style.opacity = '1'; menu.style.transform = 'translateY(0)'; }
-        }
-
-        function scheduleHide(){
-          hideTimer = setTimeout(closeAll, 300);
-        }
-
-        allDropdowns.forEach(function(dropdown){
-          var menu = dropdown.querySelector('.dropdown-menu');
-          if(!menu) return;
-          dropdown.addEventListener('mouseenter', function(){ showMenu(dropdown); });
-          dropdown.addEventListener('mouseleave', scheduleHide);
-          menu.addEventListener('mouseenter', function(){ showMenu(dropdown); });
-          menu.addEventListener('mouseleave', scheduleHide);
-        });
-      })();
-
-    })();
-  </script>
-  <script>
-    function togglePortfolioCategory(btn) {
-      var sub = btn.parentElement.querySelector('.category-sub');
-      var arrow = btn.querySelector('.category-arrow');
-      if (!sub) return;
-      var isOpen = sub.classList.contains('flex');
-      sub.classList.toggle('hidden', isOpen);
-      sub.classList.toggle('flex', !isOpen);
-      if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
-    }
-  </script>
+  
+  
+<script src="shared.js"></script>
 </body>
