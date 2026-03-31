@@ -306,6 +306,35 @@
       transform: rotate(180deg);
     }
   </style>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js"></script>
+<script>
+if(location.hash.includes("figmacapture")){
+  var _origAdd = DOMTokenList.prototype.add;
+  DOMTokenList.prototype.add = function(){
+    var args = Array.from(arguments).filter(function(c){ return c !== 'gsap-enabled'; });
+    if(args.length) _origAdd.apply(this, args);
+  };
+  var st = document.createElement("style");
+  st.textContent = ".reveal-item,.reveal-section,.reveal-item.gsap-enabled{opacity:1!important;transform:none!important;transition:none!important;visibility:visible!important;} .gallery-overlay{opacity:1!important;} .gallery-info{transform:translateY(0)!important;} .gallery-item::before{opacity:1!important;}";
+  document.head.appendChild(st);
+  document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll(".reveal-item,.reveal-section").forEach(function(el){
+      el.classList.remove("gsap-enabled");
+      el.classList.add("visible");
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
+  });
+  window.addEventListener("load", function(){
+    document.querySelectorAll(".reveal-item,.reveal-section").forEach(function(el){
+      el.classList.remove("gsap-enabled");
+      el.classList.add("visible");
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
+  });
+}
+</script>
 </head>
 <body>
 
@@ -350,7 +379,7 @@
               <div>
                 <p class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">모바일앱</p>
                 <div class="flex flex-col">
-                  <a href="minbyoungcheol.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">민병철유폰</a>
+                  <a href="minbyoungcheol.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">uphone</a>
                 </div>
               </div>
             </div>
@@ -424,7 +453,7 @@
                 모바일앱 <span class="category-arrow text-xs text-gray-400">▼</span>
               </button>
               <div class="category-sub hidden flex-col gap-1 pl-4">
-                <a href="minbyoungcheol.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">민병철유폰</a>
+                <a href="minbyoungcheol.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">uphone</a>
               </div>
             </div>
           </div>
