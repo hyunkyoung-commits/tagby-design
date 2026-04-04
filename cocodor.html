@@ -213,11 +213,11 @@
           <img src="images/cocodor/3.%2026.01_%EC%8B%9C%EA%B7%B8%EB%8B%88%EC%B2%98%20%EC%BB%AC%EB%A0%89%EC%85%98.png" alt="코코도르 시그니처 컬렉션" onerror="this.parentElement.style.background='#D4C9E0';this.style.display='none'">
           <div class="gallery-overlay"><div class="gallery-info"><p class="text-white text-sm mb-1 font-medium">코코도르</p><p class="text-white/70 text-xs mb-2">26년 1월</p><p class="text-white text-lg font-bold">시그니처 컬렉션</p></div></div>
         </div>
-        <div class="gallery-item fade-in" data-index="6">
+        <div class="gallery-item fade-in hidden" data-index="6">
           <img src="images/cocodor/2.%2026.01_%EC%84%A4%EB%82%A0%ED%94%84%EB%A1%9C%EB%AA%A8%EC%85%98.png" alt="코코도르 설날프로모션" onerror="this.parentElement.style.background='#C9D4E0';this.style.display='none'">
           <div class="gallery-overlay"><div class="gallery-info"><p class="text-white text-sm mb-1 font-medium">코코도르</p><p class="text-white/70 text-xs mb-2">26년 1월</p><p class="text-white text-lg font-bold">설날 프로모션</p></div></div>
         </div>
-        <div class="gallery-item fade-in" data-index="7">
+        <div class="gallery-item fade-in hidden" data-index="7">
           <img src="images/cocodor/1.%2025.10_%EC%96%91%EC%9E%AC%EB%8F%99%EA%BD%83%EC%8B%9C%EC%9E%A5.jpg" alt="코코도르 양재동꽃시장" onerror="this.parentElement.style.background='#B9C6D5';this.style.display='none'">
           <div class="gallery-overlay"><div class="gallery-info"><p class="text-white text-sm mb-1 font-medium">코코도르</p><p class="text-white/70 text-xs mb-2">25년 10월</p><p class="text-white text-lg font-bold">양재동꽃시장 디퓨저</p></div></div>
         </div>
@@ -277,12 +277,12 @@
         if (img.complete && img.naturalWidth === img.naturalHeight) { item.classList.add('square-image'); item.style.backgroundImage = `url('${img.src}')`; }
       }
     });
-    let currentIndex = 4;
+    let currentIndex = 6;
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     const galleryItems = document.querySelectorAll('.gallery-item');
     loadMoreBtn.addEventListener('click', () => {
       let count = 0;
-      for (let i = currentIndex; i < galleryItems.length && count < 4; i++) { galleryItems[i].classList.remove('hidden'); count++; currentIndex++; }
+      for (let i = currentIndex; i < galleryItems.length && count < 3; i++) { galleryItems[i].classList.remove('hidden'); count++; currentIndex++; }
       if (currentIndex >= galleryItems.length) loadMoreBtn.classList.add('hidden');
     });
     const hamburger = document.getElementById('hamburger');

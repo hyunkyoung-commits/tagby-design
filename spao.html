@@ -571,7 +571,7 @@ if(location.hash.includes("figmacapture")){
         </div>
 
         <!-- Gallery Item 5 -->
-        <div class="gallery-item fade-in hidden" data-index="5">
+        <div class="gallery-item fade-in" data-index="5">
           <img src="images/spao/4.png" alt="스파오 퍼플리스 집업" onerror="this.src='https://via.placeholder.com/1080x1350/6a6a6a/ffffff?text=SPAO+6'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -583,7 +583,7 @@ if(location.hash.includes("figmacapture")){
         </div>
 
         <!-- Gallery Item 4 -->
-        <div class="gallery-item fade-in hidden" data-index="6">
+        <div class="gallery-item fade-in" data-index="6">
           <img src="images/spao/3.png" alt="스파오 웜진" onerror="this.src='https://via.placeholder.com/1080x1350/7a7a7a/ffffff?text=SPAO+7'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -735,8 +735,8 @@ if(location.hash.includes("figmacapture")){
     });
 
     // 더보기 버튼 기능
-    let currentIndex = 4; // 처음 4개 표시
-    const itemsPerLoad = 4; // 한 번에 4개씩 로드
+    let currentIndex = 6; // 처음 6개 표시
+    const itemsPerLoad = 3; // 한 번에 3개씩 로드
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     const galleryItems = document.querySelectorAll('.gallery-item');
 
