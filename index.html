@@ -1391,15 +1391,15 @@
         onEnter: batch => gsap.to(batch, {
           opacity: 1,
           y: 0,
-          stagger: { each: 0.04 },
-          duration: 0.45,
+          stagger: { each: 0.025 },
+          duration: 0.2,
           ease: 'power3.out'
         }),
         onLeaveBack: batch => gsap.to(batch, {
           opacity: 0,
           y: 8,
-          stagger: 0.025,
-          duration: 0.3,
+          stagger: 0.01,
+          duration: 0.2,
           ease: 'power2.in'
         }),
         start: 'top 75%',
@@ -1419,7 +1419,7 @@
           onEnter: () => gsap.to(designCarousel, {
             opacity: 1,
             y: 0,
-            duration: 0.5,
+            duration: 0.32,
             ease: 'power3.out'
           })
         });
@@ -1438,7 +1438,7 @@
           onEnter: () => gsap.to(contentBox, {
             opacity: 1,
             y: 0,
-            duration: 0.45,
+            duration: 0.2,
             ease: 'power3.out'
           })
         });
@@ -1452,8 +1452,8 @@
           onEnter: () => gsap.to(marketingBox, {
             opacity: 1,
             y: 0,
-            duration: 0.45,
-            delay: 0.04,
+            duration: 0.2,
+            delay: 0.02,
             ease: 'power3.out'
           })
         });
@@ -1467,7 +1467,7 @@
           onEnter: () => gsap.to(plusIcon, {
             opacity: 1,
             duration: 0.8,
-            delay: 0.15,
+            delay: 0.08,
             ease: 'power3.out'
           })
         });
@@ -1484,7 +1484,7 @@
           onEnter: () => gsap.to(parent, {
             opacity: 1,
             y: 0,
-            duration: 0.5,
+            duration: 0.32,
             ease: 'power3.out'
           })
         });
@@ -1500,8 +1500,8 @@
           onEnter: batch => gsap.to(batch, {
             opacity: 1,
             y: 0,
-            stagger: { each: 0.035, from: 'start' },
-            duration: 0.45,
+            stagger: { each: 0.02, from: 'start' },
+            duration: 0.2,
             ease: 'power3.out'
           }),
           start: 'top 80%'
@@ -1555,13 +1555,13 @@
         const content = panel.querySelector('.panel-content');
 
         if (media) {
-          gsap.fromTo(media, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', scrollTrigger: { trigger: panel, start: 'top 80%', toggleActions: 'play reverse play reverse' } });
+          gsap.fromTo(media, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, ease: 'power3.out', scrollTrigger: { trigger: panel, start: 'top 80%', toggleActions: 'play reverse play reverse' } });
           // gentle parallax scrub
           gsap.to(media, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: true } });
         }
 
         if (content) {
-          gsap.fromTo(content, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out', scrollTrigger: { trigger: panel, start: 'top 80%', toggleActions: 'play reverse play reverse' } });
+          gsap.fromTo(content, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.2, ease: 'power3.out', scrollTrigger: { trigger: panel, start: 'top 80%', toggleActions: 'play reverse play reverse' } });
         }
       });
 
@@ -1569,7 +1569,7 @@
       const hoverEls = document.querySelectorAll('.panel-media img, .brand-grid img, .brand-item');
       hoverEls.forEach(el => {
         el.addEventListener('mouseenter', () => gsap.to(el, { scale: 1.035, duration: 0.28, ease: 'power3.out' }));
-        el.addEventListener('mouseleave', () => gsap.to(el, { scale: 1, duration: 0.45, ease: 'power3.out' }));
+        el.addEventListener('mouseleave', () => gsap.to(el, { scale: 1, duration: 0.2, ease: 'power3.out' }));
       });
 
       // ===== Brand Partners: portfolio-style reveal & parallax =====
@@ -1588,14 +1588,14 @@
         gsap.set('#brand-section .text-center', { opacity: 0, y: 18 });
 
         // header reveal
-        gsap.fromTo('#brand-section .text-center', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out', scrollTrigger: { trigger: brandSection, start: 'top 85%' } });
+        gsap.fromTo('#brand-section .text-center', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.22, ease: 'power3.out', scrollTrigger: { trigger: brandSection, start: 'top 85%' } });
 
         // Batch reveal for items: soft fade + lift + scale
         ScrollTrigger.batch('#brand-section .brand-item', {
           interval: 0.08,
           batchMax: 12,
-          onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, scale: 1, stagger: { each: 0.03 }, duration: 0.36, ease: 'power3.out' }),
-          onLeaveBack: batch => gsap.to(batch, { opacity: 0, y: 24, scale: 0.985, stagger: 0.015, duration: 0.45, ease: 'power2.in' }),
+          onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, scale: 1, stagger: { each: 0.02 }, duration: 0.22, ease: 'power3.out' }),
+          onLeaveBack: batch => gsap.to(batch, { opacity: 0, y: 24, scale: 0.985, stagger: 0.01, duration: 0.2, ease: 'power2.in' }),
           start: 'top 80%',
           end: 'bottom 20%'
         });
