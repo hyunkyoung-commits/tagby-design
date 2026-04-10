@@ -589,7 +589,7 @@
 
 
         <!-- Gallery Item 3 -->
-        <div class="gallery-item fade-in hidden" data-index="미쏘 핀터걸">
+        <div class="gallery-item fade-in" data-index="미쏘 핀터걸">
           <img src="images/mixxo/%5BMeta%5D3.%20%EB%A9%94%ED%83%805_%ED%95%80%ED%84%B0%EA%B1%B8_%EB%8B%A8%EC%9D%BC%2825.07%29.jpg" alt="MIXXO 7" onerror="this.src='https://via.placeholder.com/1080x1350/7a7a7a/ffffff?text=MIXXO+7'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -601,7 +601,7 @@
         </div>
 
         <!-- Gallery Item 2 -->
-        <div class="gallery-item fade-in hidden" data-index="미쏘 레이어드룩">
+        <div class="gallery-item fade-in" data-index="미쏘 레이어드룩">
           <img src="images/mixxo/%5BMeta%5D2.%20%EB%A9%94%ED%83%803_%EB%A0%88%EC%9D%B4%EC%96%B4%EB%93%9C_%EB%8B%A8%EC%9D%BC%2825.04%29.jpg" alt="MIXXO 8" onerror="this.src='https://via.placeholder.com/1080x1350/8a8a8a/ffffff?text=MIXXO+8'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -728,21 +728,18 @@
     });
 
     // 더보기 버튼 기능
-    let currentIndex = 6; // 처음 6개 표시
-    const itemsPerLoad = 3; // 한 번에 3개씩 로드
+    let currentIndex = 6;
+    const itemsPerLoad = 3;
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     const galleryItems = document.querySelectorAll('.gallery-item');
 
     loadMoreBtn.addEventListener('click', () => {
       let loadedCount = 0;
-      
       for (let i = currentIndex; i < galleryItems.length && loadedCount < itemsPerLoad; i++) {
         galleryItems[i].classList.remove('hidden');
         loadedCount++;
         currentIndex++;
       }
-
-      // 모든 아이템을 표시했으면 버튼 숨기기
       if (currentIndex >= galleryItems.length) {
         loadMoreBtn.classList.add('hidden');
       }
