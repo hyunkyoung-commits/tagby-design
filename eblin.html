@@ -119,8 +119,9 @@
     }
     /* 캐러셀 */
     .carousel-item { overflow: hidden; }
+    .carousel-item::before { opacity: 1 !important; }
     .carousel-track { display: flex; width: 100%; height: 100%; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); }
-    .carousel-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; background-color: #F0F0F2; }
+    .carousel-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; background: transparent; }
     .carousel-btn {
       position: absolute; top: 50%; transform: translateY(-50%); z-index: 4;
       background: rgba(0,0,0,0.45); backdrop-filter: blur(4px); border: none;
@@ -375,6 +376,15 @@
   <script>
     // 캐러셀
     var carouselState = {};
+    function updateCarouselBg(id) {
+      var track = document.getElementById(id);
+      if (!track) return;
+      var imgs = track.querySelectorAll('img');
+      var idx = carouselState[id] || 0;
+      var src = imgs[idx] ? imgs[idx].getAttribute('src') : '';
+      var item = track.closest('.gallery-item');
+      if (item && src) item.style.backgroundImage = "url('" + src + "')";
+    }
     function carouselMove(id, dir, e) {
       if (e) e.stopPropagation();
       var track = document.getElementById(id);
@@ -384,6 +394,7 @@
       carouselState[id] = (carouselState[id] + dir + total) % total;
       track.style.transform = 'translateX(-' + (carouselState[id] * 100) + '%)';
       updateDots(id, total);
+      updateCarouselBg(id);
     }
     function carouselGoto(id, idx, e) {
       if (e) e.stopPropagation();
@@ -393,6 +404,7 @@
       carouselState[id] = idx;
       track.style.transform = 'translateX(-' + (idx * 100) + '%)';
       updateDots(id, total);
+      updateCarouselBg(id);
     }
     function updateDots(id, total) {
       var dotsEl = document.getElementById('dots-' + id);
@@ -401,6 +413,16 @@
         d.classList.toggle('active', i === carouselState[id]);
       });
     }
+    // 캐러셀 초기 배경 설정
+    document.querySelectorAll('.carousel-item').forEach(function(item) {
+      var track = item.querySelector('.carousel-track');
+      if (!track) return;
+      var firstImg = track.querySelector('img');
+      if (firstImg) {
+        var src = firstImg.getAttribute('src');
+        item.style.backgroundImage = "url('" + src + "')";
+      }
+    });
   </script>
   <script>
     let lastScrollY = 0;
