@@ -301,7 +301,7 @@
         </div>
         <div>
           <p class="text-sm text-gray-500 mb-2">Category</p>
-          <p class="text-lg font-bold text-black">SNS콘텐츠, 크리에이터 모집, 오프라인 행사</p>
+          <p class="text-lg font-bold text-black">SNS콘텐츠, 크리에이터 모집,<br>오프라인 행사</p>
         </div>
         <div>
           <p class="text-sm text-gray-500 mb-2">Period</p>
@@ -312,21 +312,11 @@
           <p class="text-lg font-bold text-black">Instagram</p>
         </div>
       </div>
-      <div class="gallery-grid">
+      <!-- SNS콘텐츠 섹션 -->
+      <h3 class="text-xl font-bold text-black mb-8">SNS콘텐츠</h3>
+      <div class="gallery-grid mb-20">
 
-        <!-- 인스타그램 텍스트 카드: 3월의 아이콘 -->
-        <a class="insta-card fade-in"
-           href="https://www.instagram.com/p/DH7-A6zTjaL/"
-           target="_blank" rel="noopener noreferrer">
-
-          <div class="insta-card-top">
-            <img class="insta-card-logo" src="images/eider/eider-profile.jpg" alt="EIDER" style="height:32px;width:auto;object-fit:contain;border-radius:4px;filter:none;">
-            <div class="insta-card-meta">
-              <svg viewBox="0 0 24 24" fill="rgba(255,255,255,0.4)" width="12" height="12"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-              <span>@eider.official · Instagram</span>
-            </div>
-          </div>
-
+        <div class="insta-card fade-in">
           <div class="insta-card-body">
             <div>
               <p class="insta-card-title">3월의 아이콘</p>
@@ -334,20 +324,33 @@
             </div>
             <p class="insta-card-desc">아이더를 가장 먼저 경험하며 트렌드를 이끄는 아이콘(EI-CON)의 3월 첫 활동 이미지 아카이빙</p>
           </div>
-
           <div class="insta-card-bottom">
-            <span class="insta-open-btn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Instagram에서 보기
-            </span>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <a href="https://www.instagram.com/p/DH7-A6zTjaL/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" class="insta-open-btn" onclick="event.stopPropagation()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                카드뉴스 보기
+              </a>
+              <a href="https://www.instagram.com/reel/DILZpO3MiIP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" class="insta-open-btn" onclick="event.stopPropagation()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                릴스 보기
+              </a>
+            </div>
             <div class="insta-avatar">
               <img src="images/eider/eider-profile.jpg" alt="eider.official">
             </div>
           </div>
-
-        </a>
+        </div>
 
       </div>
+
+      <!-- 오프라인 행사 섹션 -->
+      <h3 class="text-xl font-bold text-black mb-8">오프라인 행사</h3>
+      <div class="gallery-grid">
+        <div class="insta-card fade-in" style="justify-content:center;align-items:center;opacity:0.4;">
+          <p class="text-white text-sm font-medium">준비중입니다</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
