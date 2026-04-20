@@ -16,6 +16,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://mkt.tagby.io/influencer-marketing.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mkt.tagby.io/tagby-article.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://mkt.tagby.io/spao.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

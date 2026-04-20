@@ -1,4 +1,23 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tagby-design.vercel.app/sitemap.xml
+# AI 크롤러 허용 (GEO 최적화)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://mkt.tagby.io/sitemap.xml

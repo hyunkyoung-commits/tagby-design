@@ -20,6 +20,75 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="태그바이 TAGby - 종합마케팅 에이전시">
   <meta name="twitter:image" content="https://mkt.tagby.io/images/Thum.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://mkt.tagby.io/#organization",
+        "name": "TAGby",
+        "alternateName": "태그바이",
+        "url": "https://mkt.tagby.io",
+        "logo": "https://mkt.tagby.io/images/Thum.png",
+        "image": "https://mkt.tagby.io/images/Thum.png",
+        "email": "support@tagby.io",
+        "foundingDate": "2022",
+        "description": "Meta, 네이버, 카카오 등 주요 플랫폼 디지털 퍼포먼스 마케팅과 크리에이티브 디자인을 전문으로 하는 종합마케팅 에이전시",
+        "areaServed": "KR",
+        "serviceType": ["퍼포먼스 마케팅", "인플루언서 마케팅", "크리에이티브 디자인", "SNS 광고 운영"],
+        "knowsAbout": ["Meta 광고", "네이버 GFA", "카카오 광고", "구글 광고", "인플루언서 마케팅", "브랜드 디자인"],
+        "sameAs": []
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://mkt.tagby.io/#website",
+        "url": "https://mkt.tagby.io",
+        "name": "태그바이 TAGby - 종합마케팅 에이전시",
+        "description": "Meta, 네이버, 카카오 등 주요 플랫폼의 디지털 퍼포먼스 마케팅과 크리에이티브 디자인을 전문으로 하는 마케팅 대행사",
+        "publisher": { "@id": "https://mkt.tagby.io/#organization" },
+        "inLanguage": "ko-KR"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "TAGby는 어떤 마케팅 서비스를 제공하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "TAGby는 퍼포먼스 마케팅(Meta, 네이버, 카카오, 구글 광고 운영), 인플루언서 마케팅, 크리에이티브 디자인(SNS 콘텐츠, 영상, 브랜드 아이덴티티)을 원스톱으로 제공하는 종합마케팅 에이전시입니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "TAGby의 주요 협업 브랜드는 어디인가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "MIXXO(미쏘), ROEM(로엠), SPAO(스파오), New Balance(뉴발란스), EBLIN(에블린), EIDER(아이더), emart(이마트), COCODOR(코코도르) 등 72개 이상의 브랜드와 협업하고 있습니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "TAGby에 마케팅을 문의하려면 어떻게 하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "support@tagby.io로 이메일 문의하시거나, 웹사이트 하단 문의하기 버튼을 통해 연락주시면 됩니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "TAGby는 어떤 광고 플랫폼을 운영하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Meta(Facebook/Instagram), 네이버 GFA/DA, 카카오 광고, 구글 광고(GDN, YouTube), 틱톡 광고 등 주요 디지털 광고 플랫폼 운영을 전담합니다."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -980,7 +1049,7 @@
             <!-- 메타 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/%EB%A9%94%ED%83%80.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EB%A9%94%ED%83%80.png" class="w-full h-full object-cover" alt="Meta 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">메타</p>
               <p class="text-[10px] text-gray-400 tracking-wider">META</p>
@@ -988,7 +1057,7 @@
             <!-- 구글 애즈 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/%EA%B5%AC%EA%B8%80.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EA%B5%AC%EA%B8%80.png" class="w-full h-full object-cover" alt="구글 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">구글 애즈</p>
               <p class="text-[10px] text-gray-400 tracking-wider">GOOGLE ADS</p>
@@ -996,7 +1065,7 @@
             <!-- 카카오 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
-                <img src="images/logo/%EC%B9%B4%EC%B9%B4%EC%98%A4.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EC%B9%B4%EC%B9%B4%EC%98%A4.png" class="w-full h-full object-cover" alt="카카오 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오</p>
               <p class="text-[10px] text-gray-400 tracking-wider">KAKAO</p>
@@ -1004,7 +1073,7 @@
             <!-- 틱톡 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/%ED%8B%B1%ED%86%A1.png" class="w-full h-full object-cover">
+                <img src="images/logo/%ED%8B%B1%ED%86%A1.png" class="w-full h-full object-cover" alt="틱톡 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">틱톡</p>
               <p class="text-[10px] text-gray-400 tracking-wider">TIKTOK</p>
@@ -1012,7 +1081,7 @@
             <!-- 네이버 (GFA) -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/%EB%84%A4%EC%9D%B4%EB%B2%84.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EB%84%A4%EC%9D%B4%EB%B2%84.png" class="w-full h-full object-cover" alt="네이버 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 (GFA)</p>
               <p class="text-[10px] text-gray-400 tracking-wider">NAVER (GFA)</p>
@@ -1020,7 +1089,7 @@
             <!-- 당근마켓 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/%EB%8B%B9%EA%B7%BC%EB%A7%88%EC%BC%93.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EB%8B%B9%EA%B7%BC%EB%A7%88%EC%BC%93.png" class="w-full h-full object-cover" alt="당근마켓 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">당근마켓</p>
               <p class="text-[10px] text-gray-400 tracking-wider">Danggeun Market</p>
@@ -1028,7 +1097,7 @@
             <!-- X -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/X.png" class="w-full h-full object-cover">
+                <img src="images/logo/X.png" class="w-full h-full object-cover" alt="X(트위터) 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">X</p>
               <p class="text-[10px] text-gray-400 tracking-wider">X (TWITTER)</p>
@@ -1036,7 +1105,7 @@
             <!-- 토스 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/%ED%86%A0%EC%8A%A4.png" class="w-full h-full object-cover">
+                <img src="images/logo/%ED%86%A0%EC%8A%A4.png" class="w-full h-full object-cover" alt="토스 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">토스</p>
               <p class="text-[10px] text-gray-400 tracking-wider">TOSS</p>
@@ -1054,7 +1123,7 @@
             <!-- 네이버 SA -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/%EB%84%A4%EC%9D%B4%EB%B2%84.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EB%84%A4%EC%9D%B4%EB%B2%84.png" class="w-full h-full object-cover" alt="네이버 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 SA</p>
               <p class="text-[10px] text-gray-400 tracking-wider">NAVER SA</p>
@@ -1062,7 +1131,7 @@
             <!-- 카카오 SA -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
-                <img src="images/logo/%EC%B9%B4%EC%B9%B4%EC%98%A4.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EC%B9%B4%EC%B9%B4%EC%98%A4.png" class="w-full h-full object-cover" alt="카카오 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">카카오 SA</p>
               <p class="text-[10px] text-gray-400 tracking-wider">KAKAO SA</p>
@@ -1070,7 +1139,7 @@
             <!-- 구글 SA -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/%EA%B5%AC%EA%B8%80.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EA%B5%AC%EA%B8%80.png" class="w-full h-full object-cover" alt="구글 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">구글 SA</p>
               <p class="text-[10px] text-gray-400 tracking-wider">GOOGLE SA</p>
@@ -1088,7 +1157,7 @@
             <!-- 인스타그램 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
-                <img src="images/logo/%EC%9D%B8%EC%8A%A4%ED%83%80.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EC%9D%B8%EC%8A%A4%ED%83%80.png" class="w-full h-full object-cover" alt="인스타그램 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">인스타그램</p>
               <p class="text-[10px] text-gray-400 tracking-wider">INSTAGRAM</p>
@@ -1096,7 +1165,7 @@
             <!-- 틱톡 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/%ED%8B%B1%ED%86%A1.png" class="w-full h-full object-cover">
+                <img src="images/logo/%ED%8B%B1%ED%86%A1.png" class="w-full h-full object-cover" alt="틱톡 광고 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">틱톡</p>
               <p class="text-[10px] text-gray-400 tracking-wider">TICTOK</p>
@@ -1104,7 +1173,7 @@
             <!-- 유튜브 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/%EC%9C%A0%ED%8A%9C%EB%B8%8C.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EC%9C%A0%ED%8A%9C%EB%B8%8C.png" class="w-full h-full object-cover" alt="유튜브 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">유튜브</p>
               <p class="text-[10px] text-gray-400 tracking-wider">YOUTUBE</p>
@@ -1112,7 +1181,7 @@
             <!-- 네이버 블로그 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
-                <img src="images/logo/%EB%B8%94%EB%A1%9C%EA%B7%B8.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EB%B8%94%EB%A1%9C%EA%B7%B8.png" class="w-full h-full object-cover" alt="네이버 블로그">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 블로그</p>
               <p class="text-[10px] text-gray-400 tracking-wider">NAVER BLOG</p>
@@ -1120,7 +1189,7 @@
             <!-- 네이버 카페 -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm mb-2">
-                <img src="images/logo/%EC%B9%B4%ED%8E%98.png" class="w-full h-full object-cover">
+                <img src="images/logo/%EC%B9%B4%ED%8E%98.png" class="w-full h-full object-cover" alt="다음 카페">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">네이버 카페</p>
               <p class="text-[10px] text-gray-400 tracking-wider">NAVER CAFE</p>
@@ -1128,7 +1197,7 @@
             <!-- X -->
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm  mb-2" style="border: 1.5px solid #EAEDF0;">
-                <img src="images/logo/X.png" class="w-full h-full object-cover">
+                <img src="images/logo/X.png" class="w-full h-full object-cover" alt="X(트위터) 플랫폼">
               </div>
               <p class="font-semibold text-xs text-gray-900 mb-0.5">X</p>
               <p class="text-[10px] text-gray-400 tracking-wider">X</p>
