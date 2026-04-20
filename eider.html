@@ -48,8 +48,12 @@
     .dropdown-menu { display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease; }
     .dropdown { position: relative; }
     .dropdown::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 20px; }
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
-    @media (min-width: 768px) { .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px; } }
+    .gallery-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; }
+    @media (min-width: 640px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+    @media (min-width: 1024px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+    .gallery-card-hidden { display: none !important; }
+    .load-more-text-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 20px; font-size: 14px; font-weight: 600; color: #0078F0; cursor: pointer; background: none; border: none; padding: 0; transition: opacity 0.2s; }
+    .load-more-text-btn:hover { opacity: 0.7; }
     .gallery-item { position: relative; aspect-ratio: 1080/1350; overflow: hidden; border-radius: 16px; cursor: default; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); background-color: #F0F0F2; background-size: cover; background-position: center; }
     .gallery-item.hidden { display: none; }
     .gallery-item:hover { transform: translateY(-8px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
@@ -333,7 +337,7 @@
     <div class="container mx-auto max-w-7xl">
       <!-- 상세페이지 섹션 -->
       <h3 class="text-xl font-bold text-black mb-8">상세페이지</h3>
-      <div class="gallery-grid mb-20">
+      <div class="gallery-grid" data-grid="상세페이지">
         <div class="gallery-item page-card fade-in" data-no-badge="true" style="background-image:url('images/eider/%5Bpage%5D%2825.07%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%AA%A8%EC%A7%91%EA%B3%B5%EA%B3%A0.jpg');">
           <img loading="lazy" src="images/eider/%5Bpage%5D%2825.07%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%AA%A8%EC%A7%91%EA%B3%B5%EA%B3%A0.jpg" alt="EI-CON 3기 모집공고">
           <div class="gallery-overlay">
@@ -357,8 +361,8 @@
       </div>
 
       <!-- SNS콘텐츠 섹션 -->
-      <h3 class="text-xl font-bold text-black mb-8">SNS콘텐츠</h3>
-      <div class="gallery-grid mb-20">
+      <h3 class="text-xl font-bold text-black mt-20 mb-8">SNS콘텐츠</h3>
+      <div class="gallery-grid" data-grid="SNS콘텐츠">
 
         <div class="insta-card fade-in">
           <div class="insta-card-bg" style="background-image:url('images/eider/%5Binstagram%5D%2825.03%293%EC%9B%94%EC%9D%98%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg');"></div>
@@ -387,8 +391,8 @@
       </div>
 
       <!-- 오프라인 행사 섹션 -->
-      <h3 class="text-xl font-bold text-black mb-8">오프라인 행사</h3>
-      <div class="gallery-grid">
+      <h3 class="text-xl font-bold text-black mt-20 mb-8">오프라인 행사</h3>
+      <div class="gallery-grid" data-grid="오프라인행사">
         <div class="insta-card fade-in">
           <div class="insta-card-bg" style="background-image:url('images/eider/%5Boffline%5D%2825.06%29%EC%95%84%EC%9D%B4%EC%BD%98%202%EA%B8%B0%20%ED%95%B4%EB%8B%A8%EC%8B%9D.png');"></div>
           <div class="insta-card-body">
@@ -586,6 +590,22 @@
           return { media: media, ai: ai };
         } catch(e) { return { media: null, ai: false }; }
       }
+      // 섹션별 6개 초과 시 더 알아보기 버튼
+      document.querySelectorAll('.gallery-grid[data-grid]').forEach(function(grid) {
+        var cards = Array.from(grid.children);
+        if (cards.length > 6) {
+          cards.forEach(function(card, i) { if (i >= 6) card.classList.add('gallery-card-hidden'); });
+          var btn = document.createElement('button');
+          btn.className = 'load-more-text-btn';
+          btn.innerHTML = '더 알아보기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>';
+          btn.onclick = function() {
+            grid.querySelectorAll('.gallery-card-hidden').forEach(function(c) { c.classList.remove('gallery-card-hidden'); });
+            btn.style.display = 'none';
+          };
+          grid.parentNode.insertBefore(btn, grid.nextSibling);
+        }
+      });
+
       document.querySelectorAll('.gallery-item').forEach(function(item) {
         if (item.dataset.noBadge) return;
         var img = item.querySelector('img');
