@@ -59,7 +59,7 @@
     .gallery-item:hover img { transform: scale(1.05); }
     .page-card { aspect-ratio: 1/1 !important; }
     .page-card img { object-fit: cover !important; transition: filter 0.4s, transform 0.4s cubic-bezier(0.4,0,0.2,1) !important; }
-    .page-card:hover img { filter: blur(4px) brightness(0.7); transform: scale(1.05); }
+    .page-card:hover img { transform: scale(1.05); }
     .page-card-content { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; padding: 32px; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 55%, transparent 100%); }
     .page-card-content .insta-card-body { flex: unset; justify-content: unset; }
     .gallery-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 100%); opacity: 0; transition: opacity 0.4s ease; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; }
@@ -335,14 +335,12 @@
       <div class="gallery-grid mb-20">
         <div class="gallery-item page-card fade-in" data-no-badge="true" style="background-image:url('images/eider/%5Bpage%5D%2825.07%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%AA%A8%EC%A7%91%EA%B3%B5%EA%B3%A0.jpg');">
           <img loading="lazy" src="images/eider/%5Bpage%5D%2825.07%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%AA%A8%EC%A7%91%EA%B3%B5%EA%B3%A0.jpg" alt="EI-CON 3기 모집공고">
-          <div class="gallery-overlay" style="justify-content:flex-end;">
-            <div style="display:flex;flex-direction:column;gap:16px;">
-              <div>
-                <p class="insta-card-title">EI-CON 3기 모집공고</p>
-                <p class="insta-card-date">25년 7월</p>
-              </div>
-              <p class="insta-card-desc">아이더 크리에이터 아이콘(EI-CON)3기 모집 공고</p>
-              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="insta-card-title" style="margin-bottom:6px;">EI-CON 3기 모집공고</p>
+              <p class="insta-card-date" style="margin-bottom:12px;">25년 7월</p>
+              <p class="insta-card-desc" style="margin-bottom:16px;">아이더 크리에이터 아이콘(EI-CON)3기 모집 공고</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
                 <a href="https://www.eider.co.kr/notice/1BXU4T?type=PROMOTION&page=2" target="_blank" rel="noopener noreferrer" class="insta-open-btn" onclick="event.stopPropagation()">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                   페이지 보기
