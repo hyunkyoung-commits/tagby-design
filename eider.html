@@ -129,17 +129,23 @@
       background: #0a0a0a;
       padding: 32px;
     }
+    .insta-card-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-size: cover; background-position: center;
+      filter: blur(18px) brightness(0.25) saturate(1.2);
+      transform: scale(1.1);
+    }
     .insta-card:hover { transform: translateY(-8px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
-    .insta-card-top { display: flex; flex-direction: column; gap: 28px; }
+    .insta-card-top { display: flex; flex-direction: column; gap: 28px; position: relative; z-index: 1; }
     .insta-card-logo { height: 28px; width: auto; object-fit: contain; filter: invert(1); }
     .insta-card-meta { display: flex; align-items: center; gap: 8px; }
     .insta-card-meta svg { flex-shrink: 0; }
     .insta-card-meta span { color: rgba(255,255,255,0.45); font-size: 11px; font-weight: 600; letter-spacing: 0.05em; }
-    .insta-card-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+    .insta-card-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; position: relative; z-index: 1; }
     .insta-card-title { color: white; font-size: 26px; font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; }
     .insta-card-date { color: rgba(255,255,255,0.4); font-size: 12px; font-weight: 500; }
     .insta-card-desc { color: rgba(255,255,255,0.65); font-size: 13px; line-height: 1.7; }
-    .insta-card-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+    .insta-card-bottom { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; }
     .insta-open-btn {
       display: inline-flex; align-items: center; gap: 6px;
       background: white; color: #111;
@@ -317,6 +323,7 @@
       <div class="gallery-grid mb-20">
 
         <div class="insta-card fade-in">
+          <div class="insta-card-bg" style="background-image:url('images/eider/%5Binstagram%5D%2825.03%293%EC%9B%94%EC%9D%98%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg');"></div>
           <div class="insta-card-body">
             <div>
               <p class="insta-card-title">3월의 아이콘</p>
