@@ -414,6 +414,24 @@
       <h3 class="text-xl font-bold text-black mt-20 mb-8">오프라인 행사</h3>
       <div class="gallery-grid" data-grid="오프라인행사">
         <div class="insta-card fade-in">
+          <div class="insta-card-bg" style="background-image:url('images/eider/%5Boffline%5D%2825.08%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%B0%9C%EB%8C%80%EC%8B%9D_%EB%A6%AC%ED%94%8C%EB%A0%9B%201.png');"></div>
+          <div class="insta-card-body">
+            <div>
+              <p class="insta-card-title">EI-CON 3기 발대식</p>
+              <p class="insta-card-date">25년 8월</p>
+            </div>
+            <p class="insta-card-desc">아이콘(EI-CON) 3기 환영 행사</p>
+          </div>
+          <div class="insta-card-bottom">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="insta-open-btn" onclick="openImageModal('promotional_발대식')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                행사 판촉물
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="insta-card fade-in">
           <div class="insta-card-bg" style="background-image:url('images/eider/%5Boffline%5D%2825.06%29%EC%95%84%EC%9D%B4%EC%BD%98%202%EA%B8%B0%20%ED%95%B4%EB%8B%A8%EC%8B%9D.png');"></div>
           <div class="insta-card-body">
             <div>
@@ -485,6 +503,23 @@
 
   <script>
     const modalImages = {
+      promotional_발대식: { title: '행사 판촉물 - EI-CON 3기 발대식', categories: [
+        { name: '리플렛', height: 300, images: [
+          'images/eider/%5Boffline%5D%2825.08%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%B0%9C%EB%8C%80%EC%8B%9D_%EB%A6%AC%ED%94%8C%EB%A0%9B%201.png',
+          'images/eider/%5Boffline%5D%2825.08%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%B0%9C%EB%8C%80%EC%8B%9D_%EB%A6%AC%ED%94%8C%EB%A0%9B%202.png'
+        ]},
+        { name: '사원증', height: 300, images: ['images/eider/%5Boffline%5D%2825.08%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%B0%9C%EB%8C%80%EC%8B%9D_%EC%82%AC%EC%9B%90%EC%A6%9D.png'] },
+        { name: '엑스배너', height: 420, images: [
+          'images/eider/%5Boffline%5D%2825.08%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%B0%9C%EB%8C%80%EC%8B%9D_%EC%97%91%EC%8A%A4%EB%B0%B0%EB%84%88%201.png',
+          'images/eider/%5Boffline%5D%2825.08%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%B0%9C%EB%8C%80%EC%8B%9D_%EC%97%91%EC%8A%A4%EB%B0%B0%EB%84%88%202.png',
+          'images/eider/%5Boffline%5D%2825.08%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%B0%9C%EB%8C%80%EC%8B%9D_%EC%97%91%EC%8A%A4%EB%B0%B0%EB%84%88%203.png'
+        ]},
+        { name: '짐색 디자인', height: 300, images: [
+          'images/eider/%5Boffline%5D%2825.08%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%B0%9C%EB%8C%80%EC%8B%9D_%EC%A7%90%EC%83%89%20%EB%94%94%EC%9E%90%EC%9D%B8%201.png',
+          'images/eider/%5Boffline%5D%2825.08%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%B0%9C%EB%8C%80%EC%8B%9D_%EC%A7%90%EC%83%89%20%EB%94%94%EC%9E%90%EC%9D%B8%202.png'
+        ]},
+        { name: '현수막', height: 200, images: ['images/eider/%5Boffline%5D%2825.08%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%B0%9C%EB%8C%80%EC%8B%9D_%ED%98%84%EC%88%98%EB%A7%89.png'] }
+      ]},
       promotional: { title: '행사 판촉물', categories: [
         { name: '리플렛', height: 300, images: [
           'images/eider/%5Boffline%5D%2825.06%29%EC%95%84%EC%9D%B4%EC%BD%98%202%EA%B8%B0%20%ED%95%B4%EB%8B%A8%EC%8B%9D_%EB%A6%AC%ED%94%8C%EB%A0%9B-1.png',
