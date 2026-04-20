@@ -331,7 +331,7 @@
       <!-- 상세페이지 섹션 -->
       <h3 class="text-xl font-bold text-black mb-8">상세페이지</h3>
       <div class="gallery-grid mb-20">
-        <div class="gallery-item page-card fade-in" style="background-image:url('images/eider/%5Bpage%5D%2825.07%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%AA%A8%EC%A7%91%EA%B3%B5%EA%B3%A0.jpg');">
+        <div class="gallery-item page-card fade-in" data-no-badge="true" style="background-image:url('images/eider/%5Bpage%5D%2825.07%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%AA%A8%EC%A7%91%EA%B3%B5%EA%B3%A0.jpg');">
           <img loading="lazy" src="images/eider/%5Bpage%5D%2825.07%29%EC%95%84%EC%9D%B4%EC%BD%98%203%EA%B8%B0%20%EB%AA%A8%EC%A7%91%EA%B3%B5%EA%B3%A0.jpg" alt="EI-CON 3기 모집공고">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -579,6 +579,7 @@
         } catch(e) { return { media: null, ai: false }; }
       }
       document.querySelectorAll('.gallery-item').forEach(function(item) {
+        if (item.dataset.noBadge) return;
         var img = item.querySelector('img');
         if (!img) return;
         var r = parseTags(img.getAttribute('src'));
