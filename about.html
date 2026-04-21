@@ -36,24 +36,34 @@
     .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
     .scroll-to-top:hover { background-color: #0056B3; transform: translateY(-4px); }
 
+    /* Stats */
+    .stat-item { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .stat-item.visible { opacity: 1; transform: translateY(0); }
+
     /* Timeline */
     .timeline { position: relative; padding-left: 28px; }
     .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 2px; background: #E5E7EB; }
-    .timeline-year { position: relative; margin-bottom: 40px; }
+    .timeline-year { position: relative; margin-bottom: 40px; opacity: 0; transform: translateX(-16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .timeline-year.visible { opacity: 1; transform: translateX(0); }
     .timeline-year::before { content: ''; position: absolute; left: -34px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: #0078F0; border: 2px solid white; box-shadow: 0 0 0 2px #0078F0; }
     .timeline-event { display: flex; gap: 16px; margin-bottom: 10px; }
     .timeline-month { font-size: 11px; font-weight: 700; color: #0078F0; letter-spacing: 0.08em; min-width: 32px; padding-top: 2px; }
     .timeline-text { font-size: 14px; color: #374151; line-height: 1.6; }
 
-    /* Press cards */
+    /* Press */
     .press-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid #E5E7EB; transition: box-shadow 0.2s, transform 0.2s; display: flex; flex-direction: column; gap: 10px; text-decoration: none; }
     .press-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-4px); }
+    .press-card.hidden { display: none; }
     .press-meta { display: flex; align-items: center; gap: 8px; }
     .press-source { font-size: 11px; font-weight: 700; color: #0078F0; background: rgba(0,120,240,0.08); padding: 3px 10px; border-radius: 20px; }
     .press-date { font-size: 11px; color: #9CA3AF; }
     .press-title { font-size: 14px; font-weight: 600; color: #111827; line-height: 1.6; }
+
+    /* Filter tabs */
+    .filter-tab { padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid #E5E7EB; background: white; color: #6B7280; transition: all 0.2s; }
+    .filter-tab:hover { border-color: #0078F0; color: #0078F0; }
+    .filter-tab.active { background: #0078F0; border-color: #0078F0; color: white; }
   </style>
-  <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5675K11SP"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -197,6 +207,30 @@
     </div>
   </section>
 
+  <!-- Stats -->
+  <section class="py-16 px-6 bg-white border-t" style="border-color:#F0F2F5;">
+    <div class="container mx-auto max-w-4xl">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8" id="statsGrid">
+        <div class="stat-item text-center">
+          <p class="text-4xl md:text-5xl font-extrabold" style="color:#0078F0;"><span class="counter" data-target="9">0</span>년</p>
+          <p class="text-sm text-gray-500 mt-2 font-medium">설립 이후</p>
+        </div>
+        <div class="stat-item text-center" style="transition-delay:0.1s;">
+          <p class="text-4xl md:text-5xl font-extrabold" style="color:#0078F0;"><span class="counter" data-target="72">0</span>+</p>
+          <p class="text-sm text-gray-500 mt-2 font-medium">협업 브랜드</p>
+        </div>
+        <div class="stat-item text-center" style="transition-delay:0.2s;">
+          <p class="text-4xl md:text-5xl font-extrabold" style="color:#0078F0;"><span class="counter" data-target="148">0</span>%</p>
+          <p class="text-sm text-gray-500 mt-2 font-medium">연 평균 성장률</p>
+        </div>
+        <div class="stat-item text-center" style="transition-delay:0.3s;">
+          <p class="text-4xl md:text-5xl font-extrabold" style="color:#0078F0;"><span class="counter" data-target="4">0</span>회</p>
+          <p class="text-sm text-gray-500 mt-2 font-medium">FT 고성장 기업 선정</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- History -->
   <section class="py-20 px-6" style="background-color:#F9F9FB;">
     <div class="container mx-auto max-w-4xl">
@@ -282,123 +316,136 @@
   <section class="py-20 px-6 bg-white">
     <div class="container mx-auto max-w-6xl">
       <p class="text-xs font-bold tracking-widest mb-3" style="color:#9CA3AF;letter-spacing:0.2em;">PRESS</p>
-      <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-16">언론 보도</h2>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-8">언론 보도</h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Year filter tabs -->
+      <div class="flex flex-wrap gap-2 mb-10" id="pressFilters">
+        <button class="filter-tab active" data-year="all">전체</button>
+        <button class="filter-tab" data-year="2024">2024</button>
+        <button class="filter-tab" data-year="2023">2023</button>
+        <button class="filter-tab" data-year="2022">2022</button>
+        <button class="filter-tab" data-year="2021">2021</button>
+        <button class="filter-tab" data-year="2020">2020</button>
+        <button class="filter-tab" data-year="2019">2019</button>
+        <button class="filter-tab" data-year="2018">2018</button>
+        <button class="filter-tab" data-year="2017">2017</button>
+      </div>
 
-        <a href="https://news.mtn.co.kr/news-detail/2017110212580815637" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">MTN</span><span class="press-date">2017.11</span></div>
-          <p class="press-title">소셜미디어상 새로운 광고 트렌드, 인플루언서 마케팅 플랫폼 '태그바이'</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="pressGrid">
+
+        <a href="https://www.cstimes.com/news/articleView.html?idxno=578680" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2024">
+          <div class="press-meta"><span class="press-source">컨슈머타임스</span><span class="press-date">2024.02</span></div>
+          <p class="press-title">태그바이, 인플루언서 마케팅 기본 전략 웨비나 개최</p>
         </a>
 
-        <a href="https://fashionbiz.co.kr/article/168054" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">패션비즈</span><span class="press-date">2018.08</span></div>
-          <p class="press-title">NO.1 인플루언서 마케팅 플랫폼 '태그바이 마켓' 론칭</p>
-        </a>
-
-        <a href="https://www.etnews.com/20191007000099" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">전자신문</span><span class="press-date">2019.10</span></div>
-          <p class="press-title">CJ ENM 다이아 티비, 광고주 맞춤형 인플루언서 매칭 지원</p>
-        </a>
-
-        <a href="https://fashionbiz.co.kr/article/175720" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">패션비즈</span><span class="press-date">2019.12</span></div>
-          <p class="press-title">태그바이, 2019 온라인 광고대상 우수상 수상</p>
-        </a>
-
-        <a href="https://www.apparelnews.co.kr/news/news_view/?idx=180217" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">어패럴뉴스</span><span class="press-date">2019.12</span></div>
-          <p class="press-title">태그바이, 서울산업진흥원 '2019 SBA 일자리 어워드' 우수상 수상</p>
-        </a>
-
-        <a href="https://www.venturesquare.net/809840" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">벤처스퀘어</span><span class="press-date">2020.06</span></div>
-          <p class="press-title">태그바이, 스타트업 마케팅 패키지 참여기업 모집</p>
-        </a>
-
-        <a href="https://www.etnews.com/20200807000202" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">전자신문</span><span class="press-date">2020.08</span></div>
-          <p class="press-title">태그바이, MBC 플러스와 인플루언서 마케팅 사업 전략적 파트너십 체결</p>
-        </a>
-
-        <a href="https://www.apparelnews.co.kr/news/news_view/?idx=187371" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">어패럴뉴스</span><span class="press-date">2020.12</span></div>
-          <p class="press-title">태그바이(TAGby), 기업 유튜브 채널 컨설팅 프로그램 오픈</p>
-        </a>
-
-        <a href="https://www.startuptoday.kr/news/articleView.html?idxno=41428" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">스타트업투데이</span><span class="press-date">2021.01</span></div>
-          <p class="press-title">이랜드리테일이 투자한 마케팅플랫폼, 어떤 스타트업?</p>
-        </a>
-
-        <a href="https://www.apparelnews.co.kr/news/news_view/?idx=188742" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">어패럴뉴스</span><span class="press-date">2021.03</span></div>
-          <p class="press-title">태그바이 X 아모레퍼시픽, SaaS 정식 런칭</p>
-        </a>
-
-        <a href="https://www.fi.co.kr/main/view.asp?idx=71088" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">패션인사이트</span><span class="press-date">2021.03</span></div>
-          <p class="press-title">샘플테크마크, '잇(it)플루언'으로 부르다</p>
-        </a>
-
-        <a href="https://www.mt.co.kr/future/2021/05/13/2021051315164919764" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">머니투데이</span><span class="press-date">2021.05</span></div>
-          <p class="press-title">종합 콘텐츠 마케팅 플랫폼 태그바이, GS넷비전과 'TIP' SaaS 정식 론칭</p>
-        </a>
-
-        <a href="https://www.etnews.com/20210707000255" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">전자신문</span><span class="press-date">2021.07</span></div>
-          <p class="press-title">노준 태그바이 대표 "인플루언서 성장과 클라이언트 성공을 동시에"</p>
-        </a>
-
-        <a href="https://www.apparelnews.co.kr/news/news_view/?idx=192469" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">어패럴뉴스</span><span class="press-date">2021.09</span></div>
-          <p class="press-title">태그바이, 인플루언서 공동구매 데이터 공개</p>
-        </a>
-
-        <a href="https://www.cmn.co.kr/sub/news/news_view.asp?news_idx=38237" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">CMN</span><span class="press-date">2022.02</span></div>
-          <p class="press-title">태그바이, 2022년 인플루언서 마케팅 미디어 리포트 발행</p>
-        </a>
-
-        <a href="https://www.venturesquare.net/855487" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">벤처스퀘어</span><span class="press-date">2022.05</span></div>
-          <p class="press-title">태그바이, 인플루언서 마케팅 셀프 서비스 'New 태그바이' 런칭</p>
-        </a>
-
-        <a href="https://kr.aving.net/news/articleView.html?idxno=1773980" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">에이빙</span><span class="press-date">2022.11</span></div>
-          <p class="press-title">태그바이컴퍼니, COMEUP 2022서 인플루언서 마케팅 보조 플랫폼 '태그바이' 공개</p>
-        </a>
-
-        <a href="https://www.newstap.co.kr/news/articleView.html?idxno=189745" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">뉴스탭</span><span class="press-date">2023.03</span></div>
-          <p class="press-title">태그바이, 하나의 판매채널로서 인플루언서 커머스 더욱 강화</p>
-        </a>
-
-        <a href="https://www.issuenbiz.com/news/articleView.html?idxno=24408" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">이슈앤비즈</span><span class="press-date">2023.05</span></div>
-          <p class="press-title">태그바이X메타, 2023 Partnership Ads(파트너십 광고) 웨비나 개최</p>
-        </a>
-
-        <a href="https://www.venturesquare.net/886408" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">벤처스퀘어</span><span class="press-date">2023.06</span></div>
-          <p class="press-title">태그바이, 인플루언서 마케팅 SaaS로 시장 선도</p>
-        </a>
-
-        <a href="https://www.startuptoday.kr/news/articleView.html?idxno=47785" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">스타트업투데이</span><span class="press-date">2023.10</span></div>
-          <p class="press-title">태그바이 노준 대표, "1인 미디어 시대, '비즈니스 에센셜'로 성장하고 싶다"</p>
-        </a>
-
-        <a href="https://www.venturesquare.net/912402" target="_blank" rel="noopener noreferrer" class="press-card">
+        <a href="https://www.venturesquare.net/912402" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2024">
           <div class="press-meta"><span class="press-source">벤처스퀘어</span><span class="press-date">2024.02</span></div>
           <p class="press-title">태그바이, 유사 인플루언서 추천 서비스 런칭</p>
         </a>
 
-        <a href="https://www.cstimes.com/news/articleView.html?idxno=578680" target="_blank" rel="noopener noreferrer" class="press-card">
-          <div class="press-meta"><span class="press-source">컨슈머타임스</span><span class="press-date">2024.02</span></div>
-          <p class="press-title">태그바이, 인플루언서 마케팅 기본 전략 웨비나 개최</p>
+        <a href="https://www.startuptoday.kr/news/articleView.html?idxno=47785" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2023">
+          <div class="press-meta"><span class="press-source">스타트업투데이</span><span class="press-date">2023.10</span></div>
+          <p class="press-title">태그바이 노준 대표, "1인 미디어 시대, '비즈니스 에센셜'로 성장하고 싶다"</p>
+        </a>
+
+        <a href="https://www.venturesquare.net/886408" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2023">
+          <div class="press-meta"><span class="press-source">벤처스퀘어</span><span class="press-date">2023.06</span></div>
+          <p class="press-title">태그바이, 인플루언서 마케팅 SaaS로 시장 선도</p>
+        </a>
+
+        <a href="https://www.issuenbiz.com/news/articleView.html?idxno=24408" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2023">
+          <div class="press-meta"><span class="press-source">이슈앤비즈</span><span class="press-date">2023.05</span></div>
+          <p class="press-title">태그바이X메타, 2023 Partnership Ads(파트너십 광고) 웨비나 개최</p>
+        </a>
+
+        <a href="https://www.newstap.co.kr/news/articleView.html?idxno=189745" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2023">
+          <div class="press-meta"><span class="press-source">뉴스탭</span><span class="press-date">2023.03</span></div>
+          <p class="press-title">태그바이, 하나의 판매채널로서 인플루언서 커머스 더욱 강화</p>
+        </a>
+
+        <a href="https://kr.aving.net/news/articleView.html?idxno=1773980" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2022">
+          <div class="press-meta"><span class="press-source">에이빙</span><span class="press-date">2022.11</span></div>
+          <p class="press-title">태그바이컴퍼니, COMEUP 2022서 인플루언서 마케팅 보조 플랫폼 '태그바이' 공개</p>
+        </a>
+
+        <a href="https://www.venturesquare.net/855487" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2022">
+          <div class="press-meta"><span class="press-source">벤처스퀘어</span><span class="press-date">2022.05</span></div>
+          <p class="press-title">태그바이, 인플루언서 마케팅 셀프 서비스 'New 태그바이' 런칭</p>
+        </a>
+
+        <a href="https://www.cmn.co.kr/sub/news/news_view.asp?news_idx=38237" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2022">
+          <div class="press-meta"><span class="press-source">CMN</span><span class="press-date">2022.02</span></div>
+          <p class="press-title">태그바이, 2022년 인플루언서 마케팅 미디어 리포트 발행</p>
+        </a>
+
+        <a href="https://www.apparelnews.co.kr/news/news_view/?idx=192469" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2021">
+          <div class="press-meta"><span class="press-source">어패럴뉴스</span><span class="press-date">2021.09</span></div>
+          <p class="press-title">태그바이, 인플루언서 공동구매 데이터 공개</p>
+        </a>
+
+        <a href="https://www.etnews.com/20210707000255" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2021">
+          <div class="press-meta"><span class="press-source">전자신문</span><span class="press-date">2021.07</span></div>
+          <p class="press-title">노준 태그바이 대표 "인플루언서 성장과 클라이언트 성공을 동시에"</p>
+        </a>
+
+        <a href="https://www.mt.co.kr/future/2021/05/13/2021051315164919764" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2021">
+          <div class="press-meta"><span class="press-source">머니투데이</span><span class="press-date">2021.05</span></div>
+          <p class="press-title">종합 콘텐츠 마케팅 플랫폼 태그바이, GS넷비전과 'TIP' SaaS 정식 론칭</p>
+        </a>
+
+        <a href="https://www.fi.co.kr/main/view.asp?idx=71088" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2021">
+          <div class="press-meta"><span class="press-source">패션인사이트</span><span class="press-date">2021.03</span></div>
+          <p class="press-title">샘플테크마크, '잇(it)플루언'으로 부르다</p>
+        </a>
+
+        <a href="https://www.apparelnews.co.kr/news/news_view/?idx=188742" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2021">
+          <div class="press-meta"><span class="press-source">어패럴뉴스</span><span class="press-date">2021.03</span></div>
+          <p class="press-title">태그바이 X 아모레퍼시픽, SaaS 정식 런칭</p>
+        </a>
+
+        <a href="https://www.startuptoday.kr/news/articleView.html?idxno=41428" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2021">
+          <div class="press-meta"><span class="press-source">스타트업투데이</span><span class="press-date">2021.01</span></div>
+          <p class="press-title">이랜드리테일이 투자한 마케팅플랫폼, 어떤 스타트업?</p>
+        </a>
+
+        <a href="https://www.apparelnews.co.kr/news/news_view/?idx=187371" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2020">
+          <div class="press-meta"><span class="press-source">어패럴뉴스</span><span class="press-date">2020.12</span></div>
+          <p class="press-title">태그바이(TAGby), 기업 유튜브 채널 컨설팅 프로그램 오픈</p>
+        </a>
+
+        <a href="https://www.etnews.com/20200807000202" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2020">
+          <div class="press-meta"><span class="press-source">전자신문</span><span class="press-date">2020.08</span></div>
+          <p class="press-title">태그바이, MBC 플러스와 인플루언서 마케팅 사업 전략적 파트너십 체결</p>
+        </a>
+
+        <a href="https://www.venturesquare.net/809840" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2020">
+          <div class="press-meta"><span class="press-source">벤처스퀘어</span><span class="press-date">2020.06</span></div>
+          <p class="press-title">태그바이, 스타트업 마케팅 패키지 참여기업 모집</p>
+        </a>
+
+        <a href="https://www.apparelnews.co.kr/news/news_view/?idx=180217" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2019">
+          <div class="press-meta"><span class="press-source">어패럴뉴스</span><span class="press-date">2019.12</span></div>
+          <p class="press-title">태그바이, 서울산업진흥원 '2019 SBA 일자리 어워드' 우수상 수상</p>
+        </a>
+
+        <a href="https://fashionbiz.co.kr/article/175720" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2019">
+          <div class="press-meta"><span class="press-source">패션비즈</span><span class="press-date">2019.12</span></div>
+          <p class="press-title">태그바이, 2019 온라인 광고대상 우수상 수상</p>
+        </a>
+
+        <a href="https://www.etnews.com/20191007000099" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2019">
+          <div class="press-meta"><span class="press-source">전자신문</span><span class="press-date">2019.10</span></div>
+          <p class="press-title">CJ ENM 다이아 티비, 광고주 맞춤형 인플루언서 매칭 지원</p>
+        </a>
+
+        <a href="https://fashionbiz.co.kr/article/168054" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2018">
+          <div class="press-meta"><span class="press-source">패션비즈</span><span class="press-date">2018.08</span></div>
+          <p class="press-title">NO.1 인플루언서 마케팅 플랫폼 '태그바이 마켓' 론칭</p>
+        </a>
+
+        <a href="https://news.mtn.co.kr/news-detail/2017110212580815637" target="_blank" rel="noopener noreferrer" class="press-card" data-year="2017">
+          <div class="press-meta"><span class="press-source">MTN</span><span class="press-date">2017.11</span></div>
+          <p class="press-title">소셜미디어상 새로운 광고 트렌드, 인플루언서 마케팅 플랫폼 '태그바이'</p>
         </a>
 
       </div>
@@ -412,16 +459,10 @@
   <footer class="py-16 px-6 bg-white border-t" style="border-color: #E0E3E7;">
     <div class="container mx-auto max-w-6xl">
       <div class="grid md:grid-cols-3 gap-12">
-        <div>
-          <img loading="lazy" src="images/tagby-logo.png" alt="TAGby" style="height: 32px; width: auto;">
-        </div>
+        <div><img loading="lazy" src="images/tagby-logo.png" alt="TAGby" style="height: 32px; width: auto;"></div>
         <div>
           <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">OFFICE</h4>
-          <p class="text-sm text-gray-600 leading-relaxed">
-            06193 서울특별시 강남구<br>
-            테헤란로 418 다봉빌딩<br>
-            11층 1106호
-          </p>
+          <p class="text-sm text-gray-600 leading-relaxed">06193 서울특별시 강남구<br>테헤란로 418 다봉빌딩<br>11층 1106호</p>
         </div>
         <div>
           <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">CONTACT</h4>
@@ -433,29 +474,35 @@
   </footer>
 
   <script>
+    // Header scroll
     let lastScrollY = 0;
     window.addEventListener('scroll', () => {
       const header = document.getElementById('header');
-      const currentScrollY = window.scrollY;
-      header.style.transform = (currentScrollY > lastScrollY && currentScrollY > 100) ? 'translateY(-100%)' : 'translateY(0)';
-      header.style.backgroundColor = currentScrollY > 50 ? 'rgba(248,248,248,0.95)' : 'rgba(248,248,248,0.8)';
-      header.style.boxShadow = currentScrollY > 50 ? '0 1px 3px rgba(0,0,0,0.1)' : 'none';
-      lastScrollY = currentScrollY;
-      document.getElementById('scrollToTop').classList.toggle('visible', currentScrollY > 300);
+      const sy = window.scrollY;
+      header.style.transform = (sy > lastScrollY && sy > 100) ? 'translateY(-100%)' : 'translateY(0)';
+      header.style.backgroundColor = sy > 50 ? 'rgba(248,248,248,0.95)' : 'rgba(248,248,248,0.8)';
+      header.style.boxShadow = sy > 50 ? '0 1px 3px rgba(0,0,0,0.1)' : 'none';
+      lastScrollY = sy;
+      document.getElementById('scrollToTop').classList.toggle('visible', sy > 300);
     });
+
+    // Mobile nav
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileOverlay = document.getElementById('mobileOverlay');
     hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); mobileMenu.classList.toggle('active'); mobileOverlay.classList.toggle('active'); document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : ''; });
     mobileOverlay.addEventListener('click', () => { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; });
+
+    // Dropdown
     (function(){
       var allDropdowns = Array.from(document.querySelectorAll('.dropdown'));
       var hideTimer; var activeMenu = null;
       function closeAll(){ allDropdowns.forEach(function(d){ var m=d.querySelector('.dropdown-menu'); if(m){m.style.display='none';m.style.opacity='0';} }); activeMenu=null; }
-      function showMenu(dropdown){ clearTimeout(hideTimer); if(activeMenu&&activeMenu!==dropdown){ var prev=activeMenu.querySelector('.dropdown-menu'); if(prev){prev.style.display='none';prev.style.opacity='0';} } activeMenu=dropdown; var menu=dropdown.querySelector('.dropdown-menu'); if(menu){menu.style.display='block';menu.style.opacity='1';menu.style.transform='translateY(0)';} }
+      function showMenu(d){ clearTimeout(hideTimer); if(activeMenu&&activeMenu!==d){ var p=activeMenu.querySelector('.dropdown-menu'); if(p){p.style.display='none';p.style.opacity='0';} } activeMenu=d; var m=d.querySelector('.dropdown-menu'); if(m){m.style.display='block';m.style.opacity='1';m.style.transform='translateY(0)';} }
       function scheduleHide(){ hideTimer=setTimeout(closeAll,300); }
-      allDropdowns.forEach(function(dropdown){ var menu=dropdown.querySelector('.dropdown-menu'); if(!menu)return; dropdown.addEventListener('mouseenter',function(){showMenu(dropdown);}); dropdown.addEventListener('mouseleave',scheduleHide); menu.addEventListener('mouseenter',function(){showMenu(dropdown);}); menu.addEventListener('mouseleave',scheduleHide); });
+      allDropdowns.forEach(function(d){ var m=d.querySelector('.dropdown-menu'); if(!m)return; d.addEventListener('mouseenter',function(){showMenu(d);}); d.addEventListener('mouseleave',scheduleHide); m.addEventListener('mouseenter',function(){showMenu(d);}); m.addEventListener('mouseleave',scheduleHide); });
     })();
+
     function togglePortfolioCategory(btn) {
       var sub = btn.parentElement.querySelector('.category-sub');
       var arrow = btn.querySelector('.category-arrow');
@@ -465,6 +512,52 @@
       sub.classList.toggle('flex', !isOpen);
       if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
     }
+
+    // IntersectionObserver for timeline + stats
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.timeline-year').forEach(el => observer.observe(el));
+
+    // Stats counter
+    let statsTriggered = false;
+    const statsObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !statsTriggered) {
+        statsTriggered = true;
+        document.querySelectorAll('.stat-item').forEach(el => el.classList.add('visible'));
+        document.querySelectorAll('.counter').forEach(el => {
+          const target = parseInt(el.dataset.target);
+          const duration = 1200;
+          const step = 16;
+          const increment = target / (duration / step);
+          let current = 0;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) { current = target; clearInterval(timer); }
+            el.textContent = Math.floor(current);
+          }, step);
+        });
+      }
+    }, { threshold: 0.3 });
+    statsObserver.observe(document.getElementById('statsGrid'));
+
+    // Press filter
+    document.getElementById('pressFilters').addEventListener('click', function(e) {
+      const btn = e.target.closest('.filter-tab');
+      if (!btn) return;
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      const year = btn.dataset.year;
+      document.querySelectorAll('.press-card').forEach(card => {
+        card.classList.toggle('hidden', year !== 'all' && card.dataset.year !== year);
+      });
+    });
   </script>
 </body>
 </html>
