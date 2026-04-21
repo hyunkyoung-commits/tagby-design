@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UTM 생성기 | TAGby 내부 도구</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', sans-serif; background: #111; color: white; }
+    .input-field {
+      width: 100%;
+      background: #1E1E1E;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: white;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-field:focus { border-color: #0078F0; }
+    .input-field::placeholder { color: #555; }
+    .result-box {
+      background: #1A1A1A;
+      border: 1px solid #2A2A2A;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .result-url {
+      font-size: 0.8rem;
+      color: #aaa;
+      word-break: break-all;
+      flex: 1;
+    }
+    .copy-btn {
+      background: #0078F0;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+      font-family: 'Pretendard', sans-serif;
+    }
+    .copy-btn:hover { background: #005ecc; }
+    .copy-btn.copied { background: #16a34a; }
+    .channel-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+  <div class="w-full max-w-2xl">
+
+    <div class="mb-10">
+      <p class="text-xs font-bold tracking-widest text-[#0078F0] uppercase mb-2">TAGby Internal Tool</p>
+      <h1 class="text-3xl font-black mb-2">UTM 링크 생성기</h1>
+      <p class="text-gray-500 text-sm">아티클 URL을 입력하면 채널별 UTM 링크가 자동으로 생성됩니다.</p>
+    </div>
+
+    <!-- 입력 영역 -->
+    <div class="space-y-4 mb-8">
+      <div>
+        <p class="text-sm font-semibold text-gray-400 mb-2">페이지 URL</p>
+        <input id="pageUrl" type="text" class="input-field" placeholder="https://mkt.tagby.io/tagby-article.html">
+      </div>
+      <div>
+        <p class="text-sm font-semibold text-gray-400 mb-2">캠페인명 <span class="text-gray-600 font-normal">(선택 · 아티클 제목 요약, 영문 권장)</span></p>
+        <input id="campaign" type="text" class="input-field" placeholder="예: pmax-roas, fullfunnel, ugc-trust">
+      </div>
+      <button onclick="generate()" class="w-full py-4 rounded-xl font-bold text-base" style="background:#0078F0;color:white;border:none;cursor:pointer;font-family:'Pretendard',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='#005ecc'" onmouseout="this.style.background='#0078F0'">
+        링크 생성하기
+      </button>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div id="results" class="space-y-3 hidden">
+      <p class="text-sm font-semibold text-gray-400 mb-4">채널별 UTM 링크</p>
+
+      <div>
+        <p class="channel-label">브런치</p>
+        <div class="result-box">
+          <span class="result-url" id="url-brunch"></span>
+          <button class="copy-btn" onclick="copyUrl('url-brunch', this)">복사</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="channel-label">블로그</p>
+        <div class="result-box">
+          <span class="result-url" id="url-blog"></span>
+          <button class="copy-btn" onclick="copyUrl('url-blog', this)">복사</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="channel-label">아이보스</p>
+        <div class="result-box">
+          <span class="result-url" id="url-aiboss"></span>
+          <button class="copy-btn" onclick="copyUrl('url-aiboss', this)">복사</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="channel-label">위픽레터</p>
+        <div class="result-box">
+          <span class="result-url" id="url-wipikletter"></span>
+          <button class="copy-btn" onclick="copyUrl('url-wipikletter', this)">복사</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const channels = [
+      { key: 'brunch',      source: 'brunch'      },
+      { key: 'blog',        source: 'blog'         },
+      { key: 'aiboss',      source: 'aiboss'       },
+      { key: 'wipikletter', source: 'wipikletter'  },
+    ];
+
+    function generate() {
+      const rawUrl = document.getElementById('pageUrl').value.trim();
+      const campaign = document.getElementById('campaign').value.trim() || 'tagby';
+
+      if (!rawUrl) {
+        alert('URL을 입력해주세요.');
+        return;
+      }
+
+      let base = rawUrl;
+      try {
+        const u = new URL(rawUrl);
+        // 기존에 붙어 있던 utm 파라미터 제거
+        ['utm_source','utm_medium','utm_campaign'].forEach(p => u.searchParams.delete(p));
+        base = u.toString();
+      } catch(e) {
+        alert('올바른 URL 형식으로 입력해주세요.\n예) https://mkt.tagby.io/tagby-article.html');
+        return;
+      }
+
+      channels.forEach(ch => {
+        const u = new URL(base);
+        u.searchParams.set('utm_source', ch.source);
+        u.searchParams.set('utm_medium', 'article');
+        u.searchParams.set('utm_campaign', campaign);
+        document.getElementById('url-' + ch.key).textContent = u.toString();
+      });
+
+      document.getElementById('results').classList.remove('hidden');
+    }
+
+    function copyUrl(id, btn) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '복사';
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+    }
+
+    // 엔터키로도 생성
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') generate();
+    });
+  </script>
+</body>
+</html>
