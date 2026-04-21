@@ -28,37 +28,6 @@
       position: relative;
     }
 
-    .thumb {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 18px 20px 20px;
-      background: #0D0D0D;
-    }
-    .thumb-badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.65);
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 4px;
-      align-self: flex-start;
-    }
-    .thumb-kw {
-      font-size: 1.75rem;
-      font-weight: 900;
-      color: #fff;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin: 0;
-    }
-    .thumb-kw.sm { font-size: 1.35rem; }
-    .thumb-kw.lg { font-size: 2.1rem; }
-
     .dropdown::after {
       content: '';
       position: absolute;
@@ -379,9 +348,8 @@ if(location.hash.includes("figmacapture")){
 
         <!-- 26.04.21 퍼포먼스 카드 3 -->
         <a href="design-study-article/news-fullfunnel-0421.html" class="magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block" data-category="퍼포먼스">
-          <div class="aspect-[4/3] thumb">
-            <span class="thumb-badge">퍼포먼스</span>
-            <p class="thumb-kw">Full<br>Funnel</p>
+          <div class="aspect-[4/3] flex items-center justify-center" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);">
+            <span class="text-white font-bold text-center px-4" style="font-size:0.8rem;opacity:0.3;letter-spacing:0.04em;">AWARENESS → CONSIDERATION → CONVERSION</span>
           </div>
           <div class="p-6">
             <h3 class="text-lg font-bold mb-3 text-white group-hover:text-[#0078F0] transition-colors line-clamp-2">풀펀넬 전략이 필요한 이유 — 브랜드가 놓치는 '중간 구간'</h3>
@@ -392,9 +360,8 @@ if(location.hash.includes("figmacapture")){
 
         <!-- 26.04.21 퍼포먼스 카드 4 -->
         <a href="design-study-article/news-digital-weekly-0421.html" class="magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block" data-category="퍼포먼스">
-          <div class="aspect-[4/3] thumb">
-            <span class="thumb-badge">퍼포먼스</span>
-            <p class="thumb-kw">APR '26<br>Update</p>
+          <div class="aspect-[4/3] flex items-center justify-center" style="background:linear-gradient(135deg,#1a73e8 0%,#7b2ff7 100%);">
+            <span class="text-white font-black" style="font-size:1.4rem;opacity:0.2;letter-spacing:0.1em;">APRIL UPDATE</span>
           </div>
           <div class="p-6">
             <h3 class="text-lg font-bold mb-3 text-white group-hover:text-[#0078F0] transition-colors line-clamp-2">4월 디지털 마케팅 업데이트: Google AI Overview·Meta·TikTok·LinkedIn 변화</h3>
@@ -405,9 +372,8 @@ if(location.hash.includes("figmacapture")){
 
         <!-- 26.04.21 퍼포먼스 카드 2 -->
         <a href="design-study-article/news-pmax-april-0421.html" class="magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block" data-category="퍼포먼스">
-          <div class="aspect-[4/3] thumb">
-            <span class="thumb-badge">퍼포먼스</span>
-            <p class="thumb-kw">ROAS<br>600%</p>
+          <div class="aspect-[4/3] flex items-center justify-center" style="background:linear-gradient(135deg,#0078d4 0%,#005a9e 100%);">
+            <span class="text-white font-bold tracking-widest" style="font-size:2rem;opacity:0.25;">PMax</span>
           </div>
           <div class="p-6">
             <h3 class="text-lg font-bold mb-3 text-white group-hover:text-[#0078F0] transition-colors line-clamp-2">Microsoft PMax 4월 업데이트 — NCA 목표로 ROAS 600% 달성한 사례</h3>
@@ -418,9 +384,8 @@ if(location.hash.includes("figmacapture")){
 
         <!-- 26.04.21 퍼포먼스 카드 1 -->
         <a href="design-study-article/news-perf-stop-guessing-0421.html" class="magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block" data-category="퍼포먼스">
-          <div class="aspect-[4/3] thumb">
-            <span class="thumb-badge">퍼포먼스</span>
-            <p class="thumb-kw">Stop<br>Guessing</p>
+          <div class="aspect-[4/3] flex items-center justify-center" style="background:linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%);">
+            <div class="text-center"><p class="text-white font-black" style="font-size:2rem;opacity:0.2;">STOP</p><p class="text-white text-xs tracking-widest" style="opacity:0.25;">GUESSING</p></div>
           </div>
           <div class="p-6">
             <h3 class="text-lg font-bold mb-3 text-white group-hover:text-[#0078F0] transition-colors line-clamp-2">2026년, 퍼포먼스 마케팅이 '추측'을 멈추는 해</h3>
@@ -431,9 +396,8 @@ if(location.hash.includes("figmacapture")){
 
         <!-- News Card 1 -->
         <a href="design-study-article/news-google-ai.html" class="magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block" data-category="퍼포먼스">
-          <div class="aspect-[4/3] thumb">
-            <span class="thumb-badge">퍼포먼스</span>
-            <p class="thumb-kw">AI<br>Overview</p>
+          <div class="aspect-[4/3] flex items-center justify-center" style="background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);">
+            <span class="text-white font-bold text-4xl tracking-tight">AI</span>
           </div>
           <div class="p-6">
             <h3 class="text-lg font-bold mb-3 text-white group-hover:text-[#0078F0] transition-colors line-clamp-2">
@@ -446,9 +410,8 @@ if(location.hash.includes("figmacapture")){
 
         <!-- News Card 2 -->
         <a href="design-study-article/news-meta-advantage.html" class="magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block" data-category="퍼포먼스">
-          <div class="aspect-[4/3] thumb">
-            <span class="thumb-badge">퍼포먼스</span>
-            <p class="thumb-kw">Meta<br>Advantage+</p>
+          <div class="aspect-[4/3] flex items-center justify-center" style="background: linear-gradient(135deg, #0866ff 0%, #7b2ff7 100%);">
+            <span class="text-white font-bold text-3xl">A+</span>
           </div>
           <div class="p-6">
             <h3 class="text-lg font-bold mb-3 text-white group-hover:text-[#0078F0] transition-colors line-clamp-2">
@@ -461,9 +424,8 @@ if(location.hash.includes("figmacapture")){
 
         <!-- News Card 3 -->
         <a href="design-study-article/news-instagram-algorithm.html" class="magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block" data-category="퍼포먼스">
-          <div class="aspect-[4/3] thumb">
-            <span class="thumb-badge">퍼포먼스</span>
-            <p class="thumb-kw">IG<br>Algorithm</p>
+          <div class="aspect-[4/3] flex items-center justify-center" style="background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </div>
           <div class="p-6">
             <h3 class="text-lg font-bold mb-3 text-white group-hover:text-[#0078F0] transition-colors line-clamp-2">
@@ -476,9 +438,8 @@ if(location.hash.includes("figmacapture")){
 
         <!-- News Card 4 -->
         <a href="design-study-article/news-threads-ads.html" class="magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block" data-category="퍼포먼스">
-          <div class="aspect-[4/3] thumb">
-            <span class="thumb-badge">퍼포먼스</span>
-            <p class="thumb-kw">Threads<br>Ads</p>
+          <div class="aspect-[4/3] flex items-center justify-center bg-black">
+            <span class="text-white font-bold" style="font-size: 4rem; font-family: serif;">@</span>
           </div>
           <div class="p-6">
             <h3 class="text-lg font-bold mb-3 text-white group-hover:text-[#0078F0] transition-colors line-clamp-2">
@@ -491,9 +452,8 @@ if(location.hash.includes("figmacapture")){
 
         <!-- 26.04.21 퍼포먼스 카드 5 -->
         <a href="design-study-article/news-perf-playbook-0421.html" class="magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block" data-category="퍼포먼스">
-          <div class="aspect-[4/3] thumb">
-            <span class="thumb-badge">퍼포먼스</span>
-            <p class="thumb-kw">Playbook<br>'26</p>
+          <div class="aspect-[4/3] flex items-center justify-center" style="background:linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%);">
+            <span class="text-white font-bold tracking-widest" style="font-size:1.3rem;opacity:0.2;">PLAYBOOK 2026</span>
           </div>
           <div class="p-6">
             <h3 class="text-lg font-bold mb-3 text-white group-hover:text-[#0078F0] transition-colors line-clamp-2">퍼포먼스 마케팅 2026 플레이북 — AI·속도·수익성</h3>
