@@ -1194,24 +1194,18 @@
       const container = document.getElementById(containerId);
       designImages.forEach((img, index) => {
         const div = document.createElement('div');
-        div.className = 'relative group flex-shrink-0 mx-3';
+        div.className = 'relative flex-shrink-0 mx-3';
         div.style.width = '350px';
         div.style.height = '438px';
-        
+
         div.innerHTML = `
           <div class="w-full h-full rounded-2xl shadow-xl overflow-hidden" style="background: linear-gradient(135deg, #0078F0, #0056B3);">
-            <img loading="lazy" 
+            <img loading="lazy"
               src="${img}"
               alt="Design ${index + 1}"
               class="w-full h-full object-cover"
               onerror="this.style.display='none'"
             />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex items-end p-8">
-            <div class="text-white">
-              <p class="text-sm mb-1">Design Project</p>
-              <p class="text-lg font-bold">Creative Work ${index + 1}</p>
-            </div>
           </div>
         `;
         container.appendChild(div);
