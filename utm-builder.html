@@ -91,22 +91,6 @@
       <p class="text-sm font-semibold text-gray-400 mb-4">채널별 UTM 링크</p>
 
       <div>
-        <p class="channel-label">브런치</p>
-        <div class="result-box">
-          <span class="result-url" id="url-brunch"></span>
-          <button class="copy-btn" onclick="copyUrl('url-brunch', this)">복사</button>
-        </div>
-      </div>
-
-      <div>
-        <p class="channel-label">커리어리</p>
-        <div class="result-box">
-          <span class="result-url" id="url-careerly"></span>
-          <button class="copy-btn" onclick="copyUrl('url-careerly', this)">복사</button>
-        </div>
-      </div>
-
-      <div>
         <p class="channel-label">아이보스</p>
         <div class="result-box">
           <span class="result-url" id="url-aiboss"></span>
@@ -121,16 +105,32 @@
           <button class="copy-btn" onclick="copyUrl('url-wipikletter', this)">복사</button>
         </div>
       </div>
+
+      <div>
+        <p class="channel-label">브런치</p>
+        <div class="result-box">
+          <span class="result-url" id="url-brunch"></span>
+          <button class="copy-btn" onclick="copyUrl('url-brunch', this)">복사</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="channel-label">커리어리</p>
+        <div class="result-box">
+          <span class="result-url" id="url-careerly"></span>
+          <button class="copy-btn" onclick="copyUrl('url-careerly', this)">복사</button>
+        </div>
+      </div>
     </div>
 
   </div>
 
   <script>
     const channels = [
-      { key: 'brunch',      source: 'brunch'      },
-      { key: 'careerly',    source: 'careerly'     },
       { key: 'aiboss',      source: 'aiboss'       },
       { key: 'wipikletter', source: 'wipikletter'  },
+      { key: 'brunch',      source: 'brunch'       },
+      { key: 'careerly',    source: 'careerly'     },
     ];
 
     function generate() {
