@@ -49,21 +49,127 @@
 </head>
 <body>
 
-  <header style="position:fixed;top:0;width:100%;z-index:50;backdrop-filter:blur(12px);background-color:rgba(26,26,26,0.95);">
+  <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.8);">
     <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
-      <a href="../index.html" class="cursor-pointer hover:opacity-80 transition">
-        <img loading="lazy" src="../images/logo/TAGby blue.png" alt="TAGby" class="h-8">
+      <a href="../" class="cursor-pointer hover:opacity-80 transition">
+        <img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8">
       </a>
       <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
-        <a href="../about.html" class="text-xs md:text-sm lg:text-base font-medium text-white hover:text-[#0078F0] transition whitespace-nowrap">회사소개</a>
-        <a href="../index.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">디지털 마케팅</a>
-        <a href="../portfolio.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">포트폴리오</a>
-        <a href="../index.html#team" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition">팀소개</a>
-        <a href="../tagby-article.html" class="text-sm font-medium text-white hover:text-[#0078F0] transition">아티클</a>
-        <a href="../contact.html" class="px-8 py-3 text-sm font-medium rounded-full hover:opacity-80 transition" style="background-color:#E0E3E7;color:#000;">문의하기</a>
+        <a href="../about.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">회사소개</a>
+        <div class="relative dropdown flex items-center">
+          <a href="../#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-gray-900 rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
+            <a href="../performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
+            <a href="../influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a>
+          </div>
+        </div>
+        <div class="relative dropdown flex items-center">
+          <a href="../portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-2 bg-gray-900 rounded-xl shadow-xl p-6" style="min-width: 420px;">
+            <div class="grid grid-cols-3 gap-6">
+              <div>
+                <p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">패션</p>
+                <div class="flex flex-col">
+                  <a href="../spao.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">스파오</a>
+                  <a href="../mixxo.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">미쏘</a>
+                  <a href="../newbalance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">뉴발란스</a>
+                  <a href="../spaokids.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">스파오키즈</a>
+                  <a href="../roem.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">로엠</a>
+                  <a href="../eblin.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">에블린</a>
+                  <a href="../eider.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">아이더</a>
+                </div>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">생활/잡화</p>
+                <div class="flex flex-col">
+                  <a href="../cocodor.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">코코도르</a>
+                  <a href="../emart.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">이마트</a>
+                </div>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">교육</p>
+                <div class="flex flex-col">
+                  <a href="../minbyoungcheol.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">민병철유폰</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative dropdown flex items-center">
+          <a href="../team-performance.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-gray-900 rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="../team-performance.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="../team-digital.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="../team-design.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+          </div>
+        </div>
+        <a href="../tagby-article.html" class="text-xs md:text-sm lg:text-base font-medium text-white hover:text-[#0078F0] transition whitespace-nowrap">아티클</a>
+      </div>
+      <div class="hamburger lg:hidden" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </nav>
   </header>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-8">
+      <a href="../" class="cursor-pointer hover:opacity-80 transition mb-8 inline-block">
+        <img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8">
+      </a>
+      <nav class="flex flex-col gap-4">
+        <a href="../about.html" class="text-lg font-medium text-gray-300 hover:text-[#0078F0] transition py-2">회사소개</a>
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-300 mb-3">디지털 마케팅</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="../performance-marketing.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">퍼포먼스 마케팅</a>
+            <a href="../influencer-marketing.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">인플루언서 마케팅</a>
+          </div>
+        </div>
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-300 mb-3">포트폴리오</p>
+          <div class="flex flex-col gap-1 pl-4">
+            <div class="portfolio-category">
+              <button onclick="togglePortfolioCategory(this)" class="w-full text-left text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1 flex items-center justify-between">패션 <span class="category-arrow text-xs text-gray-500">▼</span></button>
+              <div class="category-sub hidden flex-col gap-1 pl-4">
+                <a href="../spao.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오</a>
+                <a href="../mixxo.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">미쏘</a>
+                <a href="../newbalance.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">뉴발란스</a>
+                <a href="../spaokids.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오키즈</a>
+                <a href="../roem.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">로엠</a>
+                <a href="../eider.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">아이더</a>
+                <a href="../eblin.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">에블린</a>
+              </div>
+            </div>
+            <div>
+              <button onclick="togglePortfolioCategory(this)" class="w-full flex items-center justify-between text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">생활/잡화 <span class="category-arrow text-xs text-gray-400">▼</span></button>
+              <div class="category-sub hidden flex-col gap-1 pl-4">
+                <a href="../cocodor.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">코코도르</a>
+                <a href="../emart.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">이마트</a>
+              </div>
+            </div>
+            <div>
+              <button onclick="togglePortfolioCategory(this)" class="w-full flex items-center justify-between text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">교육 <span class="category-arrow text-xs text-gray-400">▼</span></button>
+              <div class="category-sub hidden flex-col gap-1 pl-4">
+                <a href="../minbyoungcheol.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">민병철유폰</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="text-lg font-medium text-gray-300 py-2">팀소개</p>
+          <div class="pl-4 flex flex-col gap-1">
+            <a href="../team-performance.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="../team-digital.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="../team-design.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">디자인팀</a>
+          </div>
+        </div>
+        <a href="../tagby-article.html" class="text-lg font-medium text-white hover:text-[#0078F0] transition py-2">아티클</a>
+      </nav>
+    </div>
+  </div>
 
   <article class="pt-32 pb-20 px-6">
     <div class="container mx-auto max-w-3xl">
@@ -159,6 +265,52 @@
   <script>
     window.addEventListener('scroll',()=>{const b=document.getElementById('scrollToTop');b.classList.toggle('visible',window.scrollY>300);});
     document.getElementById('scrollToTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  </script>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+    mobileOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+  <script>
+    (function(){
+      var allDropdowns = Array.from(document.querySelectorAll('.dropdown'));
+      var hideTimer; var activeMenu = null;
+      function closeAll(){ allDropdowns.forEach(function(d){ var m = d.querySelector('.dropdown-menu'); if(m){ m.style.display='none'; m.style.opacity='0'; } }); activeMenu=null; }
+      function showMenu(dropdown){ clearTimeout(hideTimer); if(activeMenu&&activeMenu!==dropdown){ var prev=activeMenu.querySelector('.dropdown-menu'); if(prev){ prev.style.display='none'; prev.style.opacity='0'; } } activeMenu=dropdown; var menu=dropdown.querySelector('.dropdown-menu'); if(menu){ menu.style.display='block'; menu.style.opacity='1'; menu.style.transform='translateY(0)'; } }
+      function scheduleHide(){ hideTimer=setTimeout(closeAll,300); }
+      allDropdowns.forEach(function(dropdown){ var menu=dropdown.querySelector('.dropdown-menu'); if(!menu)return; dropdown.addEventListener('mouseenter',function(){ showMenu(dropdown); }); dropdown.addEventListener('mouseleave',scheduleHide); menu.addEventListener('mouseenter',function(){ showMenu(dropdown); }); menu.addEventListener('mouseleave',scheduleHide); });
+    })();
+  </script>
+  <script>
+    function togglePortfolioCategory(btn) {
+      var sub = btn.parentElement.querySelector('.category-sub');
+      var arrow = btn.querySelector('.category-arrow');
+      if (!sub) return;
+      var isOpen = sub.classList.contains('flex');
+      sub.classList.toggle('hidden', isOpen);
+      sub.classList.toggle('flex', !isOpen);
+      if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+    }
   </script>
 </body>
 </html>
