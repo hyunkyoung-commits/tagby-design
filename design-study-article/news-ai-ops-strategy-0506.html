@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/Thum.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <title>광고 운영자가 직접 세팅하던 시대는 끝났을까? - tagby</title>
+  <link rel="icon" type="image/png" href="../images/logo/Thum.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "광고 운영자가 직접 세팅하던 시대는 끝났을까? - TAGby 태그바이",
+        "description": "AI 자동화 캠페인이 중심이 되면서 광고 운영자의 역할이 달라지고 있습니다. 단순 세팅을 넘어 전략가로 거듭나야 하는 이유를 살펴봅니다.",
+        "url": "https://mkt.tagby.io/design-study-article/news-ai-ops-strategy-0506.html",
+        "inLanguage": "ko-KR",
+        "publisher": {
+          "@type": "Organization",
+          "name": "TAGby",
+          "url": "https://mkt.tagby.io",
+          "logo": "https://mkt.tagby.io/images/logo/Thum.png"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "TAGby"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "홈", "item": "https://mkt.tagby.io/"},
+          {"@type": "ListItem", "position": 2, "name": "아티클", "item": "https://mkt.tagby.io/tagby-article.html"},
+          {"@type": "ListItem", "position": 3, "name": "광고 운영자가 직접 세팅하던 시대는 끝났을까? - TAGby 태그바이", "item": "https://mkt.tagby.io/design-study-article/news-ai-ops-strategy-0506.html"}
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #1A1A1A; color: white; }
+    .article-content { font-size: 1.125rem; line-height: 1.9; color: #D4D4D4; }
+    .article-content p { margin-bottom: 1.75rem; }
+    .article-content strong { color: white; font-weight: 600; }
+    .article-content h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 3.5rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #2D2D2D; }
+    .article-content ul { list-style: none; padding-left: 0; margin-bottom: 1.75rem; }
+    .article-content ul li { margin-bottom: 0.75rem; padding-left: 1.25rem; position: relative; }
+    .article-content ul li::before { content: '—'; position: absolute; left: 0; color: #0078F0; }
+    .article-content blockquote { border-left: 3px solid #0078F0; padding: 1rem 1.5rem; margin: 2rem 0; background-color: #1F1F1F; border-radius: 0 8px 8px 0; color: #B0B0B0; font-style: normal; }
+    .article-content blockquote strong { color: #5aabff; }
+    .role-card { background-color: #1F1F1F; border: 1px solid #2D2D2D; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.25rem; }
+    .role-card .role-label { font-size: 0.75rem; font-weight: 700; color: #7B5FFF; letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+    .role-card .role-title { font-size: 1.125rem; font-weight: 700; color: white; margin-bottom: 0.875rem; }
+    .role-card .role-body { font-size: 0.9375rem; color: #C0C0C0; line-height: 1.75; }
+    .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+    .compare-item { background-color: #111; border: 1px solid #2D2D2D; border-radius: 12px; padding: 1.25rem; }
+    .compare-item.old { border-color: #3a3a3a; }
+    .compare-item.new { border-color: #7B5FFF; }
+    .compare-item .compare-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .compare-item.old .compare-label { color: #666; }
+    .compare-item.new .compare-label { color: #7B5FFF; }
+    .compare-item .compare-text { font-size: 0.875rem; color: #C0C0C0; line-height: 1.7; }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; box-shadow: 0 4px 12px rgba(0, 120, 240, 0.3); }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+    .scroll-to-top:hover { background-color: #0056B3; }
+
+    .dropdown-menu { display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .dropdown { position: relative; }
+    .dropdown::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 20px; }
+    .mobile-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background-color: #1A1A1A; box-shadow: -4px 0 12px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 100; overflow-y: auto; }
+    .mobile-menu.active { right: 0; }
+    .mobile-overlay { display: none; position: fixed; inset: 0; background-color: rgba(0,0,0,0.7); z-index: 99; }
+    .mobile-overlay.active { display: block; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background-color: #fff; transition: all 0.3s ease; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+    @media (max-width: 1023px) { .hamburger { display: flex; } }
+    @media (max-width: 640px) { .compare-box { grid-template-columns: 1fr; } }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5675K11SP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D5675K11SP');
+  </script>
+</head>
+<body>
+
+  <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../" class="cursor-pointer hover:opacity-80 transition">
+        <img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8">
+      </a>
+      <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
+        <a href="../about.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">회사소개</a>
+        <div class="relative dropdown flex items-center">
+          <a href="../#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-gray-900 rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
+            <a href="../performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
+            <a href="../influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a>
+          </div>
+        </div>
+        <div class="relative dropdown flex items-center">
+          <a href="../portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-2 bg-gray-900 rounded-xl shadow-xl p-6" style="min-width: 420px;">
+            <div class="grid grid-cols-3 gap-6">
+              <div>
+                <p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">패션</p>
+                <div class="flex flex-col">
+                  <a href="../spao.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">스파오</a>
+                  <a href="../mixxo.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">미쏘</a>
+                  <a href="../newbalance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">뉴발란스</a>
+                  <a href="../spaokids.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">스파오키즈</a>
+                  <a href="../roem.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">로엠</a>
+                  <a href="../eblin.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">에블린</a>
+                  <a href="../eider.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">아이더</a>
+                </div>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">생활/잡화</p>
+                <div class="flex flex-col">
+                  <a href="../cocodor.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">코코도르</a>
+                  <a href="../emart.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">이마트</a>
+                </div>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">교육</p>
+                <div class="flex flex-col">
+                  <a href="../minbyoungcheol.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">민병철유폰</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative dropdown flex items-center">
+          <a href="../team-performance.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-gray-900 rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="../team-performance.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스팀</a>
+            <a href="../team-digital.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">디지털 마케팅팀</a>
+            <a href="../team-design.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">디자인팀</a>
+          </div>
+        </div>
+        <a href="../tagby-article.html" class="text-xs md:text-sm lg:text-base font-medium text-white hover:text-[#0078F0] transition whitespace-nowrap">아티클</a>
+      </div>
+      <div class="hamburger lg:hidden" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-8">
+      <a href="../" class="cursor-pointer hover:opacity-80 transition mb-8 inline-block">
+        <img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8">
+      </a>
+      <nav class="flex flex-col gap-4">
+        <a href="../about.html" class="text-lg font-medium text-gray-300 hover:text-[#0078F0] transition py-2">회사소개</a>
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-300 mb-3">디지털 마케팅</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="../performance-marketing.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">퍼포먼스 마케팅</a>
+            <a href="../influencer-marketing.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">인플루언서 마케팅</a>
+          </div>
+        </div>
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-300 mb-3">포트폴리오</p>
+          <div class="flex flex-col gap-1 pl-4">
+            <div class="portfolio-category">
+              <button onclick="togglePortfolioCategory(this)" class="w-full text-left text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1 flex items-center justify-between">패션 <span class="category-arrow text-xs text-gray-500">▼</span></button>
+              <div class="category-sub hidden flex-col gap-1 pl-4">
+                <a href="../spao.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오</a>
+                <a href="../mixxo.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">미쏘</a>
+                <a href="../newbalance.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">뉴발란스</a>
+                <a href="../spaokids.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오키즈</a>
+                <a href="../roem.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">로엠</a>
+                <a href="../eider.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">아이더</a>
+                <a href="../eblin.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">에블린</a>
+              </div>
+            </div>
+            <div>
+              <button onclick="togglePortfolioCategory(this)" class="w-full flex items-center justify-between text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">생활/잡화 <span class="category-arrow text-xs text-gray-400">▼</span></button>
+              <div class="category-sub hidden flex-col gap-1 pl-4">
+                <a href="../cocodor.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">코코도르</a>
+                <a href="../emart.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">이마트</a>
+              </div>
+            </div>
+            <div>
+              <button onclick="togglePortfolioCategory(this)" class="w-full flex items-center justify-between text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">교육 <span class="category-arrow text-xs text-gray-400">▼</span></button>
+              <div class="category-sub hidden flex-col gap-1 pl-4">
+                <a href="../minbyoungcheol.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">민병철유폰</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="text-lg font-medium text-gray-300 py-2">팀소개</p>
+          <div class="pl-4 flex flex-col gap-1">
+            <a href="../team-performance.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">퍼포먼스팀</a>
+            <a href="../team-digital.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">디지털 마케팅팀</a>
+            <a href="../team-design.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">디자인팀</a>
+          </div>
+        </div>
+        <a href="../tagby-article.html" class="text-lg font-medium text-white hover:text-[#0078F0] transition py-2">아티클</a>
+      </nav>
+    </div>
+  </div>
+
+  <article class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+
+      <div class="mb-8">
+        <a href="../tagby-article.html" class="text-sm text-gray-500 hover:text-[#0078F0] transition">← 목록으로 돌아가기</a>
+      </div>
+
+      <div class="mb-6 flex items-center gap-4">
+        <span class="text-sm text-[#0078F0] font-medium">뉴스 · 퍼포먼스</span>
+        <span class="text-sm text-gray-500">26. 05. 06.</span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight" style="font-weight: 800; line-height: 1.25;">
+        광고 운영자가 직접 세팅하던<br>시대는 끝났을까?
+      </h1>
+      <p class="text-xl text-gray-400 mb-12 leading-relaxed">단순 세팅을 넘어 '전략가'로 거듭나야 하는 이유</p>
+
+      <div class="mb-14 rounded-2xl overflow-hidden flex items-center justify-center" style="background: linear-gradient(135deg, #0d0020 0%, #1a0a3d 50%, #2a0f60 100%); height: 380px;">
+        <div class="text-center">
+          <p class="text-white font-black tracking-widest" style="font-size: 0.9rem;">AD OPS</p>
+          <p class="text-white font-black" style="font-size: 3rem; letter-spacing: -0.04em; line-height: 1.1;">AI ERA</p>
+          <p class="text-white font-black tracking-widest" style="font-size: 0.9rem;">STRATEGY</p>
+        </div>
+      </div>
+
+      <div class="article-content">
+
+        <p>
+          과거에는 광고 운영자가 키워드 입찰가를 직접 조정하고, 성별·연령·지역별 타겟을 세분화하며, 시간대별 예산까지 수동으로 관리하는 방식이 일반적이었습니다. 하지만 최근에는 Google Ads의 Performance Max, Meta Advantage+처럼 AI 자동화 캠페인이 중심이 되면서 운영 방식이 달라지고 있습니다.
+        </p>
+        <p>
+          이제 플랫폼은 실시간 데이터를 바탕으로 어떤 유저에게 광고를 보여줄지, 얼마를 입찰할지, 어떤 지면에 예산을 더 쓸지 스스로 판단합니다. 단순 세팅 업무의 중요도는 점점 낮아지고 있습니다.
+        </p>
+
+        <h2>AI 중심으로 빠르게 바뀌고 있는 광고 운영 방식</h2>
+
+        <div class="compare-box">
+          <div class="compare-item old">
+            <p class="compare-label">과거</p>
+            <p class="compare-text">키워드 입찰가 수동 조정<br>성별·연령·지역 직접 세분화<br>시간대별 예산 수동 관리<br>지면별 노출 직접 설정</p>
+          </div>
+          <div class="compare-item new">
+            <p class="compare-label">현재</p>
+            <p class="compare-text">AI가 실시간 입찰가 자동 결정<br>Performance Max · Advantage+ 자동 타겟팅<br>예산 배분 알고리즘이 최적화<br>플랫폼이 최적 지면 스스로 선택</p>
+          </div>
+        </div>
+
+        <p>
+          변화는 단순히 '편해졌다'는 차원이 아닙니다. 광고 운영의 무게중심 자체가 이동하고 있습니다. 과거에 가치 있던 역할의 상당 부분을 플랫폼이 대체하기 시작했고, 그 속도는 점점 빨라지고 있습니다.
+        </p>
+
+        <h2>이제 광고 운영자의 핵심 역할은 전략과 데이터</h2>
+
+        <p>
+          자동화가 늘어날수록 광고 운영자의 역할이 줄어드는 것이 아니라 오히려 더 전문적으로 바뀌고 있습니다. 중요한 것은 어떤 고객을 유입시킬지 목표를 설정하고, 정확한 전환 데이터를 플랫폼에 전달하는 일입니다.
+        </p>
+
+        <div class="role-card">
+          <p class="role-label">CORE ROLE 01</p>
+          <p class="role-title">전환 목표 설계</p>
+          <p class="role-body">단순 구매 수보다 재구매 가능성이 높은 고객, 객단가가 높은 고객, 장기적으로 LTV가 높은 고객을 목표로 설계해야 실제 성과가 좋아집니다. 어떤 신호를 플랫폼에 학습시킬지가 캠페인의 방향을 결정합니다.</p>
+        </div>
+
+        <div class="role-card">
+          <p class="role-label">CORE ROLE 02</p>
+          <p class="role-title">데이터 품질 관리</p>
+          <p class="role-body">AI는 입력된 데이터를 기반으로 최적화합니다. 잘못된 전환 신호, 누락된 이벤트, 부정확한 픽셀 설정은 알고리즘이 엉뚱한 방향으로 학습하게 만듭니다. 정확하고 풍부한 전환 데이터를 플랫폼에 지속적으로 공급하는 것이 핵심입니다.</p>
+        </div>
+
+        <div class="role-card">
+          <p class="role-label">CORE ROLE 03</p>
+          <p class="role-title">크리에이티브 기획</p>
+          <p class="role-body">광고 문구, 혜택 구성, 영상 소재 기획까지 더해져야 AI도 좋은 결과를 만들 수 있습니다. 타겟팅과 입찰은 플랫폼이 담당하더라도, 어떤 메시지를 어떤 맥락에서 전달할지는 사람의 판단이 필요합니다.</p>
+        </div>
+
+        <h2>광고대행사는 운영사가 아니라 성장 파트너가 되어야 한다</h2>
+
+        <p>
+          앞으로 광고대행사의 경쟁력은 계정 세팅 능력만으로 결정되지 않습니다. 광고주는 단순 운영보다 왜 성과가 떨어졌는지, 예산을 어디에 더 써야 하는지, 어떤 소재가 효과적인지에 대한 해답을 원합니다.
+        </p>
+
+        <blockquote>
+          채널별 예산 전략, 데이터 분석, 전환 구조 개선, 크리에이티브 방향 제안까지 함께할 수 있는 대행사가<br>
+          <strong>더 높은 가치를 가지게 됩니다.</strong>
+        </blockquote>
+
+        <p>
+          운영 대행보다 비즈니스 성장을 함께 설계하는 파트너형 대행사가 강해지는 흐름입니다.
+        </p>
+
+        <h2>결론: 사라지는 것은 역할이 아니라 방식이다</h2>
+
+        <p>
+          광고 운영자가 사라지는 것이 아닙니다. 단순 세팅형 운영자가 줄어들고, 전략형 운영자가 더 중요해지는 시대입니다.
+        </p>
+        <p>
+          자동화가 가져가는 업무가 많아질수록, 남겨진 업무의 난이도와 가치는 높아집니다. 지금 이 변화를 기회로 읽는 사람과 위협으로 읽는 사람의 5년 후는 다를 것입니다.
+        </p>
+
+        <p style="font-size: 0.875rem; color: #666; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #2D2D2D;">
+          출처: Search Engine Journal, <a href="https://www.searchenginejournal.com/ppc-trends-2026-ai-automation-and-the-fight-for-visibility/558870/" target="_blank" rel="noopener noreferrer" style="color: #5aabff; text-decoration: underline;">PPC Trends 2026: AI, Automation, And The Fight For Visibility</a>
+        </p>
+
+      </div>
+
+    </div>
+  </article>
+
+  <div class="scroll-to-top" id="scrollToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <svg width="20" height="20" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </div>
+
+  <footer style="background-color: #111; border-top: 1px solid #2D2D2D;" class="py-16 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+        <div>
+          <img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8 mb-4">
+          <p class="text-gray-500 text-sm">퍼포먼스 마케팅 전문 에이전시</p>
+        </div>
+        <div class="text-gray-600 text-sm">
+          <p>© 2026 TAGby. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const scrollBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) scrollBtn.classList.add('visible');
+      else scrollBtn.classList.remove('visible');
+    });
+
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+      const menu = dropdown.querySelector('.dropdown-menu');
+      if (!menu) return;
+      dropdown.addEventListener('mouseenter', () => {
+        menu.style.display = 'block';
+        setTimeout(() => { menu.style.opacity = '1'; menu.style.transform = 'translateY(0)'; }, 10);
+      });
+      dropdown.addEventListener('mouseleave', () => {
+        menu.style.opacity = '0'; menu.style.transform = 'translateY(-10px)';
+        setTimeout(() => { menu.style.display = 'none'; }, 300);
+      });
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+    });
+    mobileOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+    });
+
+    function togglePortfolioCategory(btn) {
+      const sub = btn.nextElementSibling;
+      const arrow = btn.querySelector('.category-arrow');
+      sub.classList.toggle('hidden');
+      sub.classList.toggle('flex');
+      arrow.textContent = sub.classList.contains('hidden') ? '▼' : '▲';
+    }
+  </script>
+</body>
+</html>
