@@ -68,15 +68,11 @@
     <div class="mb-10">
       <p class="text-xs font-bold tracking-widest text-[#0078F0] uppercase mb-2">TAGby Internal Tool</p>
       <h1 class="text-3xl font-black mb-2">UTM 링크 생성기</h1>
-      <p class="text-gray-500 text-sm">아티클 URL을 입력하면 채널별 UTM 링크가 자동으로 생성됩니다.</p>
+      <p class="text-gray-500 text-sm">캠페인명을 입력하면 채널별 UTM 링크가 자동으로 생성됩니다.</p>
     </div>
 
     <!-- 입력 영역 -->
     <div class="space-y-4 mb-8">
-      <div>
-        <p class="text-sm font-semibold text-gray-400 mb-2">페이지 URL</p>
-        <input id="pageUrl" type="text" class="input-field" placeholder="https://mkt.tagby.io/tagby-article.html">
-      </div>
       <div>
         <p class="text-sm font-semibold text-gray-400 mb-2">캠페인명 <span class="text-gray-600 font-normal">(선택 · 아티클 제목 요약, 영문 권장)</span></p>
         <input id="campaign" type="text" class="input-field" placeholder="예: pmax-roas, fullfunnel, ugc-trust">
@@ -134,24 +130,8 @@
     ];
 
     function generate() {
-      const rawUrl = document.getElementById('pageUrl').value.trim();
+      const base = 'https://mkt.tagby.io/tagby-article.html';
       const campaign = document.getElementById('campaign').value.trim() || 'tagby';
-
-      if (!rawUrl) {
-        alert('URL을 입력해주세요.');
-        return;
-      }
-
-      let base = rawUrl;
-      try {
-        const u = new URL(rawUrl);
-        // 기존에 붙어 있던 utm 파라미터 제거
-        ['utm_source','utm_medium','utm_campaign'].forEach(p => u.searchParams.delete(p));
-        base = u.toString();
-      } catch(e) {
-        alert('올바른 URL 형식으로 입력해주세요.\n예) https://mkt.tagby.io/tagby-article.html');
-        return;
-      }
 
       channels.forEach(ch => {
         const u = new URL(base);
