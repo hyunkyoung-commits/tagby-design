@@ -1552,29 +1552,38 @@
         const brandSection = document.getElementById('brand-section');
         if (!brandSection) { return; }
 
-        const items = gsap.utils.toArray('#brand-section .brand-item');
-        if (!items || !items.length) { return; }
+        const items = Array.from(document.querySelectorAll('#brand-section .brand-item'))
+          .filter(el => !el.classList.contains('brand-hidden'));
+        if (!items.length) { return; }
 
-        gsap.set(items, { opacity: 0, y: 16 });
+        function getColCount() {
+          if (window.innerWidth <= 640) return 3;
+          if (window.innerWidth <= 1023) return 6;
+          return 8;
+        }
+        const cols = getColCount();
+
+        gsap.set(items, { opacity: 0, y: 18 });
         gsap.set('#brand-section .text-center', { opacity: 0, y: 14 });
 
-        gsap.fromTo('#brand-section .text-center',
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: brandSection, start: 'top 78%', once: true }
+        });
+
+        tl.fromTo('#brand-section .text-center',
           { opacity: 0, y: 14 },
-          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
-            scrollTrigger: { trigger: brandSection, start: 'top 82%', once: true }
-          }
+          { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }
         );
 
-        gsap.fromTo(items,
-          { opacity: 0, y: 16 },
-          {
-            opacity: 1, y: 0,
-            duration: 0.45,
-            ease: 'power2.out',
-            stagger: { each: 0.035, from: 'start' },
-            scrollTrigger: { trigger: brandSection, start: 'top 78%', once: true }
-          }
-        );
+        const numRows = Math.ceil(items.length / cols);
+        for (let row = 0; row < numRows; row++) {
+          const rowItems = items.slice(row * cols, (row + 1) * cols);
+          tl.fromTo(rowItems,
+            { opacity: 0, y: 18 },
+            { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' },
+            '-=0.22'
+          );
+        }
       }
 
       // expose functions globally for manual testing (no visual debug side-effects)
