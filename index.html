@@ -1548,34 +1548,33 @@
       // ===== Brand Partners: portfolio-style reveal & parallax =====
       // Converted to a named init function so it can be called after the grid is populated
       function initBrandAnimations(){
-        if (!window.gsap || !window.ScrollTrigger) { console.warn('GSAP or ScrollTrigger not available — skipping brand animations'); return; }
+        if (!window.gsap || !window.ScrollTrigger) { return; }
         const brandSection = document.getElementById('brand-section');
-        if (!brandSection) { console.warn('brandSection missing — cannot init brand animations'); return; }
+        if (!brandSection) { return; }
 
         const items = gsap.utils.toArray('#brand-section .brand-item');
-        console.debug('initBrandAnimations run — items found:', items.length);
-        if (!items || !items.length) { console.warn('No brand items found'); return; }
+        if (!items || !items.length) { return; }
 
-        // Soft Stagger approach (gentle fade + rise + scale)
-        gsap.set(items, { opacity: 0, y: 24, scale: 0.985 });
-        gsap.set('#brand-section .text-center', { opacity: 0, y: 18 });
+        gsap.set(items, { opacity: 0, y: 16 });
+        gsap.set('#brand-section .text-center', { opacity: 0, y: 14 });
 
-        // header reveal
-        gsap.fromTo('#brand-section .text-center', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.22, ease: 'power3.out', scrollTrigger: { trigger: brandSection, start: 'top 85%' } });
+        gsap.fromTo('#brand-section .text-center',
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
+            scrollTrigger: { trigger: brandSection, start: 'top 82%', once: true }
+          }
+        );
 
-        // Batch reveal for items: soft fade + lift + scale
-        ScrollTrigger.batch('#brand-section .brand-item', {
-          interval: 0.08,
-          batchMax: 12,
-          onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, scale: 1, stagger: { each: 0.02 }, duration: 0.22, ease: 'power3.out' }),
-          onLeaveBack: batch => gsap.to(batch, { opacity: 0, y: 24, scale: 0.985, stagger: 0.01, duration: 0.2, ease: 'power2.in' }),
-          start: 'top 80%',
-          end: 'bottom 20%'
-        });
-
-        // Remove horizontal scrub and heavy per-item parallax to keep motion subtle and cohesive
-        console.debug('Applied Soft Stagger to Brand Partners (header + items)');
-
+        gsap.fromTo(items,
+          { opacity: 0, y: 16 },
+          {
+            opacity: 1, y: 0,
+            duration: 0.45,
+            ease: 'power2.out',
+            stagger: { each: 0.035, from: 'start' },
+            scrollTrigger: { trigger: brandSection, start: 'top 78%', once: true }
+          }
+        );
       }
 
       // expose functions globally for manual testing (no visual debug side-effects)
