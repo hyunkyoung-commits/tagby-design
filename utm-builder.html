@@ -77,6 +77,10 @@
         <p class="text-sm font-semibold text-gray-400 mb-2">캠페인명 <span class="text-gray-600 font-normal">(선택 · 아티클 제목 요약, 영문 권장)</span></p>
         <input id="campaign" type="text" class="input-field" placeholder="예: pmax-roas, fullfunnel, ugc-trust">
       </div>
+      <div>
+        <p class="text-sm font-semibold text-gray-400 mb-2">아이보스 랜딩링크 <span class="text-gray-600 font-normal">(아이보스 전용 · 아티클 직접 URL 입력)</span></p>
+        <input id="aiboss-url" type="text" class="input-field" placeholder="예: https://mkt.tagby.io/design-study-article/news-meta-revenue-0517.html">
+      </div>
       <button onclick="generate()" class="w-full py-4 rounded-xl font-bold text-base" style="background:#0078F0;color:white;border:none;cursor:pointer;font-family:'Pretendard',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='#005ecc'" onmouseout="this.style.background='#0078F0'">
         링크 생성하기
       </button>
@@ -122,19 +126,28 @@
   </div>
 
   <script>
+    const BASE_URL = 'https://mkt.tagby.io/tagby-article.html';
+
     const channels = [
-      { key: 'aiboss',      source: 'aiboss'       },
-      { key: 'wipikletter', source: 'wepick'        },
-      { key: 'brunch',      source: 'brunch'       },
-      { key: 'careerly',    source: 'careerly'     },
+      { key: 'wipikletter', source: 'wepick'    },
+      { key: 'brunch',      source: 'brunch'    },
+      { key: 'careerly',    source: 'careerly'  },
     ];
 
     function generate() {
-      const base = 'https://mkt.tagby.io/tagby-article.html';
       const campaign = document.getElementById('campaign').value.trim() || 'tagby';
 
+      // 아이보스: 직접 입력한 랜딩링크 사용
+      const aibossBase = document.getElementById('aiboss-url').value.trim() || BASE_URL;
+      const au = new URL(aibossBase);
+      au.searchParams.set('utm_source', 'aiboss');
+      au.searchParams.set('utm_medium', 'article');
+      au.searchParams.set('utm_campaign', campaign);
+      document.getElementById('url-aiboss').textContent = au.toString();
+
+      // 나머지 채널: 고정 랜딩링크
       channels.forEach(ch => {
-        const u = new URL(base);
+        const u = new URL(BASE_URL);
         u.searchParams.set('utm_source', ch.source);
         u.searchParams.set('utm_medium', 'article');
         u.searchParams.set('utm_campaign', campaign);
