@@ -238,8 +238,9 @@
 
         <!-- 연락처 -->
         <div class="form-group">
-          <label class="form-label">연락처</label>
-          <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" autocomplete="tel">
+          <label class="form-label">연락처 <span class="req">*</span></label>
+          <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required autocomplete="tel">
+          <p class="error-msg" id="phoneError">연락처를 입력해주세요.</p>
         </div>
 
         <!-- 회사/단체명 -->
@@ -251,17 +252,19 @@
 
         <!-- 월 예산 -->
         <div class="form-group">
-          <label class="form-label">월 예산 <span style="font-size:0.8125rem;font-weight:400;color:#888;">(단위 : 만원)</span></label>
+          <label class="form-label">월 예산 <span class="req">*</span> <span style="font-size:0.8125rem;font-weight:400;color:#888;">(단위 : 만원)</span></label>
           <div class="budget-wrapper">
-            <input type="number" name="budget" class="form-input" placeholder="예: 500" min="0" style="padding-right:3.5rem;">
+            <input type="number" name="budget" class="form-input" placeholder="예: 500" min="0" required style="padding-right:3.5rem;">
             <span class="budget-unit">만원</span>
           </div>
+          <p class="error-msg" id="budgetError">월 예산을 입력해주세요.</p>
         </div>
 
         <!-- 상담 목적 -->
         <div class="form-group">
-          <label class="form-label">상담 목적</label>
-          <textarea name="message" class="form-textarea" placeholder="필요한 서비스, 희망 시작일, 참고 사항 등을 자유롭게 적어주세요."></textarea>
+          <label class="form-label">상담 목적 <span class="req">*</span></label>
+          <textarea name="message" class="form-textarea" placeholder="필요한 서비스, 희망 시작일, 참고 사항 등을 자유롭게 적어주세요." required></textarea>
+          <p class="error-msg" id="messageError">상담 목적을 입력해주세요.</p>
         </div>
 
         <!-- 동의 항목 -->
@@ -343,6 +346,27 @@
         companyInput.classList.add('error'); companyError.style.display = 'block'; isValid = false;
       } else { companyInput.classList.remove('error'); companyError.style.display = 'none'; }
 
+      // 연락처
+      const phoneInput = form.querySelector('[name="phone"]');
+      const phoneError = document.getElementById('phoneError');
+      if (!phoneInput.value.trim()) {
+        phoneInput.classList.add('error'); phoneError.style.display = 'block'; isValid = false;
+      } else { phoneInput.classList.remove('error'); phoneError.style.display = 'none'; }
+
+      // 월 예산
+      const budgetInput = form.querySelector('[name="budget"]');
+      const budgetError = document.getElementById('budgetError');
+      if (!budgetInput.value.trim()) {
+        budgetInput.classList.add('error'); budgetError.style.display = 'block'; isValid = false;
+      } else { budgetInput.classList.remove('error'); budgetError.style.display = 'none'; }
+
+      // 상담 목적
+      const messageInput = form.querySelector('[name="message"]');
+      const messageError = document.getElementById('messageError');
+      if (!messageInput.value.trim()) {
+        messageInput.classList.add('error'); messageError.style.display = 'block'; isValid = false;
+      } else { messageInput.classList.remove('error'); messageError.style.display = 'none'; }
+
       if (!document.getElementById('ageCheck').checked) { alert('만 14세 이상 확인이 필요합니다.'); return; }
       if (!document.getElementById('privacyConsent').checked) { alert('개인정보 수집·이용에 동의해주세요.'); return; }
       if (!isValid) return;
@@ -369,7 +393,7 @@
         await fetch(APPS_SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify(payload)
         });
       } catch (err) {
