@@ -18,7 +18,7 @@ DPR = 2
 FONT_LINK = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">'
 
 # 아티클 실제 표시 폭 ~720px → 800px 캔버스, 여백 없이 full-bleed
-STAT_W,   STAT_H   = 800, 240
+STAT_W,   STAT_H   = 800, 185
 FUNNEL_W, FUNNEL_H = 800, 380
 CHECK_W,  CHECK_H  = 800, 270
 
@@ -73,7 +73,7 @@ def html_wrap(W, H, inner_css, body_html):
 
 STAT_DARK = html_wrap(STAT_W, STAT_H,
     """.wrap{width:100%;height:100%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-       .card{background:#222;border-radius:14px;padding:24px 28px;display:flex;flex-direction:column;gap:5px;}
+       .card{background:#222;border-radius:14px;padding:24px 28px;display:flex;flex-direction:column;gap:5px;justify-content:center;}
        .platform{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;}
        .number{font-size:44px;font-weight:900;line-height:1.05;}
        .desc{font-size:14px;font-weight:500;color:#bbb;margin-top:3px;}
@@ -108,7 +108,7 @@ CHECKLIST_DARK = html_wrap(CHECK_W, CHECK_H,
 
 STAT_LIGHT = html_wrap(STAT_W, STAT_H,
     """.wrap{width:100%;height:100%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-       .card{background:#f0f0f0;border-radius:14px;padding:24px 28px;display:flex;flex-direction:column;gap:5px;}
+       .card{background:#f0f0f0;border-radius:14px;padding:24px 28px;display:flex;flex-direction:column;gap:5px;justify-content:center;}
        .platform{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;}
        .number{font-size:44px;font-weight:900;line-height:1.05;}
        .desc{font-size:14px;font-weight:500;color:#555;margin-top:3px;}
