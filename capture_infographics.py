@@ -20,9 +20,10 @@ BASE_STYLE = "*, *::before, *::after { box-sizing: border-box; margin: 0; paddin
 
 
 # ── 공통 데이터 ───────────────────────────────────────────────────────────────
-STAT_W, STAT_H   = 1200, 270
-FUNNEL_W, FUNNEL_H = 1200, 420
-CHECK_W, CHECK_H = 1200, 300
+# 아티클 실제 표시 폭 ~720px 기준 → 캔버스 800px로 맞춰 거의 원본 크기 렌더링
+STAT_W, STAT_H   = 800, 260
+FUNNEL_W, FUNNEL_H = 800, 400
+CHECK_W, CHECK_H = 800, 290
 
 ITEMS = [
     "AI가 이해하기 쉬운 문장 구조",
@@ -66,7 +67,7 @@ def funnel_steps(steps, dot_color, line_color, text_color):
 STAT_DARK = f"""<!DOCTYPE html><html><head><meta charset="UTF-8">{FONT_LINK}
 <style>{BASE_STYLE}
   html,body{{width:{STAT_W}px;height:{STAT_H}px;display:flex;align-items:center;justify-content:center;}}
-  .wrap{{width:1120px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}}
+  .wrap{{width:740px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}}
   .card{{background:#222;border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;gap:6px;}}
   .platform{{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;}}
   .number{{font-size:46px;font-weight:900;line-height:1.05;}}
@@ -84,7 +85,7 @@ _fr = funnel_steps(["질문","AI 답변","추천","액션"], "#0ea5e9", "rgba(14
 FUNNEL_DARK = f"""<!DOCTYPE html><html><head><meta charset="UTF-8">{FONT_LINK}
 <style>{BASE_STYLE}
   html,body{{width:{FUNNEL_W}px;height:{FUNNEL_H}px;display:flex;align-items:center;justify-content:center;}}
-  .wrap{{width:1120px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}}
+  .wrap{{width:740px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}}
   .side{{background:#222;border-radius:16px;padding:36px 44px;}}
   .lbl{{font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:28px;}}
 </style></head><body>
@@ -97,7 +98,7 @@ CHECKLIST_DARK = f"""<!DOCTYPE html><html><head><meta charset="UTF-8">{FONT_LINK
 <style>{BASE_STYLE}
   html,body{{width:{CHECK_W}px;height:{CHECK_H}px;display:flex;align-items:center;justify-content:center;}}
 </style></head><body>
-<div style="width:1120px;background:#222;border-radius:16px;padding:36px 48px;">
+<div style="width:740px;background:#222;border-radius:16px;padding:36px 48px;">
   <p style="font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#6366f1;margin-bottom:28px;">GEO 콘텐츠 최적화 체크리스트</p>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 48px;">{checklist_items("#ccc")}</div>
 </div></body></html>"""
@@ -108,7 +109,7 @@ CHECKLIST_DARK = f"""<!DOCTYPE html><html><head><meta charset="UTF-8">{FONT_LINK
 STAT_LIGHT = f"""<!DOCTYPE html><html><head><meta charset="UTF-8">{FONT_LINK}
 <style>{BASE_STYLE}
   html,body{{width:{STAT_W}px;height:{STAT_H}px;display:flex;align-items:center;justify-content:center;}}
-  .wrap{{width:1120px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}}
+  .wrap{{width:740px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}}
   .card{{background:#f0f0f0;border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;gap:6px;}}
   .platform{{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;}}
   .number{{font-size:46px;font-weight:900;line-height:1.05;}}
@@ -126,7 +127,7 @@ _frl = funnel_steps(["질문","AI 답변","추천","액션"], "#0284c7", "rgba(2
 FUNNEL_LIGHT = f"""<!DOCTYPE html><html><head><meta charset="UTF-8">{FONT_LINK}
 <style>{BASE_STYLE}
   html,body{{width:{FUNNEL_W}px;height:{FUNNEL_H}px;display:flex;align-items:center;justify-content:center;}}
-  .wrap{{width:1120px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}}
+  .wrap{{width:740px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}}
   .side{{background:#f0f0f0;border-radius:16px;padding:36px 44px;}}
   .lbl{{font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:28px;}}
 </style></head><body>
@@ -139,7 +140,7 @@ CHECKLIST_LIGHT = f"""<!DOCTYPE html><html><head><meta charset="UTF-8">{FONT_LIN
 <style>{BASE_STYLE}
   html,body{{width:{CHECK_W}px;height:{CHECK_H}px;display:flex;align-items:center;justify-content:center;}}
 </style></head><body>
-<div style="width:1120px;background:#f0f0f0;border-radius:16px;padding:36px 48px;">
+<div style="width:740px;background:#f0f0f0;border-radius:16px;padding:36px 48px;">
   <p style="font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#4f46e5;margin-bottom:28px;">GEO 콘텐츠 최적화 체크리스트</p>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 48px;">{checklist_items("#444")}</div>
 </div></body></html>"""
