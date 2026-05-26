@@ -8,7 +8,7 @@ from playwright.sync_api import sync_playwright
 
 OUTPUT_DIR = os.path.join(
     "/Volumes/KIOXIA/작업폴더/클로드코드 워크폴더/대행사업부 웹사이트",
-    "design-study-article", "compare-images"
+    "design-study-article", "content-ai-seo-0521"
 )
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 

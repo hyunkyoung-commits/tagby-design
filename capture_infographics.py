@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 
 OUTPUT_DIR = os.path.join(
     "/Volumes/KIOXIA/작업폴더/클로드코드 워크폴더/대행사업부 웹사이트",
-    "design-study-article", "compare-images"
+    "design-study-article", "content-ai-seo-0521"
 )
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -19,7 +19,7 @@ FONT_LINK = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactu
 
 # 아티클 실제 표시 폭 ~720px → 800px 캔버스, 여백 없이 full-bleed
 STAT_W,   STAT_H   = 800, 185
-FUNNEL_W, FUNNEL_H = 800, 380
+FUNNEL_W, FUNNEL_H = 800, 215
 CHECK_W,  CHECK_H  = 800, 270
 
 ITEMS = [
@@ -88,8 +88,8 @@ _fd_l = funnel_steps(["검색","클릭","랜딩","구매"], "#555", "#333", "#aa
 _fd_r = funnel_steps(["질문","AI 답변","추천","액션"], "#0ea5e9", "rgba(14,165,233,0.2)", "#fff")
 FUNNEL_DARK = html_wrap(FUNNEL_W, FUNNEL_H,
     """.wrap{width:100%;height:100%;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-       .side{background:#222;border-radius:14px;padding:32px 40px;}
-       .lbl{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:24px;}""",
+       .side{background:#222;border-radius:14px;padding:22px 32px;display:flex;flex-direction:column;justify-content:center;}
+       .lbl{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;}""",
     f"""<div class="wrap">
   <div class="side"><p class="lbl" style="color:#666;">기존 검색 퍼널</p>{_fd_l}</div>
   <div class="side"><p class="lbl" style="color:#0ea5e9;">AI 검색 퍼널</p>{_fd_r}</div>
@@ -123,8 +123,8 @@ _fl_l = funnel_steps(["검색","클릭","랜딩","구매"], "#bbb", "#e0e0e0", "
 _fl_r = funnel_steps(["질문","AI 답변","추천","액션"], "#0284c7", "rgba(2,132,199,0.2)", "#111")
 FUNNEL_LIGHT = html_wrap(FUNNEL_W, FUNNEL_H,
     """.wrap{width:100%;height:100%;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-       .side{background:#f0f0f0;border-radius:14px;padding:32px 40px;}
-       .lbl{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:24px;}""",
+       .side{background:#f0f0f0;border-radius:14px;padding:22px 32px;display:flex;flex-direction:column;justify-content:center;}
+       .lbl{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;}""",
     f"""<div class="wrap">
   <div class="side"><p class="lbl" style="color:#aaa;">기존 검색 퍼널</p>{_fl_l}</div>
   <div class="side"><p class="lbl" style="color:#0284c7;">AI 검색 퍼널</p>{_fl_r}</div>
