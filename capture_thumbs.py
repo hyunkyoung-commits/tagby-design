@@ -3,7 +3,7 @@
 tagby-article.html의 카드 썸네일(aspect-[4/3])을 추출해
 500×375 PNG로 캡처 → design-study-article/thum/ 에 저장
 """
-import os, re, glob
+import os, re, glob, base64
 from playwright.sync_api import sync_playwright
 
 BASE        = "/Volumes/KIOXIA/작업폴더/클로드코드 워크폴더/대행사업부 웹사이트"
@@ -131,6 +131,15 @@ def main():
                 continue
 
             html_page = make_page(card_thumbs[slug])
+            # images/ 경로의 로컬 파일을 base64 data URL로 인라인 치환
+            for m in re.findall(r'src="(images/[^"]+)"', html_page):
+                fpath = os.path.join(BASE, m)
+                if os.path.exists(fpath):
+                    with open(fpath, "rb") as _f:
+                        b64 = base64.b64encode(_f.read()).decode()
+                    ext = os.path.splitext(fpath)[1].lstrip(".")
+                    mime = "image/svg+xml" if ext == "svg" else f"image/{ext}"
+                    html_page = html_page.replace(f'src="{m}"', f'src="data:{mime};base64,{b64}"')
             page.set_content(html_page, wait_until="networkidle")
             page.screenshot(path=out, clip={"x": 0, "y": 0, "width": W, "height": H})
             print(f"[OK]  {slug}.png")
