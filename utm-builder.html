@@ -107,18 +107,10 @@
       </div>
 
       <div>
-        <p class="channel-label">브런치</p>
+        <p class="channel-label">디모</p>
         <div class="result-box">
-          <span class="result-url" id="url-brunch"></span>
-          <button class="copy-btn" onclick="copyUrl('url-brunch', this)">복사</button>
-        </div>
-      </div>
-
-      <div>
-        <p class="channel-label">커리어리</p>
-        <div class="result-box">
-          <span class="result-url" id="url-careerly"></span>
-          <button class="copy-btn" onclick="copyUrl('url-careerly', this)">복사</button>
+          <span class="result-url" id="url-deemo"></span>
+          <button class="copy-btn" onclick="copyUrl('url-deemo', this)">복사</button>
         </div>
       </div>
     </div>
@@ -129,9 +121,8 @@
     const BASE_URL = 'https://mkt.tagby.io/tagby-article.html';
 
     const channels = [
-      { key: 'wipikletter', source: 'wepick'    },
-      { key: 'brunch',      source: 'brunch'    },
-      { key: 'careerly',    source: 'careerly'  },
+      { key: 'wipikletter', source: 'wepick' },
+      { key: 'deemo',       source: 'deemo'  },
     ];
 
     function generate() {
