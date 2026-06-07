@@ -395,8 +395,9 @@
     document.querySelectorAll('.gallery-item').forEach(item => {
       const img = item.querySelector('img');
       if (img) {
-        img.addEventListener('load', function() { if (this.naturalWidth === this.naturalHeight) { item.classList.add('square-image'); item.style.backgroundImage = `url('${this.src}')`; } });
-        if (img.complete && img.naturalWidth === img.naturalHeight) { item.classList.add('square-image'); item.style.backgroundImage = `url('${img.src}')`; }
+        function applySquare(el, src) { var r = el.naturalWidth / el.naturalHeight; if (r > 0.85) { item.classList.add('square-image'); item.style.backgroundImage = `url('${src}')`; } }
+        img.addEventListener('load', function() { applySquare(this, this.src); });
+        if (img.complete && img.naturalWidth) { applySquare(img, img.src); }
       }
     });
     let currentIndex = 6;
