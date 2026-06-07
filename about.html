@@ -608,20 +608,26 @@
         document.querySelectorAll('.counter').forEach(el => {
           const target = parseInt(el.dataset.target);
           const duration = 1200;
-          const step = 16;
-          const increment = target / (duration / step);
-          let current = 0;
-          const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-              current = target;
-              clearInterval(timer);
-              if (target === 10) {
-                setTimeout(fireDecadeConfetti, 150);
-              }
+          if (target === 10) {
+            const startTime = performance.now();
+            function easeOutTick(now) {
+              const t = Math.min((now - startTime) / duration, 1);
+              const eased = 1 - Math.pow(1 - t, 3);
+              el.textContent = Math.floor(eased * target);
+              if (t < 1) { requestAnimationFrame(easeOutTick); }
+              else { el.textContent = target; setTimeout(fireDecadeConfetti, 150); }
             }
-            el.textContent = Math.floor(current);
-          }, step);
+            requestAnimationFrame(easeOutTick);
+          } else {
+            const step = 16;
+            const increment = target / (duration / step);
+            let current = 0;
+            const timer = setInterval(() => {
+              current += increment;
+              if (current >= target) { current = target; clearInterval(timer); }
+              el.textContent = Math.floor(current);
+            }, step);
+          }
         });
       }
     }, { threshold: 0.3 });
