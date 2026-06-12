@@ -70,7 +70,7 @@
     .carousel-wrapper { position: relative; user-select: none; }
     .carousel-track { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
     .carousel-slide { flex: 0 0 100%; display: flex; justify-content: center; align-items: center; }
-    .carousel-slide img { max-width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+    .carousel-slide img { max-width: 100%; max-height: calc(100svh - 120px); width: auto; height: auto; display: block; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
     .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; z-index: 10; }
     .carousel-btn:hover { background: rgba(255,255,255,0.2); }
     .carousel-btn svg { width: 20px; height: 20px; stroke: white; stroke-width: 2; fill: none; }
