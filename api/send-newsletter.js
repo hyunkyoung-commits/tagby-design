@@ -95,7 +95,7 @@ function newsletterHtml({ subject, intro, articles, issueNumber, subscriber }) {
               <div style="font-size:11px;font-weight:700;color:#0078F0;letter-spacing:2px;margin-bottom:10px;">0${index + 1}</div>
               <h2 style="margin:0 0 10px;font-size:17px;font-weight:800;color:#1A1A1A;line-height:1.4;">${escapeHtml(article.title)}</h2>
               ${article.description ? `<p style="margin:0 0 20px;font-size:14px;color:#666666;line-height:1.7;">${escapeHtml(article.description)}</p>` : ''}
-              <a href="${article.url}" style="display:inline-block;font-size:13px;font-weight:600;color:#0078F0;text-decoration:none;border-bottom:1px solid #0078F0;padding-bottom:2px;">아티클 읽기 →</a>
+              <a href="${article.url}" style="display:inline-block;font-size:13px;font-weight:600;color:#0078F0;text-decoration:none;border-bottom:1px solid #0078F0;padding-bottom:2px;">계속 읽기 →</a>
             </td>
           </tr>
         </table>
