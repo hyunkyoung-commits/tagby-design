@@ -1721,33 +1721,37 @@ if(location.hash.includes("figmacapture")){
       </div>
 
       <!-- 구독 폼 -->
-      <div style="padding:28px 36px 32px;">
-        <div style="margin-bottom:12px;">
-          <input type="text" id="nlName" placeholder="이름 (선택)" style="width:100%;background:#111;border:1px solid #333;border-radius:8px;color:#fff;padding:11px 14px;font-size:14px;font-family:'Pretendard',sans-serif;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0078F0'" onblur="this.style.borderColor='#333'">
-        </div>
+      <div style="padding:28px 36px 24px;">
         <div style="margin-bottom:16px;">
-          <input type="email" id="nlEmail" placeholder="이메일 주소 *" style="width:100%;background:#111;border:1px solid #333;border-radius:8px;color:#fff;padding:11px 14px;font-size:14px;font-family:'Pretendard',sans-serif;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0078F0'" onblur="this.style.borderColor='#333'">
+          <input type="email" id="nlEmail" placeholder="이메일 주소를 입력해주세요" style="width:100%;background:#111;border:1px solid #333;border-radius:8px;color:#fff;padding:11px 14px;font-size:14px;font-family:'Pretendard',sans-serif;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0078F0'" onblur="this.style.borderColor='#333'">
         </div>
         <button id="nlSubmitBtn" onclick="submitNlSubscribe()" style="width:100%;background:#0078F0;color:#fff;border:none;border-radius:8px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Pretendard',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='#005fbe'" onmouseout="this.style.background='#0078F0'">구독하기</button>
         <p id="nlMsg" style="text-align:center;font-size:13px;margin:12px 0 0;display:none;"></p>
-        <p style="text-align:center;font-size:12px;color:#555;margin:14px 0 0;">광고 없음 · 언제든 수신 거부 가능</p>
+        <p style="text-align:center;font-size:12px;color:#555;margin:12px 0 0;">광고 없음 · 언제든 수신 거부 가능</p>
+      </div>
+
+      <!-- 오늘은 그만보기 -->
+      <div style="padding:0 36px 20px;text-align:center;">
+        <button onclick="dismissNlToday()" style="background:none;border:none;color:#555;font-size:12px;cursor:pointer;font-family:'Pretendard',sans-serif;text-decoration:underline;text-underline-offset:3px;">오늘은 그만보기</button>
       </div>
     </div>
   </div>
 
   <script>
     (function() {
-      // 세션당 1회만 표시
-      if (sessionStorage.getItem('nlPopupShown')) return
+      // 오늘 날짜 확인 (YYYY-MM-DD)
+      var today = new Date().toISOString().slice(0, 10)
+      var dismissed = localStorage.getItem('nlDismissedDate')
+
+      // 오늘 그만보기 눌렀으면 표시 안 함
+      if (dismissed === today) return
 
       // 3초 후 팝업 표시
       setTimeout(function() {
-        var popup = document.getElementById('nlPopup')
-        popup.style.display = 'flex'
-        sessionStorage.setItem('nlPopupShown', '1')
+        document.getElementById('nlPopup').style.display = 'flex'
       }, 3000)
 
-      // 배경 클릭 시 닫기
+      // 배경 클릭 시 닫기 (X 버튼과 동일 — 내일 다시 표시)
       document.getElementById('nlPopup').addEventListener('click', function(e) {
         if (e.target === this) closeNlPopup()
       })
@@ -1757,9 +1761,14 @@ if(location.hash.includes("figmacapture")){
       document.getElementById('nlPopup').style.display = 'none'
     }
 
+    function dismissNlToday() {
+      var today = new Date().toISOString().slice(0, 10)
+      localStorage.setItem('nlDismissedDate', today)
+      closeNlPopup()
+    }
+
     async function submitNlSubscribe() {
       var email = document.getElementById('nlEmail').value.trim()
-      var name = document.getElementById('nlName').value.trim()
       var msg = document.getElementById('nlMsg')
       var btn = document.getElementById('nlSubmitBtn')
 
@@ -1778,7 +1787,7 @@ if(location.hash.includes("figmacapture")){
         var res = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, name })
+          body: JSON.stringify({ email })
         })
         var data = await res.json()
 
@@ -1794,6 +1803,9 @@ if(location.hash.includes("figmacapture")){
           msg.style.display = 'block'
           btn.style.background = '#166534'
           btn.textContent = '구독 완료'
+          // 구독 완료 시 오늘 다시 안 뜨게
+          var today = new Date().toISOString().slice(0, 10)
+          localStorage.setItem('nlDismissedDate', today)
           setTimeout(closeNlPopup, 2500)
         }
       } catch {
