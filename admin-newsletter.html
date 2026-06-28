@@ -219,7 +219,8 @@
       <div class="flex flex-col gap-3">
         <input type="text" class="input-base article-title" placeholder="아티클 제목">
         <input type="text" class="input-base article-desc" placeholder="한 줄 설명 (선택 — 없으면 제목만 표시)">
-        <input type="url" class="input-base article-url" placeholder="https://mkt.tagby.io/design-study-article/...">
+        <input type="url" class="input-base article-url" placeholder="아티클 URL  https://mkt.tagby.io/design-study-article/...">
+        <input type="url" class="input-base article-img" placeholder="썸네일 이미지 URL (선택)  https://mkt.tagby.io/design-study-article/thum/...">
       </div>
     `
     document.getElementById('articleList').appendChild(block)
@@ -244,7 +245,8 @@
       const title = block.querySelector('.article-title').value.trim()
       const description = block.querySelector('.article-desc').value.trim()
       const url = block.querySelector('.article-url').value.trim()
-      if (title && url) articles.push({ title, description, url })
+      const imageUrl = block.querySelector('.article-img').value.trim()
+      if (title && url) articles.push({ title, description, url, imageUrl })
     })
 
     return { subject, intro, articles, issueNumber: issueNumber ? parseInt(issueNumber) : null }
@@ -260,12 +262,13 @@
     const articleItems = articles.map((a, i) => `
       <tr>
         <td style="padding:0 0 24px;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eee;border-radius:10px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eee;border-radius:10px;overflow:hidden;">
+            ${a.imageUrl ? `<tr><td style="padding:0;"><img src="${a.imageUrl}" alt="${escHtml(a.title)}" width="100%" style="display:block;width:100%;max-height:240px;object-fit:cover;"></td></tr>` : ''}
             <tr><td style="padding:24px 28px;">
               <div style="font-size:11px;font-weight:700;color:#0078F0;letter-spacing:2px;margin-bottom:8px;">0${i+1}</div>
               <h2 style="margin:0 0 8px;font-size:16px;font-weight:800;color:#1A1A1A;">${escHtml(a.title)}</h2>
               ${a.description ? `<p style="margin:0 0 16px;font-size:14px;color:#666;line-height:1.7;">${escHtml(a.description)}</p>` : ''}
-              <a href="${a.url}" style="font-size:13px;font-weight:600;color:#0078F0;text-decoration:none;border-bottom:1px solid #0078F0;padding-bottom:2px;">아티클 읽기 →</a>
+              <a href="${a.url}" style="font-size:13px;font-weight:600;color:#0078F0;text-decoration:none;border-bottom:1px solid #0078F0;padding-bottom:2px;">계속 읽기 →</a>
             </td></tr>
           </table>
         </td>
