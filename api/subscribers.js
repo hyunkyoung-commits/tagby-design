@@ -31,9 +31,9 @@ module.exports = async function handler(req, res) {
 
     const { data: recentLogs } = await supabase
       .from('newsletter_logs')
-      .select('subject, issue_number, recipient_count, sent_at')
+      .select('id, subject, issue_number, recipient_count, articles, sent_at')
       .order('sent_at', { ascending: false })
-      .limit(5)
+      .limit(50)
 
     return res.status(200).json({
       active: activeCount || 0,

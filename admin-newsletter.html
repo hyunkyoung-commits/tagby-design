@@ -38,7 +38,24 @@
     .btn-danger:hover { background: #3d1111; }
     .article-block { background: #111; border: 1px solid #2d2d2d; border-radius: 10px; padding: 20px; }
     .stat-box { background: #111; border: 1px solid #2d2d2d; border-radius: 10px; padding: 20px 24px; }
-    .badge { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; }
+    .tab-btn {
+      padding: 8px 20px; font-size: 14px; font-weight: 600; cursor: pointer;
+      border: none; background: none; color: #666; font-family: 'Pretendard', sans-serif;
+      border-bottom: 2px solid transparent; transition: all 0.2s;
+    }
+    .tab-btn.active { color: #fff; border-bottom-color: #0078F0; }
+    .tab-btn:hover:not(.active) { color: #aaa; }
+    .log-row {
+      background: #111; border: 1px solid #2d2d2d; border-radius: 10px;
+      padding: 18px 20px; cursor: pointer; transition: border-color 0.2s;
+    }
+    .log-row:hover { border-color: #444; }
+    .log-articles { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid #2d2d2d; }
+    .log-articles.open { display: block; }
+    .draft-banner {
+      background: #1a2a1a; border: 1px solid #2d4d2d; border-radius: 10px;
+      padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;
+    }
   </style>
 </head>
 <body>
@@ -73,7 +90,7 @@
   <main class="max-w-4xl mx-auto px-8 py-10">
 
     <!-- 구독자 통계 -->
-    <div id="statsSection" class="grid grid-cols-2 gap-4 mb-10" style="grid-template-columns:1fr 1fr 2fr;">
+    <div class="grid grid-cols-3 gap-4 mb-8">
       <div class="stat-box">
         <div style="font-size:11px;color:#666;letter-spacing:1px;margin-bottom:8px;">활성 구독자</div>
         <div id="activeCount" style="font-size:28px;font-weight:900;color:#0078F0;">—</div>
@@ -83,57 +100,85 @@
         <div id="totalCount" style="font-size:28px;font-weight:900;color:#fff;">—</div>
       </div>
       <div class="stat-box">
-        <div style="font-size:11px;color:#666;letter-spacing:1px;margin-bottom:10px;">최근 발송 이력</div>
-        <div id="recentLogs" style="color:#666;font-size:13px;">불러오는 중...</div>
+        <div style="font-size:11px;color:#666;letter-spacing:1px;margin-bottom:8px;">총 발송 횟수</div>
+        <div id="sendCount" style="font-size:28px;font-weight:900;color:#fff;">—</div>
       </div>
     </div>
 
-    <!-- 발송 폼 -->
-    <div class="card p-8">
-      <h2 style="font-size:17px;font-weight:800;margin:0 0 28px;">뉴스레터 발송</h2>
+    <!-- 탭 -->
+    <div style="border-bottom:1px solid #2d2d2d;margin-bottom:28px;">
+      <button class="tab-btn active" id="tab-compose" onclick="switchTab('compose')">뉴스레터 작성</button>
+      <button class="tab-btn" id="tab-history" onclick="switchTab('history')">발송 이력</button>
+    </div>
 
-      <!-- 기본 정보 -->
-      <div class="grid gap-4 mb-6" style="grid-template-columns:3fr 1fr;">
+    <!-- 작성 탭 -->
+    <div id="panel-compose">
+
+      <!-- 임시저장 복원 배너 (드래프트 있을 때 표시) -->
+      <div id="draftBanner" class="draft-banner hidden">
         <div>
-          <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">제목 <span style="color:#f87171;">*</span></label>
-          <input type="text" id="subject" class="input-base" placeholder="예: TAGby 뉴스레터 #3 — 이번 주 마케팅 인사이트">
+          <span style="font-size:13px;color:#4ade80;font-weight:700;">임시저장된 작업이 있습니다</span>
+          <span id="draftSavedAt" style="font-size:12px;color:#666;margin-left:10px;"></span>
         </div>
-        <div>
-          <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">이슈 번호</label>
-          <input type="number" id="issueNumber" class="input-base" placeholder="3">
+        <div class="flex gap-2">
+          <button onclick="restoreDraft()" style="background:#1a3a1a;border:1px solid #2d6a2d;color:#4ade80;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Pretendard',sans-serif;">불러오기</button>
+          <button onclick="clearDraftBanner()" style="background:none;border:1px solid #333;color:#666;border-radius:6px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:'Pretendard',sans-serif;">무시</button>
         </div>
       </div>
 
-      <div class="mb-8">
-        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">인트로 멘트 (선택)</label>
-        <textarea id="intro" class="input-base" placeholder="안녕하세요, 이번 주 TAGby가 선별한 마케팅 인사이트를 보내드립니다..."></textarea>
-      </div>
+      <!-- 발송 폼 -->
+      <div class="card p-8">
+        <h2 style="font-size:17px;font-weight:800;margin:0 0 28px;">새 뉴스레터</h2>
 
-      <!-- 아티클 섹션 -->
-      <div class="mb-6">
-        <div class="flex items-center justify-between mb-4">
-          <label style="font-size:12px;color:#888;letter-spacing:0.5px;">아티클 <span style="color:#f87171;">*</span> <span style="color:#555;">(최대 5개)</span></label>
-          <button onclick="addArticle()" class="btn-secondary" style="padding:6px 14px;font-size:12px;">+ 아티클 추가</button>
+        <div class="grid gap-4 mb-6" style="grid-template-columns:3fr 1fr;">
+          <div>
+            <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">제목 <span style="color:#f87171;">*</span></label>
+            <input type="text" id="subject" class="input-base" placeholder="예: [TAGby] 이번 주 마케터가 읽어야 할 아티클 5선">
+          </div>
+          <div>
+            <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">이슈 번호</label>
+            <input type="number" id="issueNumber" class="input-base" placeholder="1">
+          </div>
         </div>
-        <div id="articleList" class="flex flex-col gap-3"></div>
-      </div>
 
-      <!-- 액션 버튼 -->
-      <div class="flex items-center gap-3 pt-6" style="border-top:1px solid #2d2d2d;">
-        <button onclick="previewNewsletter()" class="btn-secondary">미리보기</button>
-        <button id="sendBtn" onclick="sendNewsletter()" class="btn-primary">
-          발송하기
-        </button>
-        <span id="sendStatus" style="font-size:13px;color:#888;"></span>
+        <div class="mb-8">
+          <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">인트로 멘트 (선택)</label>
+          <textarea id="intro" class="input-base" placeholder="안녕하세요, TAGby 뉴스레터입니다. 👋&#10;새로운 한 주가 시작됐어요!&#10;..."></textarea>
+        </div>
+
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <label style="font-size:12px;color:#888;letter-spacing:0.5px;">아티클 <span style="color:#f87171;">*</span> <span style="color:#555;">(최대 5개)</span></label>
+            <button onclick="addArticle()" class="btn-secondary" style="padding:6px 14px;font-size:12px;">+ 아티클 추가</button>
+          </div>
+          <div id="articleList" class="flex flex-col gap-3"></div>
+        </div>
+
+        <!-- 액션 버튼 -->
+        <div class="flex items-center gap-3 pt-6" style="border-top:1px solid #2d2d2d;">
+          <button onclick="previewNewsletter()" class="btn-secondary">미리보기</button>
+          <button onclick="saveDraft()" class="btn-secondary" style="color:#4ade80;border-color:#2d4d2d;">임시저장</button>
+          <button id="sendBtn" onclick="sendNewsletter()" class="btn-primary">발송하기</button>
+          <span id="draftSavedMsg" style="font-size:12px;color:#555;"></span>
+          <span id="sendStatus" style="font-size:13px;color:#888;"></span>
+        </div>
       </div>
     </div>
+
+    <!-- 이력 탭 -->
+    <div id="panel-history" class="hidden">
+      <div id="historyList" class="flex flex-col gap-3">
+        <div style="color:#555;font-size:14px;text-align:center;padding:40px;">불러오는 중...</div>
+      </div>
+    </div>
+
   </main>
 </div>
 
 <!-- 미리보기 모달 -->
 <div id="previewModal" class="fixed inset-0 flex items-center justify-center z-50 hidden" style="background:rgba(0,0,0,0.8);padding:20px;">
   <div style="background:#fff;border-radius:12px;width:100%;max-width:640px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
-    <div style="padding:16px 24px;background:#f5f5f5;border-bottom:1px solid #ddd;display:flex;justify-between;align-items:center;">
+    <div style="padding:16px 24px;background:#f5f5f5;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;">
       <span style="font-size:14px;font-weight:700;color:#333;">이메일 미리보기</span>
       <button onclick="closePreview()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">×</button>
     </div>
@@ -143,6 +188,7 @@
 
 <script>
   let adminPassword = ''
+  let allLogs = []
 
   function login() {
     const pw = document.getElementById('passwordInput').value
@@ -164,7 +210,9 @@
       document.getElementById('loginScreen').classList.add('hidden')
       document.getElementById('mainScreen').classList.remove('hidden')
       updateStats(data)
+      allLogs = data.recentLogs || []
       addArticle()
+      checkDraft()
     })
     .catch(() => {
       document.getElementById('loginError').style.display = 'block'
@@ -180,26 +228,65 @@
     document.getElementById('mainScreen').classList.add('hidden')
     document.getElementById('loginScreen').classList.remove('hidden')
     document.getElementById('passwordInput').value = ''
+    document.getElementById('loginError').style.display = 'none'
   }
 
   function updateStats(data) {
-    document.getElementById('activeCount').textContent = data.active.toLocaleString()
-    document.getElementById('totalCount').textContent = data.total.toLocaleString()
-
-    const logsEl = document.getElementById('recentLogs')
-    if (!data.recentLogs?.length) {
-      logsEl.textContent = '발송 이력 없음'
-    } else {
-      logsEl.innerHTML = data.recentLogs.map(log => {
-        const date = new Date(log.sent_at).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })
-        return `<div style="margin-bottom:6px;">
-          <span style="color:#ccc;">${log.subject}</span>
-          <span style="color:#555;margin-left:8px;">${log.recipient_count}명 · ${date}</span>
-        </div>`
-      }).join('')
-    }
+    document.getElementById('activeCount').textContent = (data.active || 0).toLocaleString()
+    document.getElementById('totalCount').textContent = (data.total || 0).toLocaleString()
+    document.getElementById('sendCount').textContent = (data.recentLogs?.length || 0).toLocaleString()
   }
 
+  // 탭 전환
+  function switchTab(tab) {
+    document.getElementById('panel-compose').classList.toggle('hidden', tab !== 'compose')
+    document.getElementById('panel-history').classList.toggle('hidden', tab !== 'history')
+    document.getElementById('tab-compose').classList.toggle('active', tab === 'compose')
+    document.getElementById('tab-history').classList.toggle('active', tab === 'history')
+    if (tab === 'history') renderHistory()
+  }
+
+  // 발송 이력 렌더링
+  function renderHistory() {
+    const el = document.getElementById('historyList')
+    if (!allLogs.length) {
+      el.innerHTML = '<div style="color:#555;font-size:14px;text-align:center;padding:60px;">발송 이력이 없습니다.</div>'
+      return
+    }
+
+    el.innerHTML = allLogs.map((log, i) => {
+      const date = new Date(log.sent_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
+      const time = new Date(log.sent_at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })
+      let articles = []
+      try { articles = typeof log.articles === 'string' ? JSON.parse(log.articles) : (log.articles || []) } catch {}
+
+      return `<div class="log-row" onclick="toggleLogDetail('log-${i}')">
+        <div class="flex items-start justify-between">
+          <div style="flex:1;min-width:0;">
+            ${log.issue_number ? `<span style="font-size:11px;font-weight:700;color:#0078F0;letter-spacing:2px;margin-right:10px;">ISSUE #${log.issue_number}</span>` : ''}
+            <span style="font-size:15px;font-weight:700;color:#fff;">${escHtml(log.subject)}</span>
+          </div>
+          <div style="text-align:right;flex-shrink:0;margin-left:16px;">
+            <div style="font-size:13px;color:#888;">${date} ${time}</div>
+            <div style="font-size:12px;color:#555;margin-top:3px;">${log.recipient_count}명 수신</div>
+          </div>
+        </div>
+        ${articles.length ? `
+        <div id="log-${i}" class="log-articles">
+          ${articles.map(a => `<div style="font-size:13px;color:#888;padding:4px 0;border-bottom:1px solid #1d1d1d;">
+            · <a href="${a.url}" target="_blank" style="color:#aaa;text-decoration:none;">${escHtml(a.title)}</a>
+          </div>`).join('')}
+        </div>` : ''}
+      </div>`
+    }).join('')
+  }
+
+  function toggleLogDetail(id) {
+    const el = document.getElementById(id)
+    if (el) el.classList.toggle('open')
+  }
+
+  // 아티클 블록
   let articleCount = 0
 
   function addArticle() {
@@ -229,7 +316,6 @@
   function removeArticle(id) {
     document.getElementById(id)?.remove()
     articleCount = Math.max(0, articleCount - 1)
-    // 번호 재정렬
     document.querySelectorAll('.article-block').forEach((el, i) => {
       el.querySelector('span').textContent = `0${i + 1}`
     })
@@ -252,6 +338,77 @@
     return { subject, intro, articles, issueNumber: issueNumber ? parseInt(issueNumber) : null }
   }
 
+  // 임시저장
+  function saveDraft() {
+    const data = {
+      subject: document.getElementById('subject').value,
+      issueNumber: document.getElementById('issueNumber').value,
+      intro: document.getElementById('intro').value,
+      articles: [],
+      savedAt: new Date().toISOString()
+    }
+    document.querySelectorAll('.article-block').forEach(block => {
+      data.articles.push({
+        title: block.querySelector('.article-title').value,
+        desc: block.querySelector('.article-desc').value,
+        url: block.querySelector('.article-url').value,
+        imageUrl: block.querySelector('.article-img').value
+      })
+    })
+    localStorage.setItem('nlDraft', JSON.stringify(data))
+
+    const msg = document.getElementById('draftSavedMsg')
+    msg.style.color = '#4ade80'
+    msg.textContent = '✓ 임시저장 완료'
+    setTimeout(() => { msg.textContent = '' }, 3000)
+  }
+
+  function checkDraft() {
+    const raw = localStorage.getItem('nlDraft')
+    if (!raw) return
+    try {
+      const draft = JSON.parse(raw)
+      if (!draft.savedAt) return
+      const savedAt = new Date(draft.savedAt)
+      const diff = Math.round((Date.now() - savedAt) / 60000)
+      const timeStr = diff < 1 ? '방금 전' : diff < 60 ? `${diff}분 전` : `${Math.round(diff/60)}시간 전`
+      document.getElementById('draftSavedAt').textContent = timeStr + ' 저장됨'
+      document.getElementById('draftBanner').classList.remove('hidden')
+    } catch {}
+  }
+
+  function restoreDraft() {
+    const raw = localStorage.getItem('nlDraft')
+    if (!raw) return
+    try {
+      const draft = JSON.parse(raw)
+      document.getElementById('subject').value = draft.subject || ''
+      document.getElementById('issueNumber').value = draft.issueNumber || ''
+      document.getElementById('intro').value = draft.intro || ''
+
+      // 아티클 블록 초기화 후 복원
+      document.getElementById('articleList').innerHTML = ''
+      articleCount = 0
+      ;(draft.articles || []).forEach(a => {
+        addArticle()
+        const blocks = document.querySelectorAll('.article-block')
+        const block = blocks[blocks.length - 1]
+        block.querySelector('.article-title').value = a.title || ''
+        block.querySelector('.article-desc').value = a.desc || ''
+        block.querySelector('.article-url').value = a.url || ''
+        block.querySelector('.article-img').value = a.imageUrl || ''
+      })
+      if (articleCount === 0) addArticle()
+
+      clearDraftBanner()
+    } catch {}
+  }
+
+  function clearDraftBanner() {
+    document.getElementById('draftBanner').classList.add('hidden')
+  }
+
+  // 미리보기
   function previewNewsletter() {
     const { subject, intro, articles } = getFormData()
     if (!subject || !articles.length) {
@@ -306,6 +463,7 @@
     document.getElementById('previewModal').classList.add('hidden')
   }
 
+  // 발송
   async function sendNewsletter() {
     const { subject, intro, articles, issueNumber } = getFormData()
 
@@ -335,12 +493,17 @@
       } else {
         status.style.color = '#4ade80'
         status.textContent = `✓ ${data.sent}명에게 발송 완료!`
-        // 통계 새로고침
+        // 임시저장 삭제
+        localStorage.removeItem('nlDraft')
+        // 통계 + 이력 새로고침
         fetch('/api/subscribers', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ password: adminPassword })
-        }).then(r => r.json()).then(updateStats)
+        }).then(r => r.json()).then(d => {
+          updateStats(d)
+          allLogs = d.recentLogs || []
+        })
       }
     } catch {
       status.style.color = '#f87171'
