@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>뉴스레터 발송 | TAGby Admin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', sans-serif; background: #0f0f0f; color: #fff; }
+    .card { background: #1a1a1a; border: 1px solid #2d2d2d; border-radius: 12px; }
+    .input-base {
+      background: #111; border: 1px solid #333; border-radius: 8px;
+      color: #fff; padding: 10px 14px; font-size: 14px; width: 100%;
+      font-family: 'Pretendard', sans-serif; outline: none; transition: border-color 0.2s;
+    }
+    .input-base:focus { border-color: #0078F0; }
+    .input-base::placeholder { color: #555; }
+    textarea.input-base { resize: vertical; min-height: 80px; }
+    .btn-primary {
+      background: #0078F0; color: #fff; border: none; border-radius: 8px;
+      padding: 12px 28px; font-size: 14px; font-weight: 700; cursor: pointer;
+      font-family: 'Pretendard', sans-serif; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #005fbe; }
+    .btn-primary:disabled { background: #333; color: #666; cursor: not-allowed; }
+    .btn-secondary {
+      background: transparent; color: #888; border: 1px solid #333; border-radius: 8px;
+      padding: 10px 20px; font-size: 13px; font-weight: 600; cursor: pointer;
+      font-family: 'Pretendard', sans-serif; transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: #555; color: #ccc; }
+    .btn-danger {
+      background: transparent; color: #f87171; border: 1px solid #3d1111; border-radius: 6px;
+      padding: 6px 12px; font-size: 12px; cursor: pointer;
+      font-family: 'Pretendard', sans-serif; transition: all 0.2s;
+    }
+    .btn-danger:hover { background: #3d1111; }
+    .article-block { background: #111; border: 1px solid #2d2d2d; border-radius: 10px; padding: 20px; }
+    .stat-box { background: #111; border: 1px solid #2d2d2d; border-radius: 10px; padding: 20px 24px; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<!-- 비밀번호 화면 -->
+<div id="loginScreen" class="min-h-screen flex items-center justify-center px-4">
+  <div class="card p-10 w-full max-w-sm text-center">
+    <div style="font-size:18px;font-weight:900;letter-spacing:3px;margin-bottom:8px;">TAGby</div>
+    <p style="color:#666;font-size:12px;letter-spacing:1px;margin-bottom:40px;">NEWSLETTER ADMIN</p>
+    <input type="password" id="passwordInput" class="input-base mb-4" placeholder="관리자 비밀번호" autocomplete="current-password">
+    <button class="btn-primary w-full" onclick="login()">로그인</button>
+    <p id="loginError" style="color:#f87171;font-size:13px;margin-top:12px;display:none;">비밀번호가 틀렸습니다.</p>
+  </div>
+</div>
+
+<!-- 메인 화면 -->
+<div id="mainScreen" class="hidden">
+  <!-- 헤더 -->
+  <header style="background:#1a1a1a;border-bottom:1px solid #2d2d2d;" class="px-8 py-5">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <div>
+        <span style="font-weight:900;letter-spacing:3px;font-size:16px;">TAGby</span>
+        <span style="color:#555;font-size:12px;margin-left:12px;letter-spacing:1px;">NEWSLETTER</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="/tagby-article.html" target="_blank" style="color:#666;font-size:13px;" class="hover:text-white">아티클 페이지 →</a>
+        <button onclick="logout()" class="btn-secondary" style="padding:7px 16px;font-size:12px;">로그아웃</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-8 py-10">
+
+    <!-- 구독자 통계 -->
+    <div id="statsSection" class="grid grid-cols-2 gap-4 mb-10" style="grid-template-columns:1fr 1fr 2fr;">
+      <div class="stat-box">
+        <div style="font-size:11px;color:#666;letter-spacing:1px;margin-bottom:8px;">활성 구독자</div>
+        <div id="activeCount" style="font-size:28px;font-weight:900;color:#0078F0;">—</div>
+      </div>
+      <div class="stat-box">
+        <div style="font-size:11px;color:#666;letter-spacing:1px;margin-bottom:8px;">전체 구독자</div>
+        <div id="totalCount" style="font-size:28px;font-weight:900;color:#fff;">—</div>
+      </div>
+      <div class="stat-box">
+        <div style="font-size:11px;color:#666;letter-spacing:1px;margin-bottom:10px;">최근 발송 이력</div>
+        <div id="recentLogs" style="color:#666;font-size:13px;">불러오는 중...</div>
+      </div>
+    </div>
+
+    <!-- 발송 폼 -->
+    <div class="card p-8">
+      <h2 style="font-size:17px;font-weight:800;margin:0 0 28px;">뉴스레터 발송</h2>
+
+      <!-- 기본 정보 -->
+      <div class="grid gap-4 mb-6" style="grid-template-columns:3fr 1fr;">
+        <div>
+          <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">제목 <span style="color:#f87171;">*</span></label>
+          <input type="text" id="subject" class="input-base" placeholder="예: TAGby 뉴스레터 #3 — 이번 주 마케팅 인사이트">
+        </div>
+        <div>
+          <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">이슈 번호</label>
+          <input type="number" id="issueNumber" class="input-base" placeholder="3">
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <label style="font-size:12px;color:#888;display:block;margin-bottom:6px;">인트로 멘트 (선택)</label>
+        <textarea id="intro" class="input-base" placeholder="안녕하세요, 이번 주 TAGby가 선별한 마케팅 인사이트를 보내드립니다..."></textarea>
+      </div>
+
+      <!-- 아티클 섹션 -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <label style="font-size:12px;color:#888;letter-spacing:0.5px;">아티클 <span style="color:#f87171;">*</span> <span style="color:#555;">(최대 5개)</span></label>
+          <button onclick="addArticle()" class="btn-secondary" style="padding:6px 14px;font-size:12px;">+ 아티클 추가</button>
+        </div>
+        <div id="articleList" class="flex flex-col gap-3"></div>
+      </div>
+
+      <!-- 액션 버튼 -->
+      <div class="flex items-center gap-3 pt-6" style="border-top:1px solid #2d2d2d;">
+        <button onclick="previewNewsletter()" class="btn-secondary">미리보기</button>
+        <button id="sendBtn" onclick="sendNewsletter()" class="btn-primary">
+          발송하기
+        </button>
+        <span id="sendStatus" style="font-size:13px;color:#888;"></span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- 미리보기 모달 -->
+<div id="previewModal" class="fixed inset-0 flex items-center justify-center z-50 hidden" style="background:rgba(0,0,0,0.8);padding:20px;">
+  <div style="background:#fff;border-radius:12px;width:100%;max-width:640px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
+    <div style="padding:16px 24px;background:#f5f5f5;border-bottom:1px solid #ddd;display:flex;justify-between;align-items:center;">
+      <span style="font-size:14px;font-weight:700;color:#333;">이메일 미리보기</span>
+      <button onclick="closePreview()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">×</button>
+    </div>
+    <div id="previewContent" style="flex:1;overflow-y:auto;"></div>
+  </div>
+</div>
+
+<script>
+  let adminPassword = ''
+
+  function login() {
+    const pw = document.getElementById('passwordInput').value
+    if (!pw) return
+
+    adminPassword = pw
+    fetch('/api/subscribers', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.error) {
+        document.getElementById('loginError').style.display = 'block'
+        adminPassword = ''
+        return
+      }
+      document.getElementById('loginScreen').classList.add('hidden')
+      document.getElementById('mainScreen').classList.remove('hidden')
+      updateStats(data)
+      addArticle()
+    })
+    .catch(() => {
+      document.getElementById('loginError').style.display = 'block'
+    })
+  }
+
+  document.getElementById('passwordInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') login()
+  })
+
+  function logout() {
+    adminPassword = ''
+    document.getElementById('mainScreen').classList.add('hidden')
+    document.getElementById('loginScreen').classList.remove('hidden')
+    document.getElementById('passwordInput').value = ''
+  }
+
+  function updateStats(data) {
+    document.getElementById('activeCount').textContent = data.active.toLocaleString()
+    document.getElementById('totalCount').textContent = data.total.toLocaleString()
+
+    const logsEl = document.getElementById('recentLogs')
+    if (!data.recentLogs?.length) {
+      logsEl.textContent = '발송 이력 없음'
+    } else {
+      logsEl.innerHTML = data.recentLogs.map(log => {
+        const date = new Date(log.sent_at).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })
+        return `<div style="margin-bottom:6px;">
+          <span style="color:#ccc;">${log.subject}</span>
+          <span style="color:#555;margin-left:8px;">${log.recipient_count}명 · ${date}</span>
+        </div>`
+      }).join('')
+    }
+  }
+
+  let articleCount = 0
+
+  function addArticle() {
+    if (articleCount >= 5) return
+    articleCount++
+    const id = `article-${articleCount}`
+    const idx = articleCount
+
+    const block = document.createElement('div')
+    block.className = 'article-block'
+    block.id = id
+    block.innerHTML = `
+      <div class="flex items-start justify-between mb-3">
+        <span style="font-size:11px;font-weight:700;color:#0078F0;letter-spacing:2px;">0${idx}</span>
+        <button onclick="removeArticle('${id}')" class="btn-danger">삭제</button>
+      </div>
+      <div class="flex flex-col gap-3">
+        <input type="text" class="input-base article-title" placeholder="아티클 제목">
+        <input type="text" class="input-base article-desc" placeholder="한 줄 설명 (선택 — 없으면 제목만 표시)">
+        <input type="url" class="input-base article-url" placeholder="https://mkt.tagby.io/design-study-article/...">
+      </div>
+    `
+    document.getElementById('articleList').appendChild(block)
+  }
+
+  function removeArticle(id) {
+    document.getElementById(id)?.remove()
+    articleCount = Math.max(0, articleCount - 1)
+    // 번호 재정렬
+    document.querySelectorAll('.article-block').forEach((el, i) => {
+      el.querySelector('span').textContent = `0${i + 1}`
+    })
+  }
+
+  function getFormData() {
+    const subject = document.getElementById('subject').value.trim()
+    const intro = document.getElementById('intro').value.trim()
+    const issueNumber = document.getElementById('issueNumber').value.trim()
+
+    const articles = []
+    document.querySelectorAll('.article-block').forEach(block => {
+      const title = block.querySelector('.article-title').value.trim()
+      const description = block.querySelector('.article-desc').value.trim()
+      const url = block.querySelector('.article-url').value.trim()
+      if (title && url) articles.push({ title, description, url })
+    })
+
+    return { subject, intro, articles, issueNumber: issueNumber ? parseInt(issueNumber) : null }
+  }
+
+  function previewNewsletter() {
+    const { subject, intro, articles } = getFormData()
+    if (!subject || !articles.length) {
+      alert('제목과 아티클을 입력해주세요.')
+      return
+    }
+
+    const articleItems = articles.map((a, i) => `
+      <tr>
+        <td style="padding:0 0 24px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eee;border-radius:10px;">
+            <tr><td style="padding:24px 28px;">
+              <div style="font-size:11px;font-weight:700;color:#0078F0;letter-spacing:2px;margin-bottom:8px;">0${i+1}</div>
+              <h2 style="margin:0 0 8px;font-size:16px;font-weight:800;color:#1A1A1A;">${escHtml(a.title)}</h2>
+              ${a.description ? `<p style="margin:0 0 16px;font-size:14px;color:#666;line-height:1.7;">${escHtml(a.description)}</p>` : ''}
+              <a href="${a.url}" style="font-size:13px;font-weight:600;color:#0078F0;text-decoration:none;border-bottom:1px solid #0078F0;padding-bottom:2px;">아티클 읽기 →</a>
+            </td></tr>
+          </table>
+        </td>
+      </tr>`).join('')
+
+    const html = `<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:24px 16px;">
+      <tr><td align="center">
+        <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#fff;border-radius:12px;overflow:hidden;">
+          <tr><td style="background:#1A1A1A;padding:28px 32px;">
+            <div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:3px;">TAGby</div>
+            <div style="font-size:11px;color:#888;margin-top:4px;letter-spacing:1px;">MARKETING INSIGHTS</div>
+          </td></tr>
+          ${intro ? `<tr><td style="padding:36px 32px 24px;">
+            <p style="margin:0;font-size:14px;color:#555;line-height:1.8;">${escHtml(intro).replace(/\n/g,'<br>')}</p>
+          </td></tr>` : `<tr><td style="padding:24px;"></td></tr>`}
+          <tr><td style="padding:0 32px;">
+            <table width="100%" cellpadding="0" cellspacing="0">${articleItems}</table>
+          </td></tr>
+          <tr><td style="padding:8px 32px 36px;text-align:center;">
+            <a href="https://mkt.tagby.io/tagby-article.html" style="display:inline-block;background:#1A1A1A;color:#fff;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:13px;font-weight:600;">전체 아티클 보기</a>
+          </td></tr>
+          <tr><td style="padding:20px 32px;background:#fafafa;border-top:1px solid #eee;">
+            <p style="margin:0;font-size:11px;color:#aaa;line-height:1.7;">TAGby | 서울특별시 강남구 테헤란로 418</p>
+            <p style="margin:8px 0 0;font-size:11px;"><a href="#" style="color:#aaa;">수신 거부하기</a></p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>`
+
+    document.getElementById('previewContent').innerHTML = html
+    document.getElementById('previewModal').classList.remove('hidden')
+  }
+
+  function closePreview() {
+    document.getElementById('previewModal').classList.add('hidden')
+  }
+
+  async function sendNewsletter() {
+    const { subject, intro, articles, issueNumber } = getFormData()
+
+    if (!subject) { alert('제목을 입력해주세요.'); return }
+    if (!articles.length) { alert('아티클을 1개 이상 추가해주세요.'); return }
+
+    const activeCount = parseInt(document.getElementById('activeCount').textContent.replace(/,/g,'')) || 0
+    if (!confirm(`${activeCount}명의 구독자에게 뉴스레터를 발송합니다.\n\n제목: ${subject}\n아티클: ${articles.length}개\n\n발송하시겠습니까?`)) return
+
+    const btn = document.getElementById('sendBtn')
+    const status = document.getElementById('sendStatus')
+    btn.disabled = true
+    btn.textContent = '발송 중...'
+    status.textContent = ''
+
+    try {
+      const res = await fetch('/api/send-newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: adminPassword, subject, intro, articles, issueNumber })
+      })
+      const data = await res.json()
+
+      if (data.error) {
+        status.style.color = '#f87171'
+        status.textContent = '오류: ' + data.error
+      } else {
+        status.style.color = '#4ade80'
+        status.textContent = `✓ ${data.sent}명에게 발송 완료!`
+        // 통계 새로고침
+        fetch('/api/subscribers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: adminPassword })
+        }).then(r => r.json()).then(updateStats)
+      }
+    } catch {
+      status.style.color = '#f87171'
+      status.textContent = '네트워크 오류가 발생했습니다.'
+    } finally {
+      btn.disabled = false
+      btn.textContent = '발송하기'
+    }
+  }
+
+  function escHtml(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+  }
+</script>
+</body>
+</html>

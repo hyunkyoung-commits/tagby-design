@@ -1705,4 +1705,104 @@ if(location.hash.includes("figmacapture")){
       if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
     }
   </script>
+
+  <!-- 뉴스레터 구독 팝업 -->
+  <div id="nlPopup" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+    <div style="background:#1a1a1a;border:1px solid #2d2d2d;border-radius:16px;width:100%;max-width:480px;overflow:hidden;position:relative;">
+
+      <!-- 닫기 버튼 -->
+      <button onclick="closeNlPopup()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:#666;font-size:22px;cursor:pointer;line-height:1;z-index:1;">×</button>
+
+      <!-- 상단 배너 -->
+      <div style="background:#111;padding:32px 36px 24px;text-align:center;border-bottom:1px solid #2d2d2d;">
+        <div style="font-size:13px;font-weight:700;color:#0078F0;letter-spacing:3px;margin-bottom:12px;">NEWSLETTER</div>
+        <h2 style="font-size:20px;font-weight:900;color:#fff;margin:0 0 10px;line-height:1.4;">마케팅 인사이트,<br>매주 받아보세요</h2>
+        <p style="font-size:13px;color:#888;margin:0;line-height:1.7;">퍼포먼스 · 콘텐츠 · 디자인 트렌드를<br>TAGby가 직접 셀렉해 보내드립니다</p>
+      </div>
+
+      <!-- 구독 폼 -->
+      <div style="padding:28px 36px 32px;">
+        <div style="margin-bottom:12px;">
+          <input type="text" id="nlName" placeholder="이름 (선택)" style="width:100%;background:#111;border:1px solid #333;border-radius:8px;color:#fff;padding:11px 14px;font-size:14px;font-family:'Pretendard',sans-serif;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0078F0'" onblur="this.style.borderColor='#333'">
+        </div>
+        <div style="margin-bottom:16px;">
+          <input type="email" id="nlEmail" placeholder="이메일 주소 *" style="width:100%;background:#111;border:1px solid #333;border-radius:8px;color:#fff;padding:11px 14px;font-size:14px;font-family:'Pretendard',sans-serif;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0078F0'" onblur="this.style.borderColor='#333'">
+        </div>
+        <button id="nlSubmitBtn" onclick="submitNlSubscribe()" style="width:100%;background:#0078F0;color:#fff;border:none;border-radius:8px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Pretendard',sans-serif;transition:background 0.2s;" onmouseover="this.style.background='#005fbe'" onmouseout="this.style.background='#0078F0'">구독하기</button>
+        <p id="nlMsg" style="text-align:center;font-size:13px;margin:12px 0 0;display:none;"></p>
+        <p style="text-align:center;font-size:12px;color:#555;margin:14px 0 0;">광고 없음 · 언제든 수신 거부 가능</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // 세션당 1회만 표시
+      if (sessionStorage.getItem('nlPopupShown')) return
+
+      // 3초 후 팝업 표시
+      setTimeout(function() {
+        var popup = document.getElementById('nlPopup')
+        popup.style.display = 'flex'
+        sessionStorage.setItem('nlPopupShown', '1')
+      }, 3000)
+
+      // 배경 클릭 시 닫기
+      document.getElementById('nlPopup').addEventListener('click', function(e) {
+        if (e.target === this) closeNlPopup()
+      })
+    })()
+
+    function closeNlPopup() {
+      document.getElementById('nlPopup').style.display = 'none'
+    }
+
+    async function submitNlSubscribe() {
+      var email = document.getElementById('nlEmail').value.trim()
+      var name = document.getElementById('nlName').value.trim()
+      var msg = document.getElementById('nlMsg')
+      var btn = document.getElementById('nlSubmitBtn')
+
+      if (!email) {
+        msg.style.color = '#f87171'
+        msg.textContent = '이메일을 입력해주세요.'
+        msg.style.display = 'block'
+        return
+      }
+
+      btn.disabled = true
+      btn.textContent = '처리 중...'
+      msg.style.display = 'none'
+
+      try {
+        var res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, name })
+        })
+        var data = await res.json()
+
+        if (data.error) {
+          msg.style.color = '#f87171'
+          msg.textContent = data.error
+          msg.style.display = 'block'
+          btn.disabled = false
+          btn.textContent = '구독하기'
+        } else {
+          msg.style.color = '#4ade80'
+          msg.textContent = '✓ 구독 완료! 환영 이메일을 확인해주세요.'
+          msg.style.display = 'block'
+          btn.style.background = '#166534'
+          btn.textContent = '구독 완료'
+          setTimeout(closeNlPopup, 2500)
+        }
+      } catch {
+        msg.style.color = '#f87171'
+        msg.textContent = '네트워크 오류가 발생했습니다.'
+        msg.style.display = 'block'
+        btn.disabled = false
+        btn.textContent = '구독하기'
+      }
+    }
+  </script>
 </body>
