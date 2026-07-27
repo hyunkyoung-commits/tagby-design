@@ -5,7 +5,7 @@
   <url><loc>https://mkt.tagby.io/</loc><lastmod>2026-05-17</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://mkt.tagby.io/about.html</loc><lastmod>2026-04-21</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://mkt.tagby.io/portfolio.html</loc><lastmod>2026-04-21</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://mkt.tagby.io/tagby-article.html</loc><lastmod>2026-05-17</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mkt.tagby.io/tagby-article.html</loc><lastmod>2026-07-27</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
 
   <!-- 서비스 -->
   <url><loc>https://mkt.tagby.io/performance-marketing.html</loc><lastmod>2026-04-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -111,5 +111,16 @@
   <url><loc>https://mkt.tagby.io/design-study-article/news-tiktok-search-ads.html</loc><lastmod>2026-01-08</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
   <url><loc>https://mkt.tagby.io/design-study-article/news-pmax-brand.html</loc><lastmod>2025-12-20</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
   <url><loc>https://mkt.tagby.io/design-study-article/news-naver-ai-bidding.html</loc><lastmod>2025-12-15</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+
+  <url><loc>https://mkt.tagby.io/design-study-article/news-chatgpt-uk-0606.html</loc><lastmod>2026-06-06</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mkt.tagby.io/design-study-article/news-google-aimode-ads-0520.html</loc><lastmod>2026-05-20</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mkt.tagby.io/design-study-article/news-google-bidding-0615.html</loc><lastmod>2026-06-15</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mkt.tagby.io/design-study-article/news-pma-survey-0714.html</loc><lastmod>2026-07-14</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mkt.tagby.io/design-study-article/content-zeroclick-0610.html</loc><lastmod>2026-06-10</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mkt.tagby.io/design-study-article/content-owned-email-0701.html</loc><lastmod>2026-07-01</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mkt.tagby.io/design-study-article/content-b2b-ai-gap-0720.html</loc><lastmod>2026-07-20</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mkt.tagby.io/design-study-article/design-figma-config-0624.html</loc><lastmod>2026-06-24</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mkt.tagby.io/design-study-article/design-ai-production-ui-0612.html</loc><lastmod>2026-06-12</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mkt.tagby.io/design-study-article/design-adaptive-ui-0612.html</loc><lastmod>2026-06-12</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
 
 </urlset>
