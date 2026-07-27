@@ -293,7 +293,46 @@
       </div>
 
     </div>
-  </article>
+  
+  <!-- 추천 아티클 -->
+  <section style="border-top:1px solid #2D2D2D; margin-top:4rem; padding:3rem 1.5rem 0;">
+    <div class="container mx-auto" style="max-width:48rem;">
+      <h2 style="font-size:1rem; font-weight:700; color:#9CA3AF; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1.5rem;">추천 아티클</h2>
+      <div id="related-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;"></div>
+    </div>
+  </section>
+  <script>
+  (function(){
+    var SLUG = 'news-pmax-brand';
+    var CAT  = '뉴스';
+    fetch('https://mkt.tagby.io/articles.json')
+      .then(function(r){ return r.json(); })
+      .then(function(all){
+        var same  = all.filter(function(a){ return a.slug !== SLUG && a.category === CAT; });
+        var other = all.filter(function(a){ return a.slug !== SLUG && a.category !== CAT; });
+        var picks = same.concat(other).slice(0, 3);
+        var grid  = document.getElementById('related-grid');
+        if (!grid || picks.length === 0) return;
+        grid.innerHTML = picks.map(function(a){
+          var coverHtml = a.cover
+            ? '<img src="https://mkt.tagby.io/' + a.cover + '" alt="' + a.title + '" style="width:100%;height:100%;object-fit:cover;">'
+            : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#1e3a5f,#0f2027);"></div>';
+          return '<a href="https://mkt.tagby.io/design-study-article/' + a.slug + '.html" '
+            + 'style="display:block;background:#1F1F1F;border-radius:12px;overflow:hidden;text-decoration:none;transition:background 0.2s;" '
+            + 'onmouseover="this.style.background='#2A2A2A'" onmouseout="this.style.background='#1F1F1F'">'
+            + '<div style="aspect-ratio:4/3;overflow:hidden;background:#111;">' + coverHtml + '</div>'
+            + '<div style="padding:0.875rem;">'
+            + '<p style="font-size:0.7rem;color:#0078F0;font-weight:600;margin:0 0 0.35rem;">' + a.category + '</p>'
+            + '<p style="font-size:0.82rem;font-weight:700;color:#fff;margin:0 0 0.4rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + a.title + '</p>'
+            + '<p style="font-size:0.72rem;color:#6B7280;margin:0;">' + a.date + '</p>'
+            + '</div></a>';
+        }).join('');
+      })
+      .catch(function(){});
+  })();
+  </script>
+
+</article>
 
   <footer class="py-16 px-6 bg-black border-t" style="border-color: #333;">
     <div class="container mx-auto max-w-6xl">
