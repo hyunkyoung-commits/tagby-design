@@ -109,6 +109,7 @@
     <div style="border-bottom:1px solid #2d2d2d;margin-bottom:28px;">
       <button class="tab-btn active" id="tab-compose" onclick="switchTab('compose')">뉴스레터 작성</button>
       <button class="tab-btn" id="tab-history" onclick="switchTab('history')">발송 이력</button>
+      <button class="tab-btn" id="tab-subscribers" onclick="switchTab('subscribers')">구독자</button>
     </div>
 
     <!-- 작성 탭 -->
@@ -169,6 +170,29 @@
     <div id="panel-history" class="hidden">
       <div id="historyList" class="flex flex-col gap-3">
         <div style="color:#555;font-size:14px;text-align:center;padding:40px;">불러오는 중...</div>
+      </div>
+    </div>
+
+    <!-- 구독자 탭 -->
+    <div id="panel-subscribers" class="hidden">
+      <div class="flex items-center justify-between mb-4">
+        <div id="subscriberSummary" style="font-size:13px;color:#666;"></div>
+        <input type="text" id="subscriberSearch" class="input-base" placeholder="이름 또는 이메일 검색" style="width:240px;" oninput="filterSubscribers()">
+      </div>
+      <div style="background:#1a1a1a;border:1px solid #2d2d2d;border-radius:12px;overflow:hidden;">
+        <table style="width:100%;border-collapse:collapse;" id="subscriberTable">
+          <thead>
+            <tr style="border-bottom:1px solid #2d2d2d;">
+              <th style="text-align:left;padding:14px 20px;font-size:11px;color:#666;font-weight:600;letter-spacing:1px;">이름</th>
+              <th style="text-align:left;padding:14px 20px;font-size:11px;color:#666;font-weight:600;letter-spacing:1px;">이메일</th>
+              <th style="text-align:left;padding:14px 20px;font-size:11px;color:#666;font-weight:600;letter-spacing:1px;">구독일</th>
+              <th style="text-align:left;padding:14px 20px;font-size:11px;color:#666;font-weight:600;letter-spacing:1px;">상태</th>
+            </tr>
+          </thead>
+          <tbody id="subscriberBody">
+            <tr><td colspan="4" style="text-align:center;padding:40px;color:#555;font-size:14px;">불러오는 중...</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -238,12 +262,76 @@
   }
 
   // 탭 전환
+  const tabs = ['compose', 'history', 'subscribers']
   function switchTab(tab) {
-    document.getElementById('panel-compose').classList.toggle('hidden', tab !== 'compose')
-    document.getElementById('panel-history').classList.toggle('hidden', tab !== 'history')
-    document.getElementById('tab-compose').classList.toggle('active', tab === 'compose')
-    document.getElementById('tab-history').classList.toggle('active', tab === 'history')
+    tabs.forEach(t => {
+      document.getElementById(`panel-${t}`).classList.toggle('hidden', t !== tab)
+      document.getElementById(`tab-${t}`).classList.toggle('active', t === tab)
+    })
     if (tab === 'history') renderHistory()
+    if (tab === 'subscribers') loadSubscribers()
+  }
+
+  // 구독자 목록
+  let allSubscribers = []
+  let subscribersLoaded = false
+
+  async function loadSubscribers() {
+    if (subscribersLoaded) return
+    try {
+      const res = await fetch('/api/subscriber-list', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: adminPassword })
+      })
+      const data = await res.json()
+      allSubscribers = data.subscribers || []
+      subscribersLoaded = true
+      renderSubscribers(allSubscribers)
+    } catch {
+      document.getElementById('subscriberBody').innerHTML =
+        '<tr><td colspan="4" style="text-align:center;padding:40px;color:#f87171;font-size:14px;">불러오기 실패</td></tr>'
+    }
+  }
+
+  function renderSubscribers(list) {
+    const active = list.filter(s => s.status === 'active').length
+    document.getElementById('subscriberSummary').textContent =
+      `전체 ${list.length}명 · 활성 ${active}명 · 수신거부 ${list.length - active}명`
+
+    if (!list.length) {
+      document.getElementById('subscriberBody').innerHTML =
+        '<tr><td colspan="4" style="text-align:center;padding:40px;color:#555;font-size:14px;">구독자가 없습니다.</td></tr>'
+      return
+    }
+
+    document.getElementById('subscriberBody').innerHTML = list.map((s, i) => {
+      const date = s.subscribed_at
+        ? new Date(s.subscribed_at).toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' })
+        : '—'
+      const isActive = s.status === 'active'
+      const rowBg = i % 2 === 0 ? '' : 'background:#161616;'
+      return `<tr style="${rowBg}border-bottom:1px solid #1d1d1d;">
+        <td style="padding:13px 20px;font-size:13px;color:#ccc;">${escHtml(s.name || '—')}</td>
+        <td style="padding:13px 20px;font-size:13px;color:#fff;">${escHtml(s.email)}</td>
+        <td style="padding:13px 20px;font-size:13px;color:#888;">${date}</td>
+        <td style="padding:13px 20px;">
+          <span style="display:inline-block;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;
+            background:${isActive ? '#0a2a0a' : '#2a0a0a'};color:${isActive ? '#4ade80' : '#f87171'};">
+            ${isActive ? '활성' : '수신거부'}
+          </span>
+        </td>
+      </tr>`
+    }).join('')
+  }
+
+  function filterSubscribers() {
+    const q = document.getElementById('subscriberSearch').value.toLowerCase()
+    const filtered = q
+      ? allSubscribers.filter(s =>
+          (s.name || '').toLowerCase().includes(q) || s.email.toLowerCase().includes(q))
+      : allSubscribers
+    renderSubscribers(filtered)
   }
 
   // 발송 이력 렌더링
