@@ -388,9 +388,19 @@
     fetch('https://mkt.tagby.io/articles.json')
       .then(function(r){ return r.json(); })
       .then(function(all){
-        var same  = all.filter(function(a){ return a.slug !== SLUG && a.category === CAT; });
-        var other = all.filter(function(a){ return a.slug !== SLUG && a.category !== CAT; });
-        var picks = same.concat(other).slice(0, 3);
+        var me=all.find(function(a){return a.slug===SLUG;});
+        var myTags=me&&me.tags?me.tags:[];
+        var candidates=all.filter(function(a){return a.slug!==SLUG;});
+        candidates=candidates.map(function(a){
+          var overlap=0;
+          if(myTags.length>0&&a.tags){
+            myTags.forEach(function(t){if(a.tags.indexOf(t)!==-1)overlap++;});
+          }
+          a._score=overlap*10+(a.category===CAT?1:0);
+          return a;
+        });
+        candidates.sort(function(a,b){return b._score-a._score;});
+        var picks=candidates.slice(0,3);
         var grid  = document.getElementById('related-grid');
         if (!grid || picks.length === 0) return;
         grid.innerHTML = picks.map(function(a){
