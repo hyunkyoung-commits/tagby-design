@@ -313,7 +313,7 @@
         grid.innerHTML = picks.map(function(a){
           var coverHtml = a.cover
             ? '<img src="https://mkt.tagby.io/' + a.cover + '" alt="' + a.title + '" style="width:100%;height:100%;object-fit:cover;">'
-            : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#1e3a5f,#0f2027);"></div>';
+            : '<img src="https://mkt.tagby.io/design-study-article/thum/'+a.slug+'.png" alt="'+a.title+'" style="width:100%;height:100%;object-fit:cover;">';
           return '<a href="https://mkt.tagby.io/design-study-article/' + a.slug + '.html" '
             + 'style="display:block;background:#1F1F1F;border-radius:12px;overflow:hidden;text-decoration:none;transition:background 0.2s;" '
             + 'onmouseover="this.style.background=\'#2A2A2A\'" onmouseout="this.style.background=\'#1F1F1F\'">'
