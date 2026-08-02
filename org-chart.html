@@ -175,18 +175,34 @@
 
     .org-grid {
       display: grid;
-      grid-template-columns: 1fr 190px 1fr;
-      grid-template-rows: auto auto auto;
-      gap: 24px 48px;
-      align-items: center;
-      justify-items: center;
+      grid-template-columns: 1fr 180px 1fr;
+      grid-template-rows: 1fr auto 1fr;
+      gap: 0;
+      align-items: stretch;
     }
+
+    /* 각 셀: 카드 + 선을 담는 컨테이너 */
+    .org-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 20px;
+    }
+    /* 중앙 컬럼 셀: 위아래 선 연결 */
+    .org-cell-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+    }
+    .org-line-v { width: 2px; background: #E5E7EB; flex: 1; min-height: 24px; }
 
     .org-node {
       background: white;
       border: 1.5px solid #E5E7EB;
       border-radius: 20px;
-      padding: 22px 20px;
+      padding: 24px 20px;
       width: 100%;
       max-width: 240px;
       text-align: center;
@@ -194,17 +210,20 @@
       color: inherit;
       transition: all 0.25s ease;
       box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-      display: block;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .org-node:hover { border-color: #0078F0; box-shadow: 0 8px 32px rgba(0,120,240,0.18); transform: translateY(-4px); }
     .org-node.coming:hover { border-color: #D1D5DB; box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
-    .org-node-icon { font-size: 1.8rem; margin-bottom: 8px; }
-    .org-node-name { font-size: 1rem; font-weight: 800; color: #111827; letter-spacing: -0.02em; margin-bottom: 4px; }
-    .org-node-en { font-size: 0.7rem; font-weight: 600; color: #0078F0; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-    .org-node-desc { font-size: 0.78rem; color: #9CA3AF; line-height: 1.45; }
-    .org-badge { display:inline-block; margin-top:10px; padding:3px 10px; border-radius:999px; font-size:0.68rem; font-weight:700; background:#EFF6FF; color:#0078F0; }
+    .org-node-name { font-size: 1rem; font-weight: 800; color: #111827; letter-spacing: -0.02em; margin-bottom: 5px; }
+    .org-node-en { font-size: 0.68rem; font-weight: 700; color: #0078F0; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+    .org-node-desc { font-size: 0.78rem; color: #9CA3AF; line-height: 1.5; flex: 1; }
+    .org-badge { display:inline-block; margin-top:12px; padding:4px 12px; border-radius:999px; font-size:0.68rem; font-weight:700; background:#EFF6FF; color:#0078F0; }
     .org-badge.gray { background:#F3F4F6; color:#9CA3AF; }
-    .org-connector-v { width: 2px; height: 28px; background: #E5E7EB; margin: 0 auto; }
+
+    /* 중앙 컬럼 노드: 조금 좁게 */
+    .org-node-sm { max-width: 172px; }
 
     /* mobile */
     @media(max-width:768px) {
@@ -223,77 +242,87 @@
 
       <!-- Desktop grid -->
       <div class="org-grid">
+
         <!-- Row 1 -->
-        <a href="team-performance.html" class="org-node" style="grid-column:1;grid-row:1;">
-          <div class="org-node-icon">📊</div>
-          <div class="org-node-name">퍼포먼스팀</div>
-          <div class="org-node-en">Performance Div.</div>
-          <div class="org-node-desc">Meta·네이버·카카오<br>데이터 기반 성과 마케팅</div>
-          <span class="org-badge">팀 소개 보기 →</span>
-        </a>
-        <div style="grid-column:2;grid-row:1;display:flex;flex-direction:column;align-items:center;">
-          <a href="team-gnm.html" class="org-node coming" style="max-width:172px;">
-            <div class="org-node-icon">🚀</div>
+        <div class="org-cell" style="grid-column:1;grid-row:1;">
+          <a href="team-performance.html" class="org-node">
+            <div class="org-node-name">퍼포먼스팀</div>
+            <div class="org-node-en">Performance Div.</div>
+            <div class="org-node-desc">Meta·네이버·카카오<br>데이터 기반 성과 마케팅</div>
+            <span class="org-badge">팀 소개 보기 →</span>
+          </a>
+        </div>
+        <div class="org-cell-center" style="grid-column:2;grid-row:1;">
+          <a href="team-gnm.html" class="org-node org-node-sm coming">
             <div class="org-node-name">G&amp;M팀</div>
             <div class="org-node-en">Growth &amp; Marketing</div>
             <div class="org-node-desc">성장 전략·브랜드 마케팅</div>
             <span class="org-badge gray">준비중</span>
           </a>
-          <div class="org-connector-v"></div>
+          <div class="org-line-v"></div>
         </div>
-        <a href="team-creator.html" class="org-node coming" style="grid-column:3;grid-row:1;">
-          <div class="org-node-icon">🎬</div>
-          <div class="org-node-name">크리에이터팀</div>
-          <div class="org-node-en">Creator Div.</div>
-          <div class="org-node-desc">인플루언서·MCN<br>제휴(Affiliates) 마케팅</div>
-          <span class="org-badge gray">준비중</span>
-        </a>
+        <div class="org-cell" style="grid-column:3;grid-row:1;">
+          <a href="team-creator.html" class="org-node coming">
+            <div class="org-node-name">크리에이터팀</div>
+            <div class="org-node-en">Creator Div.</div>
+            <div class="org-node-desc">인플루언서·MCN<br>제휴(Affiliates) 마케팅</div>
+            <span class="org-badge gray">준비중</span>
+          </a>
+        </div>
 
         <!-- Row 2 -->
-        <a href="team-commerce.html" class="org-node coming" style="grid-column:1;grid-row:2;">
-          <div class="org-node-icon">🛒</div>
-          <div class="org-node-name">커머스팀</div>
-          <div class="org-node-en">Commerce Div.</div>
-          <div class="org-node-desc">유통·콘텐츠 마케팅<br>커머스 채널 운영</div>
-          <span class="org-badge gray">준비중</span>
-        </a>
-        <div class="org-center" style="grid-column:2;grid-row:2;">
-          <div class="org-center-label">Total<br>Marketing</div>
-          <div class="org-center-sub">TAGby</div>
+        <div class="org-cell" style="grid-column:1;grid-row:2;">
+          <a href="team-commerce.html" class="org-node coming">
+            <div class="org-node-name">커머스팀</div>
+            <div class="org-node-en">Commerce Div.</div>
+            <div class="org-node-desc">유통·콘텐츠 마케팅<br>커머스 채널 운영</div>
+            <span class="org-badge gray">준비중</span>
+          </a>
         </div>
-        <a href="team-design.html" class="org-node" style="grid-column:3;grid-row:2;">
-          <div class="org-node-icon">🎨</div>
-          <div class="org-node-name">디자인팀</div>
-          <div class="org-node-en">Design Div.</div>
-          <div class="org-node-desc">퍼포먼스 광고 소재<br>브랜드 크리에이티브</div>
-          <span class="org-badge">팀 소개 보기 →</span>
-        </a>
+        <div class="org-cell-center" style="grid-column:2;grid-row:2;">
+          <div class="org-line-v"></div>
+          <div class="org-center">
+            <div class="org-center-label">Total<br>Marketing</div>
+            <div class="org-center-sub">TAGby</div>
+          </div>
+          <div class="org-line-v"></div>
+        </div>
+        <div class="org-cell" style="grid-column:3;grid-row:2;">
+          <a href="team-design.html" class="org-node">
+            <div class="org-node-name">디자인팀</div>
+            <div class="org-node-en">Design Div.</div>
+            <div class="org-node-desc">퍼포먼스 광고 소재<br>브랜드 크리에이티브</div>
+            <span class="org-badge">팀 소개 보기 →</span>
+          </a>
+        </div>
 
         <!-- Row 3 -->
-        <a href="team-imc.html" class="org-node coming" style="grid-column:1;grid-row:3;">
-          <div class="org-node-icon">🏗️</div>
-          <div class="org-node-name">IMC팀</div>
-          <div class="org-node-en">IMC Div.</div>
-          <div class="org-node-desc">통합 마케팅 전략<br>브랜드 마케팅</div>
-          <span class="org-badge gray">준비중</span>
-        </a>
-        <div style="grid-column:2;grid-row:3;display:flex;flex-direction:column;align-items:center;">
-          <div class="org-connector-v"></div>
-          <a href="team-digital.html" class="org-node" style="max-width:172px;">
-            <div class="org-node-icon">💻</div>
+        <div class="org-cell" style="grid-column:1;grid-row:3;">
+          <a href="team-imc.html" class="org-node coming">
+            <div class="org-node-name">IMC팀</div>
+            <div class="org-node-en">IMC Div.</div>
+            <div class="org-node-desc">통합 마케팅 전략<br>브랜드 마케팅</div>
+            <span class="org-badge gray">준비중</span>
+          </a>
+        </div>
+        <div class="org-cell-center" style="grid-column:2;grid-row:3;">
+          <div class="org-line-v"></div>
+          <a href="team-digital.html" class="org-node org-node-sm">
             <div class="org-node-name">디지털마케팅팀</div>
             <div class="org-node-en">Digital Marketing</div>
             <div class="org-node-desc">디지털 마케팅 전반</div>
             <span class="org-badge">팀 소개 보기 →</span>
           </a>
         </div>
-        <a href="team-data.html" class="org-node coming" style="grid-column:3;grid-row:3;">
-          <div class="org-node-icon">📈</div>
-          <div class="org-node-name">데이터팀</div>
-          <div class="org-node-en">Data Div.</div>
-          <div class="org-node-desc">빅데이터 분석<br>GEO 분석·인사이트</div>
-          <span class="org-badge gray">준비중</span>
-        </a>
+        <div class="org-cell" style="grid-column:3;grid-row:3;">
+          <a href="team-data.html" class="org-node coming">
+            <div class="org-node-name">데이터팀</div>
+            <div class="org-node-en">Data Div.</div>
+            <div class="org-node-desc">빅데이터 분석<br>GEO 분석·인사이트</div>
+            <span class="org-badge gray">준비중</span>
+          </a>
+        </div>
+
       </div>
 
       <!-- Mobile card list -->
@@ -304,14 +333,14 @@
             <div class="org-center-sub">TAGby</div>
           </div>
         </div>
-        <a href="team-performance.html" class="org-node"><div class="org-node-icon">📊</div><div class="org-node-name">퍼포먼스팀</div><span class="org-badge" style="margin-top:6px;">보기 →</span></a>
-        <a href="team-digital.html" class="org-node"><div class="org-node-icon">💻</div><div class="org-node-name">디지털마케팅팀</div><span class="org-badge" style="margin-top:6px;">보기 →</span></a>
-        <a href="team-design.html" class="org-node"><div class="org-node-icon">🎨</div><div class="org-node-name">디자인팀</div><span class="org-badge" style="margin-top:6px;">보기 →</span></a>
-        <a href="team-creator.html" class="org-node coming"><div class="org-node-icon">🎬</div><div class="org-node-name">크리에이터팀</div><span class="org-badge gray" style="margin-top:6px;">준비중</span></a>
-        <a href="team-commerce.html" class="org-node coming"><div class="org-node-icon">🛒</div><div class="org-node-name">커머스팀</div><span class="org-badge gray" style="margin-top:6px;">준비중</span></a>
-        <a href="team-imc.html" class="org-node coming"><div class="org-node-icon">🏗️</div><div class="org-node-name">IMC팀</div><span class="org-badge gray" style="margin-top:6px;">준비중</span></a>
-        <a href="team-data.html" class="org-node coming"><div class="org-node-icon">📈</div><div class="org-node-name">데이터팀</div><span class="org-badge gray" style="margin-top:6px;">준비중</span></a>
-        <a href="team-gnm.html" class="org-node coming"><div class="org-node-icon">🚀</div><div class="org-node-name">G&amp;M팀</div><span class="org-badge gray" style="margin-top:6px;">준비중</span></a>
+        <a href="team-performance.html" class="org-node"><div class="org-node-name">퍼포먼스팀</div><span class="org-badge" style="margin-top:6px;">보기 →</span></a>
+        <a href="team-digital.html" class="org-node"><div class="org-node-name">디지털마케팅팀</div><span class="org-badge" style="margin-top:6px;">보기 →</span></a>
+        <a href="team-design.html" class="org-node"><div class="org-node-name">디자인팀</div><span class="org-badge" style="margin-top:6px;">보기 →</span></a>
+        <a href="team-creator.html" class="org-node coming"><div class="org-node-name">크리에이터팀</div><span class="org-badge gray" style="margin-top:6px;">준비중</span></a>
+        <a href="team-commerce.html" class="org-node coming"><div class="org-node-name">커머스팀</div><span class="org-badge gray" style="margin-top:6px;">준비중</span></a>
+        <a href="team-imc.html" class="org-node coming"><div class="org-node-name">IMC팀</div><span class="org-badge gray" style="margin-top:6px;">준비중</span></a>
+        <a href="team-data.html" class="org-node coming"><div class="org-node-name">데이터팀</div><span class="org-badge gray" style="margin-top:6px;">준비중</span></a>
+        <a href="team-gnm.html" class="org-node coming"><div class="org-node-name">G&amp;M팀</div><span class="org-badge gray" style="margin-top:6px;">준비중</span></a>
       </div>
     </div>
   </section>
