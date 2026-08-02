@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon-v2.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/images/logo/Thum.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5675K11SP"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D5675K11SP');</script>
+  <title>조직문화 | TAGby 태그바이</title>
+  <meta name="description" content="TAGby 조직문화 소개. 자율과 책임을 바탕으로 일을 통한 자아실현을 추구합니다.">
+  <link rel="canonical" href="https://mkt.tagby.io/culture.html">
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #F8F8F8; }
+    .dropdown-menu { display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .dropdown { position: relative; }
+    .dropdown::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 20px; }
+    .mobile-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background-color: white; box-shadow: -4px 0 12px rgba(0,0,0,0.1); transition: right 0.3s ease; z-index: 100; overflow-y: auto; }
+    .mobile-menu.active { right: 0; }
+    .mobile-overlay { display: none; position: fixed; inset: 0; background-color: rgba(0,0,0,0.5); z-index: 99; }
+    .mobile-overlay.active { display: block; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background-color: #000; transition: all 0.3s ease; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px,7px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px); }
+    @media (max-width: 1023px) { .hamburger { display: flex; } }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,120,240,0.3); opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+    .scroll-to-top:hover { background-color: #0056B3; transform: translateY(-4px); }
+  </style>
+</head>
+<body>
+
+  <header id="header" style="position:fixed;top:0;width:100%;z-index:50;transition:all 0.3s;backdrop-filter:blur(12px);background-color:rgba(248,248,248,0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="/" class="cursor-pointer hover:opacity-80 transition">
+        <img loading="lazy" src="images/logo/TAGby%20blue.png" alt="TAGby" class="h-8">
+      </a>
+      <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
+        <a href="about.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">회사소개</a>
+        <div class="relative dropdown flex items-center">
+          <a href="/#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width:200px;">
+            <a href="performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
+            <a href="influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a>
+          </div>
+        </div>
+        <div class="relative dropdown flex items-center">
+          <a href="portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-2 bg-white rounded-xl shadow-xl p-6" style="min-width:420px;">
+            <div class="grid grid-cols-3 gap-6">
+              <div>
+                <p class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">패션</p>
+                <div class="flex flex-col">
+                  <a href="spao.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">스파오</a>
+                  <a href="mixxo.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">미쏘</a>
+                  <a href="newbalance.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">뉴발란스</a>
+                  <a href="spaokids.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">스파오키즈</a>
+                  <a href="roem.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">로엠</a>
+                  <a href="eider.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">아이더</a>
+                  <a href="eblin.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">에블린</a>
+                </div>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">생활/잡화</p>
+                <div class="flex flex-col">
+                  <a href="cocodor.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">코코도르</a>
+                  <a href="emart.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">이마트</a>
+                </div>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">교육</p>
+                <div class="flex flex-col">
+                  <a href="minbyoungcheol.html" class="text-sm font-medium text-gray-700 hover:text-[#0078F0] transition py-1.5">민병철유폰</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative dropdown flex items-center">
+          <a href="org-chart.html" class="text-xs md:text-sm lg:text-base font-medium text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-white rounded-lg shadow-xl overflow-hidden" style="min-width:180px;">
+            <a href="culture.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">조직문화</a>
+            <a href="org-chart.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">조직도</a>
+            <a href="recruit.html" class="block px-6 py-3 text-base font-medium text-gray-700 hover:text-white hover:bg-[#0078F0] transition-colors">채용</a>
+          </div>
+        </div>
+        <a href="tagby-article.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-900 hover:text-[#0078F0] transition whitespace-nowrap">아티클</a>
+        <a href="contact.html" class="px-6 py-2.5 text-sm font-semibold rounded-full transition whitespace-nowrap hover:opacity-85" style="background:#0078F0;color:white;">문의하기</a>
+      </div>
+      <div class="hamburger lg:hidden" id="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-8">
+      <a href="/" class="cursor-pointer hover:opacity-80 transition mb-8 inline-block">
+        <img loading="lazy" src="images/logo/TAGby%20blue.png" alt="TAGby" class="h-8">
+      </a>
+      <nav class="flex flex-col gap-4">
+        <a href="about.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">회사소개</a>
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-900 mb-3">디지털 마케팅</p>
+          <div class="flex flex-col gap-2 pl-4">
+            <a href="performance-marketing.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">퍼포먼스 마케팅</a>
+            <a href="influencer-marketing.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">인플루언서 마케팅</a>
+          </div>
+        </div>
+        <div class="py-2">
+          <p class="text-lg font-medium text-gray-900 mb-3">포트폴리오</p>
+          <div class="flex flex-col gap-1 pl-4">
+            <div>
+              <button onclick="togglePortfolioCategory(this)" class="w-full text-left text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1 flex items-center justify-between">패션 <span class="text-xs text-gray-400">▼</span></button>
+              <div class="hidden flex-col gap-1 pl-4">
+                <a href="spao.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오</a>
+                <a href="mixxo.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">미쏘</a>
+                <a href="newbalance.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">뉴발란스</a>
+                <a href="spaokids.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오키즈</a>
+                <a href="roem.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">로엠</a>
+                <a href="eider.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">아이더</a>
+                <a href="eblin.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">에블린</a>
+              </div>
+            </div>
+            <div>
+              <button onclick="togglePortfolioCategory(this)" class="w-full flex items-center justify-between text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">생활/잡화 <span class="text-xs text-gray-400">▼</span></button>
+              <div class="hidden flex-col gap-1 pl-4">
+                <a href="cocodor.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">코코도르</a>
+                <a href="emart.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">이마트</a>
+              </div>
+            </div>
+            <div>
+              <button onclick="togglePortfolioCategory(this)" class="w-full flex items-center justify-between text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">교육 <span class="text-xs text-gray-400">▼</span></button>
+              <div class="hidden flex-col gap-1 pl-4">
+                <a href="minbyoungcheol.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">민병철유폰</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="text-lg font-medium text-gray-900 py-2">팀소개</p>
+          <div class="pl-4 flex flex-col gap-1">
+            <a href="culture.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">조직문화</a>
+            <a href="org-chart.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">조직도</a>
+            <a href="recruit.html" class="text-base font-medium text-gray-700 hover:text-[#0078F0] transition py-1">채용</a>
+          </div>
+        </div>
+        <a href="tagby-article.html" class="text-lg font-medium text-gray-900 hover:text-[#0078F0] transition py-2">아티클</a>
+        <a href="contact.html" class="mt-2 text-center px-6 py-3 rounded-full text-white font-bold text-base" style="background:#0078F0;">문의하기</a>
+      </nav>
+    </div>
+  </div>
+
+  <style>
+    :root {
+      --tagby-blue: #0078F0;
+      --tagby-blue-light: #edf6ff;
+      --text-main: #171717;
+      --text-sub: #525866;
+      --line: #e8edf3;
+      --shadow-soft: 0 18px 60px rgba(20,40,80,0.08);
+    }
+    .page-wrapper { width: min(100%, 960px); margin: 0 auto; padding: 120px 24px 120px; }
+    .hero { position: relative; overflow: hidden; min-height: 360px; padding: 52px; border-radius: 36px; background: linear-gradient(135deg,#0078F0 0%,#006df0 48%,#005fd1 100%); color: #fff; box-shadow: 0 24px 80px rgba(0,120,255,0.28); }
+    .hero::before, .hero::after { content:""; position:absolute; border-radius:999px; background:rgba(255,255,255,0.14); pointer-events:none; }
+    .hero::before { width:280px; height:280px; right:-80px; top:-80px; }
+    .hero::after { width:180px; height:180px; right:130px; bottom:-80px; }
+    .hero-content { position:relative; z-index:1; max-width:680px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; padding:8px 14px; margin-bottom:28px; border-radius:999px; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.24); font-size:0.9rem; font-weight:700; }
+    .page-title { font-size:clamp(3rem,8vw,5.4rem); line-height:1; font-weight:800; letter-spacing:-0.06em; margin-bottom:22px; }
+    .hero-desc { max-width:580px; font-size:1.12rem; font-weight:500; color:rgba(255,255,255,0.86); }
+    .hero-tags { display:flex; flex-wrap:wrap; gap:10px; margin-top:32px; }
+    .hero-tag { padding:8px 13px; border-radius:999px; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.22); font-size:0.9rem; font-weight:600; color:rgba(255,255,255,0.92); }
+    .content { margin-top:40px; display:grid; gap:22px; }
+    .section-card { background:#fff; border:1px solid var(--line); border-radius:28px; padding:36px; box-shadow:var(--shadow-soft); }
+    .section-header { display:flex; align-items:flex-start; gap:16px; margin-bottom:18px; }
+    .section-icon { width:44px; height:44px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; border-radius:14px; background:var(--tagby-blue-light); font-size:1.35rem; }
+    .section-title { font-size:1.42rem; line-height:1.45; font-weight:800; letter-spacing:-0.035em; color:var(--text-main); }
+    .body-text { font-size:1.02rem; color:var(--text-sub); margin-top:14px; line-height:1.8; }
+    .body-text strong { color:var(--tagby-blue); font-weight:800; }
+    .notion-list { list-style:none; display:grid; gap:12px; margin-top:18px; }
+    .notion-list li { position:relative; padding:14px 16px 14px 46px; border-radius:16px; background:#f8fbff; border:1px solid #e7f1ff; color:var(--text-sub); font-size:1rem; font-weight:500; }
+    .notion-list li::before { content:"✓"; position:absolute; left:16px; top:14px; width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; border-radius:999px; background:var(--tagby-blue); color:#fff; font-size:0.78rem; font-weight:800; }
+    .related-section { padding:32px; border-radius:28px; background:#111827; color:#fff; box-shadow:var(--shadow-soft); }
+    .related-heading { font-size:0.82rem; font-weight:800; color:rgba(255,255,255,0.58); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px; }
+    .callout { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:18px 20px; border-radius:20px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); text-decoration:none; color:#fff; transition:transform 0.18s, background 0.18s; }
+    .callout:hover { transform:translateY(-2px); background:rgba(255,255,255,0.13); }
+    .callout-left { display:flex; align-items:center; gap:12px; }
+    .callout-icon { width:42px; height:42px; display:inline-flex; align-items:center; justify-content:center; border-radius:14px; background:var(--tagby-blue); font-size:1.25rem; }
+    .callout-text { font-size:1.06rem; font-weight:800; }
+    @media(max-width:720px){ .page-wrapper{padding:100px 16px 80px;} .hero{min-height:300px;padding:36px 28px;border-radius:28px;} .section-card,.related-section{padding:26px 20px;border-radius:22px;} .section-title{font-size:1.2rem;} }
+  </style>
+  <main class="page-wrapper">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">🏷️ TAGby Culture Guide</div>
+        <h1 class="page-title">TAGby Way</h1>
+        <p class="hero-desc">우리는 자율과 책임을 바탕으로, 가장 합리적이고 효율적인 방식으로 일합니다. 개인의 성장과 회사의 비전이 같은 방향을 향할 때 더 큰 성과가 만들어진다고 믿습니다.</p>
+        <div class="hero-tags">
+          <span class="hero-tag">Autonomy</span>
+          <span class="hero-tag">Responsibility</span>
+          <span class="hero-tag">Efficiency</span>
+          <span class="hero-tag">Growth</span>
+        </div>
+      </div>
+    </section>
+    <div class="content">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-icon">🧶</div>
+          <h2 class="section-title">일을 통해 개인의 비전과 자아를 완성하고자 합니다.</h2>
+        </div>
+        <p class="body-text">태그바이팀원에게 <strong>일</strong>이란 단순 돈벌이 수단 혹은 내 인생을 즐기기 위한 매개체가 아닌 그 이상의 의미를 갖습니다. 우리는 일과 삶의 연결성을 고민하며, 내가 하는 일에 대한 의미를 찾고 회사와 개인이 추구하는 방향성을 일치시켜 함께 성장할 수 있도록 노력합니다.</p>
+        <p class="body-text">태그바이팀은 일을 통한 자아실현을 갈망하는 사람과 함께 일하고 싶습니다. 이들은 회사와 나에게 무엇이 도움이 되는지 끊임없이 고민하며, 현재 일하고 있는 그 이상의 가치를 회사 내에서 찾으려고 노력합니다. 그리고 이들은 결국 회사에서 전적으로 믿고 맡길 수 있는 존재로 성장하며 주변 동료에게 선한 영향력을 미치는 인플루언서가 됩니다.</p>
+        <p class="body-text">일을 하는 데 있어서만큼은 치열하게 고민하고 끊임없이 이야기하며, 최고의 결과를 위해 상황과 타협하지 않고 최고의 방법을 찾아내기 위해 노력합니다. 우리는 뛰어난 사람들과 일할 때 행복을 느끼며 그들과 함께 1인 미디어 산업을 새롭게 바꾸고 싶습니다.</p>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-icon">🩴</div>
+          <h2 class="section-title">일에 대한 책임을 질 수 있으면 제한 없는 자율 속에서 일합니다.</h2>
+        </div>
+        <p class="body-text">태그바이에는 정해진 근무시간과 장소가 없습니다. 맡은 업무를 책임질 수 있다면 해외에서, 그리고 내가 원하는 장소 어디서든 근무할 수 있습니다. 또한 업무에 있어 한계점을 두지 않고 더 효율적이고 합리적인 업무를 위해서라면 누구의 의견이든 수용되며, 이를 직접 이끌어갈 수 있습니다.</p>
+        <p class="body-text">태그바이는 오직 <strong>일에만 집중할 수 있는 환경</strong>을 만들고, 각 분야의 최고인 사람들과 함께 일할 수 있는 경험을 제공합니다.</p>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-icon">🎒</div>
+          <h2 class="section-title">태그바이팀은 이렇게 일합니다.</h2>
+        </div>
+        <ul class="notion-list">
+          <li>왜 일하는지 명확히 알고 행동합니다.</li>
+          <li>내가 맡은 업무에 있어서는 어떻게든 책임집니다.</li>
+          <li>논리적이고 합리적으로 이야기하며 동료들의 의견에 귀기울입니다.</li>
+          <li>활발한 공유와 명확한 커뮤니케이션 스킬 두 가지 능력을 추구합니다.</li>
+          <li>최상의 퍼포먼스와 효율적인 방법을 위해 끊임없이 고민합니다.</li>
+          <li>업무가 어렵거나 완전히 이해하지 못했을 때 솔직하게 이야기합니다.</li>
+          <li>팀원의 성장에 관심을 갖고 적극적으로 돕습니다.</li>
+          <li>회사의 비전을 이해하고 그것을 실현하기 위해 행동합니다.</li>
+          <li>긍정적이고 건강한 팀 문화를 만들기 위해 노력합니다.</li>
+        </ul>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-icon">☕</div>
+          <h2 class="section-title">태그바이는 일에만 집중할 수 있는 환경을 만듭니다.</h2>
+        </div>
+        <ul class="notion-list">
+          <li>회사의 비전을 꾸준히 공유하고 이해시킵니다.</li>
+          <li>팀을 신뢰하고 개인 업무에 최대한의 권한을 부여합니다.</li>
+          <li>팀의 성장에 집착하고 이를 성장시키기 위해 끊임없이 노력합니다.</li>
+          <li>성장과 효율을 위해 끊임없이 조직의 규칙과 약속을 변경합니다.</li>
+        </ul>
+      </section>
+      <section class="related-section">
+        <p class="related-heading">조직도 바로가기</p>
+        <a class="callout" href="org-chart.html">
+          <span class="callout-left">
+            <span class="callout-icon">🏢</span>
+            <span class="callout-text">TAGby 조직도</span>
+          </span>
+          <span>→</span>
+        </a>
+      </section>
+    </div>
+  </main>
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+  </div>
+  <script>
+    let lastScrollY = 0;
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      const y = window.scrollY;
+      if (y > lastScrollY && y > 100) header.style.transform = 'translateY(-100%)';
+      else header.style.transform = 'translateY(0)';
+      header.style.backgroundColor = y > 50 ? 'rgba(248,248,248,0.95)' : 'rgba(248,248,248,0.8)';
+      header.style.boxShadow = y > 50 ? '0 1px 3px rgba(0,0,0,0.1)' : 'none';
+      lastScrollY = y;
+      document.getElementById('scrollToTop').classList.toggle('visible', y > 300);
+    });
+    document.getElementById('scrollToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+    mobileOverlay.addEventListener('click', () => {
+      ['active'].forEach(c => [hamburger, mobileMenu, mobileOverlay].forEach(el => el.classList.remove(c)));
+      document.body.style.overflow = '';
+    });
+  </script>
+  <script>
+    (function(){
+      var drops = Array.from(document.querySelectorAll('.dropdown'));
+      var timer, active;
+      function closeAll(){ drops.forEach(d=>{ var m=d.querySelector('.dropdown-menu'); if(m){m.style.display='none';m.style.opacity='0';} }); active=null; }
+      function show(d){ clearTimeout(timer); if(active&&active!==d){ var p=active.querySelector('.dropdown-menu'); if(p){p.style.display='none';p.style.opacity='0';} } active=d; var m=d.querySelector('.dropdown-menu'); if(m){m.style.display='block';m.style.opacity='1';m.style.transform='translateY(0)';} }
+      function hide(){ timer=setTimeout(closeAll,300); }
+      drops.forEach(d=>{ var m=d.querySelector('.dropdown-menu'); if(!m) return; d.addEventListener('mouseenter',()=>show(d)); d.addEventListener('mouseleave',hide); m.addEventListener('mouseenter',()=>show(d)); m.addEventListener('mouseleave',hide); });
+    })();
+  </script>
+  <script>
+    function togglePortfolioCategory(btn) {
+      var sub = btn.parentElement.querySelector('div');
+      if(!sub) return;
+      var open = sub.classList.contains('flex');
+      sub.classList.toggle('hidden', open);
+      sub.classList.toggle('flex', !open);
+    }
+  </script>
+</body>
+</html>
