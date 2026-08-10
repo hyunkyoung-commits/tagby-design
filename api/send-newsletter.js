@@ -90,7 +90,7 @@ function newsletterHtml({ subject, intro, articles, issueNumber, subscriber }) {
     <tr>
       <td style="padding:0 0 32px;">
         <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eeeeee;border-radius:10px;overflow:hidden;">
-          ${article.imageUrl ? `<tr><td style="padding:0;"><a href="${article.imageUrl}" target="_blank" style="display:block;"><img src="${article.imageUrl}" alt="${escapeHtml(article.title)}" width="100%" style="display:block;width:100%;max-height:260px;object-fit:cover;"></a></td></tr>` : ''}
+          ${article.imageUrl ? `<tr><td style="padding:0;"><a href="${article.imageUrl}" target="_blank" style="display:block;"><img src="${article.imageUrl}" alt="${escapeHtml(article.title)}" width="100%" style="display:block;width:100%;height:auto;"></a></td></tr>` : ''}
           <tr>
             <td style="padding:28px 32px;">
               <div style="font-size:11px;font-weight:700;color:#0078F0;letter-spacing:2px;margin-bottom:10px;">0${index + 1}</div>
