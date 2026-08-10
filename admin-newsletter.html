@@ -159,7 +159,8 @@
         <div class="flex items-center gap-3 pt-6" style="border-top:1px solid #2d2d2d;">
           <button onclick="previewNewsletter()" class="btn-secondary">미리보기</button>
           <button onclick="saveDraft()" class="btn-secondary" style="color:#4ade80;border-color:#2d4d2d;">임시저장</button>
-          <button id="sendBtn" onclick="sendNewsletter()" class="btn-primary">발송하기</button>
+          <button id="testBtn" onclick="sendTestNewsletter()" class="btn-secondary" style="color:#f59e0b;border-color:#44340a;">테스트 발송</button>
+          <button id="sendBtn" onclick="sendNewsletter()" class="btn-primary">전체 발송</button>
           <span id="draftSavedMsg" style="font-size:12px;color:#555;"></span>
           <span id="sendStatus" style="font-size:13px;color:#888;"></span>
         </div>
@@ -599,6 +600,40 @@
     } finally {
       btn.disabled = false
       btn.textContent = '발송하기'
+    }
+  }
+
+  async function sendTestNewsletter() {
+    const { subject, intro, articles, issueNumber } = getFormData()
+    if (!subject) { alert('제목을 입력해주세요.'); return }
+    if (!articles.length) { alert('아티클을 1개 이상 추가해주세요.'); return }
+
+    const btn = document.getElementById('testBtn')
+    const status = document.getElementById('sendStatus')
+    btn.disabled = true
+    btn.textContent = '발송 중...'
+    status.textContent = ''
+
+    try {
+      const res = await fetch('/api/test-newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: adminPassword, subject, intro, articles, issueNumber })
+      })
+      const data = await res.json()
+      if (data.error) {
+        status.style.color = '#f87171'
+        status.textContent = '오류: ' + data.error
+      } else {
+        status.style.color = '#f59e0b'
+        status.textContent = `✓ 테스트 발송 완료 → ${data.sentTo}`
+      }
+    } catch {
+      status.style.color = '#f87171'
+      status.textContent = '네트워크 오류가 발생했습니다.'
+    } finally {
+      btn.disabled = false
+      btn.textContent = '테스트 발송'
     }
   }
 
