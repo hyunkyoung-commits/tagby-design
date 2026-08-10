@@ -149,7 +149,7 @@
 
         <div class="mb-6">
           <div class="flex items-center justify-between mb-4">
-            <label style="font-size:12px;color:#888;letter-spacing:0.5px;">아티클 <span style="color:#f87171;">*</span> <span style="color:#555;">(최대 5개)</span></label>
+            <label style="font-size:12px;color:#888;letter-spacing:0.5px;">아티클 <span style="color:#f87171;">*</span></label>
             <button onclick="addArticle()" class="btn-secondary" style="padding:6px 14px;font-size:12px;">+ 아티클 추가</button>
           </div>
           <div id="articleList" class="flex flex-col gap-3"></div>
@@ -379,7 +379,6 @@
   let articleCount = 0
 
   function addArticle() {
-    if (articleCount >= 5) return
     articleCount++
     const id = `article-${articleCount}`
     const idx = articleCount
