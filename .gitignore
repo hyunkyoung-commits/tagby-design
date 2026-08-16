@@ -19,3 +19,10 @@ unused/
 .claude/
 .claude/
 ._*
+
+# Backup files
+*.bak
+
+# Local backup / scratch folders
+design-study-article/thum_backup_*/
+_to_delete/
