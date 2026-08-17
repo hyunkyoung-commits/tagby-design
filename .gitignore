@@ -26,3 +26,11 @@ unused/
 # Local backup / scratch folders
 design-study-article/thum_backup_*/
 _to_delete/
+
+# 디독 영상 작업 원본 (SSD 로컬 보관, GitHub 100MB 제한 초과)
+design-study-article/디독/
+
+# 영상 원본 일반
+*.mp4
+*.mov
+*.zip
