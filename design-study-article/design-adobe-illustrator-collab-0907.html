@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon-v2.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <title>Adobe Illustrator에 실시간 공동 편집이 생겼다 - TAGby 태그바이</title>
+  <meta name="description" content="Creative Cloud로 동시 편집·라이브 커서 지원 — Figma의 핵심 기능이 드디어 Illustrator에">
+  <meta name="robots" content="index, follow">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"Article","datePublished":"2026-09-07","dateModified":"2026-09-07","headline":"Adobe Illustrator에 실시간 공동 편집이 생겼다 - TAGby 태그바이","description":"Creative Cloud로 동시 편집·라이브 커서 지원 — Figma의 핵심 기능이 드디어 Illustrator에","url":"https://mkt.tagby.io/design-study-article/design-adobe-illustrator-collab-0907.html","inLanguage":"ko-KR","publisher":{"@type":"Organization","name":"TAGby","url":"https://mkt.tagby.io"},"author":{"@type":"Organization","name":"TAGby"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://mkt.tagby.io/"},{"@type":"ListItem","position":2,"name":"아티클","item":"https://mkt.tagby.io/tagby-article.html"},{"@type":"ListItem","position":3,"name":"Adobe Illustrator에 실시간 공동 편집이 생겼다","item":"https://mkt.tagby.io/design-study-article/design-adobe-illustrator-collab-0907.html"}]}]}
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background-color:#1A1A1A;color:white;}
+    .article-content{font-size:1.125rem;line-height:1.8;color:#E0E0E0;}
+    .article-content p{margin-bottom:0.6rem;}
+    .article-content strong{color:white;font-weight:600;}
+    .article-content h2{font-size:1.5rem;font-weight:700;color:white;margin-top:6rem;margin-bottom:1rem;}
+    .article-content ul{list-style:disc;padding-left:1.5rem;margin-bottom:1.5rem;}
+    .article-content ul li{margin-bottom:0.5rem;}
+    .article-content ol{list-style:decimal;padding-left:1.5rem;margin-bottom:1.5rem;}
+    .article-content ol li{margin-bottom:0.5rem;}
+    .scroll-to-top{position:fixed;bottom:32px;right:32px;width:56px;height:56px;background-color:#0078F0;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(20px);transition:all 0.3s ease;z-index:40;}
+    .scroll-to-top.visible{opacity:1;transform:translateY(0);}
+    .dropdown-menu{display:none;opacity:0;transform:translateY(-10px);}
+    .dropdown{position:relative;}
+    .dropdown::after{content:'';position:absolute;top:100%;left:0;right:0;height:20px;}
+    .mobile-menu{position:fixed;top:0;right:-100%;width:280px;height:100vh;background-color:#1A1A1A;box-shadow:-4px 0 12px rgba(0,0,0,0.5);transition:right 0.3s ease;z-index:100;overflow-y:auto;}
+    .mobile-menu.active{right:0;}
+    .mobile-overlay{display:none;position:fixed;inset:0;background-color:rgba(0,0,0,0.7);z-index:99;}
+    .mobile-overlay.active{display:block;}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
+    .hamburger span{width:24px;height:2px;background-color:#fff;transition:all 0.3s ease;}
+    .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(7px,7px);}
+    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px);}
+    @media(max-width:1023px){.hamburger{display:flex;}}
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5675K11SP"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D5675K11SP');</script>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="TAGby">
+  <meta property="og:title" content="Adobe Illustrator에 실시간 공동 편집이 생겼다 - TAGby 태그바이">
+  <meta property="og:description" content="Creative Cloud로 동시 편집·라이브 커서 지원 — Figma의 핵심 기능이 드디어 Illustrator에">
+  <meta property="og:url" content="https://mkt.tagby.io/design-study-article/design-adobe-illustrator-collab-0907.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://mkt.tagby.io/design-study-article/design-adobe-illustrator-collab-0907.html">
+</head>
+<body>
+
+  <header id="header" style="position:fixed;top:0;width:100%;z-index:50;transition:all 0.3s;backdrop-filter:blur(12px);background-color:rgba(26,26,26,0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../" class="cursor-pointer hover:opacity-80 transition"><img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8"></a>
+      <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
+        <a href="../about.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">회사소개</a>
+        <div class="relative dropdown flex items-center"><a href="../#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a><div class="dropdown-menu absolute top-full left-0 mt-4 bg-gray-900 rounded-lg shadow-xl overflow-hidden" style="min-width:200px;"><a href="../performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a><a href="../influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a></div></div>
+        <div class="relative dropdown flex items-center"><a href="../portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a><div class="dropdown-menu absolute top-full left-0 mt-2 bg-gray-900 rounded-xl shadow-xl p-6" style="min-width:420px;"><div class="grid grid-cols-3 gap-6"><div><p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">패션</p><div class="flex flex-col"><a href="../spao.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">스파오</a><a href="../mixxo.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">미쏘</a><a href="../newbalance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">뉴발란스</a><a href="../spaokids.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">스파오키즈</a><a href="../roem.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">로엠</a><a href="../eblin.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">에블린</a><a href="../eider.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">아이더</a></div></div><div><p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">생활/잡화</p><div class="flex flex-col"><a href="../cocodor.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">코코도르</a><a href="../emart.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">이마트</a></div></div><div><p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">교육</p><div class="flex flex-col"><a href="../minbyoungcheol.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">민병철유폰</a></div></div></div></div></div>
+        <div class="relative dropdown flex items-center"><a href="../org-chart.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a><div class="dropdown-menu absolute top-full left-0 mt-4 bg-gray-900 rounded-lg shadow-xl overflow-hidden" style="min-width:180px;"><a href="../culture.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">조직문화</a><a href="../org-chart.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">조직도</a><a href="../recruit.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">채용</a></div></div>
+        <a href="../tagby-article.html" class="text-xs md:text-sm lg:text-base font-medium text-white hover:text-[#0078F0] transition whitespace-nowrap">아티클</a>
+        <a href="../contact.html" class="px-6 py-2.5 text-sm font-semibold rounded-full transition whitespace-nowrap hover:opacity-85" style="background:#0078F0;color:white;">문의하기</a>
+      </div>
+      <div class="hamburger lg:hidden" id="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu"><div class="p-8"><a href="../" class="cursor-pointer hover:opacity-80 transition mb-8 inline-block"><img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8"></a><nav class="flex flex-col gap-4"><a href="../about.html" class="text-lg font-medium text-gray-300 hover:text-[#0078F0] transition py-2">회사소개</a><div class="py-2"><p class="text-lg font-medium text-gray-300 mb-3">디지털 마케팅</p><div class="flex flex-col gap-2 pl-4"><a href="../performance-marketing.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">퍼포먼스 마케팅</a><a href="../influencer-marketing.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">인플루언서 마케팅</a></div></div><a href="../tagby-article.html" class="text-lg font-medium text-white hover:text-[#0078F0] transition py-2">아티클</a><a href="../contact.html" class="mt-2 text-center px-6 py-3 rounded-full text-white font-bold text-base" style="background:#0078F0;">문의하기</a></nav></div></div>
+
+  <article class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+      <div class="mb-8"><a href="../tagby-article.html" class="text-sm text-gray-500 hover:text-[#0078F0] transition">← 목록으로 돌아가기</a></div>
+      <div class="mb-6"><span class="text-sm text-[#0078F0] font-medium">디자인</span><span class="text-sm text-gray-500 ml-4">26. 09. 07.</span></div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight" style="font-weight:800;line-height:1.3;">Adobe Illustrator에 실시간 공동 편집이 생겼다</h1>
+      <p class="text-sm text-gray-500 mb-12">Creative Cloud로 동시 편집·라이브 커서 지원 — Figma의 핵심 기능이 드디어 Illustrator에</p>
+      <div class="article-content">
+        <p>Adobe Illustrator가 2026년 9월 업데이트를 통해 실시간 공동 편집(Real-time Co-editing) 기능을 공식 지원하기 시작했습니다. Creative Cloud를 통해 여러 명이 동시에 같은 Illustrator 파일을 열고 작업할 수 있게 됐습니다.</p>
+        <p>이 기능은 오랫동안 Figma의 핵심 경쟁력 중 하나였습니다. Illustrator 사용자 커뮤니티에서도 오래 전부터 요청해온 기능이 이번에야 공식 도입된 것입니다.</p>
+
+        <h2>어떻게 작동하나요?</h2>
+        <p>실시간 공동 편집 기능은 Creative Cloud 클라우드 문서로 저장된 파일에서 동작합니다. 팀원이 같은 파일을 열면 각자의 작업 위치가 이름이 표시된 라이브 커서로 화면에 나타납니다.</p>
+        <p>한 사람이 오브젝트를 이동하거나 수정하면 다른 팀원의 화면에도 실시간으로 반영됩니다. 기존에는 파일을 저장하고 공유하거나, 링크를 보내 댓글로 피드백을 주고받는 방식이었다면, 이제는 같은 화면에서 즉각적으로 협업할 수 있습니다.</p>
+
+        <h2>버전 히스토리 30일 → 90일 확대</h2>
+        <p>이번 업데이트에서 유료 Creative Cloud 플랜 사용자는 버전 히스토리 보관 기간이 30일에서 90일로 늘어났습니다.</p>
+        <p>협업 작업이 많아질수록 특정 시점으로 되돌아가야 하는 상황이 생기기 마련입니다. 보관 기간이 3배로 늘어난 것은 협업 환경에서 실질적인 안전망 역할을 합니다.</p>
+
+        <h2>Figma와 비교하면</h2>
+        <p>Figma는 초기부터 브라우저 기반 실시간 협업을 핵심으로 설계된 도구입니다. Illustrator의 이번 업데이트가 Figma와 동일한 협업 경험을 제공한다고 보기는 어렵습니다. Illustrator는 여전히 데스크탑 앱 기반이며, 고도로 복잡한 대형 파일에서의 동시 편집 성능은 검증이 더 필요합니다.</p>
+        <p>그러나 인쇄물, 브랜드 아이덴티티, 패키지 디자인처럼 Illustrator가 강세를 보이는 영역에서 협업 워크플로우가 크게 개선될 것은 분명합니다. 에이전시 환경에서 아트디렉터와 디자이너가 같은 AI 파일을 동시에 수정하는 것이 이제 가능해졌습니다.</p>
+
+        <h2>디자이너에게 미치는 실질적인 영향</h2>
+        <p>이번 기능은 Adobe가 오랫동안 Figma에 밀렸던 협업 경험을 따라잡으려는 시도의 일환입니다. 실제로 많은 디자인 팀이 브랜딩·인쇄물 작업은 Illustrator, 화면 디자인은 Figma로 분리해 사용해왔습니다.</p>
+        <p>두 툴 사이를 오가는 번거로움이 줄어들 수 있다는 점에서 반길 팀들이 있을 것입니다. 특히 Illustrator를 주력으로 쓰면서 공동 작업이 잦은 팀이라면 이번 업데이트의 수혜를 가장 크게 받을 것으로 보입니다.</p>
+<p style="margin-top:3rem;font-size:0.85rem;color:#555;">출처: <a href="https://practicetestgeeks.com/adobe/adobe-illustrator-new-features" target="_blank" rel="noopener" style="color:#555;text-decoration:underline;">Adobe Illustrator 2026 September New Features</a></p>
+      </div>
+      <div class="mt-12 pt-8 border-t border-gray-800"><div class="flex flex-wrap gap-2"><span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#Adobe</span><span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#Illustrator</span><span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#공동편집</span><span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#디자인협업</span><span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#CreativeCloud</span><span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#디자인툴</span></div></div>
+    </div>
+  <section style="border-top:1px solid #2D2D2D;margin-top:4rem;padding:3rem 1.5rem 0;">
+    <div class="container mx-auto" style="max-width:48rem;">
+      <h2 style="font-size:1rem;font-weight:700;color:#9CA3AF;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.5rem;">추천 아티클</h2>
+      <div id="related-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;"></div>
+    </div>
+  </section>
+  <script>(function(){var SLUG='design-adobe-illustrator-collab-0907';var CAT='디자인';fetch('https://mkt.tagby.io/articles.json').then(function(r){return r.json();}).then(function(all){var me=all.find(function(a){return a.slug===SLUG;});var myTags=me&&me.tags?me.tags:[];var cands=all.filter(function(a){return a.slug!==SLUG;});cands=cands.map(function(a){var o=0;if(myTags.length>0&&a.tags){myTags.forEach(function(t){if(a.tags.indexOf(t)!==-1)o++;})}a._s=o*10+(a.category===CAT?1:0);return a;});cands.sort(function(a,b){return b._s-a._s;});var picks=cands.slice(0,3);var grid=document.getElementById('related-grid');if(!grid||picks.length===0)return;grid.innerHTML=picks.map(function(a){var ch=a.cover?'<img src="https://mkt.tagby.io/'+a.cover+'" alt="'+a.title+'" style="width:100%;height:100%;object-fit:cover;">':"<img src=\'https://mkt.tagby.io/design-study-article/thum/"+a.slug+".png\' style=\'width:100%;height:100%;object-fit:cover;\'>";return '<a href="https://mkt.tagby.io/design-study-article/'+a.slug+'.html" style="display:block;background:#1F1F1F;border-radius:12px;overflow:hidden;text-decoration:none;" onmouseover="this.style.background=\'#2A2A2A\'" onmouseout="this.style.background=\'#1F1F1F\'"><div style="aspect-ratio:4/3;overflow:hidden;background:#111;">'+ch+'</div><div style="padding:0.875rem;"><p style="font-size:0.7rem;color:#0078F0;font-weight:600;margin:0 0 0.35rem;">'+a.category+'</p><p style="font-size:0.82rem;font-weight:700;color:#fff;margin:0 0 0.4rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">'+a.title+'</p><p style="font-size:0.72rem;color:#6B7280;margin:0;">'+a.date+'</p></div></a>';}).join('');})).catch(function(){});})();</script>
+  </article>
+  <footer class="py-16 px-6 bg-black border-t" style="border-color:#333;">
+    <div class="container mx-auto max-w-6xl"><div class="grid md:grid-cols-3 gap-12"><div><img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" style="height:32px;width:auto;margin-bottom:1.5rem;"></div><div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">OFFICE</h4><p class="text-sm text-gray-400 leading-relaxed">06130 서울특별시 강남구<br>테헤란로7길 22 스파크플러스<br>강남5호점 1015호</p></div><div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">CONTACT</h4><p class="text-sm text-gray-400 mb-2">070-7500-2220</p><p class="text-sm text-gray-400 mb-6">support@tagby.io</p><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">SOCIAL</h4><a href="#" class="text-sm text-gray-400 hover:text-white transition">Instagram</a></div></div></div>
+  </footer>
+  <div class="scroll-to-top" id="scrollToTop"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></div>
+  <script>window.addEventListener('scroll',()=>{document.getElementById('scrollToTop').classList.toggle('visible',window.scrollY>300);});document.getElementById('scrollToTop').addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});});</script>
+  <script>const hamburger=document.getElementById('hamburger');const mobileMenu=document.getElementById('mobileMenu');const mobileOverlay=document.getElementById('mobileOverlay');hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');mobileMenu.classList.toggle('active');mobileOverlay.classList.toggle('active');document.body.style.overflow=mobileMenu.classList.contains('active')?'hidden':'';});mobileOverlay.addEventListener('click',()=>{hamburger.classList.remove('active');mobileMenu.classList.remove('active');mobileOverlay.classList.remove('active');document.body.style.overflow='';});mobileMenu.querySelectorAll('a').forEach(link=>{link.addEventListener('click',()=>{hamburger.classList.remove('active');mobileMenu.classList.remove('active');mobileOverlay.classList.remove('active');document.body.style.overflow='';});});</script>
+  <script>(function(){var d=Array.from(document.querySelectorAll('.dropdown'));var t;var a=null;function c(){d.forEach(function(x){var m=x.querySelector('.dropdown-menu');if(m){m.style.display='none';m.style.opacity='0';}});a=null;}function s(dd){clearTimeout(t);if(a&&a!==dd){var p=a.querySelector('.dropdown-menu');if(p){p.style.display='none';p.style.opacity='0';}}a=dd;var m=dd.querySelector('.dropdown-menu');if(m){m.style.display='block';m.style.opacity='1';m.style.transform='translateY(0)';}}function h(){t=setTimeout(c,300);}d.forEach(function(dd){var m=dd.querySelector('.dropdown-menu');if(!m)return;dd.addEventListener('mouseenter',function(){s(dd);});dd.addEventListener('mouseleave',h);m.addEventListener('mouseenter',function(){s(dd);});m.addEventListener('mouseleave',h);});})();</script>
+</body>
+</html>
