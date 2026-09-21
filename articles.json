@@ -1,5 +1,131 @@
 [
   {
+    "slug": "news-figma-mcp-server-0921",
+    "title": "AI 코딩 툴이 피그마를 직접 읽는다",
+    "subtitle": "Figma MCP 서버로 디자인-개발 핸드오프 마찰이 줄어든다",
+    "date": "26. 09. 21",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Figma",
+      "#MCP",
+      "#디자인개발협업",
+      "#디자인툴"
+    ]
+  },
+  {
+    "slug": "news-figma-weave-tools-community-0921",
+    "title": "피그마 위브 툴, 이제 내가 만들어서 공유한다",
+    "subtitle": "Weave Tools 커뮤니티 퍼블리싱 9월 16일 오픈",
+    "date": "26. 09. 21",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Figma",
+      "#WeaveTools",
+      "#디자인툴",
+      "#생성형AI"
+    ]
+  },
+  {
+    "slug": "news-tiktok-hide-profile-option-0921",
+    "title": "틱톡, 프로필엔 안 보이는 영상이 생긴다",
+    "subtitle": "'프로필에 표시 안 함' 옵션, iOS에서 테스트 중",
+    "date": "26. 09. 21",
+    "category": "콘텐츠마케팅",
+    "cover": "",
+    "tags": [
+      "#틱톡",
+      "#콘텐츠전략",
+      "#크리에이터툴",
+      "#콘텐츠마케팅"
+    ]
+  },
+  {
+    "slug": "content-quality-over-quantity-ai-0921",
+    "title": "AI 시대, 콘텐츠는 양보다 질입니다",
+    "subtitle": "AI가 학습하고 인용하는 콘텐츠의 조건",
+    "date": "26. 09. 21",
+    "category": "콘텐츠마케팅",
+    "cover": "",
+    "tags": [
+      "#콘텐츠품질",
+      "#AI검색",
+      "#GEO",
+      "#콘텐츠마케팅"
+    ]
+  },
+  {
+    "slug": "news-tiktok-completion-rate-70-0921",
+    "title": "틱톡 바이럴 기준, 이제 완주율 70%입니다",
+    "subtitle": "2024년 50%에서 급등 — 숏폼 제작 기준이 빡빡해졌다",
+    "date": "26. 09. 21",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#틱톡",
+      "#완주율",
+      "#숏폼전략",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-google-ads-offline-conversion-limit-0921",
+    "title": "전환 업로드, 7일 넘기면 안 잡힙니다",
+    "subtitle": "Google Ads 오프라인 전환 업로드 새 제한 도입",
+    "date": "26. 09. 21",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#구글광고",
+      "#오프라인전환",
+      "#전환추적",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-google-ads-alcohol-policy-0921",
+    "title": "유튜브에서 술 광고가 허용된다",
+    "subtitle": "10월 30일부터 맞춤 광고 정책 완화",
+    "date": "26. 09. 21",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#구글광고",
+      "#유튜브광고",
+      "#광고정책",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-instagram-reels-clickable-links-0921",
+    "title": "릴스에 링크가 생겼다, 이제 바로 구매로 연결된다",
+    "subtitle": "발견과 구매 사이, 이탈 구간이 사라진다",
+    "date": "26. 09. 21",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#인스타그램릴스",
+      "#커머스",
+      "#소셜커머스",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-instagram-creator-marketplace-kr-0921",
+    "title": "인스타그램 크리에이터 마켓플레이스, 한국에 열렸다",
+    "subtitle": "독일·프랑스·스페인 등과 함께 국내 정식 오픈",
+    "date": "26. 09. 21",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#인스타그램",
+      "#크리에이터마켓플레이스",
+      "#인플루언서마케팅",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
     "slug": "content-november-ad-prep-0921",
     "title": "11월 광고 성과를 10월부터 준비해야 하는 이유",
     "subtitle": "추석이 끝나면, 11월 광고 준비가 시작됩니다",
