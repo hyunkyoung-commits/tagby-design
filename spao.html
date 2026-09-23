@@ -330,6 +330,30 @@
       border-radius: 20px;
       letter-spacing: 0.06em;
     }
+    /* 캐러셀 */
+    .carousel-item { overflow: hidden; }
+    .carousel-item::before { opacity: 1 !important; }
+    .carousel-track { display: flex; width: 100%; height: 100%; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .carousel-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; background: transparent; position: relative !important; z-index: 2 !important; transform: none !important; transition: none !important; }
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 4;
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(4px); border: none;
+      color: white; font-size: 24px; width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      opacity: 0; transition: opacity 0.2s ease; line-height: 1;
+    }
+    .gallery-item:hover .carousel-btn { opacity: 1; }
+    .carousel-prev { left: 10px; }
+    .carousel-next { right: 10px; }
+    .carousel-dots {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      z-index: 4; display: flex; gap: 5px;
+    }
+    .carousel-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.5); cursor: pointer; transition: background 0.2s;
+    }
+    .carousel-dot.active { background: white; }
   </style>
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js"></script>
 <script>
@@ -567,6 +591,98 @@ if(location.hash.includes("figmacapture")){
       <div class="gallery-grid" id="galleryGrid">
 
         <div class="gallery-item fade-in" data-index="0">
+          <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.08%29%20%EC%96%B4%ED%85%80%EC%9C%84%ED%81%AC%20%EC%95%B5%EC%BD%9C.jpg" alt="SPAO 어텀위크 앵콜" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">SPAO</p>
+              <p class="text-white/70 text-xs mb-2">26.08</p>
+              <p class="text-white text-lg font-bold">어텀위크 앵콜</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item fade-in" data-index="1">
+          <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.08%29%20FW%ED%8C%8C%EC%9E%90%EB%A7%88.jpg" alt="SPAO FW파자마" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">SPAO</p>
+              <p class="text-white/70 text-xs mb-2">26.08</p>
+              <p class="text-white text-lg font-bold">FW파자마</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item fade-in" data-index="2">
+          <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.08%29%20%EC%BD%9C%EB%9D%BC%EB%B3%B4%20%EB%B0%98%ED%8C%94%ED%8C%8C%EC%9E%90%EB%A7%88%20%ED%92%88%EC%A0%88%EC%A4%91.jpg" alt="SPAO 콜라보 반팔파자마 품절중" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">SPAO</p>
+              <p class="text-white/70 text-xs mb-2">26.08</p>
+              <p class="text-white text-lg font-bold">콜라보 반팔파자마 품절중</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item fade-in carousel-item" data-index="3" style="cursor:default;">
+          <div class="carousel-track" id="carousel-spao-1">
+            <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.08%29%20%EC%96%B4%ED%85%80%EC%9C%84%ED%81%AC-1.png" alt="SPAO 어텀위크" onerror="this.parentElement.parentElement.style.background='#E5EAF0';this.style.display='none'">
+            <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.08%29%20%EC%96%B4%ED%85%80%EC%9C%84%ED%81%AC-2.png" alt="SPAO 어텀위크" onerror="this.parentElement.parentElement.style.background='#E5EAF0';this.style.display='none'">
+            <img loading="lazy" src="images/portfolio/spao/%5BKakao%5D%2826.08%29%20%EC%96%B4%ED%85%80%EC%9C%84%ED%81%AC-3.png" alt="SPAO 어텀위크" onerror="this.parentElement.parentElement.style.background='#E5EAF0';this.style.display='none'">
+          </div>
+          <button class="carousel-btn carousel-prev" onclick="carouselMove('carousel-spao-1', -1, event)">&#8249;</button>
+          <button class="carousel-btn carousel-next" onclick="carouselMove('carousel-spao-1', 1, event)">&#8250;</button>
+          <div class="carousel-dots" id="dots-carousel-spao-1">
+            <span class="carousel-dot active" onclick="carouselGoto('carousel-spao-1', 0, event)"></span>
+            <span class="carousel-dot" onclick="carouselGoto('carousel-spao-1', 1, event)"></span>
+            <span class="carousel-dot" onclick="carouselGoto('carousel-spao-1', 2, event)"></span>
+          </div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">SPAO</p>
+              <p class="text-white/70 text-xs mb-2">26.08</p>
+              <p class="text-white text-lg font-bold">어텀위크</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item fade-in" data-index="4">
+          <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.08%29%20%EC%97%AD%EC%8B%9C%EC%A6%8C.jpg" alt="SPAO 역시즌" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">SPAO</p>
+              <p class="text-white/70 text-xs mb-2">26.08</p>
+              <p class="text-white text-lg font-bold">역시즌</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item fade-in" data-index="5">
+          <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.08%29%20%EC%BD%9C%EB%9D%BC%EB%B3%B4%20%EB%B0%98%ED%8C%94%ED%8C%8C%EC%9E%90%EB%A7%88.jpg" alt="SPAO 콜라보 반팔파자마" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">SPAO</p>
+              <p class="text-white/70 text-xs mb-2">26.08</p>
+              <p class="text-white text-lg font-bold">콜라보 반팔파자마</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item fade-in hidden" data-index="6">
+          <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.08%29%20FW%ED%8C%8C%EC%9E%90%EB%A7%88%20%EC%B6%9C%EC%8B%9C.jpg" alt="SPAO FW파자마 출시" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">SPAO</p>
+              <p class="text-white/70 text-xs mb-2">26.08</p>
+              <p class="text-white text-lg font-bold">FW파자마 출시</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item fade-in hidden" data-index="7">
+          <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.08%29%20%EB%B8%8C%EB%9E%9C%EB%93%9C%EB%8D%B0%EC%9D%B4.jpg" alt="SPAO 브랜드데이" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <p class="text-white text-sm mb-1 font-medium">SPAO</p>
+              <p class="text-white/70 text-xs mb-2">26.08</p>
+              <p class="text-white text-lg font-bold">브랜드데이</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item fade-in hidden" data-index="8">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.07%29%20%EC%A3%BC%EB%A7%90%ED%8A%B9%EA%B0%80.jpg" alt="SPAO 주말특가" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -576,7 +692,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in" data-index="1">
+        <div class="gallery-item fade-in hidden" data-index="9">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.07%29%20%ED%8C%8C%EC%9E%90%EB%A7%88%20%EC%98%A4%EC%84%B8%EC%9D%BC.jpg" alt="SPAO 파자마 오세일" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -586,7 +702,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in" data-index="2">
+        <div class="gallery-item fade-in hidden" data-index="10">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.07%29%20%EC%9B%94%EA%B0%84%EC%8A%A4%ED%8C%8C%EC%98%A4.jpg" alt="SPAO 월간스파오" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -596,7 +712,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in" data-index="3">
+        <div class="gallery-item fade-in hidden" data-index="11">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.07%29%20%EC%98%A4%EC%84%B8%EC%9D%BC.png" alt="SPAO 오세일" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -606,7 +722,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in" data-index="4">
+        <div class="gallery-item fade-in hidden" data-index="12">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.07%29%20%EB%A9%A4%EB%B2%84%EC%8A%A4%EC%9C%84%ED%81%AC.jpg" alt="SPAO 멤버스위크" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -616,7 +732,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in" data-index="5">
+        <div class="gallery-item fade-in hidden" data-index="13">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.07%29%20%EC%9B%B0%EC%BB%B4%EC%9C%84%ED%81%AC.jpg" alt="SPAO 웰컴위크" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -626,7 +742,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="6">
+        <div class="gallery-item fade-in hidden" data-index="14">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.07%29%20%EC%83%9D%ED%95%84%ED%92%88.jpg" alt="SPAO 생필품" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -636,7 +752,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="7">
+        <div class="gallery-item fade-in hidden" data-index="15">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.07%29%20%EC%BF%A8%ED%85%8C%ED%81%AC.jpg" alt="SPAO 쿨테크" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -646,7 +762,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="8">
+        <div class="gallery-item fade-in hidden" data-index="16">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.06%29%20%EC%8D%B8%EB%A8%B8%EC%9C%84%ED%81%AC%20%ED%8C%8C%EC%9E%90%EB%A7%88.jpg" alt="SPAO 썸머위크 파자마" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -656,7 +772,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="9">
+        <div class="gallery-item fade-in hidden" data-index="17">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.06%29%20%EC%8A%A4%ED%8C%8C%EC%98%A4%EC%9C%84%ED%81%AC%20%EB%B2%A0%EC%8A%A4%ED%8A%B8%EC%96%B4%EC%9B%8C%EC%A6%88.jpg" alt="SPAO 스파오위크 베스트어워즈" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -666,7 +782,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="10">
+        <div class="gallery-item fade-in hidden" data-index="18">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.06%29%20%EC%BF%A8%EC%A3%BC%EB%A7%90%ED%8A%B9%EA%B0%80.jpg" alt="SPAO 쿨주말특가" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -676,7 +792,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="11">
+        <div class="gallery-item fade-in hidden" data-index="19">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.06%29%20%EB%A9%A4%EB%B2%84%EC%8A%A4%EC%9C%84%ED%81%AC.jpg" alt="SPAO 멤버스위크" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -686,7 +802,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="12">
+        <div class="gallery-item fade-in hidden" data-index="20">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.06%29%20%EC%BF%A8%ED%8E%98%EC%8A%A4%ED%83%80.jpg" alt="SPAO 쿨페스타" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -696,7 +812,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="13">
+        <div class="gallery-item fade-in hidden" data-index="21">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.06%29%20BRA-IN.jpg" alt="SPAO BRA-IN" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -706,7 +822,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="14">
+        <div class="gallery-item fade-in hidden" data-index="22">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.06%29%20%EB%AF%BC%EC%86%8C%EB%A7%A4%ED%8C%8C%EC%9E%90%EB%A7%88.jpg" alt="SPAO 민소매파자마" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -716,7 +832,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="15">
+        <div class="gallery-item fade-in hidden" data-index="23">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.06%29%20%EB%B0%98%ED%8C%94%ED%8C%8C%EC%9E%90%EB%A7%88.jpg" alt="SPAO 반팔파자마" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -726,7 +842,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="16">
+        <div class="gallery-item fade-in hidden" data-index="24">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.06%29%20%EC%BF%A8%EC%A7%84.jpg" alt="SPAO 쿨진" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -736,7 +852,7 @@ if(location.hash.includes("figmacapture")){
             </div>
           </div>
         </div>
-        <div class="gallery-item fade-in hidden" data-index="17">
+        <div class="gallery-item fade-in hidden" data-index="25">
           <img loading="lazy" src="images/portfolio/spao/%5BTwitter%5D%2826.06%29%20%EC%BD%9C%EB%9D%BC%EB%B3%B4%ED%8B%B0%EC%85%94%EC%B8%A0.jpg" alt="SPAO 콜라보티셔츠" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -747,7 +863,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="18">
+        <div class="gallery-item fade-in hidden" data-index="26">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.05%29cool%20festa.jpg" alt="SPAO cool festa" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -758,7 +874,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="19">
+        <div class="gallery-item fade-in hidden" data-index="27">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.05%29sheer%20wind%20breaker.jpg" alt="SPAO sheer wind breaker" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -769,7 +885,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="20">
+        <div class="gallery-item fade-in hidden" data-index="28">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.05%29cool%20festa.jpg" alt="SPAO cool festa" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -780,7 +896,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="21">
+        <div class="gallery-item fade-in hidden" data-index="29">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.05%29members%20week.jpg" alt="SPAO members week" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -791,7 +907,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="22">
+        <div class="gallery-item fade-in hidden" data-index="30">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.05%29sleeveless%20pajama.jpg" alt="SPAO sleeveless pajama" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -802,7 +918,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="23">
+        <div class="gallery-item fade-in hidden" data-index="31">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.05%29summer%20shirts2.jpg" alt="SPAO summer shirts2" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -815,7 +931,7 @@ if(location.hash.includes("figmacapture")){
 
 
 
-        <div class="gallery-item fade-in hidden" data-index="24">
+        <div class="gallery-item fade-in hidden" data-index="32">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.04%29Cool%20jean.png" alt="SPAO Cool jean" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -826,7 +942,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="25">
+        <div class="gallery-item fade-in hidden" data-index="33">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.04%29cool%20innerwear%20collection.png" alt="SPAO cool innerwear collection" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -837,7 +953,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="26">
+        <div class="gallery-item fade-in hidden" data-index="34">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.04%29%EB%A0%88%EC%98%A4%ED%8C%8C%EB%93%9C%20%ED%8C%8C%EC%9E%90%EB%A7%88.png" alt="SPAO 레오파드 파자마" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -848,7 +964,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="27">
+        <div class="gallery-item fade-in hidden" data-index="35">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.04%29%EC%8A%A4%ED%8C%8C%EC%98%A4%20%ED%8B%B0%EC%85%94%EC%B8%A0%20%ED%8E%98%EC%8A%A4%ED%83%80.png" alt="SPAO 스파오 티셔츠 페스타" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -859,7 +975,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="28">
+        <div class="gallery-item fade-in hidden" data-index="36">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.04%29%EC%9B%94%EA%B0%84%EC%8A%A4%ED%8C%8C%EC%98%A4.png" alt="SPAO 월간스파오" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -870,7 +986,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="29">
+        <div class="gallery-item fade-in hidden" data-index="37">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.04%29summer%20collection.png" alt="SPAO summer collection" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -881,7 +997,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="30">
+        <div class="gallery-item fade-in hidden" data-index="38">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.04%29cool%20jean.jpg" alt="SPAO cool jean" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -892,7 +1008,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="31">
+        <div class="gallery-item fade-in hidden" data-index="39">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.04%29windbreaker.jpg" alt="SPAO windbreaker" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -903,7 +1019,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="32">
+        <div class="gallery-item fade-in hidden" data-index="40">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.04%29ss%20item.jpg" alt="SPAO ss item" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -914,7 +1030,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="33">
+        <div class="gallery-item fade-in hidden" data-index="41">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.04%29summer%20pajama%20chowcase.jpg" alt="SPAO summer pajama chowcase" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -925,7 +1041,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="34">
+        <div class="gallery-item fade-in hidden" data-index="42">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.04%29summer%20pajama.jpg" alt="SPAO summer pajama" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -936,7 +1052,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="35">
+        <div class="gallery-item fade-in hidden" data-index="43">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.04%29tshirts.jpg" alt="SPAO tshirts" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -947,7 +1063,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="36">
+        <div class="gallery-item fade-in hidden" data-index="44">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.03%29%20%EC%BD%9C%EB%9D%BC%EB%B3%B4%ED%8B%B0%EC%85%94%EC%B8%A0.jpg" alt="SPAO 콜라보티셔츠" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -958,7 +1074,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="37">
+        <div class="gallery-item fade-in hidden" data-index="45">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.03%29%20%EB%B4%84%EB%A7%9E%EC%9D%B4%20BEST%20%ED%8A%B9%EA%B0%80%EC%83%81%ED%92%88.jpg" alt="SPAO 봄맞이 BEST 특가상품" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -969,7 +1085,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="38">
+        <div class="gallery-item fade-in hidden" data-index="46">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.03%29summer%20pajama.jpg" alt="SPAO summer pajama" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -980,7 +1096,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="39">
+        <div class="gallery-item fade-in hidden" data-index="47">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.03%29pajama.jpg" alt="SPAO pajama" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -991,7 +1107,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="40">
+        <div class="gallery-item fade-in hidden" data-index="48">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.03%29tshirts.jpg" alt="SPAO tshirts" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1002,7 +1118,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="41">
+        <div class="gallery-item fade-in hidden" data-index="49">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29%20%ED%94%84%EB%A0%8C%EC%B9%98%ED%85%8C%EB%A6%AC.jpg" alt="SPAO 프렌치테리" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1013,7 +1129,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="42">
+        <div class="gallery-item fade-in hidden" data-index="50">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29%20%EC%86%8C%ED%94%84%ED%8A%B8%20%EC%96%80%20-2.jpg" alt="SPAO 소프트 얀 -2" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1024,7 +1140,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="43">
+        <div class="gallery-item fade-in hidden" data-index="51">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29%20%EC%86%8C%ED%94%84%ED%8A%B8%20%EC%96%80%20-1.jpg" alt="SPAO 소프트 얀 -1" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1035,7 +1151,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="44">
+        <div class="gallery-item fade-in hidden" data-index="52">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29%20%EB%84%A4%EC%9D%B4%EB%B2%84%20%EB%B8%8C%EB%9E%9C%EB%93%9C%EC%9C%84%ED%81%AC%20-2.jpg" alt="SPAO 네이버 브랜드위크 -2" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1046,7 +1162,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="45">
+        <div class="gallery-item fade-in hidden" data-index="53">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29%20%EB%84%A4%EC%9D%B4%EB%B2%84%20%EB%B8%8C%EB%9E%9C%EB%93%9C%EC%9C%84%ED%81%AC%20-1.jpg" alt="SPAO 네이버 브랜드위크 -1" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1057,7 +1173,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="46">
+        <div class="gallery-item fade-in hidden" data-index="54">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29%20%EA%B0%84%EC%A0%88%EA%B8%B0%20%ED%8C%8C%EC%9E%90%EB%A7%88.jpg" alt="SPAO 간절기 파자마" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1068,7 +1184,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="47">
+        <div class="gallery-item fade-in hidden" data-index="55">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.02%29%20Thin%20Light%20-2.jpg" alt="SPAO Thin Light -2" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1079,7 +1195,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="48">
+        <div class="gallery-item fade-in hidden" data-index="56">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.02%29%20Thin%20Light%20-1.png" alt="SPAO Thin Light -1" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1090,7 +1206,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="49">
+        <div class="gallery-item fade-in hidden" data-index="57">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29brand%20day.jpg" alt="SPAO brand day" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1101,7 +1217,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="50">
+        <div class="gallery-item fade-in hidden" data-index="58">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29brand%20week.jpg" alt="SPAO brand week" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1112,7 +1228,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="51">
+        <div class="gallery-item fade-in hidden" data-index="59">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29cottonpants.jpg" alt="SPAO cottonpants" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1123,7 +1239,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="52">
+        <div class="gallery-item fade-in hidden" data-index="60">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29denim%20pants.jpg" alt="SPAO denim pants" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1134,7 +1250,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="53">
+        <div class="gallery-item fade-in hidden" data-index="61">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29new%20year%20sale%282%29.jpg" alt="SPAO new year sale(2)" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1145,7 +1261,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="54">
+        <div class="gallery-item fade-in hidden" data-index="62">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29new%20year%20sale.jpg" alt="SPAO new year sale" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1156,7 +1272,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="55">
+        <div class="gallery-item fade-in hidden" data-index="63">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29soft%20yarn.jpg" alt="SPAO soft yarn" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1167,7 +1283,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="56">
+        <div class="gallery-item fade-in hidden" data-index="64">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.02%29weekendsale.jpg" alt="SPAO weekendsale" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1178,7 +1294,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="57">
+        <div class="gallery-item fade-in hidden" data-index="65">
           <img loading="lazy" src="images/portfolio/spao/%5BAI%5D%5BMeta%5D%2826.01%29%20WARM%20TECH.jpg" alt="SPAO WARM TECH" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1189,7 +1305,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="58">
+        <div class="gallery-item fade-in hidden" data-index="66">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.01%29%20%EC%88%98%EB%A9%B4%ED%8C%8C%EC%9E%90%EB%A7%88.png" alt="SPAO 수면파자마" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1200,7 +1316,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="59">
+        <div class="gallery-item fade-in hidden" data-index="67">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.01%2926SS%20%EA%B0%84%EC%A0%88%EA%B8%B0%20%ED%8C%8C%EC%9E%90%EB%A7%88%20%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4.png" alt="SPAO 26SS 간절기 파자마 쇼케이스" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1211,7 +1327,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="60">
+        <div class="gallery-item fade-in hidden" data-index="68">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.01%29thin%20light.jpg" alt="SPAO thin light" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1222,7 +1338,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="61">
+        <div class="gallery-item fade-in hidden" data-index="69">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2826.01%29winter%20pajama%20sale.jpg" alt="SPAO winter pajama sale" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1233,7 +1349,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="62">
+        <div class="gallery-item fade-in hidden" data-index="70">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.11%29%20%ED%8D%BC%ED%94%8C%EB%A6%AC%EC%8A%A4%20%EC%A7%91%EC%97%85.png" alt="SPAO 퍼플리스 집업" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1244,7 +1360,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="63">
+        <div class="gallery-item fade-in hidden" data-index="71">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.11%29%20%EC%88%98%EB%A9%B4%ED%8C%8C%EC%9E%90%EB%A7%88.png" alt="SPAO 수면파자마" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1255,7 +1371,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="64">
+        <div class="gallery-item fade-in hidden" data-index="72">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.11%29%20WARM%20JEANS.png" alt="SPAO WARM JEANS" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1266,7 +1382,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="65">
+        <div class="gallery-item fade-in hidden" data-index="73">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.11%29%20Dumble%20Fleece.png" alt="SPAO Dumble Fleece" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1277,7 +1393,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="66">
+        <div class="gallery-item fade-in hidden" data-index="74">
           <img loading="lazy" src="images/portfolio/spao/%5BGFA%5D%2825.10%29%20%EC%8A%A4%ED%8C%8C%EC%98%A4%21%EC%9C%84%ED%81%AC.jpg" alt="SPAO 스파오!위크" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1288,7 +1404,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="67">
+        <div class="gallery-item fade-in hidden" data-index="75">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.10%29%20%ED%8D%BC%ED%94%8C%EB%A6%AC%EC%8A%A4%20%EC%A7%91%EC%97%85.jpg" alt="SPAO 퍼플리스 집업" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1299,7 +1415,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="68">
+        <div class="gallery-item fade-in hidden" data-index="76">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.09%29%20%EA%B0%84%EC%A0%88%EA%B8%B0%20%ED%8C%AC%EC%B8%A0.jpg" alt="SPAO 간절기 팬츠" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1310,7 +1426,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="69">
+        <div class="gallery-item fade-in hidden" data-index="77">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.09%29%20Pajama%20Check%20in.png" alt="SPAO Pajama Check in" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1321,7 +1437,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="70">
+        <div class="gallery-item fade-in hidden" data-index="78">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.09%29%20Curved%20Balloon%20Wide%20Cotton%20Pants.jpg" alt="SPAO Curved Balloon Wide Cotton Pants" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1332,7 +1448,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="71">
+        <div class="gallery-item fade-in hidden" data-index="79">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.08%29%20%ED%94%84%EB%A0%8C%EC%B9%98%ED%85%8C%EB%A6%AC.jpg" alt="SPAO 프렌치테리" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1343,7 +1459,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="72">
+        <div class="gallery-item fade-in hidden" data-index="80">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.07%29%20COOL%20JEANS.png" alt="SPAO COOL JEANS" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1354,7 +1470,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="73">
+        <div class="gallery-item fade-in hidden" data-index="81">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.04%29%20%EC%BF%A8%ED%8A%B8%EB%A6%AC%EC%BD%94%ED%8A%B8.jpg" alt="SPAO 쿨트리코트" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1365,7 +1481,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="74">
+        <div class="gallery-item fade-in hidden" data-index="82">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.04%29%20%EB%B0%98%ED%8C%94%20%ED%8C%8C%EC%9E%90%EB%A7%88%20%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4.jpg" alt="SPAO 반팔 파자마 쇼케이스" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1376,7 +1492,7 @@ if(location.hash.includes("figmacapture")){
           </div>
         </div>
 
-        <div class="gallery-item fade-in hidden" data-index="75">
+        <div class="gallery-item fade-in hidden" data-index="83">
           <img loading="lazy" src="images/portfolio/spao/%5BMeta%5D%2825.01%29%2025SS%20%EA%B0%84%EC%A0%88%EA%B8%B0%20%ED%8C%8C%EC%9E%90%EB%A7%88.jpg" alt="SPAO 25SS 간절기 파자마" onerror="this.parentElement.style.background='#E5EAF0';this.style.display='none'">
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -1549,6 +1665,57 @@ if(location.hash.includes("figmacapture")){
     });
   </script>
 
+  <script>
+    // 캐러셀
+    var carouselState = {};
+    function updateCarouselBg(id) {
+      var track = document.getElementById(id);
+      if (!track) return;
+      var imgs = track.querySelectorAll('img');
+      var idx = carouselState[id] || 0;
+      var src = imgs[idx] ? imgs[idx].getAttribute('src') : '';
+      var item = track.closest('.gallery-item');
+      if (item && src) item.style.backgroundImage = "url('" + src + "')";
+    }
+    function carouselMove(id, dir, e) {
+      if (e) e.stopPropagation();
+      var track = document.getElementById(id);
+      if (!track) return;
+      var total = track.querySelectorAll('img').length;
+      if (!carouselState[id]) carouselState[id] = 0;
+      carouselState[id] = (carouselState[id] + dir + total) % total;
+      track.style.transform = 'translateX(-' + (carouselState[id] * 100) + '%)';
+      updateDots(id, total);
+      updateCarouselBg(id);
+    }
+    function carouselGoto(id, idx, e) {
+      if (e) e.stopPropagation();
+      var track = document.getElementById(id);
+      if (!track) return;
+      var total = track.querySelectorAll('img').length;
+      carouselState[id] = idx;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      updateDots(id, total);
+      updateCarouselBg(id);
+    }
+    function updateDots(id, total) {
+      var dotsEl = document.getElementById('dots-' + id);
+      if (!dotsEl) return;
+      dotsEl.querySelectorAll('.carousel-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === carouselState[id]);
+      });
+    }
+    // 캐러셀 초기 배경 설정
+    document.querySelectorAll('.carousel-item').forEach(function(item) {
+      var track = item.querySelector('.carousel-track');
+      if (!track) return;
+      var firstImg = track.querySelector('img');
+      if (firstImg) {
+        var src = firstImg.getAttribute('src');
+        item.style.backgroundImage = "url('" + src + "')";
+      }
+    });
+  </script>
   <script>
     (function(){
       // Dropdown: shared timer so entering a new menu instantly closes the previous
