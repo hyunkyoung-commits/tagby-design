@@ -1,5 +1,117 @@
 [
   {
+    "slug": "news-adobe-acquires-rilo-0928",
+    "title": "어도비, AI 스타트업 릴로 인수",
+    "subtitle": "기업용 마케팅 조직의 AI 워크플로우 오케스트레이션 강화",
+    "date": "26. 09. 28",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Adobe",
+      "#Rilo",
+      "#AI워크플로우",
+      "#디자인툴"
+    ]
+  },
+  {
+    "slug": "news-figma-weave-node-0928",
+    "title": "피그마 위브, 기존 디자인 그대로 가져온다",
+    "subtitle": "'Figma Node'로 원본과 실시간 동기화",
+    "date": "26. 09. 28",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Figma",
+      "#FigmaWeave",
+      "#생성형AI",
+      "#디자인툴"
+    ]
+  },
+  {
+    "slug": "news-figma-autolayout-vertical-wrap-0928",
+    "title": "피그마 오토레이아웃, 세로로도 줄바꿈된다",
+    "subtitle": "9월 25일 업데이트 — 다단 레이아웃이 콘텐츠 양에 반응형으로 유지",
+    "date": "26. 09. 28",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Figma",
+      "#오토레이아웃",
+      "#디자인툴",
+      "#UIUX"
+    ]
+  },
+  {
+    "slug": "news-google-spam-update-ai-content-0928",
+    "title": "구글, AI 양산 콘텐츠 솎아냈다",
+    "subtitle": "8월 스팸 업데이트, 대량 생성 콘텐츠 정조준",
+    "date": "26. 09. 28",
+    "category": "콘텐츠마케팅",
+    "cover": "",
+    "tags": [
+      "#구글스팸업데이트",
+      "#AI콘텐츠",
+      "#콘텐츠품질",
+      "#콘텐츠마케팅"
+    ]
+  },
+  {
+    "slug": "news-linkedin-ai-content-label-0928",
+    "title": "링크드인에 'AI 티' 표시가 생겼다",
+    "subtitle": "판별 기능 공개 2주 만에 100만 명이 사용",
+    "date": "26. 09. 28",
+    "category": "콘텐츠마케팅",
+    "cover": "",
+    "tags": [
+      "#LinkedIn",
+      "#AI콘텐츠",
+      "#콘텐츠진정성",
+      "#콘텐츠마케팅"
+    ]
+  },
+  {
+    "slug": "news-google-agentic-commerce-0928",
+    "title": "이제 광고도 AI 쇼핑 에이전트가 본다",
+    "subtitle": "구글, 상품 피드·판매자 정보 업데이트로 에이전틱 커머스 대응",
+    "date": "26. 09. 28",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#구글쇼핑",
+      "#에이전틱커머스",
+      "#AI쇼핑",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-google-display-demandgen-0928",
+    "title": "구글 디스플레이 광고, 역사 속으로",
+    "subtitle": "올해 안에 Demand Gen 캠페인으로 완전히 흡수",
+    "date": "26. 09. 28",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#구글광고",
+      "#DemandGen",
+      "#디스플레이광고",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-meta-creative-diversity-score-0928",
+    "title": "메타 광고 소재, 이제 다양성 점수 매긴다",
+    "subtitle": "크리에이터 광고 제작 과정도 하나의 화면으로 통합",
+    "date": "26. 09. 28",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#Meta광고",
+      "#소재다양성",
+      "#크리에이터광고",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
     "slug": "news-figma-mcp-server-0921",
     "title": "AI 코딩 툴이 피그마를 직접 읽는다",
     "subtitle": "Figma MCP 서버로 디자인-개발 핸드오프 마찰이 줄어든다",
