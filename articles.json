@@ -1,5 +1,131 @@
 [
   {
+    "slug": "news-figma-community-riffs-1005",
+    "title": "피그마 커뮤니티에 '리프스'가 생겼다",
+    "subtitle": "아이디어와 실험을 가볍게 공유하는 새 포맷",
+    "date": "26. 10. 05",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Figma",
+      "#FigmaCommunity",
+      "#디자인툴",
+      "#디자인협업"
+    ]
+  },
+  {
+    "slug": "news-figma-motion-audio-lottie-1005",
+    "title": "피그마 모션, 이제 소리까지 넣는다",
+    "subtitle": "오디오·텍스트 애니메이션·Lottie 내보내기 추가",
+    "date": "26. 10. 05",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Figma",
+      "#FigmaMotion",
+      "#모션디자인",
+      "#디자인툴"
+    ]
+  },
+  {
+    "slug": "news-tiktok-b2b-creator-campaign-1005",
+    "title": "틱톡, 처음으로 B2B에 손을 내밀다",
+    "subtitle": "'Spend Smarter' — B2C 플랫폼의 첫 B2B 크리에이터 캠페인",
+    "date": "26. 10. 05",
+    "category": "콘텐츠마케팅",
+    "cover": "",
+    "tags": [
+      "#틱톡",
+      "#B2B마케팅",
+      "#크리에이터캠페인",
+      "#콘텐츠마케팅"
+    ]
+  },
+  {
+    "slug": "news-google-ai-content-human-review-1005",
+    "title": "구글, 'AI 글은 사람이 꼭 검토하라'",
+    "subtitle": "8월 스팸 업데이트 이후 더 명확해진 구글의 입장",
+    "date": "26. 10. 05",
+    "category": "콘텐츠마케팅",
+    "cover": "",
+    "tags": [
+      "#AI콘텐츠",
+      "#구글검색",
+      "#콘텐츠품질",
+      "#콘텐츠마케팅"
+    ]
+  },
+  {
+    "slug": "news-instagram-photo-carousel-bonus-1005",
+    "title": "인스타그램, 사진에도 보너스를 준다",
+    "subtitle": "릴스 전용이던 크리에이터 보너스, 사진·캐러셀로 확대 테스트",
+    "date": "26. 10. 05",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#인스타그램",
+      "#크리에이터보너스",
+      "#인플루언서마케팅",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-google-customer-match-ip-1005",
+    "title": "구글 타겟팅, 이제 IP 주소도 쓴다",
+    "subtitle": "Customer Match 업로드 항목 확장, 매치율 개선 기대",
+    "date": "26. 10. 05",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#구글광고",
+      "#CustomerMatch",
+      "#퍼스트파티데이터",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-instagram-reels-trending-ads-1005",
+    "title": "릴스 트렌딩 광고, 전체 광고주에게 열렸다",
+    "subtitle": "화제성 콘텐츠 옆에 광고가 자동으로 붙는다",
+    "date": "26. 10. 05",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#인스타그램릴스",
+      "#트렌딩애드",
+      "#소셜광고",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-threads-ads-no-instagram-1005",
+    "title": "이제 인스타 없이도 Threads 광고 가능",
+    "subtitle": "Meta, Threads를 독립 광고 플랫폼으로 전환",
+    "date": "26. 10. 05",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#Threads광고",
+      "#Meta광고",
+      "#소셜광고",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-google-ai-search-click-study-1005",
+    "title": "AI 검색, 클릭은 줄고 효용은 그대로",
+    "subtitle": "1,100명 대상 실험 — Google AI Overview 효과 논쟁에 실증 데이터",
+    "date": "26. 10. 05",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#AI검색",
+      "#GoogleAIOverview",
+      "#GEO",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
     "slug": "news-adobe-acquires-rilo-0928",
     "title": "어도비, AI 스타트업 릴로 인수",
     "subtitle": "기업용 마케팅 조직의 AI 워크플로우 오케스트레이션 강화",
