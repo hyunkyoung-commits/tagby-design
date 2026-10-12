@@ -1,5 +1,156 @@
 [
   {
+    "slug": "news-google-ads-offers-auto-1012",
+    "title": "Google Ads, 웹사이트 오퍼를 광고에 자동 삽입하기 시작한다",
+    "subtitle": "10월 12일부터 Search·PMax에 사이트 내 할인·프로모션 자동 노출",
+    "date": "26. 10. 12",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#Google광고",
+      "#PMax",
+      "#검색광고",
+      "#퍼포먼스마케팅",
+      "#자동화"
+    ]
+  },
+  {
+    "slug": "news-ftc-amazon-adauction-1010",
+    "title": "FTC와 22개 주, Amazon 광고 경매 가격 담합 혐의로 소송",
+    "subtitle": "Amazon이 광고 경매에서 실제 경쟁보다 높은 가격을 부과했다는 혐의",
+    "date": "26. 10. 10",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#Amazon광고",
+      "#FTC",
+      "#리테일미디어",
+      "#반독점",
+      "#광고규제"
+    ]
+  },
+  {
+    "slug": "news-google-adtech-antitrust-1010",
+    "title": "법원이 Google 광고 기술에 감시를 명령했습니다",
+    "subtitle": "연방 판사, Google 애드테크 운영에 법원 감시 부과 — 광고 경매 구조 변화 가능성",
+    "date": "26. 10. 10",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#Google광고",
+      "#애드테크",
+      "#반독점",
+      "#디지털광고",
+      "#규제"
+    ]
+  },
+  {
+    "slug": "news-google-display-demand-gen-1010",
+    "title": "Google Display 캠페인이 사라집니다 — Demand Gen으로 통합",
+    "subtitle": "독립형 디스플레이 캠페인 종료 예고 — YouTube·Gmail·Discover 포함한 Demand Gen으로 전환",
+    "date": "26. 10. 10",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#Google광고",
+      "#DemandGen",
+      "#디스플레이광고",
+      "#퍼포먼스마케팅",
+      "#캠페인전환"
+    ]
+  },
+  {
+    "slug": "news-chatgpt-ads-visual-1008",
+    "title": "ChatGPT 광고, 출시 200일 만에 연간 10억 달러 돌파",
+    "subtitle": "OpenAI, 새 비주얼 광고 포맷과 측정 툴 동시 공개",
+    "date": "26. 10. 08",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#ChatGPT광고",
+      "#OpenAI",
+      "#AI광고",
+      "#퍼포먼스마케팅",
+      "#디지털광고"
+    ]
+  },
+  {
+    "slug": "news-figma-agent-ga-1008",
+    "title": "Figma Agent, 정식 출시 — 이제 누구나 쓸 수 있습니다",
+    "subtitle": "베타 딱지 떼고 일반 사용자 공개 — Figma 캔버스 안에서 AI가 디자인 작업을 실행",
+    "date": "26. 10. 08",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Figma",
+      "#FigmaAgent",
+      "#AI디자인",
+      "#디자인도구",
+      "#UX"
+    ]
+  },
+  {
+    "slug": "news-gpt6-sol-luna-1007",
+    "title": "GPT-6 Sol과 Luna, ChatGPT 전체 출시 — 12억 명 대상",
+    "subtitle": "GPT-5.6 대체 모델 전체 공개 — 더 자연스러운 거절, 더 낮은 과도한 주의",
+    "date": "26. 10. 07",
+    "category": "AI",
+    "cover": "",
+    "tags": [
+      "#GPT6",
+      "#ChatGPT",
+      "#생성형AI",
+      "#OpenAI",
+      "#AI도구"
+    ]
+  },
+  {
+    "slug": "tagby-original-instagram-live-ad-1007",
+    "title": "Instagram 라이브에도 광고가 붙는다",
+    "subtitle": "팔로워 중심이었던 라이브가 퍼포먼스 채널로 확장되고 있습니다",
+    "date": "26. 10. 07",
+    "category": "TAGby Original",
+    "cover": "design-study-article/tagby-original-instagram-live-ad-1007/image-1.png",
+    "tags": [
+      "#Instagram라이브",
+      "#Meta광고",
+      "#라이브커머스",
+      "#퍼포먼스마케팅",
+      "#인스타그램광고",
+      "#라이브방송광고"
+    ]
+  },
+  {
+    "slug": "news-meta-advertising-week-ai-1006",
+    "title": "Meta, Advertising Week에서 AI 광고 어시스턴트 공개",
+    "subtitle": "고객 생애주기 전략 자동화 + 광고 관리자 내 AI 어시스턴트",
+    "date": "26. 10. 06",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#Meta광고",
+      "#AI광고",
+      "#광고자동화",
+      "#퍼포먼스마케팅",
+      "#MetaAI"
+    ]
+  },
+  {
+    "slug": "news-tiktok-commerce-triple-1005",
+    "title": "TikTok이 한 번에 세 가지를 바꿨습니다 — 커머스·광고·미디어 바잉",
+    "subtitle": "Buy Direct, Shopping Assistant, TikTok Ad Network 동시 발표",
+    "date": "26. 10. 05",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#TikTok광고",
+      "#틱톡커머스",
+      "#퍼포먼스마케팅",
+      "#소셜커머스",
+      "#미디어바잉"
+    ]
+  },
+  {
     "slug": "news-figma-community-riffs-1005",
     "title": "피그마 커뮤니티에 '리프스'가 생겼다",
     "subtitle": "아이디어와 실험을 가볍게 공유하는 새 포맷",
@@ -139,6 +290,36 @@
       "#마케팅성과",
       "#AI도입",
       "#광고소재"
+    ]
+  },
+  {
+    "slug": "news-microsoft-ads-maxcpc-1001",
+    "title": "Microsoft Ads, Max CPC 신규 캠페인 지원 종료",
+    "subtitle": "10월 1일부터 신규 non-portfolio 캠페인에서 수동 Max CPC 설정 불가",
+    "date": "26. 10. 01",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#Microsoft광고",
+      "#Bing광고",
+      "#입찰전략",
+      "#퍼포먼스마케팅",
+      "#스마트비딩"
+    ]
+  },
+  {
+    "slug": "news-amazon-ads-agent-unboxed-0930",
+    "title": "Amazon, DSP와 광고 콘솔을 합쳤습니다 — Amazon Ads Agent 공개",
+    "subtitle": "unBoxed 2026에서 에이전틱 AI 기반 광고 플랫폼 발표",
+    "date": "26. 09. 30",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#Amazon광고",
+      "#아마존DSP",
+      "#퍼포먼스마케팅",
+      "#리테일미디어",
+      "#AI광고"
     ]
   },
   {
@@ -1084,6 +1265,21 @@
       "#8월마케팅",
       "#신학기",
       "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "news-adobe-chatgpt-plugin-0806",
+    "title": "Adobe가 ChatGPT 안에 들어왔습니다 — Photoshop·Firefly·Premiere 연동",
+    "subtitle": "Adobe for ChatGPT 플러그인 정식 출시 — 70개 이상의 Creative Cloud 기능",
+    "date": "26. 08. 06",
+    "category": "AI",
+    "cover": "",
+    "tags": [
+      "#Adobe",
+      "#ChatGPT플러그인",
+      "#Firefly",
+      "#Photoshop",
+      "#AI디자인"
     ]
   },
   {
