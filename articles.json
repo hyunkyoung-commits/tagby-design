@@ -60,6 +60,22 @@
     ]
   },
   {
+    "slug": "tagby-original-hangul-spelling-1008",
+    "title": "한글날 기념 자주 틀리는 맞춤법 모음집",
+    "subtitle": "디자이너가 카피에서 자주 헷갈리는 맞춤법 9가지. 저장해두고 꺼내보세요.",
+    "date": "26. 10. 08",
+    "category": "TAGby Original",
+    "cover": "design-study-article/tagby-original-hangul-spelling-1008/slide-1.png",
+    "tags": [
+      "#맞춤법",
+      "#한글날",
+      "#카피라이팅",
+      "#디자인실무",
+      "#됩니다돼요",
+      "#설렘설레임"
+    ]
+  },
+  {
     "slug": "news-chatgpt-ads-visual-1008",
     "title": "ChatGPT 광고, 출시 200일 만에 연간 10억 달러 돌파",
     "subtitle": "OpenAI, 새 비주얼 광고 포맷과 측정 툴 동시 공개",
@@ -308,6 +324,22 @@
     ]
   },
   {
+    "slug": "tagby-original-ai-image-0930",
+    "title": "N년차 디자이너의 AI티 안 나는 AI 이미지 만들기",
+    "subtitle": "AI로 만들었지만 AI스럽지 않게 — 디테일한 프롬프트와 얼룩 제거 노하우를 공개합니다.",
+    "date": "26. 09. 30",
+    "category": "TAGby Original",
+    "cover": "design-study-article/tagby-original-ai-image-0930/slide-1.webp",
+    "tags": [
+      "#AI이미지",
+      "#프롬프트",
+      "#AI활용",
+      "#디자인실무",
+      "#나노바나나",
+      "#AI얼룩제거"
+    ]
+  },
+  {
     "slug": "news-amazon-ads-agent-unboxed-0930",
     "title": "Amazon, DSP와 광고 콘솔을 합쳤습니다 — Amazon Ads Agent 공개",
     "subtitle": "unBoxed 2026에서 에이전틱 AI 기반 광고 플랫폼 발표",
@@ -432,6 +464,22 @@
       "#소재다양성",
       "#크리에이터광고",
       "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "tagby-original-print-tips-0923",
+    "title": "인쇄하고 멘탈 터지기 전에 체크해야 할 4가지",
+    "subtitle": "모니터에선 완벽했는데 인쇄물 갓 나와서 대통곡했던 적 있나요? 실전 인쇄 검수 체크리스트입니다.",
+    "date": "26. 09. 23",
+    "category": "TAGby Original",
+    "cover": "design-study-article/tagby-original-print-tips-0923/slide-1.jpg",
+    "tags": [
+      "#인쇄주의사항",
+      "#CMYK",
+      "#폰트아웃라인",
+      "#도련",
+      "#디자인실무",
+      "#인쇄검수"
     ]
   },
   {

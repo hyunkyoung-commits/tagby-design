@@ -679,4 +679,19 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/tagby-original-print-tips-0923.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/tagby-original-ai-image-0930.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/tagby-original-hangul-spelling-1008.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

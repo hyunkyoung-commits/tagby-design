@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon-v2.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <title>인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 — TAGby 태그바이</title>
+  <meta name="description" content="모니터에선 완벽했는데 인쇄물 갓 나와서 대통곡했던 적 있나요? 실전 인쇄 검수 체크리스트입니다.">
+  <meta name="robots" content="index, follow">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "datePublished": "2026-09-23",
+        "dateModified": "2026-09-23",
+        "headline": "인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 — TAGby 태그바이",
+        "description": "모니터에선 완벽했는데 인쇄물 갓 나와서 대통곡했던 적 있나요? 실전 인쇄 검수 체크리스트입니다.",
+        "url": "https://mkt.tagby.io/design-study-article/tagby-original-print-tips-0923.html",
+        "inLanguage": "ko-KR",
+        "publisher": {"@type": "Organization", "name": "TAGby", "url": "https://mkt.tagby.io", "logo": "https://mkt.tagby.io/images/logo/Thum.png"},
+        "author": {"@type": "Organization", "name": "TAGby"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "홈", "item": "https://mkt.tagby.io/"},
+          {"@type": "ListItem", "position": 2, "name": "아티클", "item": "https://mkt.tagby.io/tagby-article.html"},
+          {"@type": "ListItem", "position": 3, "name": "인쇄하고 멘탈 터지기 전에 체크해야 할 4가지", "item": "https://mkt.tagby.io/design-study-article/tagby-original-print-tips-0923.html"}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "CMYK와 RGB의 차이가 무엇인가요?",
+          "acceptedAnswer": {"@type": "Answer", "text": "모니터에서 사용하는 RGB와 인쇄소에서 사용하는 CMYK는 색상 표현 영역이 다릅니다. 모니터에서 예쁘게 보이는 쨍한 색상이 인쇄 시 칙칙하게 나올 수 있으므로, 처음부터 CMYK 모드로 작업하는 것이 안전합니다."}
+        },
+        {
+          "@type": "Question",
+          "name": "폰트 아웃라인을 왜 깨야 하나요?",
+          "acceptedAnswer": {"@type": "Answer", "text": "내 컴퓨터에만 설치된 유료·특수 서체는 인쇄소 PC에서 찾을 수 없어 기본 서체(굴림체 등)로 강제 대체됩니다. 인쇄소에 파일을 넘기기 전 전체 선택 후 윤곽선 만들기(Ctrl+Shift+O)를 실행하면 이 문제를 방지할 수 있습니다."}
+        },
+        {
+          "@type": "Question",
+          "name": "인쇄물에서 도련이란 무엇인가요?",
+          "acceptedAnswer": {"@type": "Answer", "text": "도련은 인쇄 후 재단할 때 발생하는 밀림을 감안해 배경과 테두리를 완성 사이즈보다 여유 있게 확장하는 영역입니다. 사방 3mm 도련을 설정하지 않으면 재단이 조금만 밀려도 종이 가장자리에 흰색 실선이 나타날 수 있습니다."}
+        }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #1A1A1A; color: white; }
+    .article-content { font-size: 1.125rem; line-height: 1.8; color: #E0E0E0; }
+    .article-content p { margin-bottom: 0.6rem; }
+    .article-content strong { color: white; font-weight: 600; }
+    .article-content h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 6rem; margin-bottom: 1rem; }
+    .article-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .article-content ul li { margin-bottom: 0.5rem; }
+    .article-content figure { margin: 2.5rem 0 0.5rem; }
+    .article-content figure img { width: 100%; border-radius: 12px; }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+    .dropdown-menu { display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .dropdown { position: relative; }
+    .dropdown::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 20px; }
+    .mobile-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background-color: #1A1A1A; box-shadow: -4px 0 12px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 100; overflow-y: auto; }
+    .mobile-menu.active { right: 0; }
+    .mobile-overlay { display: none; position: fixed; inset: 0; background-color: rgba(0,0,0,0.7); z-index: 99; }
+    .mobile-overlay.active { display: block; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background-color: #fff; transition: all 0.3s ease; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+    @media (max-width: 1023px) { .hamburger { display: flex; } }
+  </style>
+  <style>
+    .carousel-wrapper { position: relative; user-select: none; }
+    .carousel-track { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .carousel-slide { flex: 0 0 100%; display: flex; justify-content: center; align-items: center; }
+    .carousel-slide img { max-width: 100%; max-height: calc(100svh - 120px); width: auto; height: auto; display: block; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; z-index: 10; }
+    .carousel-btn:hover { background: rgba(255,255,255,0.2); }
+    .carousel-btn svg { width: 20px; height: 20px; stroke: white; stroke-width: 2; fill: none; }
+    .carousel-prev { left: -22px; }
+    .carousel-next { right: -22px; }
+    .carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 20px; flex-wrap: wrap; }
+    .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: #444; cursor: pointer; transition: background 0.2s, transform 0.2s; border: none; padding: 0; }
+    .carousel-dot.active { background: #0078F0; transform: scale(1.3); }
+    .carousel-counter { text-align: center; margin-top: 12px; font-size: 0.8rem; color: #666; letter-spacing: 0.05em; }
+    @media (max-width: 640px) { .carousel-prev { left: 4px; } .carousel-next { right: 4px; } .carousel-btn { background: rgba(0,0,0,0.4); } }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5675K11SP"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D5675K11SP');</script>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="TAGby">
+  <meta property="og:title" content="인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 — TAGby 태그바이">
+  <meta property="og:description" content="모니터에선 완벽했는데 인쇄물 갓 나와서 대통곡했던 적 있나요? 실전 인쇄 검수 체크리스트입니다.">
+  <meta property="og:url" content="https://mkt.tagby.io/design-study-article/tagby-original-print-tips-0923.html">
+  <meta property="og:image" content="https://mkt.tagby.io/design-study-article/tagby-original-print-tips-0923/slide-1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 — TAGby 태그바이">
+  <meta name="twitter:description" content="모니터에선 완벽했는데 인쇄물 갓 나와서 대통곡했던 적 있나요? 실전 인쇄 검수 체크리스트입니다.">
+  <meta name="twitter:image" content="https://mkt.tagby.io/design-study-article/tagby-original-print-tips-0923/slide-1.jpg">
+  <link rel="canonical" href="https://mkt.tagby.io/design-study-article/tagby-original-print-tips-0923.html">
+</head>
+<body>
+
+  <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../" class="cursor-pointer hover:opacity-80 transition">
+        <img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8">
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <div class="dropdown relative">
+          <button class="text-gray-300 hover:text-white transition text-sm flex items-center gap-1">서비스 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="dropdown-menu absolute top-full left-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-xl shadow-xl p-2">
+            <a href="../performance.html" class="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition">퍼포먼스 마케팅</a>
+            <a href="../contents.html" class="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition">콘텐츠 마케팅</a>
+            <a href="../design.html" class="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition">디자인</a>
+          </div>
+        </div>
+        <a href="../portfolio.html" class="text-gray-300 hover:text-white transition text-sm">포트폴리오</a>
+        <a href="../tagby-article.html" class="text-white font-medium transition text-sm">아티클</a>
+        <a href="../about.html" class="text-gray-300 hover:text-white transition text-sm">회사소개</a>
+        <a href="../contact.html" class="bg-[#0078F0] hover:bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition">문의하기</a>
+      </div>
+      <button class="hamburger lg:hidden" id="hamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-6 border-b border-gray-800"><img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-7"></div>
+    <div class="p-6 flex flex-col gap-4">
+      <a href="../performance.html" class="text-gray-300 hover:text-white transition text-sm py-2">퍼포먼스 마케팅</a>
+      <a href="../contents.html" class="text-gray-300 hover:text-white transition text-sm py-2">콘텐츠 마케팅</a>
+      <a href="../design.html" class="text-gray-300 hover:text-white transition text-sm py-2">디자인</a>
+      <a href="../portfolio.html" class="text-gray-300 hover:text-white transition text-sm py-2">포트폴리오</a>
+      <a href="../tagby-article.html" class="text-white font-medium transition text-sm py-2">아티클</a>
+      <a href="../about.html" class="text-gray-300 hover:text-white transition text-sm py-2">회사소개</a>
+      <a href="../contact.html" class="bg-[#0078F0] text-white px-5 py-3 rounded-lg text-sm font-medium text-center mt-2">문의하기</a>
+    </div>
+  </div>
+
+<article class="pt-24" style="min-height:100vh;">
+    <div class="container mx-auto px-6" style="max-width:48rem;">
+      <div class="mb-8">
+        <span class="text-sm text-[#0078F0] font-medium">TAGby Original · 디자인</span>
+        <h1 class="text-3xl md:text-4xl font-bold mt-3 mb-3 leading-tight">인쇄하고 멘탈 터지기 전에 체크해야 할 4가지</h1>
+        <p class="text-gray-400 text-lg mb-4">모니터에선 완벽했는데 인쇄물 갓 나와서 대통곡했던 적 있나요? 실전 인쇄 검수 체크리스트입니다.</p>
+        <p class="text-sm text-gray-500">26. 09. 23.</p>
+      </div>
+    </div>
+
+    <div class="container mx-auto px-6 mb-12" style="max-width:600px;">
+      <div class="carousel-wrapper" id="carousel">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide">
+            <img loading="eager" src="tagby-original-print-tips-0923/slide-1.jpg" alt="인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 - 슬라이드 1">
+          </div>
+          <div class="carousel-slide">
+            <img loading="lazy" src="tagby-original-print-tips-0923/slide-2.jpg" alt="인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 - 슬라이드 2">
+          </div>
+          <div class="carousel-slide">
+            <img loading="lazy" src="tagby-original-print-tips-0923/slide-3.jpg" alt="인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 - 슬라이드 3">
+          </div>
+          <div class="carousel-slide">
+            <img loading="lazy" src="tagby-original-print-tips-0923/slide-4.jpg" alt="인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 - 슬라이드 4">
+          </div>
+          <div class="carousel-slide">
+            <img loading="lazy" src="tagby-original-print-tips-0923/slide-5.jpg" alt="인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 - 슬라이드 5">
+          </div>
+          <div class="carousel-slide">
+            <img loading="lazy" src="tagby-original-print-tips-0923/slide-6.jpg" alt="인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 - 슬라이드 6">
+          </div>
+          <div class="carousel-slide">
+            <img loading="lazy" src="tagby-original-print-tips-0923/slide-7.jpg" alt="인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 - 슬라이드 7">
+          </div>
+          <div class="carousel-slide">
+            <img loading="lazy" src="tagby-original-print-tips-0923/slide-8.jpg" alt="인쇄하고 멘탈 터지기 전에 체크해야 할 4가지 - 슬라이드 8">
+          </div>
+        </div>
+        <button class="carousel-btn carousel-prev" onclick="moveCarousel(-1)" aria-label="이전 슬라이드">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="carousel-btn carousel-next" onclick="moveCarousel(1)" aria-label="다음 슬라이드">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <div class="carousel-counter" id="carouselCounter">1 / 8</div>
+    </div>
+
+    <div class="container mx-auto px-6" style="max-width:48rem;">
+      <div class="article-content">
+
+        <h2>🐶 인쇄 전 반드시 체크해야 할 4가지</h2>
+        <div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem;">
+          <div style="background:#1F1F1F; border:1px solid #2D2D2D; border-radius:14px; padding:1.25rem 1.4rem;">
+            <p style="font-size:0.75rem; font-weight:700; color:#0078F0; letter-spacing:0.08em; margin-bottom:0.75rem;">📌 모니터에선 완벽했는데...</p>
+            <p style="font-size:0.85rem; color:#D4D4D4; line-height:1.7; margin:0;">인쇄하고 대통곡했던 디자이너 실수가 있으신가요? 감으로 넘어갔다가 재인쇄비를 날리는 참사를 막아줄 실전 검수 리스트를 소개해 드립니다.</p>
+          </div>
+          <div style="background:#1F1F1F; border:1px solid #2D2D2D; border-radius:14px; padding:1.25rem 1.4rem;">
+            <p style="font-size:0.75rem; font-weight:700; color:#0078F0; letter-spacing:0.08em; margin-bottom:0.75rem;">📌 인쇄물이 잘못 나왔을 때이죠</p>
+            <p style="font-size:0.85rem; color:#D4D4D4; line-height:1.7; margin:0;">디자인 넘길 때 제일 무서운 건 야근이 아니라 인쇄물이 잘못 나왔을 때입니다. 다음 4가지 사항을 꼭 주의하고 인쇄 맡겨보세요.</p>
+          </div>
+          <div style="background:#1F1F1F; border:1px solid #2D2D2D; border-radius:14px; padding:1.25rem 1.4rem;">
+            <p style="font-size:0.75rem; font-weight:700; color:#0078F0; letter-spacing:0.08em; margin-bottom:0.75rem;">📌 1. CMYK로 작업해주세요</p>
+            <p style="font-size:0.85rem; color:#D4D4D4; line-height:1.7; margin:0;">모니터의 빛(RGB)과 인쇄소의 잉크(CMYK)는 표현할 수 있는 색상 영역이 다릅니다. 처음 만들 때부터 CMYK로 설정하고, 형광기 있는 비비드 컬러는 피해주세요. 화면에서 예뻤던 쨍한 핑크가 종이에 인쇄되면 칙칙한 고구마색이 될 수 있어요.</p>
+          </div>
+          <div style="background:#1F1F1F; border:1px solid #2D2D2D; border-radius:14px; padding:1.25rem 1.4rem;">
+            <p style="font-size:0.75rem; font-weight:700; color:#0078F0; letter-spacing:0.08em; margin-bottom:0.75rem;">📌 2. 폰트 아웃라인 깨기</p>
+            <p style="font-size:0.85rem; color:#D4D4D4; line-height:1.7; margin:0;">내 컴퓨터에만 있는 유료·특수 서체는 인쇄소 PC에서 기본 서체로 강제 대체됩니다. 원본(_text.ai)은 따로 두고, 전체 선택 후 윤곽선 만들기(Ctrl+Shift+O)를 실행한 파일(_out.ai)을 넘겨주세요. 감성 폰트가 순식간에 '굴림체'로 인쇄되는 대참사를 막는 가장 확실한 방법입니다.</p>
+          </div>
+          <div style="background:#1F1F1F; border:1px solid #2D2D2D; border-radius:14px; padding:1.25rem 1.4rem;">
+            <p style="font-size:0.75rem; font-weight:700; color:#0078F0; letter-spacing:0.08em; margin-bottom:0.75rem;">📌 3. 사방 3mm 도련을 채워주세요</p>
+            <p style="font-size:0.85rem; color:#D4D4D4; line-height:1.7; margin:0;">인쇄소 재단기는 수백 장을 한 번에 자르기 때문에 필연적으로 1~2mm 밀림이 발생합니다. 배경과 테두리는 사방 3mm 도련선까지 밖으로 밀어내고, 중요 텍스트는 재단선 안쪽 5mm 안에 배치하세요. 여백을 딱 맞추면 재단이 미세하게 밀렸을 때 종이 끝에 흉측한 '흰색 실선'이 생깁니다.</p>
+          </div>
+          <div style="background:#1F1F1F; border:1px solid #2D2D2D; border-radius:14px; padding:1.25rem 1.4rem;">
+            <p style="font-size:0.75rem; font-weight:700; color:#0078F0; letter-spacing:0.08em; margin-bottom:0.75rem;">📌 4. 검정색을 구별해 쓰세요</p>
+            <p style="font-size:0.85rem; color:#D4D4D4; line-height:1.7; margin:0;">텍스트용 K100과 넓은 배경용 Rich Black을 구분하지 않으면 핀이 나가거나 색이 번집니다. 작은 텍스트는 K100(Mono Black)만 쓰고, 넓은 배경은 C20 M20 Y20 K100(Rich Black)으로 진하게 채워주세요. K100만 쓰면 배경이 희끗희끗한 쥐색으로 나오고, 글자에 4색을 다 섞으면 핀이 밀려 글자가 번져 보여요.</p>
+          </div>
+          <div style="background:#1F1F1F; border:1px solid #2D2D2D; border-radius:14px; padding:1.25rem 1.4rem;">
+            <p style="font-size:0.75rem; font-weight:700; color:#0078F0; letter-spacing:0.08em; margin-bottom:0.75rem;">📌 인쇄 전, 이 4가지만 기억하세요</p>
+            <p style="font-size:0.85rem; color:#D4D4D4; line-height:1.7; margin:0;">① 컬러 모드 : CMYK 모드 작업 확인<br>② 검정 구분 : 텍스트는 K100 / 넓은 면은 Rich Black<br>③ 폰트 정리 : Ctrl+Shift+O 아웃라인 변환<br>④ 여백 확보 : 사방 도련 3mm 채움<br><br>발주 버튼 누르기 전 딱 10초만 투자해서 검수해 보세요. 이것만으로 재인쇄 비용을 완벽하게 지킬 수 있습니다.</p>
+          </div>
+          <div style="background:#1F1F1F; border:1px solid #2D2D2D; border-radius:14px; padding:1.25rem 1.4rem;">
+            <p style="font-size:0.75rem; font-weight:700; color:#0078F0; letter-spacing:0.08em; margin-bottom:0.75rem;">📌 일잘알 제철 디자이너</p>
+            <p style="font-size:0.85rem; color:#D4D4D4; line-height:1.7; margin:0;">더 많은 디자인 실무 팁이 필요하다면 TAGby 아티클을 구독하고 매주 업데이트 되는 콘텐츠를 받아보세요.</p>
+          </div>
+        </div>
+
+        <h2 style="margin-top:5rem;">자주 묻는 질문</h2>
+        <div style="margin-top:1.5rem;">
+          <div style="margin-bottom:2rem;">
+            <h3 style="font-size:1rem; font-weight:700; color:#fff; margin-bottom:0.75rem;">Q. CMYK와 RGB의 차이가 무엇인가요?</h3>
+            <p style="font-size:0.9rem; color:#D4D4D4; line-height:1.8;">모니터에서 사용하는 RGB와 인쇄소에서 사용하는 CMYK는 색상 표현 영역이 다릅니다. 모니터에서 예쁘게 보이는 쨍한 색상이 인쇄 시 칙칙하게 나올 수 있으므로, 처음부터 CMYK 모드로 작업하는 것이 안전합니다.</p>
+          </div>
+          <div style="margin-bottom:2rem;">
+            <h3 style="font-size:1rem; font-weight:700; color:#fff; margin-bottom:0.75rem;">Q. 폰트 아웃라인을 왜 깨야 하나요?</h3>
+            <p style="font-size:0.9rem; color:#D4D4D4; line-height:1.8;">내 컴퓨터에만 설치된 유료·특수 서체는 인쇄소 PC에서 찾을 수 없어 기본 서체(굴림체 등)로 강제 대체됩니다. 인쇄소에 파일을 넘기기 전 전체 선택 후 윤곽선 만들기(Ctrl+Shift+O)를 실행하면 이 문제를 방지할 수 있습니다.</p>
+          </div>
+          <div style="margin-bottom:2rem;">
+            <h3 style="font-size:1rem; font-weight:700; color:#fff; margin-bottom:0.75rem;">Q. 인쇄물에서 도련이란 무엇인가요?</h3>
+            <p style="font-size:0.9rem; color:#D4D4D4; line-height:1.8;">도련은 인쇄 후 재단할 때 발생하는 밀림을 감안해 배경과 테두리를 완성 사이즈보다 여유 있게 확장하는 영역입니다. 사방 3mm 도련을 설정하지 않으면 재단이 조금만 밀려도 종이 가장자리에 흰색 실선이 나타날 수 있습니다.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#인쇄주의사항</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#CMYK</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#폰트아웃라인</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#도련</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#디자인실무</span>
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#인쇄검수</span>
+        </div>
+      </div>
+
+    </div>
+
+  <section style="border-top:1px solid #2D2D2D; margin-top:4rem; padding:3rem 1.5rem 0;">
+    <div class="container mx-auto" style="max-width:48rem;">
+      <h2 style="font-size:1rem; font-weight:700; color:#9CA3AF; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1.5rem;">추천 아티클</h2>
+      <div id="related-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;"></div>
+    </div>
+  </section>
+  <script>
+  (function(){
+    var SLUG='tagby-original-print-tips-0923'; var CAT='TAGby Original';
+    fetch('https://mkt.tagby.io/articles.json').then(function(r){return r.json();}).then(function(all){
+      var me=all.find(function(a){return a.slug===SLUG;});
+      var myTags=me&&me.tags?me.tags:[];
+      var candidates=all.filter(function(a){return a.slug!==SLUG;});
+      candidates=candidates.map(function(a){var overlap=0;if(myTags.length>0&&a.tags){myTags.forEach(function(t){if(a.tags.indexOf(t)!==-1)overlap++;})}a._score=overlap*10+(a.category===CAT?1:0);return a;});
+      candidates.sort(function(a,b){return b._score-a._score;});
+      var picks=candidates.slice(0,3);
+      var grid=document.getElementById('related-grid');
+      if(!grid||picks.length===0)return;
+      grid.innerHTML=picks.map(function(a){var coverHtml=a.cover?'<img src="https://mkt.tagby.io/'+a.cover+'" alt="'+a.title+'" style="width:100%;height:100%;object-fit:cover;">':"<img src='https://mkt.tagby.io/design-study-article/thum/"+a.slug+".png' alt='"+a.title+"' style='width:100%;height:100%;object-fit:cover;'>";return '<a href="https://mkt.tagby.io/design-study-article/'+a.slug+'.html" style="display:block;background:#1F1F1F;border-radius:12px;overflow:hidden;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#2A2A2A'" onmouseout="this.style.background='#1F1F1F'"><div style="aspect-ratio:4/3;overflow:hidden;background:#111;">'+coverHtml+'</div><div style="padding:0.875rem;"><p style="font-size:0.7rem;color:#0078F0;font-weight:600;margin:0 0 0.35rem;">'+a.category+'</p><p style="font-size:0.82rem;font-weight:700;color:#fff;margin:0 0 0.4rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">'+a.title+'</p><p style="font-size:0.72rem;color:#6B7280;margin:0;">'+a.date+'</p></div></a>';}).join('');
+    }).catch(function(){});
+  })();
+  </script>
+
+</article>
+
+  <footer class="py-16 px-6 bg-black border-t" style="border-color: #333;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-3 gap-12">
+        <div><img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" style="height:32px;width:auto;margin-bottom:1.5rem;"></div>
+        <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">OFFICE</h4><p class="text-sm text-gray-400 leading-relaxed">06130 서울특별시 강남구<br>테헤란로7길 22 스파크플러스<br>강남5호점 1015호</p></div>
+        <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">CONTACT</h4><p class="text-sm text-gray-400 mb-2">070-7500-2220</p><p class="text-sm text-gray-400 mb-6">support@tagby.io</p><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">SOCIAL</h4><a href="#" class="text-sm text-gray-400 hover:text-white transition">Instagram</a></div>
+      </div>
+    </div>
+  </footer>
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </div>
+  <script>
+    window.addEventListener('scroll', () => { document.getElementById('scrollToTop').classList.toggle('visible', window.scrollY > 300); });
+    document.getElementById('scrollToTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  </script>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); mobileMenu.classList.toggle('active'); mobileOverlay.classList.toggle('active'); document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : ''; });
+    mobileOverlay.addEventListener('click', () => { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; });
+    mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; }); });
+  </script>
+  <script>
+    (function(){ var allDropdowns=Array.from(document.querySelectorAll('.dropdown')); var hideTimer; var activeMenu=null; function closeAll(){ allDropdowns.forEach(function(d){ var m=d.querySelector('.dropdown-menu'); if(m){ m.style.display='none'; m.style.opacity='0'; } }); activeMenu=null; } function showMenu(dropdown){ clearTimeout(hideTimer); if(activeMenu&&activeMenu!==dropdown){ var prev=activeMenu.querySelector('.dropdown-menu'); if(prev){ prev.style.display='none'; prev.style.opacity='0'; } } activeMenu=dropdown; var menu=dropdown.querySelector('.dropdown-menu'); if(menu){ menu.style.display='block'; menu.style.opacity='1'; menu.style.transform='translateY(0)'; } } function scheduleHide(){ hideTimer=setTimeout(closeAll,300); } allDropdowns.forEach(function(dropdown){ var menu=dropdown.querySelector('.dropdown-menu'); if(!menu)return; dropdown.addEventListener('mouseenter',function(){ showMenu(dropdown); }); dropdown.addEventListener('mouseleave',scheduleHide); menu.addEventListener('mouseenter',function(){ showMenu(dropdown); }); menu.addEventListener('mouseleave',scheduleHide); }); })();
+  </script>
+  <script>
+    const TOTAL = 8;
+    let current = 0;
+    const track = document.getElementById('carouselTrack');
+    const counter = document.getElementById('carouselCounter');
+    const dotsContainer = document.getElementById('carouselDots');
+    for (let i = 0; i < TOTAL; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `슬라이드 ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    }
+    function updateUI() { track.style.transform=`translateX(-${current*100}%)`; counter.textContent=`${current+1} / 8`; dotsContainer.querySelectorAll('.carousel-dot').forEach((d,i)=>d.classList.toggle('active',i===current)); }
+    function goTo(index) { current=Math.max(0,Math.min(TOTAL-1,index)); updateUI(); }
+    function moveCarousel(dir) { goTo(current+dir); }
+    document.addEventListener('keydown', e=>{ if(e.key==='ArrowLeft')moveCarousel(-1); if(e.key==='ArrowRight')moveCarousel(1); });
+    let touchStartX=0;
+    const carouselEl=document.getElementById('carousel');
+    carouselEl.addEventListener('touchstart',e=>{ touchStartX=e.touches[0].clientX; },{passive:true});
+    carouselEl.addEventListener('touchend',e=>{ const dx=e.changedTouches[0].clientX-touchStartX; if(Math.abs(dx)>40)moveCarousel(dx<0?1:-1); });
+  </script>
+</body>
+</html>
