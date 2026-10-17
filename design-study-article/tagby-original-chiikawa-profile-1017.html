@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon-v2.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <title>먼작귀(치이카와) 프사 만들기 — 프롬프트 무료 공유 — TAGby 태그바이</title>
+  <meta name="description" content="치이카와 캐릭터를 내 모습으로 바꿔주는 AI 프롬프트를 공유합니다. 최애 사진 + 내 사진 2장만 있으면 돼요.">
+  <meta name="robots" content="index, follow">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "datePublished": "2026-10-17",
+        "dateModified": "2026-10-17",
+        "headline": "먼작귀(치이카와) 프사 만들기 — 프롬프트 무료 공유",
+        "description": "치이카와 캐릭터를 내 모습으로 바꿔주는 AI 프롬프트를 공유합니다. 최애 사진 + 내 사진 2장만 있으면 돼요.",
+        "url": "https://mkt.tagby.io/design-study-article/tagby-original-chiikawa-profile-1017.html",
+        "inLanguage": "ko-KR",
+        "publisher": {"@type": "Organization", "name": "TAGby", "url": "https://mkt.tagby.io", "logo": "https://mkt.tagby.io/images/logo/Thum.png"},
+        "author": {"@type": "Organization", "name": "TAGby"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "홈", "item": "https://mkt.tagby.io/"},
+          {"@type": "ListItem", "position": 2, "name": "아티클", "item": "https://mkt.tagby.io/tagby-article.html"},
+          {"@type": "ListItem", "position": 3, "name": "먼작귀(치이카와) 프사 만들기", "item": "https://mkt.tagby.io/design-study-article/tagby-original-chiikawa-profile-1017.html"}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "먼작귀(치이카와) 프사를 AI로 만들려면 어떤 툴이 필요한가요?",
+            "acceptedAnswer": {"@type": "Answer", "text": "ChatGPT, Gemini, Grok 등 이미지 첨부가 가능한 AI 툴이면 어디서든 사용할 수 있습니다. 프롬프트를 복사한 뒤 ① 최애 캐릭터 사진(이미지 1)과 ② 내 사진(이미지 2)을 함께 첨부해 입력하면 됩니다."}
+          },
+          {
+            "@type": "Question",
+            "name": "프롬프트에서 이미지 1과 이미지 2를 어떻게 구분해서 넣어야 하나요?",
+            "acceptedAnswer": {"@type": "Answer", "text": "이미지 1에는 치이카와·먼작귀 등 최애 캐릭터 사진을 넣고, 이미지 2에는 적용하고 싶은 헤어·옷·포즈·배경이 담긴 내 사진을 넣어주세요. 순서가 중요합니다. 캐릭터 기준은 이미지 1, 스타일 기준은 이미지 2입니다."}
+          },
+          {
+            "@type": "Question",
+            "name": "치이카와 외에 다른 캐릭터에도 이 프롬프트를 쓸 수 있나요?",
+            "acceptedAnswer": {"@type": "Answer", "text": "네, 가능합니다. 프롬프트 자체는 특정 캐릭터에 종속되지 않고, 이미지 1로 제공한 캐릭터의 외형·비율·채색 스타일을 유지하도록 설계되어 있습니다. 산리오, 포켓몬 등 다른 캐릭터 사진을 이미지 1에 넣어도 동일하게 활용할 수 있습니다."}
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #1A1A1A; color: white; }
+    .article-content { font-size: 1.125rem; line-height: 1.8; color: #E0E0E0; }
+    .article-content p { margin-bottom: 0.6rem; }
+    .article-content strong { color: white; font-weight: 600; }
+    .article-content h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 4rem; margin-bottom: 1rem; }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+    .dropdown-menu { display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .dropdown { position: relative; }
+    .dropdown::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 20px; }
+    .mobile-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background-color: #1A1A1A; box-shadow: -4px 0 12px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 100; overflow-y: auto; }
+    .mobile-menu.active { right: 0; }
+    .mobile-overlay { display: none; position: fixed; inset: 0; background-color: rgba(0,0,0,0.7); z-index: 99; }
+    .mobile-overlay.active { display: block; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background-color: #fff; transition: all 0.3s ease; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+    @media (max-width: 1023px) { .hamburger { display: flex; } }
+  </style>
+  <style>
+    .carousel-wrapper { position: relative; user-select: none; }
+    .carousel-track { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .carousel-slide { flex: 0 0 100%; display: flex; justify-content: center; align-items: center; }
+    .carousel-slide img { max-width: 100%; max-height: calc(100svh - 120px); width: auto; height: auto; display: block; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; z-index: 10; }
+    .carousel-btn:hover { background: rgba(255,255,255,0.2); }
+    .carousel-btn svg { width: 20px; height: 20px; stroke: white; stroke-width: 2; fill: none; }
+    .carousel-prev { left: -22px; }
+    .carousel-next { right: -22px; }
+    .carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 20px; flex-wrap: wrap; }
+    .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: #444; cursor: pointer; transition: background 0.2s, transform 0.2s; border: none; padding: 0; }
+    .carousel-dot.active { background: #0078F0; transform: scale(1.3); }
+    .carousel-counter { text-align: center; margin-top: 12px; font-size: 0.8rem; color: #666; letter-spacing: 0.05em; }
+    @media (max-width: 640px) { .carousel-prev { left: 4px; } .carousel-next { right: 4px; } .carousel-btn { background: rgba(0,0,0,0.4); } }
+
+    .prompt-block { background: #111; border: 1px solid #2a2a2a; border-radius: 16px; padding: 1.5rem; margin-top: 2rem; }
+    .prompt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .prompt-label { font-size: 0.8rem; color: #666; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+    .copy-btn { display: flex; align-items: center; gap: 6px; background: #0078F0; color: white; border: none; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; font-family: inherit; }
+    .copy-btn:hover { background: #005ec4; }
+    .copy-btn:active { transform: scale(0.97); }
+    .copy-btn.copied { background: #10B981; }
+    .prompt-text { white-space: pre-wrap; word-break: break-all; font-size: 0.875rem; line-height: 1.75; color: #ccc; font-family: inherit; margin: 0; border: none; background: transparent; width: 100%; resize: none; outline: none; }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5675K11SP"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D5675K11SP');</script>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="TAGby">
+  <meta property="og:title" content="먼작귀(치이카와) 프사 만들기 — 프롬프트 무료 공유 — TAGby 태그바이">
+  <meta property="og:description" content="치이카와 캐릭터를 내 모습으로 바꿔주는 AI 프롬프트를 공유합니다. 최애 사진 + 내 사진 2장만 있으면 돼요.">
+  <meta property="og:url" content="https://mkt.tagby.io/design-study-article/tagby-original-chiikawa-profile-1017.html">
+  <meta property="og:image" content="https://mkt.tagby.io/design-study-article/tagby-original-chiikawa-profile-1017/slide-1.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="먼작귀(치이카와) 프사 만들기 — 프롬프트 무료 공유 — TAGby 태그바이">
+  <meta name="twitter:description" content="치이카와 캐릭터를 내 모습으로 바꿔주는 AI 프롬프트를 공유합니다. 최애 사진 + 내 사진 2장만 있으면 돼요.">
+  <meta name="twitter:image" content="https://mkt.tagby.io/design-study-article/tagby-original-chiikawa-profile-1017/slide-1.png">
+  <link rel="canonical" href="https://mkt.tagby.io/design-study-article/tagby-original-chiikawa-profile-1017.html">
+</head>
+<body>
+
+  <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../" class="cursor-pointer hover:opacity-80 transition">
+        <img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8">
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <div class="dropdown relative">
+          <button class="text-gray-300 hover:text-white transition text-sm flex items-center gap-1">서비스 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+          <div class="dropdown-menu absolute top-full left-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-xl shadow-xl p-2">
+            <a href="../performance.html" class="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition">퍼포먼스 마케팅</a>
+            <a href="../contents.html" class="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition">콘텐츠 마케팅</a>
+            <a href="../design.html" class="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition">디자인</a>
+          </div>
+        </div>
+        <a href="../portfolio.html" class="text-gray-300 hover:text-white transition text-sm">포트폴리오</a>
+        <a href="../tagby-article.html" class="text-white font-medium transition text-sm">아티클</a>
+        <a href="../about.html" class="text-gray-300 hover:text-white transition text-sm">회사소개</a>
+        <a href="../contact.html" class="bg-[#0078F0] hover:bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition">문의하기</a>
+      </div>
+      <button class="hamburger lg:hidden" id="hamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-6 border-b border-gray-800"><img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-7"></div>
+    <div class="p-6 flex flex-col gap-4">
+      <a href="../performance.html" class="text-gray-300 hover:text-white transition text-sm py-2">퍼포먼스 마케팅</a>
+      <a href="../contents.html" class="text-gray-300 hover:text-white transition text-sm py-2">콘텐츠 마케팅</a>
+      <a href="../design.html" class="text-gray-300 hover:text-white transition text-sm py-2">디자인</a>
+      <a href="../portfolio.html" class="text-gray-300 hover:text-white transition text-sm py-2">포트폴리오</a>
+      <a href="../tagby-article.html" class="text-white font-medium transition text-sm py-2">아티클</a>
+      <a href="../about.html" class="text-gray-300 hover:text-white transition text-sm py-2">회사소개</a>
+      <a href="../contact.html" class="bg-[#0078F0] text-white px-5 py-3 rounded-lg text-sm font-medium text-center mt-2">문의하기</a>
+    </div>
+  </div>
+
+<article class="pt-24" style="min-height:100vh;">
+    <div class="container mx-auto px-6" style="max-width:48rem;">
+      <div class="mb-8">
+        <span class="text-sm text-[#0078F0] font-medium">TAGby Original · 디자인</span>
+        <h1 class="text-3xl md:text-4xl font-bold mt-3 mb-3 leading-tight">먼작귀(치이카와) 프사 만들기 — 프롬프트 무료 공유</h1>
+        <p class="text-gray-400 text-lg mb-4">치이카와 캐릭터를 내 모습으로 바꿔주는 AI 프롬프트를 공유합니다. 최애 사진 + 내 사진 2장만 있으면 돼요.</p>
+        <p class="text-sm text-gray-500">26. 10. 17.</p>
+      </div>
+    </div>
+
+    <div class="container mx-auto px-6 mb-12" style="max-width:600px;">
+      <div class="carousel-wrapper" id="carousel">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide"><img loading="eager" src="tagby-original-chiikawa-profile-1017/slide-1.png" alt="먼작귀 프사 만들기 - 슬라이드 1"></div>
+          <div class="carousel-slide"><img loading="lazy" src="tagby-original-chiikawa-profile-1017/slide-2.png" alt="먼작귀 프사 만들기 - 슬라이드 2"></div>
+          <div class="carousel-slide"><img loading="lazy" src="tagby-original-chiikawa-profile-1017/slide-3.png" alt="먼작귀 프사 만들기 - 슬라이드 3"></div>
+          <div class="carousel-slide"><img loading="lazy" src="tagby-original-chiikawa-profile-1017/slide-4.png" alt="먼작귀 프사 만들기 - 슬라이드 4"></div>
+          <div class="carousel-slide"><img loading="lazy" src="tagby-original-chiikawa-profile-1017/slide-5.png" alt="먼작귀 프사 만들기 - 슬라이드 5"></div>
+          <div class="carousel-slide"><img loading="lazy" src="tagby-original-chiikawa-profile-1017/slide-6.png" alt="먼작귀 프사 만들기 - 슬라이드 6"></div>
+          <div class="carousel-slide"><img loading="lazy" src="tagby-original-chiikawa-profile-1017/slide-7.png" alt="먼작귀 프사 만들기 - 슬라이드 7"></div>
+        </div>
+        <button class="carousel-btn carousel-prev" id="prevBtn" aria-label="이전">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="carousel-btn carousel-next" id="nextBtn" aria-label="다음">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="carousel-dots" id="carouselDots"></div>
+        <div class="carousel-counter" id="carouselCounter">1 / 7</div>
+      </div>
+    </div>
+
+    <div class="container mx-auto px-6 mb-20" style="max-width:48rem;">
+      <div class="article-content">
+
+        <p>요즘 SNS에서 유행하는 치이카와(먼작귀) 스타일 프로필 이미지, 직접 만들 수 있습니다.</p>
+        <p>아래 프롬프트를 복사해서 평소 쓰는 AI 툴에 붙여넣고, 사진 2장만 첨부하면 돼요.</p>
+
+        <h2>사용 방법</h2>
+
+        <p><strong>① 프롬프트 복사</strong> — 아래 버튼을 눌러 복사합니다.</p>
+        <p><strong>② 사진 2장 준비</strong></p>
+        <p style="padding-left:1.25rem; color:#aaa; font-size:1rem;">이미지 1: 최애 캐릭터 사진 (치이카와, 시사, 하치와레 등)</p>
+        <p style="padding-left:1.25rem; color:#aaa; font-size:1rem;">이미지 2: 내 사진 (헤어·옷·포즈·배경이 담긴 것)</p>
+        <p><strong>③ AI 툴에 입력</strong> — ChatGPT, Gemini, Grok 등 이미지 첨부되는 AI면 어디서든 동작합니다.</p>
+
+        <div class="prompt-block">
+          <div class="prompt-header">
+            <span class="prompt-label">프롬프트</span>
+            <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span id="copyBtnText">복사하기</span>
+            </button>
+          </div>
+          <textarea class="prompt-text" id="promptText" readonly rows="32">첨부한 두 이미지로 내 최애 캐릭터 프로필 이미지를 만들어줘.
+
+이미지 1: 캐릭터의 얼굴, 신체 비율, 선과 채색의 기준.
+이미지 2: 적용할 헤어스타일, 옷, 액세서리, 포즈와 배경의 기준.
+
+[캐릭터]
+이미지 1의 얼굴형, 귀, 몸 색깔, 무늬와
+눈·눈썹·코·입의 모양과 배치를 유지해줘.
+사람의 얼굴 요소나 원본에 없는 눈썹을 추가하지 말아줘.
+
+머리와 몸의 연결 방식, 몸통의 가로세로 비율,
+짧은 팔다리 등 원본의 신체 구조를 유지해줘.
+사람처럼 목과 어깨를 만들거나 몸통과 팔을 길게 늘리지 말아줘.
+원본 캐릭터가 손에 든 소품은 제외해줘.
+
+[반드시 적용할 머리와 옷]
+이미지 2의 헤어스타일과 옷을 캐릭터에 적용해줘.
+캐릭터 외형을 유지하라는 지시가 머리와 옷을 생략하라는 뜻은 아니야.
+
+머리카락은 사진의 색, 길이감, 가르마, 앞머리와
+웨이브의 큰 윤곽이 알아보이도록 표현해줘.
+몇 개의 큼직한 색 면과 적은 선으로 단순화하고,
+잔머리, 촘촘한 머릿결, 광택과 사실적인 명암은 생략해줘.
+캐릭터의 귀와 고유한 특징이 보이게 해줘.
+
+옷은 사진 속 색과 형태를 캐릭터 몸에 맞춰 작게 입혀줘.
+프릴이나 주름은 핵심 특징만 적은 선으로 표현해줘.
+사진에 보이는 액세서리와 가방끈도 간단하게 반영해줘.
+
+[포즈]
+이미지 2의 행동을 캐릭터의 짧은 팔다리로 표현해줘.
+양손으로 볼을 받치는 사진이라면 작은 앞발을 볼 가까이에 붙여줘.
+포즈를 따라 하기 위해 팔을 늘리거나 사람의 손을 그리지 말아줘.
+얼굴 표정은 이미지 1을 유지해줘.
+
+[배경]
+이미지 2에 보이는 장소와 촬영 구도를 유지해줘.
+주요 건물과 사물의 모양, 위치, 상대적인 크기와 원근감을
+보존하면서 표면 질감만 부드러운 일러스트로 바꿔줘.
+건물을 없애거나 다른 풍경으로 교체하지 말아줘.
+
+배경의 묘사 수준과 관계없이 캐릭터, 머리카락과 옷은
+이미지 1처럼 단순한 선과 평면적인 색으로 표현해줘.
+
+[화면 구성]
+정사각형 1:1 프로필 이미지로 만들어줘.
+캐릭터는 사진 속 인물의 중심 위치에 배치하되,
+화면을 채우려고 캐릭터의 몸을 길게 늘리지 말아줘.
+귀와 머리 주변에는 원형으로 잘라도 괜찮을 여백을 남겨줘.
+전신이나 발을 보여주려고 배경의 시야를 넓히지 말아줘.
+
+완성 이미지에는 다음 세 가지가 함께 드러나야 해.
+1. 이미지 1의 캐릭터 얼굴과 신체 비율
+2. 이미지 2의 헤어스타일과 옷
+3. 이미지 2의 주요 배경과 배치
+
+글자, 로고, 휴대폰 화면 요소와 임의의 장식 없이
+완성 이미지 한 장만 출력해줘.</textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container mx-auto px-6 mb-20" style="max-width:48rem;">
+      <div class="border-t border-gray-800 pt-8">
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs text-gray-500 px-3 py-1 bg-gray-900 rounded-full">#먼작귀</span>
+          <span class="text-xs text-gray-500 px-3 py-1 bg-gray-900 rounded-full">#치이카와</span>
+          <span class="text-xs text-gray-500 px-3 py-1 bg-gray-900 rounded-full">#AI프롬프트</span>
+          <span class="text-xs text-gray-500 px-3 py-1 bg-gray-900 rounded-full">#프사만들기</span>
+          <span class="text-xs text-gray-500 px-3 py-1 bg-gray-900 rounded-full">#AI이미지</span>
+          <span class="text-xs text-gray-500 px-3 py-1 bg-gray-900 rounded-full">#프로필사진</span>
+        </div>
+      </div>
+    </div>
+</article>
+
+  <button class="scroll-to-top" id="scrollToTop" aria-label="맨 위로">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <footer style="background:#111; border-top:1px solid #222; padding:3rem 0 2rem;">
+    <div class="container mx-auto px-8">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:2rem; margin-bottom:2rem;">
+        <div><img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" style="height:28px; margin-bottom:12px;"><p style="font-size:0.8rem; color:#555; line-height:1.6;">브랜드와 소비자를 연결하는<br>퍼포먼스 마케팅 에이전시</p></div>
+        <div style="display:flex; gap:3rem; flex-wrap:wrap;">
+          <div><p style="font-size:0.75rem; color:#444; margin-bottom:10px; font-weight:600; letter-spacing:0.05em;">서비스</p><div style="display:flex; flex-direction:column; gap:8px;"><a href="../performance.html" style="font-size:0.8rem; color:#666; text-decoration:none;">퍼포먼스 마케팅</a><a href="../contents.html" style="font-size:0.8rem; color:#666; text-decoration:none;">콘텐츠 마케팅</a><a href="../design.html" style="font-size:0.8rem; color:#666; text-decoration:none;">디자인</a></div></div>
+          <div><p style="font-size:0.75rem; color:#444; margin-bottom:10px; font-weight:600; letter-spacing:0.05em;">회사</p><div style="display:flex; flex-direction:column; gap:8px;"><a href="../about.html" style="font-size:0.8rem; color:#666; text-decoration:none;">회사소개</a><a href="../tagby-article.html" style="font-size:0.8rem; color:#666; text-decoration:none;">아티클</a><a href="../contact.html" style="font-size:0.8rem; color:#666; text-decoration:none;">문의하기</a></div></div>
+        </div>
+      </div>
+      <div style="border-top:1px solid #222; padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <p style="font-size:0.75rem; color:#444;">© 2026 TAGby. All rights reserved.</p>
+        <p style="font-size:0.75rem; color:#444;">mkt.tagby.io</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+// 캐러셀
+const track = document.getElementById('carouselTrack');
+const dotsContainer = document.getElementById('carouselDots');
+const counter = document.getElementById('carouselCounter');
+const total = 7;
+let current = 0;
+
+for (let i = 0; i < total; i++) {
+  const dot = document.createElement('button');
+  dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+  dot.setAttribute('aria-label', `슬라이드 ${i+1}`);
+  dot.addEventListener('click', () => goTo(i));
+  dotsContainer.appendChild(dot);
+}
+
+function goTo(n) {
+  current = (n + total) % total;
+  track.style.transform = `translateX(-${current * 100}%)`;
+  document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  counter.textContent = `${current + 1} / ${total}`;
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+let startX = 0;
+track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive: true});
+track.addEventListener('touchend', e => {
+  const diff = startX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+}, {passive: true});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft') goTo(current - 1);
+  if (e.key === 'ArrowRight') goTo(current + 1);
+});
+
+// 프롬프트 복사
+function copyPrompt() {
+  const text = document.getElementById('promptText').value;
+  const btn = document.getElementById('copyBtn');
+  const btnText = document.getElementById('copyBtnText');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btnText.textContent = '복사됨 ✓';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btnText.textContent = '복사하기';
+    }, 2000);
+  }).catch(() => {
+    document.getElementById('promptText').select();
+    document.execCommand('copy');
+    btnText.textContent = '복사됨 ✓';
+    setTimeout(() => { btnText.textContent = '복사하기'; }, 2000);
+  });
+}
+
+// 스크롤 맨 위로
+const scrollBtn = document.getElementById('scrollToTop');
+window.addEventListener('scroll', () => scrollBtn.classList.toggle('visible', window.scrollY > 400));
+scrollBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+// 드롭다운
+document.querySelectorAll('.dropdown').forEach(d => {
+  const menu = d.querySelector('.dropdown-menu');
+  d.addEventListener('mouseenter', () => { menu.style.display='block'; requestAnimationFrame(() => { menu.style.opacity='1'; menu.style.transform='translateY(0)'; }); });
+  d.addEventListener('mouseleave', () => { menu.style.opacity='0'; menu.style.transform='translateY(-10px)'; setTimeout(() => { menu.style.display='none'; }, 300); });
+});
+
+// 모바일 메뉴
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileOverlay = document.getElementById('mobileOverlay');
+hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); mobileMenu.classList.toggle('active'); mobileOverlay.classList.toggle('active'); });
+mobileOverlay.addEventListener('click', () => { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); mobileOverlay.classList.remove('active'); });
+</script>
+</body>
+</html>
