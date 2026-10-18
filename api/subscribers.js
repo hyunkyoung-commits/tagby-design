@@ -13,13 +13,24 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
-  const { password } = req.body || {}
+  const { password, action } = req.body || {}
 
   if (password !== process.env.ADMIN_PASSWORD) {
     return res.status(401).json({ error: '비밀번호가 틀렸습니다.' })
   }
 
   try {
+    if (action === 'list') {
+      const { data, error } = await supabase
+        .from('subscribers')
+        .select('id, name, email, status, subscribed_at')
+        .order('subscribed_at', { ascending: false })
+        .limit(500)
+
+      if (error) throw error
+      return res.status(200).json({ subscribers: data || [] })
+    }
+
     const { count: activeCount } = await supabase
       .from('subscribers')
       .select('*', { count: 'exact', head: true })

@@ -280,10 +280,10 @@
   async function loadSubscribers() {
     if (subscribersLoaded) return
     try {
-      const res = await fetch('/api/subscriber-list', {
+      const res = await fetch('/api/subscribers', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: adminPassword })
+        body: JSON.stringify({ password: adminPassword, action: 'list' })
       })
       const data = await res.json()
       allSubscribers = data.subscribers || []
