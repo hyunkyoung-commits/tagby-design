@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon-v2.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <title id="metaTitle">아티클 - TAGby 태그바이</title>
+  <meta id="metaDesc" name="description" content="">
+  <meta name="robots" content="index, follow">
+  <meta id="ogTitle" property="og:title" content="TAGby 태그바이">
+  <meta id="ogDesc" property="og:description" content="">
+  <meta id="ogUrl" property="og:url" content="https://mkt.tagby.io/article-view.html">
+  <meta id="ogImage" property="og:image" content="">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="TAGby">
+  <meta name="twitter:card" content="summary_large_image">
+  <link id="canonicalLink" rel="canonical" href="https://mkt.tagby.io/article-view.html">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5675K11SP"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D5675K11SP');</script>
+  <style>
+    body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background-color:#1A1A1A;color:white;}
+    .article-content{font-size:1.125rem;line-height:1.8;color:#E0E0E0;}
+    .article-content p{margin-bottom:0.6rem;}
+    .article-content strong{color:white;font-weight:600;}
+    .article-content h2{font-size:1.5rem;font-weight:700;color:white;margin-top:6rem;margin-bottom:1rem;}
+    .article-content ul{list-style:disc;padding-left:1.5rem;margin-bottom:1.5rem;}
+    .article-content ul li{margin-bottom:0.5rem;}
+    .article-content ol{list-style:decimal;padding-left:1.5rem;margin-bottom:1.5rem;}
+    .article-content ol li{margin-bottom:0.5rem;}
+    .article-content blockquote{border-left:3px solid #0078F0;padding-left:1.2rem;margin:1.5rem 0;color:#9CA3AF;}
+    .article-content a{color:#0078F0;text-decoration:underline;}
+    .article-content img{max-width:100%;border-radius:8px;margin:1.5rem 0;}
+    .scroll-to-top{position:fixed;bottom:32px;right:32px;width:56px;height:56px;background-color:#0078F0;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(20px);transition:all 0.3s ease;z-index:40;}
+    .scroll-to-top.visible{opacity:1;transform:translateY(0);}
+    .dropdown-menu{display:none;opacity:0;transform:translateY(-10px);}
+    .dropdown{position:relative;}
+    .dropdown::after{content:'';position:absolute;top:100%;left:0;right:0;height:20px;}
+    .mobile-menu{position:fixed;top:0;right:-100%;width:280px;height:100vh;background-color:#1A1A1A;box-shadow:-4px 0 12px rgba(0,0,0,0.5);transition:right 0.3s ease;z-index:100;overflow-y:auto;}
+    .mobile-menu.active{right:0;}
+    .mobile-overlay{display:none;position:fixed;inset:0;background-color:rgba(0,0,0,0.7);z-index:99;}
+    .mobile-overlay.active{display:block;}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
+    .hamburger span{width:24px;height:2px;background-color:#fff;transition:all 0.3s ease;}
+    .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(7px,7px);}
+    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px);}
+    @media(max-width:1023px){.hamburger{display:flex;}}
+    /* 캐러셀 */
+    .carousel-wrapper{position:relative;}
+    .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.15);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:18px;z-index:10;transition:background 0.2s;}
+    .carousel-btn:hover{background:rgba(0,120,240,0.8);}
+    .carousel-prev{left:8px;}
+    .carousel-next{right:8px;}
+    .carousel-track{display:flex;transition:transform 0.35s ease;}
+    .carousel-slide{min-width:100%;flex-shrink:0;}
+    .carousel-dots{display:flex;justify-content:center;gap:6px;margin-top:12px;}
+    .carousel-dot{width:6px;height:6px;border-radius:50%;background:#444;cursor:pointer;transition:background 0.2s;}
+    .carousel-dot.active{background:#0078F0;}
+    .carousel-counter{text-align:center;font-size:13px;color:#666;margin-top:6px;}
+    /* 로딩 */
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+    .skeleton{background:#2a2a2a;border-radius:8px;animation:pulse 1.5s ease-in-out infinite;}
+  </style>
+</head>
+<body>
+  <header id="header" style="position:fixed;top:0;width:100%;z-index:50;transition:all 0.3s;backdrop-filter:blur(12px);background-color:rgba(26,26,26,0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="/" class="cursor-pointer hover:opacity-80 transition"><img loading="lazy" src="/images/logo/TAGby%20blue.png" alt="TAGby" class="h-8"></a>
+      <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
+        <a href="/about.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">회사소개</a>
+        <div class="relative dropdown flex items-center"><a href="/#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a><div class="dropdown-menu absolute top-full left-0 mt-4 bg-gray-900 rounded-lg shadow-xl overflow-hidden" style="min-width:200px;"><a href="/performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a><a href="/influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a></div></div>
+        <div class="relative dropdown flex items-center"><a href="/portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a><div class="dropdown-menu absolute top-full left-0 mt-2 bg-gray-900 rounded-xl shadow-xl p-6" style="min-width:420px;"><div class="grid grid-cols-3 gap-6"><div><p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">패션</p><div class="flex flex-col"><a href="/spao.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">스파오</a><a href="/mixxo.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">미쏘</a><a href="/newbalance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">뉴발란스</a><a href="/spaokids.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">스파오키즈</a><a href="/roem.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">로엠</a><a href="/eblin.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">에블린</a><a href="/eider.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">아이더</a></div></div><div><p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">생활/잡화</p><div class="flex flex-col"><a href="/cocodor.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">코코도르</a><a href="/emart.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">이마트</a></div></div><div><p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">교육</p><div class="flex flex-col"><a href="/minbyoungcheol.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">민병철유폰</a></div></div></div></div></div>
+        <div class="relative dropdown flex items-center"><a href="/org-chart.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a><div class="dropdown-menu absolute top-full left-0 mt-4 bg-gray-900 rounded-lg shadow-xl overflow-hidden" style="min-width:180px;"><a href="/culture.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">조직문화</a><a href="/org-chart.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">조직도</a><a href="/recruit.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">채용</a></div></div>
+        <a href="/tagby-article.html" class="text-xs md:text-sm lg:text-base font-medium text-white hover:text-[#0078F0] transition whitespace-nowrap">아티클</a>
+        <a href="/contact.html" class="px-6 py-2.5 text-sm font-semibold rounded-full transition whitespace-nowrap hover:opacity-85" style="background:#0078F0;color:white;">문의하기</a>
+      </div>
+      <div class="hamburger lg:hidden" id="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu"><div class="p-8"><a href="/" class="cursor-pointer hover:opacity-80 transition mb-8 inline-block"><img loading="lazy" src="/images/logo/TAGby%20blue.png" alt="TAGby" class="h-8"></a><nav class="flex flex-col gap-4"><a href="/about.html" class="text-lg font-medium text-gray-300 hover:text-[#0078F0] transition py-2">회사소개</a><div class="py-2"><p class="text-lg font-medium text-gray-300 mb-3">디지털 마케팅</p><div class="flex flex-col gap-2 pl-4"><a href="/performance-marketing.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">퍼포먼스 마케팅</a><a href="/influencer-marketing.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">인플루언서 마케팅</a></div></div><a href="/tagby-article.html" class="text-lg font-medium text-white hover:text-[#0078F0] transition py-2">아티클</a><a href="/contact.html" class="mt-2 text-center px-6 py-3 rounded-full text-white font-bold text-base" style="background:#0078F0;">문의하기</a></nav></div></div>
+
+  <!-- 아티클 본문 -->
+  <article id="articleMain" class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+      <div class="mb-8"><a href="/tagby-article.html" class="text-sm text-gray-500 hover:text-[#0078F0] transition">← 목록으로 돌아가기</a></div>
+
+      <!-- 로딩 스켈레톤 -->
+      <div id="loadingSkeleton">
+        <div class="skeleton" style="height:20px;width:120px;margin-bottom:24px;"></div>
+        <div class="skeleton" style="height:48px;width:90%;margin-bottom:12px;"></div>
+        <div class="skeleton" style="height:24px;width:70%;margin-bottom:48px;"></div>
+        <div class="skeleton" style="height:400px;width:100%;border-radius:16px;"></div>
+      </div>
+
+      <!-- 아티클 콘텐츠 (로드 후 표시) -->
+      <div id="articleContent" style="display:none;">
+        <div class="mb-6">
+          <span id="artCategory" class="text-sm text-[#0078F0] font-medium"></span>
+          <span id="artDate" class="text-sm text-gray-500 ml-4"></span>
+          <span id="artAuthor" class="text-sm text-gray-500 ml-4"></span>
+        </div>
+        <h1 id="artTitle" class="text-4xl md:text-5xl font-bold mb-4 leading-tight" style="font-weight:800;line-height:1.3;"></h1>
+        <p id="artSubtitle" class="text-sm text-gray-500 mb-12"></p>
+
+        <!-- 커버 이미지 (텍스트 아티클) -->
+        <div id="coverWrap" class="mb-12" style="display:none;">
+          <img id="artCover" src="" alt="" style="width:100%;border-radius:16px;display:block;">
+        </div>
+
+        <!-- 카드뉴스 캐러셀 -->
+        <div id="carouselWrap" class="mb-12" style="display:none;">
+          <div class="carousel-wrapper" id="carousel" style="padding:0 30px;">
+            <div style="overflow:hidden;border-radius:12px;">
+              <div class="carousel-track" id="carouselTrack"></div>
+            </div>
+            <button class="carousel-btn carousel-prev" id="carouselPrev" onclick="carouselMove(-1)">&#8249;</button>
+            <button class="carousel-btn carousel-next" id="carouselNext" onclick="carouselMove(1)">&#8250;</button>
+          </div>
+          <div class="carousel-dots" id="carouselDots"></div>
+          <div class="carousel-counter" id="carouselCounter">1 / 1</div>
+        </div>
+
+        <!-- 태그 -->
+        <div id="artTags" style="margin-bottom:2rem;display:flex;flex-wrap:wrap;gap:8px;"></div>
+
+        <!-- 본문 (텍스트 아티클) -->
+        <div id="artBody" class="article-content"></div>
+
+        <!-- 추천 아티클 -->
+        <section style="border-top:1px solid #2D2D2D; margin-top:4rem; padding:3rem 0 0;">
+          <h2 style="font-size:1rem; font-weight:700; color:#9CA3AF; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1.5rem;">추천 아티클</h2>
+          <div id="related-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;"></div>
+        </section>
+      </div>
+
+      <!-- 에러 화면 -->
+      <div id="errorContent" style="display:none; text-align:center; padding:80px 0;">
+        <div style="font-size:48px; margin-bottom:16px;">😅</div>
+        <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:8px;">아티클을 찾을 수 없습니다</div>
+        <div style="font-size:14px; color:#666; margin-bottom:24px;">삭제되었거나 주소가 잘못됐을 수 있습니다</div>
+        <a href="/tagby-article.html" style="color:#0078F0; font-size:14px;">← 아티클 목록으로</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- 스크롤 탑 버튼 -->
+  <div class="scroll-to-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+  </div>
+
+<script>
+// ── 캐러셀 상태 ───────────────────────────────────────────────
+var carouselIndex = 0
+var carouselTotal = 0
+
+function carouselMove(dir) {
+  carouselIndex = Math.max(0, Math.min(carouselTotal - 1, carouselIndex + dir))
+  updateCarousel()
+}
+
+function goToSlide(i) {
+  carouselIndex = i
+  updateCarousel()
+}
+
+function updateCarousel() {
+  document.getElementById('carouselTrack').style.transform = 'translateX(-' + (carouselIndex * 100) + '%)'
+  document.getElementById('carouselCounter').textContent = (carouselIndex + 1) + ' / ' + carouselTotal
+  document.getElementById('carouselPrev').style.opacity = carouselIndex === 0 ? '0.3' : '1'
+  document.getElementById('carouselNext').style.opacity = carouselIndex === carouselTotal - 1 ? '0.3' : '1'
+  var dots = document.getElementById('carouselDots').querySelectorAll('.carousel-dot')
+  dots.forEach(function(d, i) { d.classList.toggle('active', i === carouselIndex) })
+}
+
+// ── 아티클 로드 ───────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function() {
+  var params = new URLSearchParams(window.location.search)
+  var slug = params.get('slug')
+  if (!slug) { showError(); return }
+  loadArticle(slug)
+  initNav()
+  initScroll()
+})
+
+async function loadArticle(slug) {
+  try {
+    var res = await fetch('/api/article-get?slug=' + encodeURIComponent(slug))
+    if (!res.ok) throw new Error('not found')
+    var data = await res.json()
+    renderArticle(data)
+  } catch {
+    showError()
+  }
+}
+
+function renderArticle(a) {
+  var pageUrl = 'https://mkt.tagby.io/article-view.html?slug=' + encodeURIComponent(a.slug)
+  var dateStr = (a.published_at || a.date || '').slice(0, 10).replace(/-/g, '. ')
+
+  // 메타 업데이트
+  var titleFull = a.title + ' - TAGby 태그바이'
+  document.title = titleFull
+  setMeta('metaTitle',    titleFull)
+  setMeta('metaDesc',     a.subtitle || a.title)
+  setMeta('ogTitle',      titleFull)
+  setMeta('ogDesc',       a.subtitle || a.title)
+  setMeta('ogUrl',        pageUrl)
+  if (a.cover_url) setMeta('ogImage', a.cover_url)
+  document.getElementById('canonicalLink').href = pageUrl
+
+  // 헤더 정보
+  document.getElementById('artCategory').textContent = a.category
+  document.getElementById('artDate').textContent     = dateStr
+  if (a.author_name) document.getElementById('artAuthor').textContent = '작성: ' + a.author_name
+  document.getElementById('artTitle').textContent    = a.title
+  if (a.subtitle) {
+    document.getElementById('artSubtitle').textContent = a.subtitle
+  } else {
+    document.getElementById('artSubtitle').style.display = 'none'
+  }
+
+  // 태그
+  if (a.tags && a.tags.length > 0) {
+    document.getElementById('artTags').innerHTML = a.tags.map(function(t) {
+      return '<span style="background:#1e1e1e;border:1px solid #2d2d2d;border-radius:20px;padding:4px 12px;font-size:12px;color:#9CA3AF;">#' + escHtml(t) + '</span>'
+    }).join('')
+  }
+
+  if (a.article_type === 'card-news') {
+    // 카드뉴스 캐러셀
+    var slides = a.slides || []
+    carouselTotal = slides.length
+    document.getElementById('carouselWrap').style.display = 'block'
+    document.getElementById('carouselTrack').innerHTML = slides.map(function(url, i) {
+      return '<div class="carousel-slide"><img src="' + url + '" alt="슬라이드 ' + (i+1) + '" style="width:100%;display:block;"></div>'
+    }).join('')
+    document.getElementById('carouselDots').innerHTML = slides.map(function(_, i) {
+      return '<div class="carousel-dot' + (i===0?' active':'') + '" onclick="goToSlide(' + i + ')"></div>'
+    }).join('')
+    document.getElementById('carouselCounter').textContent = '1 / ' + slides.length
+    document.getElementById('carouselPrev').style.opacity = '0.3'
+    if (slides.length <= 1) document.getElementById('carouselNext').style.opacity = '0.3'
+  } else {
+    // 텍스트 아티클
+    if (a.cover_url) {
+      document.getElementById('artCover').src = a.cover_url
+      document.getElementById('artCover').alt = a.title
+      document.getElementById('coverWrap').style.display = 'block'
+    }
+    document.getElementById('artBody').innerHTML = a.body_html || ''
+  }
+
+  // 추천 아티클 로드
+  loadRelated(a.slug, a.category, a.tags || [])
+
+  // 스켈레톤 → 콘텐츠
+  document.getElementById('loadingSkeleton').style.display = 'none'
+  document.getElementById('articleContent').style.display = 'block'
+}
+
+function showError() {
+  document.getElementById('loadingSkeleton').style.display = 'none'
+  document.getElementById('errorContent').style.display = 'block'
+}
+
+// ── 추천 아티클 ───────────────────────────────────────────────
+async function loadRelated(slug, cat, myTags) {
+  try {
+    // articles.json (기존 정적 아티클) + Supabase DB 병합
+    var [staticRes, dbRes] = await Promise.allSettled([
+      fetch('https://mkt.tagby.io/articles.json'),
+      fetch('/api/article-list-db')
+    ])
+
+    var all = []
+    if (staticRes.status === 'fulfilled' && staticRes.value.ok) {
+      var staticArticles = await staticRes.value.json()
+      all = all.concat(staticArticles.map(function(a) { return Object.assign({}, a, { _viewUrl: 'https://mkt.tagby.io/design-study-article/' + a.slug + '.html' }) }))
+    }
+    if (dbRes.status === 'fulfilled' && dbRes.value.ok) {
+      var dbArticles = await dbRes.value.json()
+      all = all.concat(dbArticles.map(function(a) { return Object.assign({}, a, { _viewUrl: 'https://mkt.tagby.io/article-view.html?slug=' + encodeURIComponent(a.slug) }) }))
+    }
+
+    var candidates = all.filter(function(a) { return a.slug !== slug })
+    candidates = candidates.map(function(a) {
+      var overlap = 0
+      if (myTags.length > 0 && a.tags) {
+        myTags.forEach(function(t) { if (a.tags.indexOf(t) !== -1) overlap++ })
+      }
+      a._score = overlap * 10 + (a.category === cat ? 1 : 0)
+      return a
+    })
+    candidates.sort(function(a, b) { return b._score - a._score })
+    var picks = candidates.slice(0, 3)
+    var grid = document.getElementById('related-grid')
+    if (!grid || picks.length === 0) return
+
+    grid.innerHTML = picks.map(function(a) {
+      var coverHtml = a.cover
+        ? '<img src="https://mkt.tagby.io/' + a.cover + '" alt="' + escHtml(a.title) + '" style="width:100%;height:100%;object-fit:cover;">'
+        : '<img src="https://mkt.tagby.io/design-study-article/thum/' + a.slug + '.png" alt="' + escHtml(a.title) + '" style="width:100%;height:100%;object-fit:cover;">'
+      return '<a href="' + (a._viewUrl || '#') + '" '
+        + 'style="display:block;background:#1F1F1F;border-radius:12px;overflow:hidden;text-decoration:none;transition:background 0.2s;" '
+        + 'onmouseover="this.style.background=\'#2A2A2A\'" onmouseout="this.style.background=\'#1F1F1F\'">'
+        + '<div style="aspect-ratio:4/3;overflow:hidden;background:#111;">' + coverHtml + '</div>'
+        + '<div style="padding:0.875rem;">'
+        + '<p style="font-size:0.7rem;color:#0078F0;font-weight:600;margin:0 0 0.35rem;">' + escHtml(a.category) + '</p>'
+        + '<p style="font-size:0.82rem;font-weight:700;color:#fff;margin:0 0 0.4rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + escHtml(a.title) + '</p>'
+        + '<p style="font-size:0.72rem;color:#6B7280;margin:0;">' + escHtml(a.date || '') + '</p>'
+        + '</div></a>'
+    }).join('')
+  } catch(e) {}
+}
+
+// ── 네비게이션 ────────────────────────────────────────────────
+function initNav() {
+  var header = document.getElementById('header')
+  var hamburger = document.getElementById('hamburger')
+  var mobileMenu = document.getElementById('mobileMenu')
+  var mobileOverlay = document.getElementById('mobileOverlay')
+
+  window.addEventListener('scroll', function() {
+    header.style.padding = window.scrollY > 50 ? '0' : ''
+  })
+
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('active')
+    mobileMenu.classList.toggle('active')
+    mobileOverlay.classList.toggle('active')
+  })
+  mobileOverlay.addEventListener('click', function() {
+    hamburger.classList.remove('active')
+    mobileMenu.classList.remove('active')
+    mobileOverlay.classList.remove('active')
+  })
+
+  document.querySelectorAll('.dropdown').forEach(function(d) {
+    var menu = d.querySelector('.dropdown-menu')
+    if (!menu) return
+    d.addEventListener('mouseenter', function() {
+      menu.style.display = 'block'
+      setTimeout(function() { menu.style.opacity = '1'; menu.style.transform = 'translateY(0)'; }, 10)
+    })
+    d.addEventListener('mouseleave', function() {
+      menu.style.opacity = '0'; menu.style.transform = 'translateY(-10px)'
+      setTimeout(function() { menu.style.display = 'none' }, 200)
+    })
+  })
+}
+
+function initScroll() {
+  var scrollTopBtn = document.getElementById('scrollTop')
+  window.addEventListener('scroll', function() {
+    scrollTopBtn.classList.toggle('visible', window.scrollY > 400)
+  })
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+}
+
+function setMeta(id, content) {
+  var el = document.getElementById(id)
+  if (el) {
+    if (el.tagName === 'META') el.setAttribute('content', content)
+    else el.textContent = content
+  }
+}
+</script>
+</body>
+</html>
