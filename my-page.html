@@ -40,7 +40,29 @@
       font-size: 28px; font-weight: 700; color: #fff; flex-shrink: 0;
     }
     .profile-info { flex: 1; }
-    .profile-name { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .profile-name-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .profile-name { font-size: 20px; font-weight: 800; }
+    .name-edit-btn {
+      background: none; border: none; color: #444; cursor: pointer;
+      font-size: 13px; padding: 2px 4px; border-radius: 4px;
+      transition: color .15s;
+    }
+    .name-edit-btn:hover { color: #aaa; }
+    .name-edit-wrap { display: none; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .name-input {
+      font-size: 18px; font-weight: 700; background: #111; border: 1px solid #333;
+      border-radius: 8px; padding: 4px 10px; color: #fff; font-family: inherit;
+      width: 180px;
+    }
+    .name-input:focus { outline: none; border-color: #0078F0; }
+    .name-save-btn {
+      background: #0078F0; color: #fff; border: none; border-radius: 6px;
+      padding: 5px 12px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+    }
+    .name-cancel-btn {
+      background: transparent; color: #666; border: 1px solid #333; border-radius: 6px;
+      padding: 5px 10px; font-size: 12px; cursor: pointer; font-family: inherit;
+    }
     .profile-email { font-size: 13px; color: #666; margin-bottom: 12px; }
     .profile-stats { display: flex; gap: 20px; }
     .stat-item { text-align: center; }
@@ -159,7 +181,15 @@
         <div class="avatar" id="profileAvatar"></div>
       </div>
       <div class="profile-info">
-        <div class="profile-name" id="profileName">—</div>
+        <div class="profile-name-wrap">
+          <div class="profile-name" id="profileName">—</div>
+          <button class="name-edit-btn" onclick="startEditName()" title="닉네임 수정">✏️</button>
+        </div>
+        <div class="name-edit-wrap" id="nameEditWrap">
+          <input class="name-input" id="nameInput" type="text" maxlength="20" placeholder="닉네임" onkeydown="if(event.key==='Enter')saveName();if(event.key==='Escape')cancelEditName()">
+          <button class="name-save-btn" onclick="saveName()">저장</button>
+          <button class="name-cancel-btn" onclick="cancelEditName()">취소</button>
+        </div>
         <div class="profile-email" id="profileEmail">—</div>
         <div class="profile-stats">
           <div class="stat-item">
@@ -298,6 +328,46 @@ async function deleteArticle(slug, btn) {
     btn.disabled = false
     btn.textContent = '삭제'
     alert('삭제에 실패했습니다.')
+  }
+}
+
+function startEditName() {
+  const current = document.getElementById('profileName').textContent
+  document.getElementById('nameInput').value = current
+  document.querySelector('.profile-name-wrap').style.display = 'none'
+  const wrap = document.getElementById('nameEditWrap')
+  wrap.style.display = 'flex'
+  document.getElementById('nameInput').focus()
+}
+
+function cancelEditName() {
+  document.getElementById('nameEditWrap').style.display = 'none'
+  document.querySelector('.profile-name-wrap').style.display = 'flex'
+}
+
+async function saveName() {
+  const newName = document.getElementById('nameInput').value.trim()
+  if (!newName) return
+  const btn = document.querySelector('.name-save-btn')
+  btn.disabled = true
+  btn.textContent = '저장 중...'
+  try {
+    const res = await fetch('/api/article-auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ action: 'update-name', name: newName })
+    })
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error)
+    document.getElementById('profileName').textContent = newName
+    document.getElementById('profileAvatar').textContent = newName.charAt(0).toUpperCase()
+    currentUser.name = newName
+    cancelEditName()
+  } catch(err) {
+    alert(err.message || '닉네임 변경에 실패했습니다.')
+  } finally {
+    btn.disabled = false
+    btn.textContent = '저장'
   }
 }
 

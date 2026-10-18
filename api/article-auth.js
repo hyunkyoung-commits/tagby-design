@@ -72,5 +72,22 @@ module.exports = async function handler(req, res) {
     })
   }
 
+  if (action === 'update-name') {
+    const token = (req.headers.authorization || '').replace('Bearer ', '')
+    const { name } = req.body || {}
+    if (!token) return res.status(401).json({ error: '토큰이 없습니다' })
+    if (!name || !name.trim()) return res.status(400).json({ error: '닉네임을 입력해주세요' })
+
+    const { data: userData, error: authError } = await supabase.auth.getUser(token)
+    if (authError || !userData?.user) return res.status(401).json({ error: '인증이 만료되었습니다' })
+
+    const { error } = await supabase.auth.admin.updateUserById(userData.user.id, {
+      user_metadata: { name: name.trim() }
+    })
+    if (error) return res.status(500).json({ error: '닉네임 변경에 실패했습니다' })
+
+    return res.status(200).json({ success: true, name: name.trim() })
+  }
+
   return res.status(400).json({ error: '잘못된 요청입니다' })
 }
