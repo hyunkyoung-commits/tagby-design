@@ -498,12 +498,12 @@ async function loadArticleForEdit(slug) {
     const a = await res.json()
 
     // 폼 채우기
-    document.getElementById('fTitle').value = a.title || ''
-    document.getElementById('fSubtitle').value = a.subtitle || ''
-    document.getElementById('fSlug').value = a.slug || ''
-    document.getElementById('fCategory').value = a.category || ''
-    document.getElementById('fStatus').value = a.status || 'published'
-    document.getElementById('fAuthorName').value = a.author_name || ''
+    const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || '' }
+    setVal('fTitle', a.title)
+    setVal('fSubtitle', a.subtitle)
+    setVal('fSlug', a.slug)
+    setVal('fCategory', a.category)
+    slugManuallyEdited = true  // 슬러그 자동변경 방지
 
     if (a.tags && Array.isArray(a.tags)) {
       tags = [...a.tags]
