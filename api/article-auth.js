@@ -86,6 +86,11 @@ module.exports = async function handler(req, res) {
     })
     if (error) return res.status(500).json({ error: '닉네임 변경에 실패했습니다' })
 
+    await supabase
+      .from('articles')
+      .update({ author_name: name.trim() })
+      .eq('author_id', userData.user.id)
+
     return res.status(200).json({ success: true, name: name.trim() })
   }
 
