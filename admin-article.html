@@ -478,7 +478,64 @@ function showEditor() {
     })
   }
 
-  loadDraftLocally()
+  // URL에 ?edit=SLUG 가 있으면 기존 아티클 로드 (드래프트 복원 이전)
+  const editSlug = new URLSearchParams(location.search).get('edit')
+  if (editSlug) {
+    loadArticleForEdit(editSlug)
+  } else {
+    loadDraftLocally()
+  }
+}
+
+async function loadArticleForEdit(slug) {
+  try {
+    const res = await fetch('/api/my-articles?slug=' + encodeURIComponent(slug), {
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+    if (!res.ok) throw new Error()
+    const a = await res.json()
+
+    // 폼 채우기
+    document.getElementById('fTitle').value = a.title || ''
+    document.getElementById('fSubtitle').value = a.subtitle || ''
+    document.getElementById('fSlug').value = a.slug || ''
+    document.getElementById('fCategory').value = a.category || ''
+    document.getElementById('fStatus').value = a.status || 'published'
+    document.getElementById('fAuthorName').value = a.author_name || ''
+
+    if (a.tags && Array.isArray(a.tags)) {
+      tags = [...a.tags]
+      renderTags()
+    }
+    if (a.cover_url) {
+      coverUrl = a.cover_url
+      document.getElementById('coverPreview').src = coverUrl
+      document.getElementById('coverPreview').style.display = 'block'
+      document.getElementById('coverPlaceholder').style.display = 'none'
+    }
+    if (a.body_html && quill) {
+      quill.root.innerHTML = a.body_html
+    }
+    if (a.source_name || a.source_url) {
+      const names = (a.source_name || '').split('||')
+      const urls  = (a.source_url  || '').split('||')
+      const count = Math.max(names.length, urls.length)
+      sources = []
+      for (let i = 0; i < count; i++) {
+        sources.push({ name: names[i] || '', url: urls[i] || '' })
+      }
+      renderSources()
+    }
+
+    // 편집 모드 배너 표시
+    const banner = document.createElement('div')
+    banner.style.cssText = 'background:#1a2a1a;border:1px solid #2d5a2d;border-radius:8px;padding:10px 16px;margin-bottom:16px;font-size:13px;color:#4ade80;'
+    banner.textContent = '✏️ 수정 모드 — "' + (a.title || slug) + '" 를 수정 중입니다.'
+    const firstCard = document.querySelector('.section-card')
+    if (firstCard) firstCard.parentNode.insertBefore(banner, firstCard)
+  } catch {
+    alert('아티클을 불러오는 데 실패했습니다.')
+  }
 }
 
 let pendingImgUrl = null

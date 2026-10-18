@@ -107,6 +107,7 @@
     .action-btn:hover { border-color: #555; color: #ccc; }
     .action-btn.view { border-color: #0078F0; color: #0078F0; }
     .action-btn.view:hover { background: #0078F0; color: #fff; }
+    .action-btn:disabled { opacity: .5; cursor: not-allowed; }
 
     /* 빈 상태 */
     .empty-state {
@@ -193,7 +194,7 @@
 </div>
 
 <!-- 로그인 필요 화면 -->
-<div id="loginWall" style="display:none; min-height:80vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px;">
+<div id="loginWall" style="display:none; min-height:80vh; flex-direction:column; gap:12px; align-items:center; justify-content:center;">
   <div style="font-size:32px; opacity:.3;">🔒</div>
   <p style="color:#666; font-size:14px;">로그인이 필요합니다</p>
   <a href="admin-article.html" class="write-btn">로그인하러 가기</a>
@@ -265,11 +266,13 @@ const token = localStorage.getItem('tagby_article_token') || ''
 let currentUser = null
 let pendingAvatarUrl = null
 
+function showLoginWall() {
+  const el = document.getElementById('loginWall')
+  el.style.display = 'flex'
+}
+
 async function init() {
-  if (!token) {
-    document.getElementById('loginWall').style.display = 'flex'
-    return
-  }
+  if (!token) { showLoginWall(); return }
   try {
     const res = await fetch('/api/article-auth', {
       method: 'POST',
@@ -281,7 +284,7 @@ async function init() {
     currentUser = data.user
     showMain()
   } catch {
-    document.getElementById('loginWall').style.display = 'flex'
+    showLoginWall()
   }
 }
 
@@ -342,7 +345,9 @@ async function loadMyArticles() {
     const viewBtn = a.status === 'published'
       ? '<a href="article-view.html?slug=' + esc(a.slug) + '" target="_blank" class="action-btn view">보기</a>'
       : ''
-    return '<div class="article-item">'
+    const editBtn = '<a href="admin-article.html?edit=' + esc(a.slug) + '" class="action-btn">수정</a>'
+    const delBtn = '<button class="action-btn" style="color:#f87171;border-color:#f87171;" onclick="deleteArticle(\'' + esc(a.slug) + '\', this)">삭제</button>'
+    return '<div class="article-item" data-slug="' + esc(a.slug) + '">'
       + '<div class="article-thumb">' + thumbHtml + '</div>'
       + '<div class="article-info">'
       + '<div class="article-title">' + esc(a.title) + '</div>'
@@ -352,9 +357,31 @@ async function loadMyArticles() {
       + (dateStr ? '<span class="article-date">' + dateStr + '</span>' : '')
       + '</div>'
       + '</div>'
-      + '<div class="article-actions">' + viewBtn + '</div>'
+      + '<div class="article-actions">' + viewBtn + editBtn + delBtn + '</div>'
       + '</div>'
   }).join('')
+}
+
+async function deleteArticle(slug, btn) {
+  if (!confirm('정말 삭제하시겠어요? 되돌릴 수 없습니다.')) return
+  btn.disabled = true
+  btn.textContent = '삭제 중...'
+  try {
+    const res = await fetch('/api/my-articles', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ action: 'delete', slug })
+    })
+    if (!res.ok) throw new Error()
+    const item = document.querySelector('[data-slug="' + slug + '"]')
+    if (item) item.remove()
+    // 통계 재로드
+    await loadMyArticles()
+  } catch {
+    btn.disabled = false
+    btn.textContent = '삭제'
+    alert('삭제에 실패했습니다.')
+  }
 }
 
 // 프로필 이미지

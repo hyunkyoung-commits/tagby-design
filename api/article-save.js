@@ -62,34 +62,50 @@ module.exports = async function handler(req, res) {
   // 슬러그 중복 확인
   const { data: existing } = await supabase
     .from('articles')
-    .select('id')
+    .select('id, author_id')
     .eq('slug', slug)
     .maybeSingle()
 
-  if (existing) return res.status(409).json({ error: '이미 사용 중인 슬러그입니다. 다른 슬러그를 사용해주세요.' })
+  if (existing && existing.author_id !== userData.user.id) {
+    return res.status(409).json({ error: '이미 사용 중인 슬러그입니다. 다른 슬러그를 사용해주세요.' })
+  }
 
-  // 아티클 저장
-  const { data: article, error: insertError } = await supabase
-    .from('articles')
-    .insert({
-      slug,
-      title,
-      subtitle: subtitle || null,
-      body_html: body_html || null,
-      category,
-      tags: Array.isArray(tags) ? tags : [],
-      cover_url: cover_url || null,
-      article_type: article_type || 'text',
-      author_id: userData.user.id,
-      author_email: userData.user.email,
-      author_name: author_name || userData.user.user_metadata?.name || userData.user.email.split('@')[0],
-      status: status || 'published',
-      published_at: new Date().toISOString(),
-      source_name: source_name || null,
-      source_url:  source_url  || null
-    })
-    .select()
-    .single()
+  const articleData = {
+    slug,
+    title,
+    subtitle: subtitle || null,
+    body_html: body_html || null,
+    category,
+    tags: Array.isArray(tags) ? tags : [],
+    cover_url: cover_url || null,
+    article_type: article_type || 'text',
+    author_id: userData.user.id,
+    author_email: userData.user.email,
+    author_name: author_name || userData.user.user_metadata?.name || userData.user.email.split('@')[0],
+    status: status || 'published',
+    published_at: new Date().toISOString(),
+    source_name: source_name || null,
+    source_url:  source_url  || null
+  }
+
+  // 같은 저자의 글이 이미 있으면 UPDATE, 아니면 INSERT
+  let article, insertError
+  if (existing) {
+    const { data, error } = await supabase
+      .from('articles')
+      .update(articleData)
+      .eq('id', existing.id)
+      .select()
+      .single()
+    article = data; insertError = error
+  } else {
+    const { data, error } = await supabase
+      .from('articles')
+      .insert(articleData)
+      .select()
+      .single()
+    article = data; insertError = error
+  }
 
   if (insertError) {
     return res.status(500).json({ error: '저장에 실패했습니다: ' + insertError.message })
