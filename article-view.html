@@ -290,7 +290,13 @@ function renderArticle(a) {
   if (a.author_name) {
     var authorEl = document.getElementById('artAuthor')
     document.getElementById('artAuthorName').textContent = a.author_name
-    document.getElementById('artAuthorAvatar').textContent = a.author_name.charAt(0)
+    var avatarEl = document.getElementById('artAuthorAvatar')
+    var savedAvatar = a.author_id ? (function() { try { return localStorage.getItem('tagby_avatar_' + a.author_id) } catch(e) { return null } })() : null
+    if (savedAvatar) {
+      avatarEl.innerHTML = '<img src="' + savedAvatar.replace(/"/g, '&quot;') + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">'
+    } else {
+      avatarEl.textContent = a.author_name.charAt(0)
+    }
     authorEl.style.display = 'flex'
   }
 
