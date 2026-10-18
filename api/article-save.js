@@ -5,7 +5,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_KEY
 )
 
-const VALID_CATEGORIES = ['퍼포먼스마케팅', '콘텐츠마케팅', '디자인', 'TAGby Original', 'AI']
+const VALID_CATEGORIES = ['퍼포먼스마케팅', '콘텐츠마케팅', '디자인', 'AI']
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
