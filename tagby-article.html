@@ -341,9 +341,14 @@ if(location.hash.includes("figmacapture")){
         <button class="filter-btn px-6 py-2.5 rounded-full font-medium transition text-sm bg-gray-800 text-gray-300 hover:bg-gray-700" data-tab="디자인" onclick="switchFilter('디자인', this)">디자인</button>
         <button class="filter-btn px-6 py-2.5 rounded-full font-medium transition text-sm bg-gray-800 text-gray-300 hover:bg-gray-700" data-tab="AI" onclick="switchFilter('AI', this)">AI</button>
         </div>
-      <a href="admin-article.html" style="display:inline-flex; align-items:center; background:#0078F0; color:#fff; border-radius:100px; padding:10px 20px; font-size:13px; font-weight:700; text-decoration:none; white-space:nowrap; transition:background 0.2s; font-family:'Pretendard',sans-serif;" onmouseover="this.style.background='#005fbe'" onmouseout="this.style.background='#0078F0'">
-        글쓰기
-      </a>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <a id="myPageBtn" href="my-page.html" style="display:none; align-items:center; background:#2a2a2a; color:#ccc; border-radius:100px; padding:10px 20px; font-size:13px; font-weight:700; text-decoration:none; white-space:nowrap; transition:background 0.2s; font-family:'Pretendard',sans-serif;" onmouseover="this.style.background='#3a3a3a'" onmouseout="this.style.background='#2a2a2a'">
+          마이페이지
+        </a>
+        <a href="admin-article.html" style="display:inline-flex; align-items:center; background:#0078F0; color:#fff; border-radius:100px; padding:10px 20px; font-size:13px; font-weight:700; text-decoration:none; white-space:nowrap; transition:background 0.2s; font-family:'Pretendard',sans-serif;" onmouseover="this.style.background='#005fbe'" onmouseout="this.style.background='#0078F0'">
+          글쓰기
+        </a>
+      </div>
     </div>
   </section>
 
@@ -3154,6 +3159,15 @@ if(location.hash.includes("figmacapture")){
       renderCards('퍼포먼스마케팅', 1)
     }
     initWithDb()
+
+    // 로그인 시 마이페이지 버튼 표시
+    try {
+      const token = localStorage.getItem('tagby_article_token')
+      if (token) {
+        const btn = document.getElementById('myPageBtn')
+        if (btn) btn.style.display = 'inline-flex'
+      }
+    } catch(e) {}
 
     // 스크롤 헤더
     let lastScrollY = 0;
