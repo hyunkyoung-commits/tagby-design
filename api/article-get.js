@@ -31,11 +31,11 @@ module.exports = async function handler(req, res) {
   if (article.article_type === 'card-news') {
     const { data: slides } = await supabase
       .from('article_slides')
-      .select('image_url, sort_order')
+      .select('image_url, caption, sort_order')
       .eq('article_id', article.id)
       .order('sort_order', { ascending: true })
 
-    article.slides = (slides || []).map(s => s.image_url)
+    article.slides = (slides || []).map(s => ({ url: s.image_url, caption: s.caption || null }))
   }
 
   return res.status(200).json(article)

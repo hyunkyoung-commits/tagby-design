@@ -59,6 +59,7 @@
     .carousel-dot{width:6px;height:6px;border-radius:50%;background:#444;cursor:pointer;transition:background 0.2s;}
     .carousel-dot.active{background:#0078F0;}
     .carousel-counter{text-align:center;font-size:13px;color:#666;margin-top:6px;}
+    .carousel-caption{text-align:center;font-size:13px;color:#9CA3AF;margin-top:10px;min-height:20px;line-height:1.5;}
     /* 로딩 */
     @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
     .skeleton{background:#2a2a2a;border-radius:8px;animation:pulse 1.5s ease-in-out infinite;}
@@ -121,6 +122,7 @@
           </div>
           <div class="carousel-dots" id="carouselDots"></div>
           <div class="carousel-counter" id="carouselCounter">1 / 1</div>
+          <div class="carousel-caption" id="carouselCaption"></div>
         </div>
 
         <!-- 태그 -->
@@ -155,6 +157,7 @@
 // ── 캐러셀 상태 ───────────────────────────────────────────────
 var carouselIndex = 0
 var carouselTotal = 0
+var carouselSlides = []
 
 function carouselMove(dir) {
   carouselIndex = Math.max(0, Math.min(carouselTotal - 1, carouselIndex + dir))
@@ -173,6 +176,9 @@ function updateCarousel() {
   document.getElementById('carouselNext').style.opacity = carouselIndex === carouselTotal - 1 ? '0.3' : '1'
   var dots = document.getElementById('carouselDots').querySelectorAll('.carousel-dot')
   dots.forEach(function(d, i) { d.classList.toggle('active', i === carouselIndex) })
+  var cap = carouselSlides[carouselIndex]
+  var capEl = document.getElementById('carouselCaption')
+  if (capEl) capEl.textContent = (cap && cap.caption) ? cap.caption : ''
 }
 
 // ── 아티클 로드 ───────────────────────────────────────────────
@@ -230,19 +236,24 @@ function renderArticle(a) {
   }
 
   if (a.article_type === 'card-news') {
-    // 카드뉴스 캐러셀
-    var slides = a.slides || []
-    carouselTotal = slides.length
+    // 카드뉴스 캐러셀 (slides: [{url, caption}] 또는 구버전 [url] 호환)
+    var rawSlides = a.slides || []
+    carouselSlides = rawSlides.map(function(s) {
+      return typeof s === 'string' ? { url: s, caption: null } : s
+    })
+    carouselTotal = carouselSlides.length
     document.getElementById('carouselWrap').style.display = 'block'
-    document.getElementById('carouselTrack').innerHTML = slides.map(function(url, i) {
-      return '<div class="carousel-slide"><img src="' + url + '" alt="슬라이드 ' + (i+1) + '" style="width:100%;display:block;"></div>'
+    document.getElementById('carouselTrack').innerHTML = carouselSlides.map(function(s, i) {
+      return '<div class="carousel-slide"><img src="' + s.url + '" alt="슬라이드 ' + (i+1) + '" style="width:100%;display:block;"></div>'
     }).join('')
-    document.getElementById('carouselDots').innerHTML = slides.map(function(_, i) {
+    document.getElementById('carouselDots').innerHTML = carouselSlides.map(function(_, i) {
       return '<div class="carousel-dot' + (i===0?' active':'') + '" onclick="goToSlide(' + i + ')"></div>'
     }).join('')
-    document.getElementById('carouselCounter').textContent = '1 / ' + slides.length
+    document.getElementById('carouselCounter').textContent = '1 / ' + carouselSlides.length
+    var capEl = document.getElementById('carouselCaption')
+    if (capEl) capEl.textContent = (carouselSlides[0] && carouselSlides[0].caption) ? carouselSlides[0].caption : ''
     document.getElementById('carouselPrev').style.opacity = '0.3'
-    if (slides.length <= 1) document.getElementById('carouselNext').style.opacity = '0.3'
+    if (carouselSlides.length <= 1) document.getElementById('carouselNext').style.opacity = '0.3'
   } else {
     // 텍스트 아티클
     if (a.cover_url) {

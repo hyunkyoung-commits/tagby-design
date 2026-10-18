@@ -283,7 +283,7 @@ let token = localStorage.getItem('tagby_article_token') || ''
 let currentUser = null
 let articleType = 'text'
 let coverUrl = null
-let slideUrls = []
+let slides = []   // [{url, caption}]
 let tags = []
 let quill = null
 
@@ -609,7 +609,7 @@ async function addSlide(file) {
   showToast('업로드 중: ' + file.name, 'success')
   try {
     const url = await uploadImage(file)
-    slideUrls.push(url)
+    slides.push({ url, caption: '' })
     renderSlides()
   } catch (err) {
     showToast(err.message, 'error')
@@ -617,32 +617,39 @@ async function addSlide(file) {
 }
 
 function removeSlide(idx) {
-  slideUrls.splice(idx, 1)
+  slides.splice(idx, 1)
   renderSlides()
 }
 
 function moveSlide(idx, dir) {
   const newIdx = idx + dir
-  if (newIdx < 0 || newIdx >= slideUrls.length) return
-  const tmp = slideUrls[idx]
-  slideUrls[idx] = slideUrls[newIdx]
-  slideUrls[newIdx] = tmp
+  if (newIdx < 0 || newIdx >= slides.length) return
+  const tmp = slides[idx]
+  slides[idx] = slides[newIdx]
+  slides[newIdx] = tmp
   renderSlides()
+}
+
+function updateCaption(idx, val) {
+  if (slides[idx]) slides[idx].caption = val
 }
 
 function renderSlides() {
   const list = document.getElementById('slideList')
-  document.getElementById('slidesEmpty').style.display = slideUrls.length === 0 ? 'block' : 'none'
-  list.innerHTML = slideUrls.map((url, i) =>
-    '<div class="slide-item">' +
+  document.getElementById('slidesEmpty').style.display = slides.length === 0 ? 'block' : 'none'
+  list.innerHTML = slides.map((slide, i) =>
+    '<div class="slide-item" style="flex-direction:column; align-items:stretch; gap:8px;">' +
+    '<div style="display:flex; align-items:center; gap:10px;">' +
     '<div style="color:#666; font-size:12px; min-width:24px; text-align:center;">' + (i+1) + '</div>' +
-    '<img src="' + url + '" alt="슬라이드 ' + (i+1) + '">' +
-    '<div style="flex:1; font-size:12px; color:#666; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;">' + url.split('/').pop() + '</div>' +
-    '<div style="display:flex; gap:4px;">' +
-    '<button onclick="moveSlide(' + i + ',-1)" style="background:#222; border:1px solid #333; border-radius:6px; padding:4px 8px; color:#aaa; cursor:pointer; font-size:12px;" ' + (i===0?'disabled style="opacity:0.3"':'') + '>↑</button>' +
-    '<button onclick="moveSlide(' + i + ',1)" style="background:#222; border:1px solid #333; border-radius:6px; padding:4px 8px; color:#aaa; cursor:pointer; font-size:12px;" ' + (i===slideUrls.length-1?'disabled style="opacity:0.3"':'') + '>↓</button>' +
+    '<img src="' + slide.url + '" alt="슬라이드 ' + (i+1) + '" style="width:60px; height:60px; object-fit:cover; border-radius:6px; flex-shrink:0;">' +
+    '<div style="flex:1; font-size:12px; color:#666; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;">' + slide.url.split('/').pop() + '</div>' +
+    '<div style="display:flex; gap:4px; flex-shrink:0;">' +
+    '<button onclick="moveSlide(' + i + ',-1)" style="background:#222; border:1px solid #333; border-radius:6px; padding:4px 8px; color:#aaa; cursor:pointer; font-size:12px;"' + (i===0?' disabled':'') + '>↑</button>' +
+    '<button onclick="moveSlide(' + i + ',1)" style="background:#222; border:1px solid #333; border-radius:6px; padding:4px 8px; color:#aaa; cursor:pointer; font-size:12px;"' + (i===slides.length-1?' disabled':'') + '>↓</button>' +
     '<button onclick="removeSlide(' + i + ')" style="background:#3a1111; border:1px solid #5a2222; border-radius:6px; padding:4px 8px; color:#f87171; cursor:pointer; font-size:12px;">삭제</button>' +
-    '</div></div>'
+    '</div></div>' +
+    '<input type="text" placeholder="캡션 입력 (선택)" value="' + escHtml(slide.caption || '') + '" oninput="updateCaption(' + i + ', this.value)" style="background:#0a0a0a; border:1px solid #2d2d2d; border-radius:6px; color:#ccc; padding:6px 10px; font-size:12px; font-family:\'Pretendard\',sans-serif; outline:none; width:100%; box-sizing:border-box;">' +
+    '</div>'
   ).join('')
 }
 
@@ -662,7 +669,7 @@ async function submit(status) {
   if (!category) return showToast('카테고리를 선택해주세요', 'error')
   if (!slug)     return showToast('슬러그를 입력해주세요', 'error')
   if (articleType === 'text' && (!quill || quill.getText().trim() === '')) return showToast('본문을 입력해주세요', 'error')
-  if (articleType === 'card-news' && slideUrls.length === 0) return showToast('슬라이드 이미지를 최소 1장 올려주세요', 'error')
+  if (articleType === 'card-news' && slides.length === 0) return showToast('슬라이드 이미지를 최소 1장 올려주세요', 'error')
 
   btn.disabled = true
   btn.textContent = '게시 중...'
@@ -680,7 +687,7 @@ async function submit(status) {
         tags,
         cover_url: coverUrl,
         article_type: articleType,
-        slides: articleType === 'card-news' ? slideUrls : undefined,
+        slides: articleType === 'card-news' ? slides : undefined,
         status,
         author_name: currentUser?.name
       })

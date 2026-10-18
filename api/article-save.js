@@ -93,9 +93,10 @@ module.exports = async function handler(req, res) {
 
   // 카드뉴스 슬라이드 저장
   if (article_type === 'card-news' && Array.isArray(slides) && slides.length > 0) {
-    const slideRows = slides.map((url, i) => ({
+    const slideRows = slides.map((slide, i) => ({
       article_id: article.id,
-      image_url: url,
+      image_url: typeof slide === 'string' ? slide : slide.url,
+      caption: typeof slide === 'string' ? null : (slide.caption || null),
       sort_order: i
     }))
 
