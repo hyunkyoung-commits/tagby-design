@@ -3120,8 +3120,40 @@ if(location.hash.includes("figmacapture")){
       renderCards(tab, 1);
     }
 
-    // 초기 렌더링
-    renderCards('퍼포먼스마케팅', 1);
+    // DB 아티클 카드 생성 후 초기 렌더링
+    const CAT_SHORT = { '퍼포먼스마케팅': '퍼포먼스', '콘텐츠마케팅': '콘텐츠', '디자인': '디자인', 'AI': 'AI' }
+    function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
+
+    async function initWithDb() {
+      try {
+        const res = await fetch('/api/article-list-db')
+        if (res.ok) {
+          const dbArticles = await res.json()
+          const grid = document.getElementById('card-grid')
+          // 최신순이 앞에 오도록 역순 prepend
+          ;[...dbArticles].reverse().forEach(function(a) {
+            const card = document.createElement('a')
+            card.href = 'article-view.html?slug=' + a.slug
+            card.className = 'magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block'
+            card.dataset.category = a.category
+            const dateStr = a.date ? a.date.slice(2).replace(/-/g, '. ') + '.' : ''
+            const imgHtml = a.cover
+              ? '<img src="' + esc(a.cover) + '" alt="' + esc(a.title) + '" style="width:100%;height:100%;object-fit:cover;object-position:center;" loading="lazy">'
+              : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#0c1f5e,#1a4db8);display:flex;align-items:center;justify-content:center;"><span style="color:rgba(255,255,255,0.3);font-size:12px;">TAGby</span></div>'
+            card.innerHTML = '<div class="aspect-[4/3]" style="overflow:hidden;background:#111;">' + imgHtml + '</div>'
+              + '<div class="p-6">'
+              + '<h3 class="text-lg font-bold mb-1 text-white group-hover:text-[#0078F0] transition-colors line-clamp-2">' + esc(a.title) + '</h3>'
+              + (a.subtitle ? '<p class="text-xs text-gray-500 mb-3 line-clamp-2">' + esc(a.subtitle) + '</p>' : '')
+              + '<p class="text-sm text-gray-500 mb-2">' + dateStr + '</p>'
+              + '<p class="text-sm text-gray-400">' + esc(CAT_SHORT[a.category] || a.category) + '</p>'
+              + '</div>'
+            grid.prepend(card)
+          })
+        }
+      } catch(e) { console.warn('DB 아티클 로드 실패', e) }
+      renderCards('퍼포먼스마케팅', 1)
+    }
+    initWithDb()
 
     // 스크롤 헤더
     let lastScrollY = 0;
