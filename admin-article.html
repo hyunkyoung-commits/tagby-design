@@ -60,6 +60,9 @@
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.success { background: #1a3a1a; border: 1px solid #2d7a2d; color: #4ade80; }
     .toast.error   { background: #3a1a1a; border: 1px solid #7a2d2d; color: #f87171; }
+    /* 이미지 캡션 모달 */
+    #imgCaptionModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; }
+    #imgCaptionModal.open { display:flex; }
     /* Quill 에디터 다크 테마 */
     .ql-toolbar.ql-snow {
       background: #1e1e1e; border: 1px solid #333; border-bottom: none;
@@ -76,6 +79,8 @@
     .ql-editor p  { margin: 0 0 0.75em; }
     .ql-editor img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
     .ql-editor blockquote { border-left: 3px solid #0078F0; padding-left: 14px; color: #aaa; font-style: italic; margin: 1em 0; }
+    .ql-editor figure { margin: 8px 0; }
+    .ql-editor figcaption { text-align: center; font-size: 12px; color: #888; margin-top: 5px; font-style: italic; padding: 0 12px; }
     .ql-snow .ql-stroke { stroke: #999; }
     .ql-snow .ql-fill  { fill: #999; }
     .ql-snow .ql-picker { color: #999; }
@@ -266,12 +271,38 @@
       <div id="slideList" style="display:flex; flex-direction:column; gap:8px;"></div>
     </div>
 
+    <!-- 출처 -->
+    <div class="section-card mb-5">
+      <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:16px;">출처 <span style="font-size:12px; font-weight:400; color:#555;">(선택)</span></div>
+      <div class="mb-4">
+        <label class="label">출처명</label>
+        <input id="fSourceName" type="text" class="input-base" placeholder="예: Meta Business Blog, Google Ads Help">
+      </div>
+      <div>
+        <label class="label">출처 URL</label>
+        <input id="fSourceUrl" type="text" class="input-base" placeholder="https://...">
+      </div>
+    </div>
+
     <!-- 게시 버튼 -->
     <div style="display:flex; gap:12px; justify-content:flex-end;">
       <button class="btn-secondary" onclick="saveDraft()">임시저장</button>
       <button id="publishBtn" class="btn-primary" onclick="publish()">아티클 게시</button>
     </div>
 
+  </div>
+</div>
+
+<!-- 이미지 캡션 모달 -->
+<div id="imgCaptionModal">
+  <div style="background:#1a1a1a; border:1px solid #2d2d2d; border-radius:14px; padding:24px; width:400px; max-width:calc(100vw - 32px);">
+    <div style="font-size:15px; font-weight:700; color:#fff; margin-bottom:6px;">이미지 캡션 / 출처</div>
+    <div style="font-size:12px; color:#666; margin-bottom:14px;">이미지 하단에 캡션이나 출처를 표시합니다 (선택)</div>
+    <input id="imgCaptionInput" type="text" class="input-base" placeholder="예: 출처: Meta Business Blog">
+    <div style="display:flex; gap:8px; margin-top:16px; justify-content:flex-end;">
+      <button onclick="insertImgWithCaption(false)" class="btn-secondary" style="padding:8px 16px; font-size:13px;">건너뛰기</button>
+      <button onclick="insertImgWithCaption(true)" class="btn-primary" style="padding:8px 20px; font-size:13px;">삽입</button>
+    </div>
   </div>
 </div>
 
@@ -445,6 +476,9 @@ function showEditor() {
   }
 }
 
+let pendingImgUrl = null
+let pendingImgRange = null
+
 async function quillImageHandler() {
   const input = document.createElement('input')
   input.setAttribute('type', 'file')
@@ -456,15 +490,44 @@ async function quillImageHandler() {
     try {
       showToast('이미지 업로드 중...', 'success')
       const url = await uploadImage(file)
-      const range = quill.getSelection() || { index: quill.getLength() }
-      quill.insertEmbed(range.index, 'image', url)
-      quill.setSelection(range.index + 1)
-      showToast('이미지 삽입 완료', 'success')
+      pendingImgUrl = url
+      pendingImgRange = quill.getSelection() || { index: quill.getLength() }
+      document.getElementById('imgCaptionInput').value = ''
+      document.getElementById('imgCaptionModal').classList.add('open')
     } catch (err) {
       showToast(err.message, 'error')
     }
   }
 }
+
+function insertImgWithCaption(withCaption) {
+  const caption = withCaption ? document.getElementById('imgCaptionInput').value.trim() : ''
+  document.getElementById('imgCaptionModal').classList.remove('open')
+  if (!pendingImgUrl) return
+  const range = pendingImgRange || { index: quill.getLength() }
+  if (caption) {
+    const safe = caption.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+    quill.clipboard.dangerouslyPasteHTML(range.index,
+      '<figure><img src="' + pendingImgUrl + '"><figcaption>' + safe + '</figcaption></figure><p><br></p>')
+  } else {
+    quill.insertEmbed(range.index, 'image', pendingImgUrl)
+    quill.setSelection(range.index + 1)
+  }
+  showToast('이미지 삽입 완료', 'success')
+  pendingImgUrl = null
+  pendingImgRange = null
+}
+
+// Enter 키로 캡션 삽입
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('imgCaptionModal').classList.contains('open')) {
+    e.preventDefault()
+    insertImgWithCaption(true)
+  }
+  if (e.key === 'Escape' && document.getElementById('imgCaptionModal').classList.contains('open')) {
+    insertImgWithCaption(false)
+  }
+})
 
 // ── 아티클 타입 ───────────────────────────────────────────────
 function setType(type) {
@@ -797,12 +860,14 @@ async function saveDraft() { await submit('draft') }
 async function publish()   { await submit('published') }
 
 async function submit(status) {
-  const title    = document.getElementById('fTitle').value.trim()
-  const subtitle = document.getElementById('fSubtitle').value.trim()
-  const category = document.getElementById('fCategory').value
-  const slug     = document.getElementById('fSlug').value.trim()
-  const bodyHtml = (articleType === 'text' && quill) ? quill.root.innerHTML.trim() : null
-  const btn      = document.getElementById('publishBtn')
+  const title      = document.getElementById('fTitle').value.trim()
+  const subtitle   = document.getElementById('fSubtitle').value.trim()
+  const category   = document.getElementById('fCategory').value
+  const slug       = document.getElementById('fSlug').value.trim()
+  const sourceName = document.getElementById('fSourceName').value.trim()
+  const sourceUrl  = document.getElementById('fSourceUrl').value.trim()
+  const bodyHtml   = (articleType === 'text' && quill) ? quill.root.innerHTML.trim() : null
+  const btn        = document.getElementById('publishBtn')
 
   if (!title)    return showToast('제목을 입력해주세요', 'error')
   if (!category) return showToast('카테고리를 선택해주세요', 'error')
@@ -842,7 +907,9 @@ async function submit(status) {
         article_type: articleType,
         slides: articleType === 'card-news' ? slides : undefined,
         status,
-        author_name: currentUser?.name
+        author_name: currentUser?.name,
+        source_name: sourceName || null,
+        source_url:  sourceUrl  || null
       })
     })
     const data = await res.json()

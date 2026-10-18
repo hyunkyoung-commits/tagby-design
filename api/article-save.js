@@ -35,7 +35,9 @@ module.exports = async function handler(req, res) {
     article_type,
     slides,
     status,
-    author_name
+    author_name,
+    source_name,
+    source_url
   } = req.body || {}
 
   // 필수값 검증
@@ -82,7 +84,9 @@ module.exports = async function handler(req, res) {
       author_email: userData.user.email,
       author_name: author_name || userData.user.user_metadata?.name || userData.user.email.split('@')[0],
       status: status || 'published',
-      published_at: new Date().toISOString()
+      published_at: new Date().toISOString(),
+      source_name: source_name || null,
+      source_url:  source_url  || null
     })
     .select()
     .single()
