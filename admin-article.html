@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>아티클 작성 | TAGby Admin</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Pretendard', sans-serif; background: #0f0f0f; color: #fff; }
@@ -59,7 +60,40 @@
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.success { background: #1a3a1a; border: 1px solid #2d7a2d; color: #4ade80; }
     .toast.error   { background: #3a1a1a; border: 1px solid #7a2d2d; color: #f87171; }
-    .html-editor { min-height: 400px; font-family: monospace; font-size: 13px; line-height: 1.6; }
+    /* Quill 에디터 다크 테마 */
+    .ql-toolbar.ql-snow {
+      background: #1e1e1e; border: 1px solid #333; border-bottom: none;
+      border-radius: 8px 8px 0 0; padding: 8px 12px;
+    }
+    .ql-container.ql-snow {
+      background: #111; border: 1px solid #333; border-radius: 0 0 8px 8px;
+      min-height: 400px; font-family: 'Pretendard', sans-serif; font-size: 15px;
+    }
+    .ql-editor { min-height: 400px; line-height: 1.85; color: #e0e0e0; padding: 16px 20px; }
+    .ql-editor.ql-blank::before { color: #555; font-style: normal; }
+    .ql-editor h2 { color: #fff; font-size: 1.4em; font-weight: 700; margin: 1.2em 0 0.5em; }
+    .ql-editor h3 { color: #fff; font-size: 1.15em; font-weight: 700; margin: 1em 0 0.4em; }
+    .ql-editor p  { margin: 0 0 0.75em; }
+    .ql-editor img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+    .ql-editor blockquote { border-left: 3px solid #0078F0; padding-left: 14px; color: #aaa; font-style: italic; margin: 1em 0; }
+    .ql-snow .ql-stroke { stroke: #999; }
+    .ql-snow .ql-fill  { fill: #999; }
+    .ql-snow .ql-picker { color: #999; }
+    .ql-snow .ql-picker-options { background: #222; border-color: #333; color: #ccc; }
+    .ql-snow .ql-picker-item:hover, .ql-snow .ql-picker-item.ql-selected { color: #0078F0; }
+    .ql-snow.ql-toolbar button:hover .ql-stroke,
+    .ql-snow .ql-toolbar button:hover .ql-stroke,
+    .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+    .ql-snow .ql-toolbar button.ql-active .ql-stroke { stroke: #0078F0; }
+    .ql-snow.ql-toolbar button:hover .ql-fill,
+    .ql-snow .ql-toolbar button:hover .ql-fill,
+    .ql-snow.ql-toolbar button.ql-active .ql-fill,
+    .ql-snow .ql-toolbar button.ql-active .ql-fill  { fill: #0078F0; }
+    .ql-snow .ql-picker-label:hover, .ql-snow .ql-picker-label.ql-active { color: #0078F0; }
+    .ql-snow .ql-tooltip { background: #1e1e1e; border-color: #333; color: #ccc; }
+    .ql-snow .ql-tooltip input[type=text] { background: #111; border-color: #444; color: #fff; outline: none; }
+    .ql-snow .ql-tooltip a.ql-action::after { color: #0078F0; border-right-color: #333; }
+    .ql-snow .ql-tooltip a.ql-remove::before { color: #f87171; }
     #loginScreen, #editorScreen { transition: opacity 0.2s; }
     .tag-badge {
       display: inline-flex; align-items: center; gap: 6px;
@@ -212,15 +246,8 @@
 
     <!-- 본문 (텍스트 아티클) -->
     <div id="bodySection" class="section-card mb-5">
-      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-        <label class="label" style="margin:0;">본문 <span>*</span></label>
-        <div style="display:flex; gap:8px;">
-          <button class="btn-secondary" style="padding:6px 12px; font-size:12px;" onclick="setEditorMode('html')" id="modeHtml">HTML</button>
-          <button class="btn-secondary" style="padding:6px 12px; font-size:12px;" onclick="setEditorMode('preview')" id="modePreview">미리보기</button>
-        </div>
-      </div>
-      <textarea id="fBody" class="input-base html-editor" placeholder="HTML 형식으로 본문을 작성해주세요&#10;&#10;예시:&#10;&lt;p&gt;본문 텍스트&lt;/p&gt;&#10;&lt;h2&gt;소제목&lt;/h2&gt;"></textarea>
-      <div id="bodyPreview" style="display:none; min-height:400px; padding:20px; background:#111; border:1px solid #333; border-radius:8px; color:#e0e0e0; line-height:1.8; font-size:15px;"></div>
+      <label class="label" style="margin-bottom:12px;">본문 <span>*</span></label>
+      <div id="quillEditor"></div>
     </div>
 
     <!-- 슬라이드 (카드뉴스) -->
@@ -249,6 +276,7 @@
 <!-- 토스트 -->
 <div id="toast" class="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
 <script>
 // ── 상태 ──────────────────────────────────────────────────────
 let token = localStorage.getItem('tagby_article_token') || ''
@@ -257,7 +285,7 @@ let articleType = 'text'
 let coverUrl = null
 let slideUrls = []
 let tags = []
-let editorMode = 'html'
+let quill = null
 
 // ── 초기화 ────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', function() {
@@ -394,6 +422,46 @@ function showEditor() {
   document.getElementById('loginScreen').style.display = 'none'
   document.getElementById('editorScreen').style.display = 'block'
   document.getElementById('userBadge').textContent = currentUser.name || currentUser.email
+
+  if (!quill) {
+    quill = new Quill('#quillEditor', {
+      theme: 'snow',
+      placeholder: '본문을 작성해주세요. 텍스트를 선택해서 스타일을 바꾸거나, 툴바의 이미지 버튼으로 사진을 넣을 수 있어요.',
+      modules: {
+        toolbar: {
+          container: [
+            [{ header: [2, 3, false] }],
+            ['bold', 'italic', 'underline'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['blockquote', 'link', 'image'],
+            ['clean']
+          ],
+          handlers: { image: quillImageHandler }
+        }
+      }
+    })
+  }
+}
+
+async function quillImageHandler() {
+  const input = document.createElement('input')
+  input.setAttribute('type', 'file')
+  input.setAttribute('accept', 'image/jpeg,image/png,image/gif,image/webp')
+  input.click()
+  input.onchange = async () => {
+    const file = input.files[0]
+    if (!file) return
+    try {
+      showToast('이미지 업로드 중...', 'success')
+      const url = await uploadImage(file)
+      const range = quill.getSelection() || { index: quill.getLength() }
+      quill.insertEmbed(range.index, 'image', url)
+      quill.setSelection(range.index + 1)
+      showToast('이미지 삽입 완료', 'success')
+    } catch (err) {
+      showToast(err.message, 'error')
+    }
+  }
 }
 
 // ── 아티클 타입 ───────────────────────────────────────────────
@@ -453,29 +521,6 @@ function updateCharCount(inputId, countId, max) {
   const len = document.getElementById(inputId).value.length
   document.getElementById(countId).textContent = len
   document.getElementById(countId).style.color = len > max * 0.9 ? '#f87171' : '#555'
-}
-
-// ── 에디터 모드 ───────────────────────────────────────────────
-function setEditorMode(mode) {
-  editorMode = mode
-  const bodyEl = document.getElementById('fBody')
-  const previewEl = document.getElementById('bodyPreview')
-  if (mode === 'html') {
-    bodyEl.style.display = 'block'
-    previewEl.style.display = 'none'
-    document.getElementById('modeHtml').style.borderColor = '#0078F0'
-    document.getElementById('modeHtml').style.color = '#0078F0'
-    document.getElementById('modePreview').style.borderColor = '#333'
-    document.getElementById('modePreview').style.color = '#888'
-  } else {
-    bodyEl.style.display = 'none'
-    previewEl.style.display = 'block'
-    previewEl.innerHTML = bodyEl.value || '<p style="color:#555">본문을 HTML 탭에서 입력해주세요</p>'
-    document.getElementById('modePreview').style.borderColor = '#0078F0'
-    document.getElementById('modePreview').style.color = '#0078F0'
-    document.getElementById('modeHtml').style.borderColor = '#333'
-    document.getElementById('modeHtml').style.color = '#888'
-  }
 }
 
 // ── 이미지 업로드 (공통) ──────────────────────────────────────
@@ -610,13 +655,13 @@ async function submit(status) {
   const subtitle = document.getElementById('fSubtitle').value.trim()
   const category = document.getElementById('fCategory').value
   const slug     = document.getElementById('fSlug').value.trim()
-  const bodyHtml = document.getElementById('fBody').value.trim()
+  const bodyHtml = (articleType === 'text' && quill) ? quill.root.innerHTML.trim() : null
   const btn      = document.getElementById('publishBtn')
 
   if (!title)    return showToast('제목을 입력해주세요', 'error')
   if (!category) return showToast('카테고리를 선택해주세요', 'error')
   if (!slug)     return showToast('슬러그를 입력해주세요', 'error')
-  if (articleType === 'text' && !bodyHtml) return showToast('본문을 입력해주세요', 'error')
+  if (articleType === 'text' && (!quill || quill.getText().trim() === '')) return showToast('본문을 입력해주세요', 'error')
   if (articleType === 'card-news' && slideUrls.length === 0) return showToast('슬라이드 이미지를 최소 1장 올려주세요', 'error')
 
   btn.disabled = true
