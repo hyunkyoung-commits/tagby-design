@@ -541,31 +541,60 @@ function setType(type) {
 
 // ── 슬러그 ────────────────────────────────────────────────────
 let slugManuallyEdited = false
+let slugDebounceTimer = null
 
 function updateSlug() {
   if (slugManuallyEdited) return
-  const title = document.getElementById('fTitle').value
-  const now = new Date()
-  const mmdd = String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0')
-  const slug = title.toLowerCase()
-    .replace(/[가-힣ㄱ-ㅎㅏ-ㅣ]/g, ' ')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-    .slice(0, 50)
+  const title = document.getElementById('fTitle').value.trim()
   const slugEl = document.getElementById('fSlug')
   const hintEl = document.getElementById('slugAutoHint')
-  if (slug) {
-    slugEl.value = slug + '-' + mmdd
-    hintEl.style.color = '#4ade80'
-    hintEl.textContent = '자동 생성됨 (수정 가능)'
-  } else {
+
+  if (!title) {
     slugEl.value = ''
     hintEl.style.color = '#555'
     hintEl.textContent = '제목을 입력하면 자동 생성됩니다'
+    return
   }
+
+  const now = new Date()
+  const mmdd = String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0')
+
+  // 즉시 임시 슬러그 (영문 단어 추출)
+  const tmpSlug = title.toLowerCase()
+    .replace(/[가-힣ㄱ-ㅎㅏ-ㅣ]/g, ' ')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim().replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+    .slice(0, 50)
+  if (tmpSlug) {
+    slugEl.value = tmpSlug + '-' + mmdd
+  }
+  hintEl.style.color = '#888'
+  hintEl.textContent = '슬러그 생성 중...'
+
+  // 1초 debounce 후 API로 의미 있는 영어 슬러그 생성
+  clearTimeout(slugDebounceTimer)
+  slugDebounceTimer = setTimeout(async () => {
+    if (slugManuallyEdited) return
+    try {
+      const res = await fetch('/api/generate-slug', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title })
+      })
+      const data = await res.json()
+      if (data.slug && !slugManuallyEdited) {
+        slugEl.value = data.slug + '-' + mmdd
+        hintEl.style.color = '#4ade80'
+        hintEl.textContent = '자동 생성됨 (수정 가능)'
+      }
+    } catch {
+      // API 실패 시 임시 슬러그 유지
+      if (!slugManuallyEdited && slugEl.value) {
+        hintEl.style.color = '#4ade80'
+        hintEl.textContent = '자동 생성됨 (수정 가능)'
+      }
+    }
+  }, 1000)
 }
 
 function onSlugInput(el) {
