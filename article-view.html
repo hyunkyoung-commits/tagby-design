@@ -144,9 +144,9 @@
         </div>
 
         <!-- 출처 -->
-        <div id="artSource" style="display:none; margin-top:1.5rem; padding:14px 18px; background:#141414; border:1px solid #2d2d2d; border-radius:10px; display:flex; align-items:center; gap:10px;">
-          <span style="font-size:12px; color:#555; flex-shrink:0;">출처</span>
-          <a id="artSourceLink" href="#" target="_blank" rel="noopener" style="font-size:13px; color:#9CA3AF; text-decoration:underline; text-underline-offset:3px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"></a>
+        <div id="artSource" style="display:none; margin-top:1.5rem; padding:14px 18px; background:#141414; border:1px solid #2d2d2d; border-radius:10px;">
+          <span style="font-size:12px; color:#555; display:block; margin-bottom:8px;">출처</span>
+          <div id="artSourceLinks" style="display:flex; flex-direction:column; gap:6px;"></div>
         </div>
 
         <!-- 추천 아티클 -->
@@ -290,14 +290,27 @@ function renderArticle(a) {
     authorEl.style.display = 'flex'
   }
 
-  // 출처 표시
+  // 출처 표시 (||로 구분된 여러 출처 지원)
   if (a.source_name || a.source_url) {
-    var srcEl   = document.getElementById('artSource')
-    var srcLink = document.getElementById('artSourceLink')
-    srcLink.textContent = a.source_name || a.source_url
-    srcLink.href        = a.source_url  || '#'
-    if (!a.source_url) srcLink.style.pointerEvents = 'none'
-    srcEl.style.display = 'flex'
+    var names = (a.source_name || '').split('||')
+    var urls  = (a.source_url  || '').split('||')
+    var count = Math.max(names.length, urls.length)
+    var linksHtml = ''
+    for (var si = 0; si < count; si++) {
+      var sn = (names[si] || '').trim()
+      var su = (urls[si]  || '').trim()
+      var label = sn || su
+      if (!label) continue
+      if (su) {
+        linksHtml += '<a href="' + su + '" target="_blank" rel="noopener" style="font-size:13px;color:#9CA3AF;text-decoration:underline;text-underline-offset:3px;">' + label.replace(/</g,'&lt;') + '</a>'
+      } else {
+        linksHtml += '<span style="font-size:13px;color:#9CA3AF;">' + label.replace(/</g,'&lt;') + '</span>'
+      }
+    }
+    if (linksHtml) {
+      document.getElementById('artSourceLinks').innerHTML = linksHtml
+      document.getElementById('artSource').style.display = 'block'
+    }
   }
 
   // 추천 아티클 로드

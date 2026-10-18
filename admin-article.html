@@ -273,15 +273,11 @@
 
     <!-- 출처 -->
     <div class="section-card mb-5">
-      <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:16px;">출처 <span style="font-size:12px; font-weight:400; color:#555;">(선택)</span></div>
-      <div class="mb-4">
-        <label class="label">출처명</label>
-        <input id="fSourceName" type="text" class="input-base" placeholder="예: Meta Business Blog, Google Ads Help">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+        <div style="font-size:14px; font-weight:700; color:#fff;">출처 <span style="font-size:12px; font-weight:400; color:#555;">(선택)</span></div>
+        <button onclick="addSourceRow()" class="btn-secondary" style="padding:6px 14px; font-size:12px;">+ 출처 추가</button>
       </div>
-      <div>
-        <label class="label">출처 URL</label>
-        <input id="fSourceUrl" type="text" class="input-base" placeholder="https://...">
-      </div>
+      <div id="sourceList"></div>
     </div>
 
     <!-- 게시 버튼 -->
@@ -319,8 +315,12 @@ let coverUrl = null
 let slides = []   // [{url, caption}]
 let tags = []
 let quill = null
+let sources = [{ name: '', url: '' }]
+const DRAFT_KEY = 'tagby_article_draft'
 
 // ── 초기화 ────────────────────────────────────────────────────
+window.addEventListener('beforeunload', function() { saveDraftLocally() })
+
 window.addEventListener('DOMContentLoaded', function() {
   if (token) verifyAndShowEditor()
   document.getElementById('loginEmail').addEventListener('keydown', function(e) {
@@ -456,6 +456,8 @@ function showEditor() {
   document.getElementById('editorScreen').style.display = 'block'
   document.getElementById('userBadge').textContent = currentUser.name || currentUser.email
 
+  renderSources()
+
   if (!quill) {
     quill = new Quill('#quillEditor', {
       theme: 'snow',
@@ -474,6 +476,8 @@ function showEditor() {
       }
     })
   }
+
+  loadDraftLocally()
 }
 
 let pendingImgUrl = null
@@ -637,6 +641,97 @@ function renderTags() {
   document.getElementById('tagList').innerHTML = tags.map((t, i) =>
     '<span class="tag-badge">' + escHtml(t) + '<button onclick="removeTag(' + i + ')">×</button></span>'
   ).join('')
+}
+
+// ── 출처 ──────────────────────────────────────────────────────
+function renderSources() {
+  const list = document.getElementById('sourceList')
+  if (!list) return
+  list.innerHTML = sources.map((s, i) => `
+    <div style="display:flex; gap:8px; align-items:flex-start; margin-bottom:10px;">
+      <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+        <input type="text" class="input-base" placeholder="출처명 (예: Meta Business Blog)"
+          value="${escHtml(s.name)}"
+          oninput="sources[${i}].name = this.value">
+        <input type="text" class="input-base" placeholder="URL (https://...)"
+          value="${escHtml(s.url)}"
+          oninput="sources[${i}].url = this.value">
+      </div>
+      ${sources.length > 1
+        ? `<button onclick="removeSource(${i})" style="background:none;border:1px solid #333;border-radius:6px;color:#666;cursor:pointer;padding:4px 10px;font-size:16px;line-height:1;height:36px;flex-shrink:0;margin-top:2px;">×</button>`
+        : ''}
+    </div>
+  `).join('')
+}
+
+function addSourceRow() {
+  sources.push({ name: '', url: '' })
+  renderSources()
+}
+
+function removeSource(i) {
+  sources.splice(i, 1)
+  renderSources()
+}
+
+// ── 로컬 임시저장 ─────────────────────────────────────────────
+function saveDraftLocally() {
+  if (!quill) return
+  try {
+    const draft = {
+      title: document.getElementById('fTitle').value,
+      subtitle: document.getElementById('fSubtitle').value,
+      category: document.getElementById('fCategory').value,
+      slug: document.getElementById('fSlug').value,
+      slugManuallyEdited,
+      articleType,
+      bodyHtml: quill.root.innerHTML,
+      tags: [...tags],
+      coverUrl,
+      sources: sources.map(s => ({ name: s.name, url: s.url })),
+      savedAt: new Date().toISOString()
+    }
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft))
+  } catch {}
+}
+
+function loadDraftLocally() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY)
+    if (!raw) return
+    const draft = JSON.parse(raw)
+    if (!draft.savedAt) return
+    const minAgo = Math.floor((Date.now() - new Date(draft.savedAt)) / 60000)
+    const when = minAgo < 1 ? '방금' : minAgo < 60 ? minAgo + '분 전' : Math.floor(minAgo / 60) + '시간 전'
+    if (!confirm('이전에 작성 중이던 내용이 있습니다 (' + when + ' 자동저장)\n불러올까요?')) {
+      localStorage.removeItem(DRAFT_KEY)
+      return
+    }
+    document.getElementById('fTitle').value = draft.title || ''
+    document.getElementById('fSubtitle').value = draft.subtitle || ''
+    document.getElementById('fCategory').value = draft.category || ''
+    document.getElementById('fSlug').value = draft.slug || ''
+    slugManuallyEdited = !!draft.slugManuallyEdited
+    if (draft.articleType) { articleType = draft.articleType; setType(articleType) }
+    tags = draft.tags || []
+    renderTags()
+    coverUrl = draft.coverUrl || null
+    if (coverUrl) {
+      document.getElementById('coverPreview').src = coverUrl
+      document.getElementById('coverPreviewWrap').style.display = 'block'
+      document.getElementById('coverPlaceholder').style.display = 'none'
+    }
+    sources = (draft.sources && draft.sources.length) ? draft.sources : [{ name: '', url: '' }]
+    renderSources()
+    if (draft.bodyHtml && draft.bodyHtml !== '<p><br></p>') {
+      quill.clipboard.dangerouslyPasteHTML(0, draft.bodyHtml)
+    }
+    const hint = document.getElementById('slugAutoHint')
+    if (hint && draft.slug) {
+      hint.textContent = '임시저장에서 복원됨'
+      hint.style.color = '#facc15'
+    }
+  } catch { localStorage.removeItem(DRAFT_KEY) }
 }
 
 // ── 글자수 ────────────────────────────────────────────────────
@@ -893,8 +988,9 @@ async function submit(status) {
   const subtitle   = document.getElementById('fSubtitle').value.trim()
   const category   = document.getElementById('fCategory').value
   const slug       = document.getElementById('fSlug').value.trim()
-  const sourceName = document.getElementById('fSourceName').value.trim()
-  const sourceUrl  = document.getElementById('fSourceUrl').value.trim()
+  const validSources = sources.filter(s => s.name.trim() || s.url.trim())
+  const sourceName = validSources.map(s => s.name.trim()).join('||')
+  const sourceUrl  = validSources.map(s => s.url.trim()).join('||')
   const bodyHtml   = (articleType === 'text' && quill) ? quill.root.innerHTML.trim() : null
   const btn        = document.getElementById('publishBtn')
 
@@ -945,6 +1041,7 @@ async function submit(status) {
     if (!res.ok) throw new Error(data.error)
 
     const url = 'https://mkt.tagby.io/article-view.html?slug=' + data.slug
+    try { localStorage.removeItem(DRAFT_KEY) } catch {}
     showToast(status === 'published' ? '게시 완료!' : '임시저장 완료!', 'success')
     setTimeout(() => {
       if (confirm(status === 'published' ? '게시된 아티클을 확인할까요?\n' + url : '저장되었습니다.')) {
