@@ -334,14 +334,18 @@ if(location.hash.includes("figmacapture")){
 
   <!-- Filter Tabs -->
   <section class="py-8 px-6 border-b" style="background-color: #1A1A1A; border-color: #333;">
-    <div class="container mx-auto max-w-7xl">
-      <div class="flex justify-center gap-4 flex-wrap">
+    <div class="container mx-auto max-w-7xl" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+      <div class="flex gap-4 flex-wrap">
         <button class="filter-btn px-6 py-2.5 rounded-full font-medium transition text-sm" data-tab="퍼포먼스" onclick="switchFilter('퍼포먼스', this)" style="background-color: #0078F0; color: white;">퍼포먼스</button>
         <button class="filter-btn px-6 py-2.5 rounded-full font-medium transition text-sm bg-gray-800 text-gray-300 hover:bg-gray-700" data-tab="콘텐츠마케팅" onclick="switchFilter('콘텐츠마케팅', this)">콘텐츠마케팅</button>
         <button class="filter-btn px-6 py-2.5 rounded-full font-medium transition text-sm bg-gray-800 text-gray-300 hover:bg-gray-700" data-tab="디자인" onclick="switchFilter('디자인', this)">디자인</button>
         <button class="filter-btn px-6 py-2.5 rounded-full font-medium transition text-sm bg-gray-800 text-gray-300 hover:bg-gray-700" data-tab="AI" onclick="switchFilter('AI', this)">AI</button>
         <button class="filter-btn px-6 py-2.5 rounded-full font-medium transition text-sm bg-gray-800 text-gray-300 hover:bg-gray-700" data-tab="TAGby Original" onclick="switchFilter('TAGby Original', this)">TAGby Original</button>
       </div>
+      <a href="admin-article.html" style="display:inline-flex; align-items:center; gap:6px; background:#0078F0; color:#fff; border-radius:100px; padding:10px 20px; font-size:13px; font-weight:700; text-decoration:none; white-space:nowrap; transition:background 0.2s; font-family:'Pretendard',sans-serif;" onmouseover="this.style.background='#005fbe'" onmouseout="this.style.background='#0078F0'">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h1"/><path d="M14.5 3.5l6 6-9 9H5.5v-6l9-9z"/></svg>
+        글쓰기
+      </a>
     </div>
   </section>
 
