@@ -101,10 +101,10 @@
 
       <!-- 아티클 콘텐츠 (로드 후 표시) -->
       <div id="articleContent" style="display:none;">
-        <div class="mb-6">
+        <div class="mb-6" style="display:flex; align-items:center; flex-wrap:wrap; gap:6px 14px;">
           <span id="artCategory" class="text-sm text-[#0078F0] font-medium"></span>
-          <span id="artDate" class="text-sm text-gray-500 ml-4"></span>
-          <span id="artAuthor" class="text-sm text-gray-500 ml-4"></span>
+          <span id="artDate" class="text-sm text-gray-500"></span>
+          <span id="artAuthorInline" class="text-sm text-gray-500" style="display:none;"></span>
         </div>
         <h1 id="artTitle" class="text-4xl md:text-5xl font-bold mb-4 leading-tight" style="font-weight:800;line-height:1.3;"></h1>
         <p id="artSubtitle" class="text-sm text-gray-500 mb-12"></p>
@@ -238,7 +238,11 @@ function renderArticle(a) {
   // 헤더 정보
   document.getElementById('artCategory').textContent = a.category
   document.getElementById('artDate').textContent     = dateStr
-  if (a.author_name) document.getElementById('artAuthor').textContent = '작성: ' + a.author_name
+  if (a.author_name) {
+    var inlineAuthor = document.getElementById('artAuthorInline')
+    inlineAuthor.textContent = '작성자: ' + a.author_name
+    inlineAuthor.style.display = ''
+  }
   document.getElementById('artTitle').textContent    = a.title
   if (a.subtitle) {
     document.getElementById('artSubtitle').textContent = a.subtitle
