@@ -128,19 +128,16 @@
           <div class="carousel-caption" id="carouselCaption"></div>
         </div>
 
-        <!-- 태그 -->
-        <div id="artTags" style="margin-bottom:2rem;display:flex;flex-wrap:wrap;gap:8px;"></div>
-
         <!-- 본문 (텍스트 아티클) -->
         <div id="artBody" class="article-content"></div>
 
+        <!-- 태그 -->
+        <div id="artTags" style="margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:8px;"></div>
+
         <!-- 작성자 (DB 아티클만) -->
-        <div id="artAuthor" style="display:none; margin-top:3rem; padding:1.5rem; background:#1e1e1e; border:1px solid #2d2d2d; border-radius:12px; display:flex; align-items:center; gap:14px;">
-          <div style="width:40px; height:40px; border-radius:50%; background:#0078F0; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; color:#fff; flex-shrink:0;" id="artAuthorAvatar"></div>
-          <div>
-            <div style="font-size:13px; color:#9CA3AF; margin-bottom:2px;">작성자</div>
-            <div style="font-size:15px; font-weight:700; color:#fff;" id="artAuthorName"></div>
-          </div>
+        <div id="artAuthor" style="display:none; margin-top:2rem; padding:1.2rem 1.5rem; background:#1e1e1e; border:1px solid #2d2d2d; border-radius:12px;">
+          <div style="font-size:12px; color:#555; margin-bottom:3px;">작성자</div>
+          <div style="font-size:15px; font-weight:700; color:#fff;" id="artAuthorName"></div>
         </div>
 
         <!-- 출처 -->
@@ -288,10 +285,8 @@ function renderArticle(a) {
 
   // 작성자 표시 (DB 아티클, author_name 있을 때만)
   if (a.author_name) {
-    var authorEl = document.getElementById('artAuthor')
     document.getElementById('artAuthorName').textContent = a.author_name
-    document.getElementById('artAuthorAvatar').textContent = a.author_name.charAt(0)
-    authorEl.style.display = 'flex'
+    document.getElementById('artAuthor').style.display = 'block'
   }
 
   // 출처 표시 (||로 구분된 여러 출처 지원)
