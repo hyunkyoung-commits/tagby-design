@@ -37,19 +37,8 @@
     .avatar {
       width: 72px; height: 72px; border-radius: 50%;
       background: #0078F0; display: flex; align-items: center; justify-content:center;
-      font-size: 28px; font-weight: 700; color: #fff;
-      overflow: hidden; flex-shrink: 0;
+      font-size: 28px; font-weight: 700; color: #fff; flex-shrink: 0;
     }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .avatar-edit-btn {
-      position: absolute; bottom: 0; right: 0;
-      width: 24px; height: 24px; border-radius: 50%;
-      background: #333; border: 1.5px solid #0f0f0f;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: background .15s;
-      font-size: 12px; line-height: 1;
-    }
-    .avatar-edit-btn:hover { background: #555; }
     .profile-info { flex: 1; }
     .profile-name { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
     .profile-email { font-size: 13px; color: #666; margin-bottom: 12px; }
@@ -133,46 +122,6 @@
     }
     @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-    /* 프로필 이미지 모달 */
-    .modal-backdrop {
-      display: none; position: fixed; inset: 0; z-index: 999;
-      background: rgba(0,0,0,.7); align-items: center; justify-content: center;
-    }
-    .modal-backdrop.open { display: flex; }
-    .modal {
-      background: #1a1a1a; border: 1px solid #2d2d2d; border-radius: 16px;
-      padding: 28px; width: 400px; max-width: calc(100vw - 32px);
-    }
-    .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
-    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
-    .btn-cancel {
-      background: transparent; color: #888; border: 1px solid #333;
-      border-radius: 8px; padding: 8px 16px; font-size: 13px; font-weight: 600;
-      cursor: pointer; font-family: inherit;
-    }
-    .btn-save {
-      background: #0078F0; color: #fff; border: none; border-radius: 8px;
-      padding: 8px 20px; font-size: 13px; font-weight: 700;
-      cursor: pointer; font-family: inherit;
-    }
-    .btn-save:disabled { background: #333; color: #666; cursor: not-allowed; }
-
-    .avatar-preview-wrap {
-      display: flex; align-items: center; gap: 16px; margin-bottom: 16px;
-    }
-    .avatar-preview {
-      width: 64px; height: 64px; border-radius: 50%; background: #0078F0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px; font-weight: 700; overflow: hidden; flex-shrink: 0;
-    }
-    .avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
-    .drop-zone-sm {
-      flex: 1; border: 2px dashed #333; border-radius: 10px;
-      padding: 16px; text-align: center; cursor: pointer;
-      font-size: 12px; color: #666; transition: border-color .2s;
-    }
-    .drop-zone-sm:hover { border-color: #0078F0; color: #0078F0; }
-
     input[type="file"] { display: none; }
 
     @media (max-width: 600px) {
@@ -208,7 +157,6 @@
     <div class="profile-card">
       <div class="avatar-wrap">
         <div class="avatar" id="profileAvatar"></div>
-        <div class="avatar-edit-btn" onclick="openAvatarModal()" title="프로필 이미지 변경">✏️</div>
       </div>
       <div class="profile-info">
         <div class="profile-name" id="profileName">—</div>
@@ -241,30 +189,10 @@
   </div>
 </div>
 
-<!-- 프로필 이미지 변경 모달 -->
-<div id="avatarModal" class="modal-backdrop">
-  <div class="modal">
-    <div class="modal-title">프로필 이미지 변경</div>
-    <div class="avatar-preview-wrap">
-      <div class="avatar-preview" id="avatarPreview"></div>
-      <div class="drop-zone-sm" onclick="document.getElementById('avatarFileInput').click()">
-        클릭해서 이미지 선택<br>
-        <span style="font-size:10px; color:#444;">(JPG · PNG · 2MB 이하)</span>
-      </div>
-    </div>
-    <input type="file" id="avatarFileInput" accept="image/jpeg,image/png,image/webp" onchange="onAvatarFile(event)">
-    <div id="avatarUploadMsg" style="font-size:12px; color:#666; min-height:16px;"></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeAvatarModal()">취소</button>
-      <button class="btn-save" id="avatarSaveBtn" onclick="saveAvatar()" disabled>저장</button>
-    </div>
-  </div>
-</div>
 
 <script>
 const token = localStorage.getItem('tagby_article_token') || ''
 let currentUser = null
-let pendingAvatarUrl = null
 
 function showLoginWall() {
   const el = document.getElementById('loginWall')
@@ -292,22 +220,11 @@ function showMain() {
   document.getElementById('mainContent').style.display = 'block'
 
   const name = currentUser.name || currentUser.email.split('@')[0]
-  const email = currentUser.email
-  const avatarUrl = currentUser.avatar_url || localStorage.getItem('tagby_avatar_' + currentUser.id)
-
   document.getElementById('profileName').textContent = name
-  document.getElementById('profileEmail').textContent = email
-  setAvatarEl(document.getElementById('profileAvatar'), avatarUrl, name)
+  document.getElementById('profileEmail').textContent = currentUser.email
+  document.getElementById('profileAvatar').textContent = name.charAt(0).toUpperCase()
 
   loadMyArticles()
-}
-
-function setAvatarEl(el, url, name) {
-  if (url) {
-    el.innerHTML = '<img src="' + esc(url) + '" alt="프로필">'
-  } else {
-    el.textContent = (name || '?').charAt(0).toUpperCase()
-  }
 }
 
 async function loadMyArticles() {
@@ -382,65 +299,6 @@ async function deleteArticle(slug, btn) {
     btn.textContent = '삭제'
     alert('삭제에 실패했습니다.')
   }
-}
-
-// 프로필 이미지
-function openAvatarModal() {
-  pendingAvatarUrl = null
-  const name = currentUser.name || currentUser.email.split('@')[0]
-  const existing = localStorage.getItem('tagby_avatar_' + currentUser.id)
-  setAvatarEl(document.getElementById('avatarPreview'), existing, name)
-  document.getElementById('avatarUploadMsg').textContent = ''
-  document.getElementById('avatarSaveBtn').disabled = true
-  document.getElementById('avatarModal').classList.add('open')
-}
-
-function closeAvatarModal() {
-  document.getElementById('avatarModal').classList.remove('open')
-}
-
-async function onAvatarFile(e) {
-  const file = e.target.files[0]
-  if (!file) return
-  if (file.size > 2 * 1024 * 1024) {
-    document.getElementById('avatarUploadMsg').textContent = '2MB 이하 파일만 가능합니다'
-    document.getElementById('avatarUploadMsg').style.color = '#f87171'
-    return
-  }
-  document.getElementById('avatarUploadMsg').textContent = '업로드 중...'
-  document.getElementById('avatarUploadMsg').style.color = '#888'
-  try {
-    const base64 = await new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onload = () => resolve(reader.result.split(',')[1])
-      reader.onerror = reject
-      reader.readAsDataURL(file)
-    })
-    const res = await fetch('/api/image-upload', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-      body: JSON.stringify({ base64, filename: 'avatar.' + file.name.split('.').pop(), contentType: file.type })
-    })
-    const data = await res.json()
-    if (!res.ok) throw new Error(data.error)
-    pendingAvatarUrl = data.url
-    const preview = document.getElementById('avatarPreview')
-    preview.innerHTML = '<img src="' + esc(data.url) + '" alt="미리보기">'
-    document.getElementById('avatarUploadMsg').textContent = '업로드 완료'
-    document.getElementById('avatarUploadMsg').style.color = '#4ade80'
-    document.getElementById('avatarSaveBtn').disabled = false
-  } catch(err) {
-    document.getElementById('avatarUploadMsg').textContent = '업로드 실패: ' + (err.message || '')
-    document.getElementById('avatarUploadMsg').style.color = '#f87171'
-  }
-  e.target.value = ''
-}
-
-function saveAvatar() {
-  if (!pendingAvatarUrl) return
-  localStorage.setItem('tagby_avatar_' + currentUser.id, pendingAvatarUrl)
-  setAvatarEl(document.getElementById('profileAvatar'), pendingAvatarUrl, currentUser.name || currentUser.email)
-  closeAvatarModal()
 }
 
 function esc(s) {

@@ -20,18 +20,6 @@ module.exports = async function handler(req, res) {
 
   const userId = userData.user.id
 
-  // GET ?slug=xxx → 단일 아티클 (수정용, draft 포함)
-  if (req.method === 'GET' && req.query?.slug) {
-    const { data, error } = await supabase
-      .from('articles')
-      .select('*')
-      .eq('slug', req.query.slug)
-      .eq('author_id', userId)
-      .maybeSingle()
-    if (error || !data) return res.status(404).json({ error: '아티클을 찾을 수 없습니다' })
-    return res.status(200).json(data)
-  }
-
   // GET → 내 아티클 목록
   if (req.method === 'GET') {
     const { data, error } = await supabase
@@ -43,18 +31,34 @@ module.exports = async function handler(req, res) {
     return res.status(200).json(data || [])
   }
 
-  // POST { action: 'delete', slug } → 삭제
   if (req.method === 'POST') {
     const { action, slug } = req.body || {}
-    if (action !== 'delete' || !slug) return res.status(400).json({ error: '잘못된 요청' })
+    if (!action || !slug) return res.status(400).json({ error: '잘못된 요청' })
 
-    const { error } = await supabase
-      .from('articles')
-      .delete()
-      .eq('slug', slug)
-      .eq('author_id', userId)
-    if (error) return res.status(500).json({ error: '삭제 실패' })
-    return res.status(200).json({ success: true })
+    // POST { action: 'get', slug } → 단일 아티클 (수정용, draft 포함)
+    if (action === 'get') {
+      const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .eq('slug', slug)
+        .eq('author_id', userId)
+        .maybeSingle()
+      if (error || !data) return res.status(404).json({ error: '아티클을 찾을 수 없습니다' })
+      return res.status(200).json(data)
+    }
+
+    // POST { action: 'delete', slug } → 삭제
+    if (action === 'delete') {
+      const { error } = await supabase
+        .from('articles')
+        .delete()
+        .eq('slug', slug)
+        .eq('author_id', userId)
+      if (error) return res.status(500).json({ error: '삭제 실패' })
+      return res.status(200).json({ success: true })
+    }
+
+    return res.status(400).json({ error: '알 수 없는 action' })
   }
 
   return res.status(405).json({ error: 'Method not allowed' })

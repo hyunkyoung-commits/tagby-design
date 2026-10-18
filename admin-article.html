@@ -489,8 +489,10 @@ function showEditor() {
 
 async function loadArticleForEdit(slug) {
   try {
-    const res = await fetch('/api/my-articles?slug=' + encodeURIComponent(slug), {
-      headers: { 'Authorization': 'Bearer ' + token }
+    const res = await fetch('/api/my-articles', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ action: 'get', slug })
     })
     if (!res.ok) throw new Error()
     const a = await res.json()
