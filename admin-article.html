@@ -80,7 +80,13 @@
       <div style="font-size:24px; font-weight:800; color:#fff; letter-spacing:-0.5px;">TAGby</div>
       <div style="font-size:13px; color:#666; margin-top:4px;">아티클 작성 어드민</div>
     </div>
-    <div class="section-card">
+    <!-- 탭 -->
+    <div style="display:flex; background:#1a1a1a; border:1px solid #2d2d2d; border-radius:10px; padding:4px; margin-bottom:16px; gap:4px;">
+      <button id="tabLogin" onclick="switchTab('login')" style="flex:1;padding:9px;font-size:13px;font-weight:700;border:none;border-radius:7px;cursor:pointer;font-family:'Pretendard',sans-serif;background:#0078F0;color:#fff;transition:all 0.2s;">로그인</button>
+      <button id="tabSignup" onclick="switchTab('signup')" style="flex:1;padding:9px;font-size:13px;font-weight:700;border:none;border-radius:7px;cursor:pointer;font-family:'Pretendard',sans-serif;background:transparent;color:#666;transition:all 0.2s;">계정 만들기</button>
+    </div>
+    <!-- 로그인 폼 -->
+    <div id="loginForm" class="section-card">
       <div class="mb-4">
         <label class="label">이메일</label>
         <input id="loginEmail" type="email" class="input-base" placeholder="이메일 주소" autocomplete="email">
@@ -91,6 +97,23 @@
       </div>
       <button id="loginBtn" class="btn-primary w-full" onclick="doLogin()">로그인</button>
       <div id="loginError" style="color:#f87171; font-size:13px; margin-top:12px; text-align:center; display:none;"></div>
+    </div>
+    <!-- 계정 만들기 폼 -->
+    <div id="signupForm" class="section-card" style="display:none;">
+      <div class="mb-4">
+        <label class="label">이름</label>
+        <input id="signupName" type="text" class="input-base" placeholder="이름 (아티클에 작성자로 표시됩니다)">
+      </div>
+      <div class="mb-4">
+        <label class="label">이메일</label>
+        <input id="signupEmail" type="email" class="input-base" placeholder="이메일 주소" autocomplete="email">
+      </div>
+      <div class="mb-6">
+        <label class="label">비밀번호 <span style="color:#555;font-weight:400;">(8자 이상)</span></label>
+        <input id="signupPassword" type="password" class="input-base" placeholder="비밀번호 8자 이상" autocomplete="new-password">
+      </div>
+      <button id="signupBtn" class="btn-primary w-full" onclick="doSignup()">계정 만들기</button>
+      <div id="signupError" style="color:#f87171; font-size:13px; margin-top:12px; text-align:center; display:none;"></div>
     </div>
   </div>
 </div>
@@ -245,6 +268,15 @@ window.addEventListener('DOMContentLoaded', function() {
   document.getElementById('loginPassword').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') doLogin()
   })
+  document.getElementById('signupName').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('signupEmail').focus()
+  })
+  document.getElementById('signupEmail').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('signupPassword').focus()
+  })
+  document.getElementById('signupPassword').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doSignup()
+  })
 })
 
 async function verifyAndShowEditor() {
@@ -265,6 +297,53 @@ async function verifyAndShowEditor() {
 }
 
 // ── 로그인 ────────────────────────────────────────────────────
+function switchTab(tab) {
+  const isLogin = tab === 'login'
+  document.getElementById('tabLogin').style.background  = isLogin ? '#0078F0' : 'transparent'
+  document.getElementById('tabLogin').style.color       = isLogin ? '#fff' : '#666'
+  document.getElementById('tabSignup').style.background = isLogin ? 'transparent' : '#0078F0'
+  document.getElementById('tabSignup').style.color      = isLogin ? '#666' : '#fff'
+  document.getElementById('loginForm').style.display    = isLogin ? 'block' : 'none'
+  document.getElementById('signupForm').style.display   = isLogin ? 'none' : 'block'
+}
+
+async function doSignup() {
+  const name     = document.getElementById('signupName').value.trim()
+  const email    = document.getElementById('signupEmail').value.trim()
+  const password = document.getElementById('signupPassword').value
+  const btn      = document.getElementById('signupBtn')
+  const errEl    = document.getElementById('signupError')
+
+  if (!name)     { errEl.textContent = '이름을 입력해주세요'; errEl.style.display='block'; return }
+  if (!email)    { errEl.textContent = '이메일을 입력해주세요'; errEl.style.display='block'; return }
+  if (!password) { errEl.textContent = '비밀번호를 입력해주세요'; errEl.style.display='block'; return }
+
+  btn.disabled = true
+  btn.textContent = '계정 생성 중...'
+  errEl.style.display = 'none'
+
+  try {
+    const res = await fetch('/api/article-auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'signup', email, password, name })
+    })
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error)
+
+    token = data.access_token
+    currentUser = data.user
+    localStorage.setItem('tagby_article_token', token)
+    showEditor()
+  } catch (err) {
+    errEl.textContent = err.message || '계정 생성에 실패했습니다'
+    errEl.style.display = 'block'
+  } finally {
+    btn.disabled = false
+    btn.textContent = '계정 만들기'
+  }
+}
+
 async function doLogin() {
   const email = document.getElementById('loginEmail').value.trim()
   const password = document.getElementById('loginPassword').value

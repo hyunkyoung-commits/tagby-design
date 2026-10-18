@@ -33,6 +33,29 @@ module.exports = async function handler(req, res) {
     })
   }
 
+  if (action === 'signup') {
+    const { email, password, name } = req.body || {}
+    if (!email || !password) return res.status(400).json({ error: '이메일과 비밀번호를 입력해주세요' })
+    if (password.length < 8) return res.status(400).json({ error: '비밀번호는 8자 이상이어야 합니다' })
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { name: name || email.split('@')[0] } }
+    })
+    if (error) return res.status(400).json({ error: error.message })
+    if (!data.session) return res.status(400).json({ error: '가입에 실패했습니다. 이미 사용 중인 이메일일 수 있습니다.' })
+
+    return res.status(200).json({
+      access_token: data.session.access_token,
+      user: {
+        id: data.user.id,
+        email: data.user.email,
+        name: name || data.user.email.split('@')[0]
+      }
+    })
+  }
+
   if (action === 'verify') {
     const token = (req.headers.authorization || '').replace('Bearer ', '')
     if (!token) return res.status(401).json({ error: '토큰이 없습니다' })
