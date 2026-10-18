@@ -691,13 +691,35 @@ async function generateCoverImage(title, category) {
   canvas.height = 600
   const ctx = canvas.getContext('2d')
 
-  const palettes = {
-    '퍼포먼스마케팅': { bg1: '#0c1f5e', bg2: '#1a4db8', accent: '#4d8fff', label: 'Performance' },
-    '콘텐츠마케팅':   { bg1: '#2a0e52', bg2: '#7b2fbf', accent: '#c084fc', label: 'Contents' },
-    '디자인':         { bg1: '#082c22', bg2: '#0f7a56', accent: '#34d399', label: 'Design' },
-    'AI':             { bg1: '#160a38', bg2: '#5b21b6', accent: '#818cf8', label: 'AI' },
+  const paletteSets = {
+    '퍼포먼스마케팅': [
+      { bg1: '#0c1f5e', bg2: '#1a4db8', accent: '#4d8fff', label: 'Performance' },
+      { bg1: '#0a2442', bg2: '#0369a1', accent: '#38bdf8', label: 'Performance' },
+      { bg1: '#1e3a5f', bg2: '#2563eb', accent: '#93c5fd', label: 'Performance' },
+      { bg1: '#0f172a', bg2: '#1e40af', accent: '#60a5fa', label: 'Performance' },
+    ],
+    '콘텐츠마케팅': [
+      { bg1: '#2a0e52', bg2: '#7b2fbf', accent: '#c084fc', label: 'Contents' },
+      { bg1: '#3b0764', bg2: '#9333ea', accent: '#d8b4fe', label: 'Contents' },
+      { bg1: '#1e0030', bg2: '#6d28d9', accent: '#a78bfa', label: 'Contents' },
+      { bg1: '#2d1060', bg2: '#c026d3', accent: '#e879f9', label: 'Contents' },
+    ],
+    '디자인': [
+      { bg1: '#082c22', bg2: '#0f7a56', accent: '#34d399', label: 'Design' },
+      { bg1: '#052e16', bg2: '#16a34a', accent: '#86efac', label: 'Design' },
+      { bg1: '#0c2a2a', bg2: '#0d9488', accent: '#5eead4', label: 'Design' },
+      { bg1: '#1a2e05', bg2: '#4d7c0f', accent: '#bef264', label: 'Design' },
+    ],
+    'AI': [
+      { bg1: '#160a38', bg2: '#5b21b6', accent: '#818cf8', label: 'AI' },
+      { bg1: '#0f0a2a', bg2: '#4338ca', accent: '#a5b4fc', label: 'AI' },
+      { bg1: '#1e1b4b', bg2: '#7c3aed', accent: '#c4b5fd', label: 'AI' },
+      { bg1: '#0a0a1a', bg2: '#6366f1', accent: '#e0e7ff', label: 'AI' },
+    ],
   }
-  const p = palettes[category] || { bg1: '#111', bg2: '#333', accent: '#888', label: '' }
+  const hash = title.split('').reduce((h, c) => (((h << 5) - h) + c.charCodeAt(0)) | 0, 0)
+  const set = paletteSets[category] || [{ bg1: '#111', bg2: '#333', accent: '#888', label: '' }]
+  const p = set[Math.abs(hash) % set.length]
 
   // 그라디언트 배경
   const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
