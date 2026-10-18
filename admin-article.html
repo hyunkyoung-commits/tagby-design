@@ -494,7 +494,10 @@ async function loadArticleForEdit(slug) {
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
       body: JSON.stringify({ action: 'get', slug })
     })
-    if (!res.ok) throw new Error()
+    if (!res.ok) {
+      const errBody = await res.text()
+      throw new Error('API ' + res.status + ': ' + errBody)
+    }
     const a = await res.json()
 
     // 폼 채우기
@@ -535,8 +538,8 @@ async function loadArticleForEdit(slug) {
     banner.textContent = '✏️ 수정 모드 — "' + (a.title || slug) + '" 를 수정 중입니다.'
     const firstCard = document.querySelector('.section-card')
     if (firstCard) firstCard.parentNode.insertBefore(banner, firstCard)
-  } catch {
-    alert('아티클을 불러오는 데 실패했습니다.')
+  } catch(err) {
+    alert('아티클을 불러오는 데 실패했습니다.\n\n' + (err && err.message ? err.message : String(err)))
   }
 }
 
