@@ -120,10 +120,10 @@
   }
 
   async function fetchMembers() {
-    const r = await fetch('/api/members', {
+    const r = await fetch('/api/subscribers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: adminPassword })
+      body: JSON.stringify({ password: adminPassword, action: 'members' })
     })
     const data = await r.json()
     if (data.error) throw new Error(data.error)
