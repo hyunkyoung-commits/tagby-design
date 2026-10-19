@@ -673,6 +673,46 @@ function applyImageSize(size) {
   positionResizeBar()
 }
 
+// ── 기존 DB 아티클 커버 썸네일 일괄 생성 (주소 뒤에 ?backfill=1 일 때만 버튼 표시) ──
+async function backfillThumbs(btn) {
+  if (!token) return showToast('먼저 로그인해주세요', 'error')
+  btn.disabled = true
+  let made = 0, skipped = 0, failed = 0
+  try {
+    const list = await (await fetch('/api/article-list-db')).json()
+    for (let i = 0; i < list.length; i++) {
+      const cover = list[i].cover
+      if (!cover || cover.indexOf('/article-images/') < 0) { skipped++; continue }
+      btn.textContent = '썸네일 생성 중... ' + (i + 1) + '/' + list.length
+      const thumbUrl = cover.replace(/\.[a-z0-9]+$/i, '-thumb.webp')
+      try {
+        const head = await fetch(thumbUrl, { method: 'HEAD', cache: 'no-store' })
+        if (head.ok) { skipped++; continue }
+        const blob = await (await fetch(cover)).blob()
+        const thumb = await makeThumbBlob(blob)
+        const res = await fetch('/api/image-upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+          body: JSON.stringify({ base64: await blobToBase64(thumb), filename: 'thumb.webp', contentType: 'image/webp', thumbFor: cover.split('/').pop() })
+        })
+        if (res.ok) made++; else failed++
+      } catch (e) { failed++ }
+    }
+  } catch (e) { failed++ }
+  btn.textContent = '완료 — 생성 ' + made + ' / 건너뜀 ' + skipped + ' / 실패 ' + failed
+  btn.disabled = false
+}
+
+if (new URLSearchParams(location.search).get('backfill') === '1') {
+  window.addEventListener('DOMContentLoaded', function() {
+    const b = document.createElement('button')
+    b.textContent = '기존 커버 썸네일 일괄 생성'
+    b.style.cssText = 'position:fixed;right:20px;bottom:20px;z-index:9000;background:#0078F0;color:#fff;border:none;border-radius:8px;padding:12px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:Pretendard,sans-serif;'
+    b.onclick = function() { backfillThumbs(b) }
+    document.body.appendChild(b)
+  })
+}
+
 // Enter 키로 캡션 삽입
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && document.getElementById('imgCaptionModal').classList.contains('open')) {
