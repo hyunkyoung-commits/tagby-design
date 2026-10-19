@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>회원 관리 | TAGby Admin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Pretendard', sans-serif; background: #0f0f0f; color: #fff; margin: 0; }
+    .hidden { display: none !important; }
+    .card { background: #1a1a1a; border: 1px solid #2d2d2d; border-radius: 12px; }
+    .input-base {
+      background: #111; border: 1px solid #333; border-radius: 8px;
+      color: #fff; padding: 10px 14px; font-size: 14px; width: 100%;
+      font-family: 'Pretendard', sans-serif; outline: none; transition: border-color 0.2s;
+    }
+    .input-base:focus { border-color: #0078F0; }
+    .input-base::placeholder { color: #555; }
+    .btn-primary {
+      background: #0078F0; color: #fff; border: none; border-radius: 8px;
+      padding: 12px 28px; font-size: 14px; font-weight: 700; cursor: pointer;
+      font-family: 'Pretendard', sans-serif; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #005fbe; }
+    .btn-secondary {
+      background: transparent; color: #888; border: 1px solid #333; border-radius: 8px;
+      padding: 8px 16px; font-size: 12px; font-weight: 600; cursor: pointer;
+      font-family: 'Pretendard', sans-serif; transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: #555; color: #ccc; }
+    .stat-box { background: #111; border: 1px solid #2d2d2d; border-radius: 10px; padding: 20px 24px; }
+    .stat-label { font-size: 11px; color: #666; letter-spacing: 1px; margin-bottom: 8px; }
+    .stat-value { font-size: 28px; font-weight: 900; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; color: #666; font-weight: 600; font-size: 12px; padding: 12px 14px; border-bottom: 1px solid #2d2d2d; cursor: pointer; white-space: nowrap; user-select: none; }
+    th:hover { color: #aaa; }
+    td { padding: 12px 14px; border-bottom: 1px solid #222; color: #ccc; white-space: nowrap; }
+    tr:hover td { background: #151515; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    .table-scroll { overflow-x: auto; }
+  </style>
+</head>
+<body>
+
+<div id="loginScreen" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;">
+  <div class="card" style="padding:40px;width:100%;max-width:384px;text-align:center;">
+    <div style="font-size:18px;font-weight:900;letter-spacing:3px;margin-bottom:8px;">TAGby</div>
+    <p style="color:#666;font-size:12px;letter-spacing:1px;margin:0 0 40px;">MEMBERS ADMIN</p>
+    <input type="password" id="passwordInput" class="input-base" placeholder="관리자 비밀번호" autocomplete="current-password" style="margin-bottom:16px;">
+    <button class="btn-primary" style="width:100%;" onclick="login()">로그인</button>
+    <p id="loginError" style="color:#f87171;font-size:13px;margin-top:12px;display:none;">비밀번호가 틀렸습니다.</p>
+  </div>
+</div>
+
+<div id="mainScreen" class="hidden">
+  <header style="background:#1a1a1a;border-bottom:1px solid #2d2d2d;padding:20px 0;">
+    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <span style="font-weight:900;letter-spacing:3px;font-size:16px;">TAGby</span>
+        <span style="color:#555;font-size:12px;margin-left:12px;letter-spacing:1px;">MEMBERS</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <a href="/admin-newsletter.html" style="color:#666;font-size:13px;text-decoration:none;">뉴스레터 관리 →</a>
+        <button onclick="logout()" class="btn-secondary">로그아웃</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding-top:40px;padding-bottom:60px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:32px;">
+      <div class="stat-box"><div class="stat-label">전체 회원</div><div id="statTotal" class="stat-value" style="color:#0078F0;">—</div></div>
+      <div class="stat-box"><div class="stat-label">최근 7일 가입</div><div id="statWeek" class="stat-value">—</div></div>
+      <div class="stat-box"><div class="stat-label">아티클 작성 회원</div><div id="statAuthors" class="stat-value">—</div></div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+      <div id="summary" style="font-size:13px;color:#666;"></div>
+      <div style="display:flex;gap:8px;">
+        <input type="text" id="search" class="input-base" placeholder="이름 또는 이메일 검색" style="width:240px;" oninput="render()">
+        <button class="btn-secondary" onclick="reload()">새로고침</button>
+        <button class="btn-secondary" onclick="downloadCsv()">CSV</button>
+      </div>
+    </div>
+
+    <div class="card table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th onclick="sortBy('name')">닉네임</th>
+            <th onclick="sortBy('email')">이메일</th>
+            <th onclick="sortBy('created_at')">가입일 ↓</th>
+            <th onclick="sortBy('last_sign_in_at')">최근 로그인</th>
+            <th onclick="sortBy('article_count')">작성 아티클</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p id="msg" style="color:#666;font-size:13px;text-align:center;margin-top:20px;"></p>
+  </main>
+</div>
+
+<script>
+  let adminPassword = ''
+  let members = []
+  let sortKey = 'created_at'
+  let sortDir = -1
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
+  }
+
+  function fmt(d) {
+    if (!d) return '—'
+    const x = new Date(d)
+    const p = n => String(n).padStart(2, '0')
+    return x.getFullYear() + '.' + p(x.getMonth() + 1) + '.' + p(x.getDate()) + ' ' + p(x.getHours()) + ':' + p(x.getMinutes())
+  }
+
+  async function fetchMembers() {
+    const r = await fetch('/api/members', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: adminPassword })
+    })
+    const data = await r.json()
+    if (data.error) throw new Error(data.error)
+    members = data.members || []
+    render()
+  }
+
+  async function login() {
+    const pw = document.getElementById('passwordInput').value
+    if (!pw) return
+    adminPassword = pw
+    try {
+      await fetchMembers()
+      document.getElementById('loginScreen').classList.add('hidden')
+      document.getElementById('mainScreen').classList.remove('hidden')
+    } catch (e) {
+      adminPassword = ''
+      const el = document.getElementById('loginError')
+      el.textContent = e.message || '로그인에 실패했습니다.'
+      el.style.display = 'block'
+    }
+  }
+
+  async function reload() {
+    try { await fetchMembers() } catch (e) { document.getElementById('msg').textContent = e.message }
+  }
+
+  function logout() {
+    adminPassword = ''
+    members = []
+    document.getElementById('mainScreen').classList.add('hidden')
+    document.getElementById('loginScreen').classList.remove('hidden')
+    document.getElementById('passwordInput').value = ''
+    document.getElementById('loginError').style.display = 'none'
+  }
+
+  function sortBy(key) {
+    if (sortKey === key) sortDir = -sortDir
+    else { sortKey = key; sortDir = key === 'name' || key === 'email' ? 1 : -1 }
+    render()
+  }
+
+  function filtered() {
+    const q = document.getElementById('search').value.trim().toLowerCase()
+    const list = q
+      ? members.filter(m => (m.name || '').toLowerCase().includes(q) || (m.email || '').toLowerCase().includes(q))
+      : members.slice()
+    list.sort((a, b) => {
+      let x = a[sortKey], y = b[sortKey]
+      if (x == null) x = ''
+      if (y == null) y = ''
+      if (typeof x === 'number' && typeof y === 'number') return (x - y) * sortDir
+      return String(x).localeCompare(String(y)) * sortDir
+    })
+    return list
+  }
+
+  function render() {
+    const week = Date.now() - 7 * 24 * 60 * 60 * 1000
+    document.getElementById('statTotal').textContent = members.length.toLocaleString()
+    document.getElementById('statWeek').textContent = members.filter(m => new Date(m.created_at).getTime() >= week).length.toLocaleString()
+    document.getElementById('statAuthors').textContent = members.filter(m => m.article_count > 0).length.toLocaleString()
+
+    const list = filtered()
+    document.getElementById('summary').textContent = list.length === members.length
+      ? '총 ' + members.length.toLocaleString() + '명'
+      : members.length.toLocaleString() + '명 중 ' + list.length.toLocaleString() + '명'
+    document.getElementById('rows').innerHTML = list.map(m =>
+      '<tr><td style="color:#fff;font-weight:600;">' + esc(m.name) + '</td><td>' + esc(m.email) + '</td><td>' +
+      fmt(m.created_at) + '</td><td>' + fmt(m.last_sign_in_at) + '</td><td>' + m.article_count + '</td></tr>'
+    ).join('')
+    document.getElementById('msg').textContent = list.length ? '' : '표시할 회원이 없습니다.'
+  }
+
+  function downloadCsv() {
+    const q = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'
+    const lines = [['닉네임', '이메일', '가입일', '최근 로그인', '작성 아티클'].map(q).join(',')]
+    filtered().forEach(m => lines.push([m.name, m.email, fmt(m.created_at), fmt(m.last_sign_in_at), m.article_count].map(q).join(',')))
+    const blob = new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' })
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = 'tagby-members.csv'
+    a.click()
+    URL.revokeObjectURL(a.href)
+  }
+
+  document.getElementById('passwordInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') login()
+  })
+</script>
+</body>
+</html>
