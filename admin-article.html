@@ -825,17 +825,35 @@ function updateCharCount(inputId, countId, max) {
 // ── 이미지 업로드 (공통) ──────────────────────────────────────
 const MAX_BYTES = 2 * 1024 * 1024
 
-async function uploadImage(file) {
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result.split(',')[1])
+    reader.onerror = reject
+    reader.readAsDataURL(blob)
+  })
+}
+
+// 카드용 썸네일(폭 800px WebP) 생성
+async function makeThumbBlob(file) {
+  const bitmap = await createImageBitmap(file)
+  const w = Math.min(800, bitmap.width)
+  const h = Math.round(bitmap.height * w / bitmap.width)
+  const canvas = document.createElement('canvas')
+  canvas.width = w
+  canvas.height = h
+  canvas.getContext('2d').drawImage(bitmap, 0, 0, w, h)
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(b => b ? resolve(b) : reject(new Error('썸네일 생성 실패')), 'image/webp', 0.82)
+  })
+}
+
+async function uploadImage(file, opts) {
   if (file.size > MAX_BYTES) {
     throw new Error('이미지는 2MB 이하로 올려주세요 (현재: ' + (file.size/1024/1024).toFixed(1) + 'MB)')
   }
 
-  const base64 = await new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => resolve(reader.result.split(',')[1])
-    reader.onerror = reject
-    reader.readAsDataURL(file)
-  })
+  const base64 = await blobToBase64(file)
 
   const res = await fetch('/api/image-upload', {
     method: 'POST',
@@ -844,6 +862,18 @@ async function uploadImage(file) {
   })
   const data = await res.json()
   if (!res.ok) throw new Error(data.error)
+
+  // 커버는 카드용 작은 썸네일을 함께 올림 (실패해도 원본은 정상 사용)
+  if (opts && opts.thumb) {
+    try {
+      const thumb = await makeThumbBlob(file)
+      await fetch('/api/image-upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ base64: await blobToBase64(thumb), filename: 'thumb.webp', contentType: 'image/webp', thumbFor: data.filename })
+      })
+    } catch (e) { console.warn('썸네일 업로드 실패', e) }
+  }
   return data.url
 }
 
@@ -873,7 +903,7 @@ async function processCoverFile(file) {
   status.style.color = '#aaa'
   status.textContent = '업로드 중...'
   try {
-    const url = await uploadImage(file)
+    const url = await uploadImage(file, { thumb: true })
     coverUrl = url
     document.getElementById('coverPreview').src = url
     document.getElementById('coverPreviewWrap').style.display = 'block'
@@ -1053,7 +1083,7 @@ async function generateCoverImage(title, category) {
     canvas.toBlob(async (blob) => {
       try {
         const file = new File([blob], 'cover-auto.jpg', { type: 'image/jpeg' })
-        const url = await uploadImage(file)
+        const url = await uploadImage(file, { thumb: true })
         resolve(url)
       } catch (e) { reject(e) }
     }, 'image/jpeg', 0.92)
