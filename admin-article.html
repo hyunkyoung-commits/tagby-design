@@ -77,7 +77,15 @@
     .ql-editor h2 { color: #fff; font-size: 1.4em; font-weight: 700; margin: 1.2em 0 0.5em; }
     .ql-editor h3 { color: #fff; font-size: 1.15em; font-weight: 700; margin: 1em 0 0.4em; }
     .ql-editor p  { margin: 0 0 0.75em; }
-    .ql-editor img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+    .ql-editor img { max-width: 100%; border-radius: 8px; margin: 8px 0; cursor: pointer; }
+    .ql-editor img[width] { display: block; margin-left: auto; margin-right: auto; }
+    .ql-editor img.img-selected { outline: 2px solid #0078F0; outline-offset: 2px; }
+    #imgResizeBar { display:none; position:fixed; z-index:9000; background:#1e1e1e; border:1px solid #333; border-radius:8px; padding:4px; gap:2px; align-items:center; box-shadow:0 4px 16px rgba(0,0,0,0.5); }
+    #imgResizeBar.open { display:flex; }
+    #imgResizeBar .lbl { color:#777; font-size:11px; padding:0 8px; }
+    #imgResizeBar button { background:transparent; border:none; color:#aaa; font-size:12px; font-weight:600; padding:6px 10px; border-radius:6px; cursor:pointer; font-family:'Pretendard',sans-serif; }
+    #imgResizeBar button:hover { background:#2a2a2a; color:#fff; }
+    #imgResizeBar button.active { background:#0078F0; color:#fff; }
     .ql-editor blockquote { border-left: 3px solid #0078F0; padding-left: 14px; color: #aaa; font-style: italic; margin: 1em 0; }
     .ql-editor figure { margin: 8px 0; }
     .ql-editor figcaption { text-align: center; font-size: 12px; color: #888; margin-top: 5px; font-style: italic; padding: 0 12px; }
@@ -476,6 +484,7 @@ function showEditor() {
         }
       }
     })
+    initImageResize()
   }
 
   // URL에 ?edit=SLUG 가 있으면 기존 아티클 로드 (드래프트 복원 이전)
@@ -583,6 +592,85 @@ function insertImgWithCaption(withCaption) {
   showToast('이미지 삽입 완료', 'success')
   pendingImgUrl = null
   pendingImgRange = null
+}
+
+// ── 본문 이미지 크기 조절 ─────────────────────────────────────
+// 에디터의 이미지를 클릭하면 크기 버튼(25/50/75/100%)이 뜸. Quill image 포맷의 width 속성(%)으로 저장됨.
+const IMG_SIZES = [25, 50, 75, 100]
+let resizeTarget = null
+let resizeBar = null
+
+function initImageResize() {
+  resizeBar = document.createElement('div')
+  resizeBar.id = 'imgResizeBar'
+  resizeBar.innerHTML = '<span class="lbl">크기</span>' +
+    IMG_SIZES.map(s => '<button type="button" data-size="' + s + '">' + (s === 100 ? '원본' : s + '%') + '</button>').join('')
+  document.body.appendChild(resizeBar)
+
+  // 에디터 포커스를 뺏지 않도록 mousedown 기본동작 차단
+  resizeBar.addEventListener('mousedown', e => e.preventDefault())
+  resizeBar.addEventListener('click', e => {
+    const btn = e.target.closest('button[data-size]')
+    if (btn) applyImageSize(parseInt(btn.dataset.size, 10))
+  })
+
+  quill.root.addEventListener('click', e => {
+    if (e.target && e.target.tagName === 'IMG') selectImage(e.target)
+    else hideResizeBar()
+  })
+  document.addEventListener('mousedown', e => {
+    if (resizeBar.contains(e.target) || (e.target && e.target.tagName === 'IMG' && quill.root.contains(e.target))) return
+    hideResizeBar()
+  })
+  window.addEventListener('resize', positionResizeBar)
+  window.addEventListener('scroll', positionResizeBar, true)
+  quill.on('text-change', () => { if (resizeTarget && !document.body.contains(resizeTarget)) hideResizeBar() })
+}
+
+// 저장용 본문 HTML (이미지 선택 표시용 class 제거)
+function getBodyHtml() {
+  return quill.root.innerHTML.replace(/<img[^>]*>/g, tag => tag.replace(/\s+class="(img-selected)?"/g, ''))
+}
+
+function selectImage(img) {
+  if (resizeTarget && resizeTarget !== img) resizeTarget.classList.remove('img-selected')
+  resizeTarget = img
+  img.classList.add('img-selected')
+  resizeBar.classList.add('open')
+  positionResizeBar()
+}
+
+function hideResizeBar() {
+  if (resizeTarget) resizeTarget.classList.remove('img-selected')
+  resizeTarget = null
+  if (resizeBar) resizeBar.classList.remove('open')
+}
+
+function currentImageSize(img) {
+  const w = (img.getAttribute('width') || '').trim()
+  return /^\d+%$/.test(w) ? parseInt(w, 10) : 100
+}
+
+function positionResizeBar() {
+  if (!resizeTarget || !resizeBar) return
+  const r = resizeTarget.getBoundingClientRect()
+  const barH = resizeBar.offsetHeight || 36
+  let top = r.top - barH - 8
+  if (top < 8) top = Math.min(r.top + 8, window.innerHeight - barH - 8)
+  const left = Math.max(8, Math.min(r.left, window.innerWidth - resizeBar.offsetWidth - 8))
+  resizeBar.style.top = top + 'px'
+  resizeBar.style.left = left + 'px'
+  const cur = currentImageSize(resizeTarget)
+  resizeBar.querySelectorAll('button').forEach(b => b.classList.toggle('active', parseInt(b.dataset.size, 10) === cur))
+}
+
+function applyImageSize(size) {
+  if (!resizeTarget) return
+  const blot = Quill.find(resizeTarget)
+  if (!blot) return
+  // 100%(원본)은 width 속성을 제거해 기존 동작(꽉 채움)으로 되돌림
+  blot.format('width', size === 100 ? false : size + '%')
+  positionResizeBar()
 }
 
 // Enter 키로 캡션 삽입
@@ -766,7 +854,7 @@ function saveDraftLocally() {
       slug: document.getElementById('fSlug').value,
       slugManuallyEdited,
       articleType,
-      bodyHtml: quill.root.innerHTML,
+      bodyHtml: getBodyHtml(),
       tags: [...tags],
       coverUrl,
       sources: sources.map(s => ({ name: s.name, url: s.url })),
@@ -1102,7 +1190,7 @@ async function submit(status) {
   const validSources = sources.filter(s => s.name.trim() || s.url.trim())
   const sourceName = validSources.map(s => s.name.trim()).join('||')
   const sourceUrl  = validSources.map(s => s.url.trim()).join('||')
-  const bodyHtml   = (articleType === 'text' && quill) ? quill.root.innerHTML.trim() : null
+  const bodyHtml   = (articleType === 'text' && quill) ? getBodyHtml().trim() : null
   const btn        = document.getElementById('publishBtn')
 
   if (!title)    return showToast('제목을 입력해주세요', 'error')
