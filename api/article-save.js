@@ -7,6 +7,9 @@ const supabase = createClient(
 
 const VALID_CATEGORIES = ['퍼포먼스마케팅', '콘텐츠마케팅', '디자인', 'AI']
 
+// 작성자 본인이 아니어도 모든 아티클을 수정할 수 있는 관리자 계정
+const ADMIN_EMAILS = ['hyunkyoung@tagby.io']
+
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
@@ -59,16 +62,21 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: '슬러그는 영문 소문자, 숫자, 하이픈(-)만 사용 가능합니다' })
   }
 
+  const isAdmin = ADMIN_EMAILS.includes(userData.user.email)
+
   // 슬러그 중복 확인
   const { data: existing } = await supabase
     .from('articles')
-    .select('id, author_id')
+    .select('id, author_id, author_email, author_name')
     .eq('slug', slug)
     .maybeSingle()
 
-  if (existing && existing.author_id !== userData.user.id) {
+  if (existing && existing.author_id !== userData.user.id && !isAdmin) {
     return res.status(409).json({ error: '이미 사용 중인 슬러그입니다. 다른 슬러그를 사용해주세요.' })
   }
+
+  // 관리자가 다른 사람의 아티클을 수정하는 경우, 원작성자 정보는 그대로 유지
+  const isEditingOthersArticle = !!(existing && existing.author_id !== userData.user.id)
 
   const articleData = {
     slug,
@@ -79,9 +87,9 @@ module.exports = async function handler(req, res) {
     tags: Array.isArray(tags) ? tags : [],
     cover_url: cover_url || null,
     article_type: article_type || 'text',
-    author_id: userData.user.id,
-    author_email: userData.user.email,
-    author_name: author_name || userData.user.user_metadata?.name || userData.user.email.split('@')[0],
+    author_id: isEditingOthersArticle ? existing.author_id : userData.user.id,
+    author_email: isEditingOthersArticle ? existing.author_email : userData.user.email,
+    author_name: isEditingOthersArticle ? existing.author_name : (author_name || userData.user.user_metadata?.name || userData.user.email.split('@')[0]),
     status: status || 'published',
     published_at: new Date().toISOString(),
     source_name: source_name || null,
