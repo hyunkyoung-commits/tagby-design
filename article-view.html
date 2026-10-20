@@ -372,7 +372,15 @@ async function loadRelated(slug, cat, myTags) {
     if (!grid || picks.length === 0) return
 
     grid.innerHTML = picks.map(function(a) {
-      var coverHtml = '<img src="https://mkt.tagby.io/design-study-article/thum/card/' + a.slug + '.webp" data-fb="' + (a.cover ? 'https://mkt.tagby.io/' + a.cover : 'https://mkt.tagby.io/design-study-article/thum/' + a.slug + '.png') + '" onerror="if(!this.dataset.d){this.dataset.d=1;this.src=this.dataset.fb}" loading="lazy" decoding="async" alt="' + escHtml(a.title) + '" style="width:100%;height:100%;object-fit:cover;">'
+      // a.cover가 이미 완전한 URL(DB 아티클의 Supabase 저장소 주소)이면 그대로 쓰고,
+      // 상대 경로(정적 아티클)면 도메인을 붙인다. 없으면 slug 기반 webp/png로 추정.
+      var isAbsolute = a.cover && /^https?:\/\//.test(a.cover)
+      var coverHtml
+      if (isAbsolute) {
+        coverHtml = '<img src="' + a.cover + '" loading="lazy" decoding="async" alt="' + escHtml(a.title) + '" style="width:100%;height:100%;object-fit:cover;">'
+      } else {
+        coverHtml = '<img src="https://mkt.tagby.io/design-study-article/thum/card/' + a.slug + '.webp" data-fb="' + (a.cover ? 'https://mkt.tagby.io/' + a.cover : 'https://mkt.tagby.io/design-study-article/thum/' + a.slug + '.png') + '" onerror="if(!this.dataset.d){this.dataset.d=1;this.src=this.dataset.fb}" loading="lazy" decoding="async" alt="' + escHtml(a.title) + '" style="width:100%;height:100%;object-fit:cover;">'
+      }
       return '<a href="' + (a._viewUrl || '#') + '" '
         + 'style="display:block;background:#1F1F1F;border-radius:12px;overflow:hidden;text-decoration:none;transition:background 0.2s;" '
         + 'onmouseover="this.style.background=\'#2A2A2A\'" onmouseout="this.style.background=\'#1F1F1F\'">'
