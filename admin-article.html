@@ -1168,13 +1168,26 @@ async function generateCoverImage(title, category, subtitle) {
     ctx.font = `900 ${fontSize}px Pretendard, -apple-system, sans-serif`
   }
   const lineH = fontSize * 1.3
+  // 줄바꿈: 폭 초과 시 줄바꿈하되, 쉼표 등 구두점 뒤는 의미 단위가 끊기므로 우선 줄바꿈 지점으로 삼는다
+  // (예: "인플루언서 콘텐츠, 광고 소재로" → "인플루언서 콘텐츠," / "광고 소재로"처럼 끊기도록)
   const words = title.split(' ')
   const lines = []
   let cur = ''
-  for (const w of words) {
+  for (let i = 0; i < words.length; i++) {
+    const w = words[i]
     const test = cur ? cur + ' ' + w : w
-    if (ctx.measureText(test).width > maxW && cur) { lines.push(cur); cur = w }
-    else cur = test
+    if (ctx.measureText(test).width > maxW && cur) {
+      lines.push(cur)
+      cur = w
+    } else {
+      cur = test
+    }
+    const endsWithPunct = /[,.!?;:·]$/.test(w)
+    const hasMoreWords = i < words.length - 1
+    if (endsWithPunct && hasMoreWords && ctx.measureText(cur).width > maxW * 0.35) {
+      lines.push(cur)
+      cur = ''
+    }
   }
   if (cur) lines.push(cur)
 
