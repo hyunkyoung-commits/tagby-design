@@ -1,47 +1,5 @@
 [
   {
-    "slug": "news-figma-branching-1023",
-    "title": "피그마에 '브랜칭' 기능이 생겼다",
-    "subtitle": "메인 파일과 분리된 독립 실험 공간",
-    "date": "26. 10. 23",
-    "category": "디자인",
-    "cover": "",
-    "tags": [
-      "#Figma",
-      "#브랜칭",
-      "#디자인툴",
-      "#디자인워크플로우"
-    ]
-  },
-  {
-    "slug": "content-marketing-results-lowest-decade-1023",
-    "title": "콘텐츠 성과, 10년 만에 최저치",
-    "subtitle": "AI 도입률은 역대 최고인데 왜 성과는 바닥을 쳤나",
-    "date": "26. 10. 23",
-    "category": "콘텐츠마케팅",
-    "cover": "",
-    "tags": [
-      "#콘텐츠마케팅",
-      "#AI콘텐츠",
-      "#콘텐츠전략",
-      "#마케팅성과"
-    ]
-  },
-  {
-    "slug": "news-meta-ai-ad-edit-liability-1023",
-    "title": "메타, 'AI가 고친 광고는 광고주 책임'",
-    "subtitle": "10월 30일 새 약관 시행 — Advantage+ 자동 편집 범위 지금 확인해야",
-    "date": "26. 10. 23",
-    "category": "퍼포먼스",
-    "cover": "",
-    "tags": [
-      "#Meta광고",
-      "#Advantage+",
-      "#광고약관",
-      "#퍼포먼스마케팅"
-    ]
-  },
-  {
     "slug": "tagby-original-chiikawa-profile-1017",
     "title": "먼작귀(치이카와) 프사 만들기",
     "subtitle": "치이카와 캐릭터를 내 모습으로 바꿔주는 AI 프롬프트를 공유합니다. 최애 사진 + 내 사진 2장만 있으면 돼요.",
