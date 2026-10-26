@@ -121,6 +121,11 @@ module.exports = async function handler(req, res) {
 
   // 카드뉴스 슬라이드 저장
   if (article_type === 'card-news' && Array.isArray(slides) && slides.length > 0) {
+    // 수정 저장인 경우, 기존 슬라이드를 먼저 지워야 중복 저장되지 않음
+    if (existing) {
+      await supabase.from('article_slides').delete().eq('article_id', article.id)
+    }
+
     const slideRows = slides.map((slide, i) => ({
       article_id: article.id,
       image_url: typeof slide === 'string' ? slide : slide.url,

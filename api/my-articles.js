@@ -46,6 +46,17 @@ module.exports = async function handler(req, res) {
       if (!isAdmin) query = query.eq('author_id', userId)
       const { data, error } = await query.maybeSingle()
       if (error || !data) return res.status(404).json({ error: '아티클을 찾을 수 없습니다' })
+
+      // 카드뉴스는 슬라이드도 함께 반환 (수정 화면에서 불러오기 위함)
+      if (data.article_type === 'card-news') {
+        const { data: slides } = await supabase
+          .from('article_slides')
+          .select('image_url, caption, sort_order')
+          .eq('article_id', data.id)
+          .order('sort_order', { ascending: true })
+        data.slides = (slides || []).map(s => ({ url: s.image_url, caption: s.caption || '' }))
+      }
+
       return res.status(200).json(data)
     }
 

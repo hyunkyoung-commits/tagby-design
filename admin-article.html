@@ -203,9 +203,10 @@
       </div>
 
       <div class="mb-4" id="subtitleWrap">
-        <label class="label">부제목</label>
+        <label class="label" id="subtitleLabel">부제목</label>
         <input id="fSubtitle" type="text" class="input-base" placeholder="아티클 부제목 (선택)" maxlength="150" oninput="updateCharCount('fSubtitle','subtitleCount',150)">
         <div class="char-count"><span id="subtitleCount">0</span>/150</div>
+        <div id="subtitleHint" style="display:none; font-size:12px; color:#666; margin-top:6px;">개별 슬라이드에 캡션을 따로 달지 않으면 이 캡션이 모든 슬라이드에 공통으로 표시됩니다. 슬라이드에 개별 캡션을 달면 그쪽이 우선합니다.</div>
       </div>
 
       <div class="mb-4">
@@ -517,6 +518,12 @@ async function loadArticleForEdit(slug) {
     setVal('fCategory', a.category)
     slugManuallyEdited = true  // 슬러그 자동변경 방지
 
+    setType(a.article_type === 'card-news' ? 'card-news' : 'text')
+    if (a.article_type === 'card-news' && Array.isArray(a.slides)) {
+      slides = a.slides.map(s => ({ url: s.url, caption: s.caption || '' }))
+      renderSlides()
+    }
+
     if (a.tags && Array.isArray(a.tags)) {
       tags = [...a.tags]
       renderTags()
@@ -731,7 +738,11 @@ function setType(type) {
   document.getElementById('typeCard').classList.toggle('active', type === 'card-news')
   document.getElementById('bodySection').style.display = type === 'text' ? 'block' : 'none'
   document.getElementById('slidesSection').style.display = type === 'card-news' ? 'block' : 'none'
-  document.getElementById('subtitleWrap').style.display = type === 'card-news' ? 'none' : 'block'
+  // 카드뉴스에서는 부제목 필드를 '통합 캡션'으로 재활용 (개별 슬라이드 캡션이 없을 때의 기본값)
+  const isCard = type === 'card-news'
+  document.getElementById('subtitleLabel').textContent = isCard ? '통합 캡션 (선택)' : '부제목'
+  document.getElementById('fSubtitle').placeholder = isCard ? '모든 슬라이드에 공통으로 표시할 캡션' : '아티클 부제목 (선택)'
+  document.getElementById('subtitleHint').style.display = isCard ? 'block' : 'none'
 }
 
 // ── 슬러그 ────────────────────────────────────────────────────

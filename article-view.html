@@ -80,6 +80,7 @@
     @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
     .skeleton{background:#2a2a2a;border-radius:8px;animation:pulse 1.5s ease-in-out infinite;}
   </style>
+<script src="/article-attribution.js"></script>
 </head>
 <body>
   <header id="header" style="position:fixed;top:0;width:100%;z-index:50;transition:all 0.3s;backdrop-filter:blur(12px);background-color:rgba(26,26,26,0.8);">
@@ -186,6 +187,7 @@
 var carouselIndex = 0
 var carouselTotal = 0
 var carouselSlides = []
+var carouselCommonCaption = ''  // 개별 슬라이드 캡션이 없을 때 대신 쓰는 통합 캡션
 
 function carouselMove(dir) {
   carouselIndex = Math.max(0, Math.min(carouselTotal - 1, carouselIndex + dir))
@@ -206,7 +208,7 @@ function updateCarousel() {
   dots.forEach(function(d, i) { d.classList.toggle('active', i === carouselIndex) })
   var cap = carouselSlides[carouselIndex]
   var capEl = document.getElementById('carouselCaption')
-  if (capEl) capEl.textContent = (cap && cap.caption) ? cap.caption : ''
+  if (capEl) capEl.textContent = (cap && cap.caption) ? cap.caption : carouselCommonCaption
 }
 
 // ── 아티클 로드 ───────────────────────────────────────────────
@@ -254,7 +256,8 @@ function renderArticle(a) {
     inlineAuthor.style.display = ''
   }
   document.getElementById('artTitle').textContent    = a.title
-  if (a.subtitle) {
+  // 카드뉴스는 subtitle을 '통합 캡션'으로 쓰므로 제목 아래 부제목 줄에는 노출하지 않음
+  if (a.subtitle && a.article_type !== 'card-news') {
     document.getElementById('artSubtitle').textContent = a.subtitle
   } else {
     document.getElementById('artSubtitle').style.display = 'none'
@@ -273,6 +276,7 @@ function renderArticle(a) {
     carouselSlides = rawSlides.map(function(s) {
       return typeof s === 'string' ? { url: s, caption: null } : s
     })
+    carouselCommonCaption = a.subtitle || ''
     carouselTotal = carouselSlides.length
     document.getElementById('carouselWrap').style.display = 'block'
     document.getElementById('carouselTrack').innerHTML = carouselSlides.map(function(s, i) {
@@ -283,7 +287,7 @@ function renderArticle(a) {
     }).join('')
     document.getElementById('carouselCounter').textContent = '1 / ' + carouselSlides.length
     var capEl = document.getElementById('carouselCaption')
-    if (capEl) capEl.textContent = (carouselSlides[0] && carouselSlides[0].caption) ? carouselSlides[0].caption : ''
+    if (capEl) capEl.textContent = (carouselSlides[0] && carouselSlides[0].caption) ? carouselSlides[0].caption : carouselCommonCaption
     document.getElementById('carouselPrev').style.opacity = '0.3'
     if (carouselSlides.length <= 1) document.getElementById('carouselNext').style.opacity = '0.3'
   } else {
