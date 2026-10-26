@@ -390,6 +390,21 @@
       payload.sourceVisitedAt = attr.visitedAt || '';
       payload.sourceHistory = attr.history || '';
 
+      // 유입 아티클 링크/작성자 조회 (DB 아티클이면 작성자, 정적 아티클은 인센티브 제외 표기)
+      if (payload.sourceArticle) {
+        const enc = encodeURIComponent(payload.sourceArticle);
+        payload.sourceUrl = 'https://mkt.tagby.io/design-study-article/' + enc + '.html';
+        payload.sourceAuthor = '기존 아티클(제외)';
+        try {
+          const r = await fetch('/api/article-get?slug=' + enc);
+          if (r.ok) {
+            const a = await r.json();
+            payload.sourceUrl = 'https://mkt.tagby.io/article-view.html?slug=' + enc;
+            payload.sourceAuthor = a.author_name || '';
+          }
+        } catch (err) {}
+      }
+
       // GA4 이벤트
       if (typeof gtag !== 'undefined') {
         gtag('event', 'contact_submit', { company: payload.company, budget: payload.budget });
