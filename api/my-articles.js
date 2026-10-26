@@ -37,7 +37,43 @@ module.exports = async function handler(req, res) {
 
   if (req.method === 'POST') {
     const { action, slug } = req.body || {}
-    if (!action || !slug) return res.status(400).json({ error: '잘못된 요청' })
+    if (!action) return res.status(400).json({ error: '잘못된 요청' })
+
+    // POST { action: 'admin-list-users' } → 관리자 전용, 팀원 계정 목록 (작성자 변경 대상 찾기용)
+    if (action === 'admin-list-users') {
+      if (!isAdmin) return res.status(403).json({ error: '관리자만 사용할 수 있습니다' })
+      const { data, error } = await supabase.auth.admin.listUsers()
+      if (error) return res.status(500).json({ error: '사용자 목록 조회 실패' })
+      const users = (data.users || []).map(u => ({
+        id: u.id,
+        email: u.email,
+        name: u.user_metadata?.name || (u.email ? u.email.split('@')[0] : '')
+      }))
+      return res.status(200).json(users)
+    }
+
+    // POST { action: 'admin-set-author', slug, newAuthorEmail } → 관리자 전용, 아티클 작성자를 다른 계정으로 변경
+    if (action === 'admin-set-author') {
+      if (!isAdmin) return res.status(403).json({ error: '관리자만 사용할 수 있습니다' })
+      const { newAuthorEmail } = req.body || {}
+      if (!slug || !newAuthorEmail) return res.status(400).json({ error: 'slug와 newAuthorEmail이 필요합니다' })
+
+      const { data: userList, error: listErr } = await supabase.auth.admin.listUsers()
+      if (listErr) return res.status(500).json({ error: '사용자 조회 실패' })
+      const target = (userList.users || []).find(u => u.email === newAuthorEmail)
+      if (!target) return res.status(404).json({ error: '해당 이메일의 계정을 찾을 수 없습니다: ' + newAuthorEmail })
+
+      const newName = target.user_metadata?.name || target.email.split('@')[0]
+      const { error } = await supabase
+        .from('articles')
+        .update({ author_id: target.id, author_email: target.email, author_name: newName })
+        .eq('slug', slug)
+      if (error) return res.status(500).json({ error: '작성자 변경 실패' })
+
+      return res.status(200).json({ success: true, author_id: target.id, author_email: target.email, author_name: newName })
+    }
+
+    if (!slug) return res.status(400).json({ error: '잘못된 요청' })
 
     // POST { action: 'get', slug } → 단일 아티클 (수정용, draft 포함)
     // 관리자는 작성자 본인이 아니어도 조회 가능
