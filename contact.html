@@ -311,6 +311,7 @@
     </div>
   </footer>
 
+  <script src="/article-attribution.js"></script>
   <script>
     // ★ Google Apps Script 웹앱 URL을 여기에 붙여넣으세요
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzo8JdU0IaHzPi3Nn_VWev_7URFF4yjUJC6JGbKdiUtlmaaLUZgOLJna--lPdUBgksR8w/exec';
@@ -382,6 +383,12 @@
         message: form.querySelector('[name="message"]').value.trim(),
         marketingConsent: document.getElementById('marketingConsent').checked
       };
+
+      // 아티클 유입 정보 (아티클을 거치지 않았으면 빈 값)
+      const attr = (window.getArticleAttribution && window.getArticleAttribution()) || {};
+      payload.sourceArticle = attr.article || '';
+      payload.sourceVisitedAt = attr.visitedAt || '';
+      payload.sourceHistory = attr.history || '';
 
       // GA4 이벤트
       if (typeof gtag !== 'undefined') {
