@@ -43,6 +43,8 @@
     .article-content ol{list-style:decimal;padding-left:1.5rem;margin-bottom:1.5rem;}
     .article-content ol li{margin-bottom:0.5rem;}
     .article-content blockquote{border-left:3px solid #0078F0;padding-left:1.2rem;margin:1.5rem 0;color:#9CA3AF;}
+    /* 카드뉴스 캡션의 blockquote는 콜아웃 박스 스타일 (admin-article.html 캡션 에디터와 동일) */
+    #artBody.caption-mode blockquote{border-left:3px solid #0078F0;background:rgba(0,120,240,0.08);border-radius:8px;padding:0.9rem 1.2rem;color:#ccc;font-style:normal;margin:1.5rem 0;}
     .article-content a{color:#0078F0;text-decoration:underline;}
     .article-content img{max-width:100%;border-radius:8px;margin:1.5rem 0;}
     .article-content img[width]{display:block;margin-left:auto;margin-right:auto;}
@@ -187,7 +189,6 @@
 var carouselIndex = 0
 var carouselTotal = 0
 var carouselSlides = []
-var carouselCommonCaption = ''  // 개별 슬라이드 캡션이 없을 때 대신 쓰는 통합 캡션
 
 function carouselMove(dir) {
   carouselIndex = Math.max(0, Math.min(carouselTotal - 1, carouselIndex + dir))
@@ -208,7 +209,7 @@ function updateCarousel() {
   dots.forEach(function(d, i) { d.classList.toggle('active', i === carouselIndex) })
   var cap = carouselSlides[carouselIndex]
   var capEl = document.getElementById('carouselCaption')
-  if (capEl) capEl.textContent = (cap && cap.caption) ? cap.caption : carouselCommonCaption
+  if (capEl) capEl.textContent = (cap && cap.caption) ? cap.caption : ''
 }
 
 // ── 아티클 로드 ───────────────────────────────────────────────
@@ -256,8 +257,7 @@ function renderArticle(a) {
     inlineAuthor.style.display = ''
   }
   document.getElementById('artTitle').textContent    = a.title
-  // 카드뉴스는 subtitle을 '통합 캡션'으로 쓰므로 제목 아래 부제목 줄에는 노출하지 않음
-  if (a.subtitle && a.article_type !== 'card-news') {
+  if (a.subtitle) {
     document.getElementById('artSubtitle').textContent = a.subtitle
   } else {
     document.getElementById('artSubtitle').style.display = 'none'
@@ -276,7 +276,6 @@ function renderArticle(a) {
     carouselSlides = rawSlides.map(function(s) {
       return typeof s === 'string' ? { url: s, caption: null } : s
     })
-    carouselCommonCaption = a.subtitle || ''
     carouselTotal = carouselSlides.length
     document.getElementById('carouselWrap').style.display = 'block'
     document.getElementById('carouselTrack').innerHTML = carouselSlides.map(function(s, i) {
@@ -287,9 +286,12 @@ function renderArticle(a) {
     }).join('')
     document.getElementById('carouselCounter').textContent = '1 / ' + carouselSlides.length
     var capEl = document.getElementById('carouselCaption')
-    if (capEl) capEl.textContent = (carouselSlides[0] && carouselSlides[0].caption) ? carouselSlides[0].caption : carouselCommonCaption
+    if (capEl) capEl.textContent = (carouselSlides[0] && carouselSlides[0].caption) ? carouselSlides[0].caption : ''
     document.getElementById('carouselPrev').style.opacity = '0.3'
     if (carouselSlides.length <= 1) document.getElementById('carouselNext').style.opacity = '0.3'
+    // 카드뉴스도 캡션(body_html)이 있으면 캐러셀 아래에 표시
+    document.getElementById('artBody').classList.add('caption-mode')
+    document.getElementById('artBody').innerHTML = a.body_html || ''
   } else {
     // 텍스트 아티클
     if (a.cover_url) {

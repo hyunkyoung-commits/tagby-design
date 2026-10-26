@@ -87,6 +87,8 @@
     #imgResizeBar button:hover { background:#2a2a2a; color:#fff; }
     #imgResizeBar button.active { background:#0078F0; color:#fff; }
     .ql-editor blockquote { border-left: 3px solid #0078F0; padding-left: 14px; color: #aaa; font-style: italic; margin: 1em 0; }
+    /* 캡션 에디터의 blockquote는 콜아웃 박스 스타일로 */
+    #captionEditor .ql-editor blockquote { border-left: 3px solid #0078F0; background: rgba(0,120,240,0.08); border-radius: 8px; padding: 12px 16px; color: #ccc; font-style: normal; margin: 1em 0; }
     .ql-editor figure { margin: 8px 0; }
     .ql-editor figcaption { text-align: center; font-size: 12px; color: #888; margin-top: 5px; font-style: italic; padding: 0 12px; }
     .ql-snow .ql-stroke { stroke: #999; }
@@ -203,10 +205,9 @@
       </div>
 
       <div class="mb-4" id="subtitleWrap">
-        <label class="label" id="subtitleLabel">부제목</label>
+        <label class="label">부제목</label>
         <input id="fSubtitle" type="text" class="input-base" placeholder="아티클 부제목 (선택)" maxlength="150" oninput="updateCharCount('fSubtitle','subtitleCount',150)">
         <div class="char-count"><span id="subtitleCount">0</span>/150</div>
-        <div id="subtitleHint" style="display:none; font-size:12px; color:#666; margin-top:6px;">개별 슬라이드에 캡션을 따로 달지 않으면 이 캡션이 모든 슬라이드에 공통으로 표시됩니다. 슬라이드에 개별 캡션을 달면 그쪽이 우선합니다.</div>
       </div>
 
       <div class="mb-4">
@@ -281,6 +282,13 @@
       <div id="slideList" style="display:flex; flex-direction:column; gap:8px;"></div>
     </div>
 
+    <!-- 캡션 (카드뉴스) -->
+    <div id="captionSection" class="section-card mb-5" style="display:none;">
+      <label class="label" style="margin-bottom:6px;">캡션 <span style="color:#555; font-weight:400;">(선택)</span></label>
+      <div style="font-size:12px; color:#666; margin-bottom:12px;">슬라이드 아래에 표시할 설명입니다. 소제목, 굵게, 콜아웃 박스 등 스타일을 지정할 수 있습니다.</div>
+      <div id="captionEditor"></div>
+    </div>
+
     <!-- 출처 -->
     <div class="section-card mb-5">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
@@ -325,6 +333,7 @@ let coverUrl = null
 let slides = []   // [{url, caption}]
 let tags = []
 let quill = null
+let captionQuill = null
 let sources = [{ name: '', url: '' }]
 const DRAFT_KEY = 'tagby_article_draft'
 
@@ -488,6 +497,23 @@ function showEditor() {
     initImageResize()
   }
 
+  if (!captionQuill) {
+    captionQuill = new Quill('#captionEditor', {
+      theme: 'snow',
+      placeholder: '슬라이드에 대한 설명을 적어주세요. (선택)',
+      modules: {
+        toolbar: {
+          container: [
+            [{ header: [3, false] }],
+            ['bold', 'italic', 'underline'],
+            ['blockquote'],
+            ['clean']
+          ]
+        }
+      }
+    })
+  }
+
   // URL에 ?edit=SLUG 가 있으면 기존 아티클 로드 (드래프트 복원 이전)
   const editSlug = new URLSearchParams(location.search).get('edit')
   if (editSlug) {
@@ -534,8 +560,12 @@ async function loadArticleForEdit(slug) {
       document.getElementById('coverPreviewWrap').style.display = 'block'
       document.getElementById('coverPlaceholder').style.display = 'none'
     }
-    if (a.body_html && quill) {
-      quill.root.innerHTML = a.body_html
+    if (a.body_html) {
+      if (a.article_type === 'card-news' && captionQuill) {
+        captionQuill.root.innerHTML = a.body_html
+      } else if (quill) {
+        quill.root.innerHTML = a.body_html
+      }
     }
     if (a.source_name || a.source_url) {
       const names = (a.source_name || '').split('||')
@@ -738,11 +768,8 @@ function setType(type) {
   document.getElementById('typeCard').classList.toggle('active', type === 'card-news')
   document.getElementById('bodySection').style.display = type === 'text' ? 'block' : 'none'
   document.getElementById('slidesSection').style.display = type === 'card-news' ? 'block' : 'none'
-  // 카드뉴스에서는 부제목 필드를 '통합 캡션'으로 재활용 (개별 슬라이드 캡션이 없을 때의 기본값)
-  const isCard = type === 'card-news'
-  document.getElementById('subtitleLabel').textContent = isCard ? '통합 캡션 (선택)' : '부제목'
-  document.getElementById('fSubtitle').placeholder = isCard ? '모든 슬라이드에 공통으로 표시할 캡션' : '아티클 부제목 (선택)'
-  document.getElementById('subtitleHint').style.display = isCard ? 'block' : 'none'
+  document.getElementById('captionSection').style.display = type === 'card-news' ? 'block' : 'none'
+  document.getElementById('subtitleWrap').style.display = type === 'card-news' ? 'none' : 'block'
 }
 
 // ── 슬러그 ────────────────────────────────────────────────────
@@ -1243,7 +1270,12 @@ async function submit(status) {
   const validSources = sources.filter(s => s.name.trim() || s.url.trim())
   const sourceName = validSources.map(s => s.name.trim()).join('||')
   const sourceUrl  = validSources.map(s => s.url.trim()).join('||')
-  const bodyHtml   = (articleType === 'text' && quill) ? getBodyHtml().trim() : null
+  // 카드뉴스는 본문 대신 캡션 에디터 내용을 body_html에 저장 (DB 컬럼 재사용, 슬라이드 아래 표시용)
+  const emptyCaption = '<p><br></p>'
+  const captionHtml = (articleType === 'card-news' && captionQuill) ? captionQuill.root.innerHTML.trim() : null
+  const bodyHtml   = articleType === 'text'
+    ? ((quill) ? getBodyHtml().trim() : null)
+    : (captionHtml && captionHtml !== emptyCaption ? captionHtml : null)
   const btn        = document.getElementById('publishBtn')
 
   if (!title)    return showToast('제목을 입력해주세요', 'error')
