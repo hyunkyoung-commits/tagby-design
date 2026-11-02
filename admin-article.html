@@ -249,9 +249,17 @@
       <label class="label" style="margin-bottom:10px;">커버 이미지 <span style="color:#555; font-weight:400;">(최대 2MB)</span></label>
       <div id="coverDropZone" class="drop-zone" onclick="document.getElementById('coverFileInput').click()" ondragover="handleDragOver(event,'coverDropZone')" ondragleave="handleDragLeave('coverDropZone')" ondrop="handleDrop(event,'cover')">
         <input id="coverFileInput" type="file" accept="image/jpeg,image/png,image/gif,image/webp" style="display:none;" onchange="handleFileSelect(event,'cover')">
-        <div id="coverPreviewWrap" style="display:none; position:relative;">
-          <img id="coverPreview" style="max-height:200px; border-radius:8px; display:block; margin:0 auto;">
-          <button onclick="event.stopPropagation(); removeCoverImage()" style="position:absolute; top:-8px; right:-8px; background:#333; border:none; border-radius:50%; width:24px; height:24px; color:#fff; cursor:pointer; font-size:14px; line-height:1;">×</button>
+        <div id="coverPreviewWrap" style="display:none;">
+          <div style="width:220px; margin:0 auto; position:relative;">
+            <div style="aspect-ratio:4/3; border-radius:8px; overflow:hidden; background:#000;">
+              <img id="coverPreview" style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+            <button onclick="event.stopPropagation(); removeCoverImage()" style="position:absolute; top:-8px; right:-8px; background:#333; border:none; border-radius:50%; width:24px; height:24px; color:#fff; cursor:pointer; font-size:14px; line-height:1;">×</button>
+          </div>
+          <div onclick="event.stopPropagation()" style="margin-top:10px; text-align:center;">
+            <div style="font-size:12px; color:#666; margin-bottom:6px;">썸네일 크롭 위치 <span style="color:#444;">(카드 목록에서 4:3으로 잘릴 때 기준)</span></div>
+            <div id="coverPosGrid" style="display:inline-grid; grid-template-columns:repeat(3,26px); grid-template-rows:repeat(3,26px); gap:3px; background:#0a0a0a; padding:5px; border-radius:8px; border:1px solid #2d2d2d;"></div>
+          </div>
         </div>
         <div id="coverPlaceholder">
           <div style="font-size:28px; margin-bottom:8px;">🖼️</div>
@@ -330,6 +338,58 @@ let token = localStorage.getItem('tagby_article_token') || ''
 let currentUser = null
 let articleType = 'text'
 let coverUrl = null
+let coverPosX = 50
+let coverPosY = 50
+
+// ── 커버 썸네일 크롭 위치 (URL #pos=x,y 프래그먼트로 저장, DB 컬럼 추가 없이 구현) ──
+function parseCoverPosition(url) {
+  const m = url && /#pos=(-?[\d.]+),(-?[\d.]+)/.exec(url)
+  return m ? { x: parseFloat(m[1]), y: parseFloat(m[2]) } : { x: 50, y: 50 }
+}
+function stripCoverPosition(url) {
+  return url ? url.split('#')[0] : url
+}
+function applyCoverPositionToUrl(url, x, y) {
+  const base = stripCoverPosition(url)
+  return (x === 50 && y === 50) ? base : (base + '#pos=' + x + ',' + y)
+}
+function showCoverPreview(url) {
+  const pos = parseCoverPosition(url)
+  coverPosX = pos.x
+  coverPosY = pos.y
+  const img = document.getElementById('coverPreview')
+  img.src = url
+  img.style.objectPosition = coverPosX + '% ' + coverPosY + '%'
+  document.getElementById('coverPreviewWrap').style.display = 'block'
+  document.getElementById('coverPlaceholder').style.display = 'none'
+  renderCoverPosGrid()
+}
+function renderCoverPosGrid() {
+  const grid = document.getElementById('coverPosGrid')
+  if (!grid) return
+  const vals = [0, 50, 100]
+  grid.innerHTML = ''
+  vals.forEach(y => {
+    vals.forEach(x => {
+      const active = x === coverPosX && y === coverPosY
+      const btn = document.createElement('button')
+      btn.type = 'button'
+      btn.style.cssText = 'width:26px;height:26px;border-radius:4px;cursor:pointer;border:1px solid ' + (active ? '#0078F0' : '#2d2d2d') + ';background:' + (active ? '#0078F0' : '#1a1a1a') + ';'
+      btn.title = y === 0 ? '상단' : y === 100 ? '하단' : '중앙'
+      btn.title += ' ' + (x === 0 ? '좌측' : x === 100 ? '우측' : '중앙')
+      btn.onclick = function() { setCoverPosition(x, y) }
+      grid.appendChild(btn)
+    })
+  })
+}
+function setCoverPosition(x, y) {
+  coverPosX = x
+  coverPosY = y
+  coverUrl = applyCoverPositionToUrl(coverUrl, x, y)
+  const img = document.getElementById('coverPreview')
+  if (img) img.style.objectPosition = x + '% ' + y + '%'
+  renderCoverPosGrid()
+}
 let slides = []   // [{url, caption}]
 let tags = []
 let quill = null
@@ -556,9 +616,7 @@ async function loadArticleForEdit(slug) {
     }
     if (a.cover_url) {
       coverUrl = a.cover_url
-      document.getElementById('coverPreview').src = coverUrl
-      document.getElementById('coverPreviewWrap').style.display = 'block'
-      document.getElementById('coverPlaceholder').style.display = 'none'
+      showCoverPreview(coverUrl)
     }
     if (a.body_html) {
       if (a.article_type === 'card-news' && captionQuill) {
@@ -964,9 +1022,7 @@ function loadDraftLocally() {
     renderTags()
     coverUrl = draft.coverUrl || null
     if (coverUrl) {
-      document.getElementById('coverPreview').src = coverUrl
-      document.getElementById('coverPreviewWrap').style.display = 'block'
-      document.getElementById('coverPlaceholder').style.display = 'none'
+      showCoverPreview(coverUrl)
     }
     sources = (draft.sources && draft.sources.length) ? draft.sources : [{ name: '', url: '' }]
     renderSources()
@@ -1070,10 +1126,8 @@ async function processCoverFile(file) {
   status.textContent = '업로드 중...'
   try {
     const url = await uploadImage(file, { thumb: true })
-    coverUrl = url
-    document.getElementById('coverPreview').src = url
-    document.getElementById('coverPreviewWrap').style.display = 'block'
-    document.getElementById('coverPlaceholder').style.display = 'none'
+    coverUrl = url  // 새 이미지이므로 크롭 위치는 중앙으로 초기화
+    showCoverPreview(coverUrl)
     status.style.color = '#4ade80'
     status.textContent = '업로드 완료'
     setTimeout(() => { status.style.display = 'none' }, 2000)
@@ -1085,6 +1139,8 @@ async function processCoverFile(file) {
 
 function removeCoverImage() {
   coverUrl = null
+  coverPosX = 50
+  coverPosY = 50
   document.getElementById('coverPreview').src = ''
   document.getElementById('coverPreviewWrap').style.display = 'none'
   document.getElementById('coverPlaceholder').style.display = 'block'

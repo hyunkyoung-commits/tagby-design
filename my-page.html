@@ -286,8 +286,10 @@ async function loadMyArticles() {
     const statusBadge = a.status === 'published'
       ? '<span class="status-badge status-published">게시됨</span>'
       : '<span class="status-badge status-draft">임시저장</span>'
+    const coverPosM = a.cover_url && /#pos=(-?[\d.]+),(-?[\d.]+)/.exec(a.cover_url)
+    const coverPos = coverPosM ? (coverPosM[1] + '% ' + coverPosM[2] + '%') : 'center'
     const thumbHtml = a.cover_url
-      ? '<img src="' + esc(a.cover_url) + '" alt="">'
+      ? '<img src="' + esc(a.cover_url) + '" alt="" style="object-position:' + coverPos + ';">'
       : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#0c1f5e,#1a4db8);border-radius:6px;"></div>'
     const viewBtn = a.status === 'published'
       ? '<a href="article-view.html?slug=' + esc(a.slug) + '" target="_blank" class="action-btn view">보기</a>'

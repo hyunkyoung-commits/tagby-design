@@ -3142,10 +3142,14 @@ if(location.hash.includes("figmacapture")){
             card.className = 'magazine-card group bg-gray-900 rounded-2xl overflow-hidden hover:bg-gray-800 transition-all duration-300 cursor-pointer block'
             card.dataset.category = a.category
             const dateStr = a.date ? a.date.slice(2).replace(/-/g, '. ') + '.' : ''
+            // 썸네일 크롭 위치: cover URL에 #pos=x,y 프래그먼트로 저장돼 있으면 그 값을 사용 (없으면 중앙)
+            const coverPosMatch = a.cover && /#pos=(-?[\d.]+),(-?[\d.]+)/.exec(a.cover)
+            const coverObjPos = coverPosMatch ? (coverPosMatch[1] + '% ' + coverPosMatch[2] + '%') : 'center'
+            const coverNoFrag = a.cover ? a.cover.split('#')[0] : a.cover
             // 어드민 업로드 커버는 '-thumb.webp' 썸네일이 있으면 그것을 사용 (없으면 원본으로 대체)
-            const thumbSrc = a.cover && a.cover.indexOf('/article-images/') > -1 ? a.cover.replace(/\.[a-z0-9]+$/i, '-thumb.webp') : a.cover
+            const thumbSrc = coverNoFrag && coverNoFrag.indexOf('/article-images/') > -1 ? coverNoFrag.replace(/\.[a-z0-9]+$/i, '-thumb.webp') : coverNoFrag
             const imgHtml = a.cover
-              ? '<img src="' + esc(thumbSrc) + '" data-full="' + esc(a.cover) + '" onerror="if(this.dataset.full&&this.src!==this.dataset.full){this.src=this.dataset.full}" decoding="async" alt="' + esc(a.title) + '" style="width:100%;height:100%;object-fit:cover;object-position:center;" loading="lazy">'
+              ? '<img src="' + esc(thumbSrc) + '" data-full="' + esc(coverNoFrag) + '" onerror="if(this.dataset.full&&this.src!==this.dataset.full){this.src=this.dataset.full}" decoding="async" alt="' + esc(a.title) + '" style="width:100%;height:100%;object-fit:cover;object-position:' + coverObjPos + ';" loading="lazy">'
               : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#0c1f5e,#1a4db8);display:flex;align-items:center;justify-content:center;"><span style="color:rgba(255,255,255,0.3);font-size:12px;">TAGby</span></div>'
             card.innerHTML = '<div class="aspect-[4/3]" style="overflow:hidden;background:#111;">' + imgHtml + '</div>'
               + '<div class="p-6">'
