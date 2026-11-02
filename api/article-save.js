@@ -67,7 +67,7 @@ module.exports = async function handler(req, res) {
   // 슬러그 중복 확인
   const { data: existing } = await supabase
     .from('articles')
-    .select('id, author_id, author_email, author_name')
+    .select('id, author_id, author_email, author_name, status, published_at')
     .eq('slug', slug)
     .maybeSingle()
 
@@ -91,7 +91,8 @@ module.exports = async function handler(req, res) {
     author_email: isEditingOthersArticle ? existing.author_email : userData.user.email,
     author_name: isEditingOthersArticle ? existing.author_name : (author_name || userData.user.user_metadata?.name || userData.user.email.split('@')[0]),
     status: status || 'published',
-    published_at: new Date().toISOString(),
+    // 최초 게시 시점만 기록 - 이미 published_at이 있으면 수정 저장 시에도 원래 발행일을 유지
+    published_at: existing && existing.published_at ? existing.published_at : new Date().toISOString(),
     source_name: source_name || null,
     source_url:  source_url  || null
   }
