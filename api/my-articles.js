@@ -73,6 +73,21 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ success: true, author_id: target.id, author_email: target.email, author_name: newName })
     }
 
+    // POST { action: 'admin-set-published-at', slug, publishedAt } → 관리자 전용, 발행일 수동 보정
+    if (action === 'admin-set-published-at') {
+      if (!isAdmin) return res.status(403).json({ error: '관리자만 사용할 수 있습니다' })
+      const { publishedAt } = req.body || {}
+      if (!slug || !publishedAt) return res.status(400).json({ error: 'slug와 publishedAt이 필요합니다' })
+
+      const { error } = await supabase
+        .from('articles')
+        .update({ published_at: publishedAt })
+        .eq('slug', slug)
+      if (error) return res.status(500).json({ error: '발행일 변경 실패' })
+
+      return res.status(200).json({ success: true, published_at: publishedAt })
+    }
+
     if (!slug) return res.status(400).json({ error: '잘못된 요청' })
 
     // POST { action: 'get', slug } → 단일 아티클 (수정용, draft 포함)
