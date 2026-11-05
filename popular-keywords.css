@@ -1,0 +1,10 @@
+.article-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;max-width:100%}
+.popular-keywords{display:flex;flex-direction:column;gap:5px;width:340px;max-width:100%;padding:10px 14px;border:1px solid #414141;border-radius:14px;background:#222;color:#eee;font-size:12px;min-width:0}
+.popular-topline{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#aaa;font-size:11px}
+.popular-controls{display:flex;gap:8px}.popular-controls button{color:#ccc;min-height:26px;min-width:26px;background:transparent;border:0;cursor:pointer}
+.popular-link{display:flex;gap:8px;align-items:center;color:#fff;text-decoration:none;min-height:28px}
+.popular-rank{color:#55a9ff;font-weight:800;width:18px;flex-shrink:0}.popular-word{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;flex:1}.popular-volume{color:#ddd;white-space:nowrap;font-variant-numeric:tabular-nums}.popular-change{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:11px}.popular-change.up{color:#ff7373}.popular-change.down{color:#68aaff}.popular-change.flat{color:#aaa}
+.popular-keywords details{color:#aaa;font-size:10px;line-height:1.6}.popular-keywords summary{cursor:pointer}.popular-keywords [hidden]{display:none!important}
+.article-search{margin:0 0 24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.article-search input{flex:1;min-width:140px;color:#fff;background:#222;border:1px solid #555;border-radius:8px;padding:10px 12px}.article-search button,.search-empty button{padding:10px 14px;border-radius:8px;background:#303030;color:white}.article-search label{width:100%;font-size:13px;color:#aaa}.search-status{width:100%;font-size:13px;color:#bbb}.search-empty{padding:40px 16px;text-align:center;color:#bbb}.search-empty p{margin-bottom:16px}
+.popular-keywords a:focus-visible,.popular-keywords button:focus-visible,.article-search :focus-visible{outline:2px solid #68aaff;outline-offset:3px}
+@media(max-width:640px){.article-actions{width:100%}.popular-keywords{order:3;width:100%}.popular-link{min-height:34px}.popular-controls button{min-height:32px;min-width:32px}}
