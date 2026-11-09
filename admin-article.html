@@ -1247,9 +1247,13 @@ async function generateCoverImage(title, category, subtitle) {
       { bg1: '#001416', bg2: '#0d9488' },  // 틸
     ],
   }
-  const hash = title.split('').reduce((h, c) => (((h << 5) - h) + c.charCodeAt(0)) | 0, 0)
+  // 랜덤 팔레트 선택 (직전 생성 색상과 같은 색은 피해서 연속 글끼리 구분되게 함)
   const set = paletteSets[category] || [{ bg1: '#111', bg2: '#333' }]
-  const p = set[Math.abs(hash) % set.length]
+  let lastBg2 = ''
+  try { lastBg2 = localStorage.getItem('lastCoverBg2') || '' } catch (e) {}
+  const candidates = set.length > 1 ? set.filter(c => c.bg2 !== lastBg2) : set
+  const p = candidates[Math.floor(Math.random() * candidates.length)]
+  try { localStorage.setItem('lastCoverBg2', p.bg2) } catch (e) {}
 
   // 그라디언트 배경 (135deg 대각선)
   const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
