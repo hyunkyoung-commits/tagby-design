@@ -221,6 +221,11 @@
     .org-node-desc { font-size: 0.78rem; color: #9CA3AF; line-height: 1.5; flex: 1; }
     .org-badge { display:inline-block; margin-top:12px; padding:4px 12px; border-radius:999px; font-size:0.68rem; font-weight:700; background:#EFF6FF; color:#0078F0; }
     .org-badge.gray { background:#F3F4F6; color:#9CA3AF; }
+    /* [임시 숨김] 팀 소개 링크 비활성화 — 복구하려면 이 블록과 .page-sub 의 style="display:none" 제거 */
+    .org-badge { display:none !important; }
+    .org-node { pointer-events:none; cursor:default; }
+    .org-node:hover, .org-node.coming:hover { border-color:#E5E7EB; box-shadow:none; transform:none; }
+    /* [/임시 숨김] */
 
     /* 중앙 컬럼 노드: 조금 좁게 */
     .org-node-sm { max-width: 172px; }
@@ -238,7 +243,7 @@
     <div class="org-wrapper">
       <p class="page-eyebrow">ORGANIZATION</p>
       <h1 class="page-heading">TAGby 조직도</h1>
-      <p class="page-sub">각 팀을 클릭하면 팀 소개 페이지로 이동합니다.</p>
+      <p class="page-sub" style="display:none">각 팀을 클릭하면 팀 소개 페이지로 이동합니다.</p>
 
       <!-- Desktop grid -->
       <div class="org-grid">
