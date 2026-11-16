@@ -1,5 +1,35 @@
 [
   {
+    "slug": "news-blackfriday-ai-search-1115",
+    "title": "올해 블랙프라이데이는 ‘AI 답변’ 위에서 시작된다",
+    "subtitle": "TV 검색 AI Overview 노출 2.6%→98.6%, 광고주가 점검할 것들",
+    "date": "26. 11. 15",
+    "category": "퍼포먼스",
+    "cover": "",
+    "tags": [
+      "#블랙프라이데이",
+      "#AIOverview",
+      "#AI모드광고",
+      "#ChatGPT쇼핑",
+      "#퍼포먼스마케팅"
+    ]
+  },
+  {
+    "slug": "content-iab-creator-budget-1113",
+    "title": "크리에이터 광고비 440억 달러 시대, 정작 ‘뷰’의 정의가 없다",
+    "subtitle": "IAB 보고서가 짚은 측정·계약·결제 인프라의 공백",
+    "date": "26. 11. 13",
+    "category": "콘텐츠마케팅",
+    "cover": "",
+    "tags": [
+      "#IAB",
+      "#크리에이터마케팅",
+      "#인플루언서마케팅",
+      "#성과측정",
+      "#콘텐츠마케팅"
+    ]
+  },
+  {
     "slug": "news-meta-pixel-device-conversion-1111",
     "title": "Meta 픽셀, 기기 기반 전환 측정이 기본값으로 켜진다",
     "subtitle": "11월 12일부터 자동 적용, 블랙프라이데이 전에 점검할 것들",
@@ -15,6 +45,21 @@
     ]
   },
   {
+    "slug": "news-adobe-max-firefly-agents-1111",
+    "title": "Adobe MAX 2026, AI 에이전트로 Figma 영역까지 밀고 들어왔다",
+    "subtitle": "Firefly Design 베타, Illustrator·InDesign AI 어시스턴트, 챗봇용 MCP까지",
+    "date": "26. 11. 11",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Adobe",
+      "#AdobeMAX",
+      "#Firefly",
+      "#AI디자인",
+      "#디자인툴"
+    ]
+  },
+  {
     "slug": "content-social-updates-oct-1104",
     "title": "10월 소셜 업데이트, 플랫폼이 ‘길이’와 ‘원본성’을 동시에 건드렸다",
     "subtitle": "인스타 90분 영상, 유튜브 쇼츠 원본성 규칙, 스레드 Gems, 틱톡 가짜 계정 정리",
@@ -27,6 +72,21 @@
       "#유튜브쇼츠",
       "#원본성",
       "#콘텐츠마케팅"
+    ]
+  },
+  {
+    "slug": "news-figma-q3-earnings-ai-credits-1104",
+    "title": "Figma 3분기 실적, 매출은 43% 늘었는데 주가는 왜 빠졌나",
+    "subtitle": "가격은 동결하고 AI 크레딧은 더 준다, ‘단기 매출’을 내려놓은 전략",
+    "date": "26. 11. 04",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Figma",
+      "#Figma실적",
+      "#AI크레딧",
+      "#디자인툴",
+      "#SaaS"
     ]
   },
   {
