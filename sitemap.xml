@@ -699,4 +699,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/news-meta-pixel-device-conversion-1111.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/content-social-updates-oct-1104.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
