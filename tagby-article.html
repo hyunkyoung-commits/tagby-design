@@ -3235,6 +3235,23 @@ if(location.hash.includes("figmacapture")){
     const CAT_SHORT = { '퍼포먼스마케팅': '퍼포먼스', '콘텐츠마케팅': '콘텐츠', '디자인': '디자인', 'AI': 'AI' }
     function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
 
+    // DB 카드(prepend)와 정적 카드를 합쳐 날짜 최신순으로 정렬 (같은 날짜는 기존 순서 유지)
+    function cardDateKey(c) {
+      const p = c.querySelector('p.mb-2')
+      const m = p && /(\d{2,4})\.\s*(\d{1,2})\.\s*(\d{1,2})/.exec(p.textContent)
+      if (!m) return 0
+      const y = +m[1] < 100 ? 2000 + +m[1] : +m[1]
+      return y * 10000 + (+m[2]) * 100 + (+m[3])
+    }
+    function sortCardsByDate() {
+      const grid = document.getElementById('card-grid')
+      if (!grid) return
+      const cards = Array.from(grid.querySelectorAll(':scope > .magazine-card'))
+      cards.map(function(c, i) { return { c: c, k: cardDateKey(c), i: i } })
+        .sort(function(a, b) { return b.k - a.k || a.i - b.i })
+        .forEach(function(x) { grid.appendChild(x.c) })
+    }
+
     async function initWithDb() {
       try {
         const res = await fetch('/api/article-list-db?limit=200', {signal:AbortSignal.timeout(10000)})
@@ -3269,6 +3286,7 @@ if(location.hash.includes("figmacapture")){
           })
         }
       } catch(e) { console.warn('DB 아티클 로드 실패', e) }
+      sortCardsByDate()
       articlesLoading = false
       renderCards(currentTab, currentPage)
     }
