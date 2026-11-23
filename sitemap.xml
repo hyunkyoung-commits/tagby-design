@@ -753,4 +753,22 @@
     <changefreq>never</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/news-google-data-manager-encryption-1116.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/news-naver-shopping-ads-placement-1111.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/content-tiktok-premier-creative-partner-1110.html</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
