@@ -1,5 +1,50 @@
 [
   {
+    "slug": "content-christmas-market-popup-1122",
+    "title": "11월에 먼저 온 크리스마스, 백화점은 왜 ‘마켓’을 열까",
+    "subtitle": "롯데타운 41개 브랜드, 신세계 4개 점포, 성수 샤넬 팝업으로 본 연말 경험 경쟁",
+    "date": "26. 11. 22",
+    "category": "콘텐츠마케팅",
+    "cover": "",
+    "tags": [
+      "#크리스마스팝업",
+      "#백화점마켓",
+      "#롯데타운",
+      "#성수팝업",
+      "#연말마케팅"
+    ]
+  },
+  {
+    "slug": "content-coca-cola-enjoy-joy-1119",
+    "title": "코카콜라 홀리데이 광고, 2년 만에 생성형 AI 없이 돌아왔다",
+    "subtitle": "‘Enjoy Joy’ 실사 촬영 본편에 크리에이터·소셜 시리즈로 확장",
+    "date": "26. 11. 19",
+    "category": "콘텐츠마케팅",
+    "cover": "",
+    "tags": [
+      "#코카콜라",
+      "#홀리데이캠페인",
+      "#생성형AI",
+      "#브랜드광고",
+      "#콘텐츠마케팅"
+    ]
+  },
+  {
+    "slug": "news-figma-nov-updates-3d-agent-1119",
+    "title": "Figma 11월 업데이트 총정리: 3D·모션·에이전트가 한꺼번에",
+    "subtitle": "AI 선택 도구부터 3D 트랜스폼, Dev Mode 에이전트까지 공식 릴리스 노트 7건",
+    "date": "26. 11. 19",
+    "category": "디자인",
+    "cover": "",
+    "tags": [
+      "#Figma",
+      "#3D트랜스폼",
+      "#FigmaMotion",
+      "#DevMode",
+      "#AI디자인"
+    ]
+  },
+  {
     "slug": "news-blackfriday-ai-search-1115",
     "title": "올해 블랙프라이데이는 ‘AI 답변’ 위에서 시작된다",
     "subtitle": "TV 검색 AI Overview 노출 2.6%→98.6%, 광고주가 점검할 것들",

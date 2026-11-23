@@ -735,4 +735,22 @@
     <changefreq>never</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/content-christmas-market-popup-1122.html</loc>
+    <lastmod>2026-11-22</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/content-coca-cola-enjoy-joy-1119.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mkt.tagby.io/design-study-article/news-figma-nov-updates-3d-agent-1119.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

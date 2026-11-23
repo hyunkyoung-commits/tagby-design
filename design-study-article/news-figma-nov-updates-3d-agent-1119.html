@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon-v2.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <title>Figma 11월 업데이트 총정리: 3D·모션·에이전트가 한꺼번에 - TAGby 태그바이</title>
+  <meta name="description" content="Figma가 11월에 에이전트 벡터 개선, AI 선택 도구, Motion 스프링, 3D 트랜스폼, 이미지 다중 생성, Dev Mode 에이전트를 잇따라 내놨습니다. 공식 릴리스 노트 기준으로 정리했습니다.">
+  <meta name="robots" content="index, follow">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "datePublished": "2026-11-19",
+        "dateModified": "2026-11-19",
+        "headline": "Figma 11월 업데이트 총정리: 3D·모션·에이전트가 한꺼번에 - TAGby 태그바이",
+        "description": "Figma가 11월에 에이전트 벡터 개선, AI 선택 도구, Motion 스프링, 3D 트랜스폼, 이미지 다중 생성, Dev Mode 에이전트를 잇따라 내놨습니다. 공식 릴리스 노트 기준으로 정리했습니다.",
+        "url": "https://mkt.tagby.io/design-study-article/news-figma-nov-updates-3d-agent-1119.html",
+        "inLanguage": "ko-KR",
+        "publisher": {"@type": "Organization", "name": "TAGby", "url": "https://mkt.tagby.io", "logo": "https://mkt.tagby.io/images/logo/Thum.png"},
+        "author": {"@type": "Organization", "name": "TAGby"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "홈", "item": "https://mkt.tagby.io/"},
+          {"@type": "ListItem", "position": 2, "name": "아티클", "item": "https://mkt.tagby.io/tagby-article.html"},
+          {"@type": "ListItem", "position": 3, "name": "Figma 11월 업데이트 총정리: 3D·모션·에이전트가 한꺼번에", "item": "https://mkt.tagby.io/design-study-article/news-figma-nov-updates-3d-agent-1119.html"}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+        {"@type": "Question", "name": "Figma의 AI 객체 자동 선택은 Windows에서도 쓸 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "11월 6일 릴리스 노트는 해당 기능을 macOS 데스크톱 앱에서만 쓸 수 있다고 밝혔습니다."}},
+        {"@type": "Question", "name": "Figma 3D 트랜스폼으로 무엇을 할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "x·y·z 축 회전과 원근·깊이 조절을 캔버스에서 직접 할 수 있고, Motion과 함께 카드 뒤집기 같은 동작을 만들어 Dev Mode에서 CSS를 복사하거나 MCP로 코딩 에이전트에 넘길 수 있습니다."}},
+        {"@type": "Question", "name": "Dev Mode의 Figma 에이전트는 무엇을 해 주나요?", "acceptedAnswer": {"@type": "Answer", "text": "디자인을 살펴보고 이해하게 하고, 버전을 비교하고, 코드 스니펫을 요청하고, 에셋을 한꺼번에 내려받는 링크를 받을 수 있습니다. 플랜과 제한은 릴리스 노트에 명시돼 있지 않습니다."}}
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background-color: #1A1A1A; color: white; }
+    .article-content { font-size: 1.125rem; line-height: 1.8; color: #E0E0E0; }
+    .article-content p { margin-bottom: 0.6rem; }
+    .article-content strong { color: white; font-weight: 600; }
+    .article-content h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 6rem; margin-bottom: 1rem; }
+    .article-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .article-content ul li { margin-bottom: 0.5rem; }
+    .article-content figure { margin: 2.5rem 0 0.5rem; }
+    .article-content figure img { width: 100%; border-radius: 12px; }
+    .scroll-to-top { position: fixed; bottom: 32px; right: 32px; width: 56px; height: 56px; background-color: #0078F0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 40; }
+    .scroll-to-top.visible { opacity: 1; transform: translateY(0); }
+    .dropdown-menu { display: none; opacity: 0; transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .dropdown { position: relative; }
+    .dropdown::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 20px; }
+    .mobile-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background-color: #1A1A1A; box-shadow: -4px 0 12px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 100; overflow-y: auto; }
+    .mobile-menu.active { right: 0; }
+    .mobile-overlay { display: none; position: fixed; inset: 0; background-color: rgba(0,0,0,0.7); z-index: 99; }
+    .mobile-overlay.active { display: block; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background-color: #fff; transition: all 0.3s ease; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+    @media (max-width: 1023px) { .hamburger { display: flex; } }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5675K11SP"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D5675K11SP');</script>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="TAGby">
+  <meta property="og:title" content="Figma 11월 업데이트 총정리: 3D·모션·에이전트가 한꺼번에 - TAGby 태그바이">
+  <meta property="og:description" content="Figma가 11월에 에이전트 벡터 개선, AI 선택 도구, Motion 스프링, 3D 트랜스폼, 이미지 다중 생성, Dev Mode 에이전트를 잇따라 내놨습니다. 공식 릴리스 노트 기준으로 정리했습니다.">
+  <meta property="og:url" content="https://mkt.tagby.io/design-study-article/news-figma-nov-updates-3d-agent-1119.html">
+  <meta property="og:image" content="https://mkt.tagby.io/design-study-article/thum/news-figma-nov-updates-3d-agent-1119.png">
+  <meta property="og:image:width" content="1000">
+  <meta property="og:image:height" content="750">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Figma 11월 업데이트 총정리: 3D·모션·에이전트가 한꺼번에 - TAGby 태그바이">
+  <meta name="twitter:description" content="Figma가 11월에 에이전트 벡터 개선, AI 선택 도구, Motion 스프링, 3D 트랜스폼, 이미지 다중 생성, Dev Mode 에이전트를 잇따라 내놨습니다. 공식 릴리스 노트 기준으로 정리했습니다.">
+  <meta name="twitter:image" content="https://mkt.tagby.io/design-study-article/thum/news-figma-nov-updates-3d-agent-1119.png">
+  <link rel="canonical" href="https://mkt.tagby.io/design-study-article/news-figma-nov-updates-3d-agent-1119.html">
+<script src="/article-attribution.js"></script>
+</head>
+<body>
+
+  <header id="header" style="position: fixed; top: 0; width: 100%; z-index: 50; transition: all 0.3s; backdrop-filter: blur(12px); background-color: rgba(26, 26, 26, 0.8);">
+    <nav class="container mx-auto px-8 py-6 flex justify-between items-center">
+      <a href="../" class="cursor-pointer hover:opacity-80 transition">
+        <img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8">
+      </a>
+      <div class="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-12">
+        <a href="../about.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">회사소개</a>
+        <div class="relative dropdown flex items-center">
+          <a href="../#digital" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">디지털 마케팅</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-gray-900 rounded-lg shadow-xl overflow-hidden" style="min-width: 200px;">
+            <a href="../performance-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">퍼포먼스 마케팅</a>
+            <a href="../influencer-marketing.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">인플루언서 마케팅</a>
+          </div>
+        </div>
+        <div class="relative dropdown flex items-center">
+          <a href="../portfolio.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">포트폴리오</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-2 bg-gray-900 rounded-xl shadow-xl p-6" style="min-width: 420px;">
+            <div class="grid grid-cols-3 gap-6">
+              <div><p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">패션</p><div class="flex flex-col"><a href="../spao.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">스파오</a><a href="../mixxo.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">미쏘</a><a href="../newbalance.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">뉴발란스</a><a href="../spaokids.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">스파오키즈</a><a href="../roem.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">로엠</a><a href="../eblin.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">에블린</a><a href="../eider.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">아이더</a></div></div>
+              <div><p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">생활/잡화</p><div class="flex flex-col"><a href="../cocodor.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">코코도르</a><a href="../emart.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">이마트</a></div></div>
+              <div><p class="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">교육</p><div class="flex flex-col"><a href="../minbyoungcheol.html" class="text-sm font-medium text-gray-300 hover:text-[#0078F0] transition py-1.5">민병철유폰</a></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="relative dropdown flex items-center">
+          <a href="../org-chart.html" class="text-xs md:text-sm lg:text-base font-medium text-gray-300 hover:text-[#0078F0] transition whitespace-nowrap">팀소개</a>
+          <div class="dropdown-menu absolute top-full left-0 mt-4 bg-gray-900 rounded-lg shadow-xl overflow-hidden" style="min-width: 180px;">
+            <a href="../culture.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">조직문화</a>
+            <a href="../org-chart.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">조직도</a>
+            <a href="../recruit.html" class="block px-6 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-[#0078F0] transition-colors">채용</a>
+          </div>
+        </div>
+        <a href="../tagby-article.html" class="text-xs md:text-sm lg:text-base font-medium text-white hover:text-[#0078F0] transition whitespace-nowrap">아티클</a>
+        <a href="../contact.html" class="px-6 py-2.5 text-sm font-semibold rounded-full transition whitespace-nowrap hover:opacity-85" style="background:#0078F0;color:white;">문의하기</a>
+      </div>
+      <div class="hamburger lg:hidden" id="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="p-8">
+      <a href="../" class="cursor-pointer hover:opacity-80 transition mb-8 inline-block"><img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" class="h-8"></a>
+      <nav class="flex flex-col gap-4">
+        <a href="../about.html" class="text-lg font-medium text-gray-300 hover:text-[#0078F0] transition py-2">회사소개</a>
+        <div class="py-2"><p class="text-lg font-medium text-gray-300 mb-3">디지털 마케팅</p><div class="flex flex-col gap-2 pl-4"><a href="../performance-marketing.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">퍼포먼스 마케팅</a><a href="../influencer-marketing.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">인플루언서 마케팅</a></div></div>
+        <div class="py-2"><p class="text-lg font-medium text-gray-300 mb-3">포트폴리오</p><div class="flex flex-col gap-1 pl-4"><div class="portfolio-category"><button onclick="togglePortfolioCategory(this)" class="w-full text-left text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1 flex items-center justify-between">패션 <span class="category-arrow text-xs text-gray-500">▼</span></button><div class="category-sub hidden flex-col gap-1 pl-4"><a href="../spao.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오</a><a href="../mixxo.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">미쏘</a><a href="../newbalance.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">뉴발란스</a><a href="../spaokids.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">스파오키즈</a><a href="../roem.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">로엠</a><a href="../eider.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">아이더</a><a href="../eblin.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">에블린</a></div></div><div><button onclick="togglePortfolioCategory(this)" class="w-full flex items-center justify-between text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">생활/잡화 <span class="category-arrow text-xs text-gray-400">▼</span></button><div class="category-sub hidden flex-col gap-1 pl-4"><a href="../cocodor.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">코코도르</a><a href="../emart.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">이마트</a></div></div><div><button onclick="togglePortfolioCategory(this)" class="w-full flex items-center justify-between text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">교육 <span class="category-arrow text-xs text-gray-400">▼</span></button><div class="category-sub hidden flex-col gap-1 pl-4"><a href="../minbyoungcheol.html" class="text-sm font-medium text-gray-500 hover:text-[#0078F0] transition py-1 block">민병철유폰</a></div></div></div></div>
+        <div><p class="text-lg font-medium text-gray-300 py-2">팀소개</p><div class="pl-4 flex flex-col gap-1"><a href="../culture.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">조직문화</a><a href="../org-chart.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">조직도</a><a href="../recruit.html" class="text-base font-medium text-gray-400 hover:text-[#0078F0] transition py-1">채용</a></div></div>
+        <a href="../tagby-article.html" class="text-lg font-medium text-white hover:text-[#0078F0] transition py-2">아티클</a>
+        <a href="../contact.html" class="mt-2 text-center px-6 py-3 rounded-full text-white font-bold text-base" style="background:#0078F0;">문의하기</a>
+      </nav>
+    </div>
+  </div>
+
+  <article class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+
+      <div class="mb-8">
+        <a href="../tagby-article.html" class="text-sm text-gray-500 hover:text-[#0078F0] transition">← 목록으로 돌아가기</a>
+      </div>
+
+      <div class="mb-6">
+        <span class="text-sm text-[#0078F0] font-medium">디자인</span>
+        <span class="text-sm text-gray-500 ml-4">26. 11. 19.</span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight" style="font-weight: 800; line-height: 1.3;">
+        Figma 11월 업데이트 총정리: 3D·모션·에이전트가 한꺼번에
+      </h1>
+      <p class="text-sm text-gray-500 mb-12">AI 선택 도구부터 3D 트랜스폼, Dev Mode 에이전트까지 공식 릴리스 노트 7건</p>
+
+      <div class="article-content">
+        <p>Figma가 11월 한 달 동안 공식 릴리스 노트에 디자인 관련 업데이트 7건을 올렸습니다.</p>
+        <p>나열하면 많아 보이지만 ‘만들고, 움직이고, 코드로 넘기는’ 하나의 흐름으로 묶입니다.</p>
+        <h2>11월 릴리스 노트 정리</h2>
+        <p><strong>11/5 에이전트 생성 벡터 개선.</strong> 에이전트가 만든 일러스트·아이콘이 독립적이고 자연스럽게 묶인 레이어로 나옵니다. 참고 이미지로 스타일을 맞출 수 있고, 선은 채우기가 아닌 스트로크라 굵기와 끝 모양을 바꿀 수 있습니다. Figma Motion에서 바로 애니메이션을 줄 수 있을 만큼 정리됐다고 합니다.</p>
+        <p><strong>11/6 AI 이미지 편집 선택.</strong> Select area에서 객체를 클릭하면 자동으로 선택됩니다. 윤곽을 손으로 따라 그릴 필요가 없고, macOS 데스크톱 앱에서만 쓸 수 있습니다.</p>
+        <p><strong>11/10 Motion 업데이트.</strong> 질량·강성·감쇠를 조절하는 물리 기반 스프링, 스타일 미리보기, Lottie 내보내기 미리보기가 추가됐습니다. 스프링은 iOS·Android용으로 설정됩니다.</p>
+        <p><strong>11/12 3D 트랜스폼.</strong> x·y·z 축 회전과 원근·깊이 조절을 캔버스 핸들로 다루고, Figma 에이전트가 3D 디자인을 구성할 수도 있습니다. Motion과 함께 카드 뒤집기 같은 동작을 만들고, Dev Mode에서 CSS를 복사하거나 MCP로 코딩 에이전트에 넘길 수 있습니다.</p>
+        <p><strong>11/17 승인 앱 허용 목록.</strong> 관리자가 Cursor, Claude Code 같은 MCP 클라이언트를 포함한 OAuth 앱을 허용·관리하는 Extensions 탭이 생겼습니다. 조직·엔터프라이즈 플랜에 순차 적용 중입니다.</p>
+        <p><strong>11/18 이미지 다중 생성.</strong> Make image와 Edit image에서 한 번의 프롬프트로 2·4·6장을 만들거나, 최대 3개 모델이 각각 한 장씩 만들어 비교할 수 있습니다.</p>
+        <p><strong>11/19 Dev Mode의 Figma 에이전트.</strong> Dev Mode에서 에이전트에게 디자인을 살펴보게 하고, 버전을 비교하고, 코드 스니펫을 요청하고, 에셋을 한꺼번에 내려받는 링크를 받을 수 있습니다. 플랜과 제한은 릴리스 노트에 명시돼 있지 않습니다.</p>
+        <h2>에이전트가 디자인에서 코드까지 이어 붙는다</h2>
+        <p>아래는 릴리스 노트를 토대로 한 TAGby의 해석입니다.</p>
+        <p>벡터·3D·이미지 생성은 ‘만드는’ 단계, Motion은 ‘움직이는’ 단계, Dev Mode 에이전트와 MCP는 ‘넘기는’ 단계에 해당합니다. 11월 업데이트는 이 세 단계 모두에 에이전트를 끼워 넣은 모양새입니다.</p>
+        <p>같은 달 Adobe는 챗봇에서 Creative Cloud를 부르는 MCP를 내놨습니다. Figma는 캔버스 안에서, Adobe는 바깥 챗봇에서 AI를 붙이는 방향으로 갈리는 구도는 <a href="news-adobe-max-firefly-agents-1111.html" style="color:#0078F0;text-decoration:underline;">Adobe MAX 2026 글</a>에서 다뤘습니다. Figma의 AI 크레딧 정책은 <a href="news-figma-q3-earnings-ai-credits-1104.html" style="color:#0078F0;text-decoration:underline;">Q3 실적 글</a>에서 볼 수 있습니다.</p>
+        <p>11/17 허용 목록은 눈에 덜 띄지만 의미가 있습니다. 에이전트와 MCP 클라이언트를 조직에서 쓰려면 어떤 앱을 연결할지 관리자가 통제할 수 있어야 하기 때문입니다.</p>
+        <h2>실무 체크포인트</h2>
+        <p>3D 트랜스폼은 정지 이미지보다 Motion과 함께 쓸 때 효과가 큽니다. 카드 뒤집기, 제품 회전 같은 시안으로 먼저 시험해 보세요.</p>
+        <p>에이전트 생성 벡터는 레이어 이름, 스트로크 일관성, 브랜드 컬러 일치 여부를 확인하고 쓰는 것이 좋습니다.</p>
+        <p>Select area 자동 선택은 macOS 전용입니다. 팀 환경이 섞여 있다면 먼저 확인하세요.</p>
+        <p>Dev Mode 에이전트가 만든 코드는 개발자 리뷰를 거치고, 디자인 시스템 토큰이 반영됐는지 점검해야 합니다.</p>
+        <p>참고로 릴리스 노트에는 이 밖에 FigJam 모바일 개선도 올라와 있지만, 이번 글에서는 디자인 작업과 직접 관련된 항목만 골랐습니다.</p>
+        <p style="margin-top:3rem;"><strong>Q. Figma의 AI 객체 자동 선택은 Windows에서도 쓸 수 있나요?</strong></p>
+        <p>A. 11월 6일 릴리스 노트는 해당 기능을 macOS 데스크톱 앱에서만 쓸 수 있다고 밝혔습니다.</p>
+        <p><strong>Q. Figma 3D 트랜스폼으로 무엇을 할 수 있나요?</strong></p>
+        <p>A. x·y·z 축 회전과 원근·깊이 조절을 캔버스에서 직접 할 수 있고, Motion과 함께 카드 뒤집기 같은 동작을 만들어 Dev Mode에서 CSS를 복사하거나 MCP로 코딩 에이전트에 넘길 수 있습니다.</p>
+        <p><strong>Q. Dev Mode의 Figma 에이전트는 무엇을 해 주나요?</strong></p>
+        <p>A. 디자인을 살펴보고 이해하게 하고, 버전을 비교하고, 코드 스니펫을 요청하고, 에셋을 한꺼번에 내려받는 링크를 받을 수 있습니다. 플랜과 제한은 릴리스 노트에 명시돼 있지 않습니다.</p>
+      </div>
+
+      <div class="mt-12" style="background:#1F1F1F;border-radius:12px;padding:1.25rem 1.5rem;"><p style="font-size:0.8rem;font-weight:700;color:#9CA3AF;margin-bottom:0.6rem;letter-spacing:0.05em;">원문 출처</p><ul style="list-style:none;padding:0;margin:0;font-size:0.9rem;"><li style="margin-bottom:0.4rem;"><a href="https://www.figma.com/release-notes/" target="_blank" rel="noopener noreferrer" style="color:#0078F0;text-decoration:underline;">Figma Release Notes (2026.11.05 ~ 11.19 항목)</a></li><li style="margin-bottom:0.4rem;"><a href="https://designcompass.org/en/2026/11/10/figma-ai-object-selection-vector-illustration-editing/" target="_blank" rel="noopener noreferrer" style="color:#0078F0;text-decoration:underline;">Design Compass — Figma AI 객체 선택·벡터 일러스트 편집 (2026.11.10)</a></li></ul></div>
+
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <div class="flex flex-wrap gap-2">
+          <span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#Figma</span><span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#3D트랜스폼</span><span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#FigmaMotion</span><span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#DevMode</span><span class="px-4 py-2 rounded-full text-sm bg-gray-800 text-gray-300">#AI디자인</span>
+        </div>
+      </div>
+
+    </div>
+
+  <section style="border-top:1px solid #2D2D2D; margin-top:4rem; padding:3rem 1.5rem 0;">
+    <div class="container mx-auto" style="max-width:48rem;">
+      <h2 style="font-size:1rem; font-weight:700; color:#9CA3AF; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1.5rem;">추천 아티클</h2>
+      <div id="related-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;"></div>
+    </div>
+  </section>
+  <script>
+  (function(){
+    var SLUG='news-figma-nov-updates-3d-agent-1119'; var CAT='디자인';
+    fetch('https://mkt.tagby.io/articles.json').then(function(r){return r.json();}).then(function(all){
+      var me=all.find(function(a){return a.slug===SLUG;});
+      var myTags=me&&me.tags?me.tags:[];
+      var candidates=all.filter(function(a){return a.slug!==SLUG;});
+      candidates=candidates.map(function(a){var overlap=0;if(myTags.length>0&&a.tags){myTags.forEach(function(t){if(a.tags.indexOf(t)!==-1)overlap++;})}a._score=overlap*10+(a.category===CAT?1:0);return a;});
+      candidates.sort(function(a,b){return b._score-a._score;});
+      var picks=candidates.slice(0,3);
+      var grid=document.getElementById('related-grid');
+      if(!grid||picks.length===0)return;
+      grid.innerHTML=picks.map(function(a){var coverHtml='<img src="https://mkt.tagby.io/design-study-article/thum/card/'+a.slug+'.webp" data-fb="'+(a.cover?'https://mkt.tagby.io/'+a.cover:'https://mkt.tagby.io/design-study-article/thum/'+a.slug+'.png')+'" onerror="if(!this.dataset.d){this.dataset.d=1;this.src=this.dataset.fb}" loading="lazy" decoding="async" alt="'+a.title+'" style="width:100%;height:100%;object-fit:cover;">';return '<a href="https://mkt.tagby.io/design-study-article/'+a.slug+'.html" style="display:block;background:#1F1F1F;border-radius:12px;overflow:hidden;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background=\'#2A2A2A\'" onmouseout="this.style.background=\'#1F1F1F\'"><div style="aspect-ratio:4/3;overflow:hidden;background:#111;">'+coverHtml+'</div><div style="padding:0.875rem;"><p style="font-size:0.7rem;color:#0078F0;font-weight:600;margin:0 0 0.35rem;">'+a.category+'</p><p style="font-size:0.82rem;font-weight:700;color:#fff;margin:0 0 0.4rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">'+a.title+'</p><p style="font-size:0.72rem;color:#6B7280;margin:0;">'+a.date+'</p></div></a>';}).join('');
+    }).catch(function(){});
+  })();
+  </script>
+
+</article>
+
+  <footer class="py-16 px-6 bg-black border-t" style="border-color: #333;">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-3 gap-12">
+        <div><img loading="lazy" src="../images/logo/TAGby%20blue.png" alt="TAGby" style="height:32px;width:auto;margin-bottom:1.5rem;"></div>
+        <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">OFFICE</h4><p class="text-sm text-gray-400 leading-relaxed">06130 서울특별시 강남구<br>테헤란로7길 22 스파크플러스<br>강남5호점 1015호</p></div>
+        <div><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">CONTACT</h4><p class="text-sm text-gray-400 mb-2">070-7500-2220</p><p class="text-sm text-gray-400 mb-6">support@tagby.io</p><h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">SOCIAL</h4><a href="#" class="text-sm text-gray-400 hover:text-white transition">Instagram</a></div>
+      </div>
+    </div>
+  </footer>
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </div>
+  <script>
+    window.addEventListener('scroll', () => { document.getElementById('scrollToTop').classList.toggle('visible', window.scrollY > 300); });
+    document.getElementById('scrollToTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  </script>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); mobileMenu.classList.toggle('active'); mobileOverlay.classList.toggle('active'); document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : ''; });
+    mobileOverlay.addEventListener('click', () => { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; });
+    mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; }); });
+  </script>
+  <script>
+    (function(){ var allDropdowns=Array.from(document.querySelectorAll('.dropdown')); var hideTimer; var activeMenu=null; function closeAll(){ allDropdowns.forEach(function(d){ var m=d.querySelector('.dropdown-menu'); if(m){ m.style.display='none'; m.style.opacity='0'; } }); activeMenu=null; } function showMenu(dropdown){ clearTimeout(hideTimer); if(activeMenu&&activeMenu!==dropdown){ var prev=activeMenu.querySelector('.dropdown-menu'); if(prev){ prev.style.display='none'; prev.style.opacity='0'; } } activeMenu=dropdown; var menu=dropdown.querySelector('.dropdown-menu'); if(menu){ menu.style.display='block'; menu.style.opacity='1'; menu.style.transform='translateY(0)'; } } function scheduleHide(){ hideTimer=setTimeout(closeAll,300); } allDropdowns.forEach(function(dropdown){ var menu=dropdown.querySelector('.dropdown-menu'); if(!menu)return; dropdown.addEventListener('mouseenter',function(){ showMenu(dropdown); }); dropdown.addEventListener('mouseleave',scheduleHide); menu.addEventListener('mouseenter',function(){ showMenu(dropdown); }); menu.addEventListener('mouseleave',scheduleHide); }); })();
+  </script>
+  <script>function togglePortfolioCategory(btn){ var sub=btn.parentElement.querySelector('.category-sub'); var arrow=btn.querySelector('.category-arrow'); if(!sub)return; var isOpen=sub.classList.contains('flex'); sub.classList.toggle('hidden',isOpen); sub.classList.toggle('flex',!isOpen); if(arrow)arrow.style.transform=isOpen?'':'rotate(180deg)'; }</script>
+</body>
+</html>
